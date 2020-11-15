@@ -3,7 +3,7 @@
 Software manager for an electronics store, developed with Java and MySQL. The videos that show the development of this application are on my youtube channel 
 [LaynezCode](https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_as=subscriber).
 
-Before starting, access your MySQL database and run the script that is stored in the src / com / laynezcoder / database / DBElectronicStoreToolFX folder. Then enter the DatabaseConnection class stored in the same folder and edit the access credentials with yours. After this enjoy the program.
+Before starting, access your MySQL database and run the script that is stored in the src /com/laynezcoder/database/ DBElectronicStoreToolFX folder. Then enter the DatabaseConnection class stored in the same folder and edit the access credentials with yours. After this enjoy the program.
 
 ### App Features
 * Start window
