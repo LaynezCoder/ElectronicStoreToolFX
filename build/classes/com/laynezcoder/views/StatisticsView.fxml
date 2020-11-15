@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.StatisticsController">
+   <children>
+      <AnchorPane fx:id="rootStatistics" prefHeight="565.0" prefWidth="930.0" styleClass="date-picker">
+         <children>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="565.0" prefWidth="930.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox fx:id="hboxImage" alignment="CENTER" layoutX="231.0" layoutY="136.0" prefHeight="297.0" prefWidth="334.0" spacing="10.0" visible="false" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="232.0" AnchorPane.topAnchor="136.0">
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                     <children>
+                        <ImageView fx:id="emptyImage" fitHeight="370.0" fitWidth="467.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                           <image>
+                              <Image url="@../media/empty.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="364.0" layoutY="25.0" prefHeight="47.0" prefWidth="200.0" spacing="10.0" AnchorPane.leftAnchor="364.0" AnchorPane.rightAnchor="366.0">
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                     <children>
+                        <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics">
+                           <font>
+                              <Font name="System Bold" size="35.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="hbox" alignment="CENTER" layoutX="14.0" layoutY="92.0" prefHeight="462.0" prefWidth="901.0" spacing="10.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="92.0">
+                     <children>
+                        <PieChart fx:id="pieChart" labelLineLength="50.0" prefHeight="442.0" prefWidth="532.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </HBox>
+                  <AnchorPane fx:id="rootDate" layoutX="364.0" layoutY="183.0" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

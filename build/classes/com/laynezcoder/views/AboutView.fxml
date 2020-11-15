@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.AboutController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" styleClass="glyph-icon-login">
+         <children>
+            <HBox alignment="CENTER" layoutX="274.0" layoutY="38.0" prefHeight="61.0" prefWidth="393.0" spacing="10.0" AnchorPane.leftAnchor="274.0" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="38.0">
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+               <children>
+                  <ImageView fx:id="recursoselectronicos" blendMode="SRC_ATOP" cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="86.0" fitWidth="416.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                     <image>
+                        <Image url="@../media/Electronic%20Store%20Tool.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <VBox layoutX="416.0" layoutY="235.0" prefHeight="76.0" prefWidth="118.0" spacing="10.0" visible="false" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="396.0" AnchorPane.topAnchor="235.0">
+               <children>
+                  <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" textAlignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Version: " />
+                        <Text layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1.0" />
+                     </children>
+                  </TextFlow>
+                  <TextFlow prefHeight="32.0" prefWidth="106.0" textAlignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Laynez Corporation" textAlignment="CENTER" />
+                     </children>
+                  </TextFlow>
+                  <TextFlow prefHeight="32.0" prefWidth="100.0" textAlignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Copyright ©2020" textAlignment="CENTER" wrappingWidth="92.16796875" />
+                     </children>
+                  </TextFlow>
+               </children>
+            </VBox>
+            <VBox layoutX="418.0" layoutY="399.0" prefHeight="20.0" prefWidth="110.0" spacing="10.0" AnchorPane.bottomAnchor="146.0" AnchorPane.leftAnchor="418.0" AnchorPane.rightAnchor="384.0">
+               <children>
+                  <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="128.0" textAlignment="CENTER">
+                     <children>
+                        <Text fx:id="developer" strokeType="OUTSIDE" strokeWidth="0.0" text="Developed by:" visible="false" />
+                     </children>
+                  </TextFlow>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" fillHeight="false" layoutX="256.0" layoutY="429.0" prefHeight="61.0" prefWidth="393.0" spacing="15.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="278.0">
+               <children>
+                  <ImageView fx:id="laynezcode" blendMode="SRC_ATOP" cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="43.0" fitWidth="266.0" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="ALWAYS">
+                     <image>
+                        <Image url="@../media/laynezcode.png" />
+                     </image>
+                  </ImageView>
+                  <Separator fx:id="separator" orientation="VERTICAL" prefHeight="50.0" prefWidth="5.0" visible="false" />
+                  <MaterialDesignIconView fx:id="facebook" glyphName="FACEBOOK" layoutX="342.0" layoutY="41.0" size="25" visible="false" />
+                  <MaterialDesignIconView fx:id="youtube" glyphName="YOUTUBE_PLAY" layoutX="324.0" layoutY="41.0" size="25" visible="false" />
+                  <MaterialDesignIconView fx:id="github" glyphName="GITHUB_CIRCLE" layoutX="307.0" layoutY="41.0" size="25" visible="false" />
+                  <MaterialDesignIconView fx:id="google" glyphName="GOOGLE_PLUS" layoutX="367.0" layoutY="41.0" size="25" visible="false" />
+               </children>
+            </HBox>
+            <VBox layoutX="307.0" layoutY="502.0" prefHeight="20.0" prefWidth="336.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="307.0" AnchorPane.rightAnchor="287.0">
+               <children>
+                  <TextFlow prefHeight="32.0" prefWidth="100.0" textAlignment="CENTER">
+                     <children>
+                        <Text fx:id="mark" strokeType="OUTSIDE" strokeWidth="0.0" text="a brand of:" textAlignment="CENTER" visible="false" wrappingWidth="92.16796875" />
+                     </children>
+                  </TextFlow>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" layoutX="340.0" layoutY="522.0" prefHeight="32.0" prefWidth="271.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="319.0">
+               <children>
+                  <ImageView fx:id="laynezcorporation" blendMode="SRC_ATOP" cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="32.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="ALWAYS">
+                     <image>
+                        <Image url="@../media/laynezco.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

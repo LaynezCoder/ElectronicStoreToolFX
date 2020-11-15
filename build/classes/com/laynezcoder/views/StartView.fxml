@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.String?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="stckStart" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.StartController">
+   <children>
+      <AnchorPane fx:id="rootStart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;">
+         <children>
+            <Text fx:id="title" layoutX="519.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Welcome to the system!" />
+            <Pane fx:id="paneStep1" layoutX="248.0" layoutY="60.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="480.0" prefWidth="750.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <Text fx:id="textStep1" layoutX="196.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter the following information to access the system" />
+                  <Pane fx:id="paneControlsStep1" layoutX="121.0" layoutY="146.0" prefHeight="188.0" prefWidth="508.0">
+                     <children>
+                        <JFXTextField fx:id="txtName" focusColor="#2d3037" labelFloat="true" layoutY="22.0" onAction="#stepOneToStepTwo" prefHeight="30.0" prefWidth="232.0" promptText="Name" styleClass="jfx-text-field-start" unFocusColor="#2d3037">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="txtUser" focusColor="#2d3037" labelFloat="true" layoutX="276.0" layoutY="22.0" onAction="#stepOneToStepTwo" prefHeight="30.0" prefWidth="232.0" promptText="User" styleClass="jfx-text-field-start" unFocusColor="#2d3037">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXPasswordField fx:id="txtPassword" focusColor="#2d3037" labelFloat="true" layoutY="117.0" onAction="#stepOneToStepTwo" prefHeight="30.0" prefWidth="232.0" promptText="Password" styleClass="jfx-text-field-start" unFocusColor="#2d3037">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXPasswordField>
+                        <JFXPasswordField fx:id="txtConfirmPassword" focusColor="#2d3037" labelFloat="true" layoutX="276.0" layoutY="117.0" onAction="#stepOneToStepTwo" prefHeight="30.0" prefWidth="232.0" promptText="Confirm your password" styleClass="jfx-text-field-start" unFocusColor="#2d3037">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXPasswordField>
+                     </children>
+                  </Pane>
+                  <HBox alignment="CENTER" layoutX="288.0" layoutY="399.0" prefHeight="30.0" prefWidth="174.0">
+                     <children>
+                        <JFXButton fx:id="btnStep1" buttonType="RAISED" onMouseClicked="#stepOneToStepTwo" prefHeight="36.0" prefWidth="150.0" ripplerFill="#2d3037" style="-fx-background-color: #2d3037;" styleClass="button-start" text="Next" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <Pane fx:id="paneStep2" layoutX="248.0" layoutY="60.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="480.0" prefWidth="750.0" visible="false">
+               <children>
+                  <Text fx:id="textStep2" layoutX="319.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your biography" />
+                  <HBox fx:id="hBoxStep2" alignment="CENTER" layoutX="230.0" layoutY="370.0" prefHeight="30.0" prefWidth="300.0" spacing="20.0">
+                     <children>
+                        <JFXButton fx:id="btnBackStep2" buttonType="RAISED" onMouseClicked="#StartStepOne" prefHeight="36.0" prefWidth="150.0" ripplerFill="#2d3037" style="-fx-background-color: white; -fx-border-color: #2d3037; -fx-border-width: 1.5;" styleClass="button-start-back" text="Back" textFill="#2d3037">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnStep2" buttonType="RAISED" layoutX="75.0" layoutY="10.0" onMouseClicked="#stepTwoToStepThree" prefHeight="36.0" prefWidth="150.0" ripplerFill="#2d3037" style="-fx-background-color: #2d3037;" text="Next" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <JFXTextArea fx:id="txtBio" focusColor="#2d3037" labelFloat="true" layoutX="101.0" layoutY="117.0" prefHeight="224.0" prefWidth="559.0" promptText="Biography" styleClass="jfx-text-field-start" unFocusColor="#2d3037">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextArea>
+               </children>
+            </Pane>
+            <Pane fx:id="paneStep3" layoutX="248.0" layoutY="60.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="480.0" prefWidth="750.0" visible="false">
+               <children>
+                  <Text fx:id="textStep3" layoutX="318.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select an animation type" />
+                  <JFXComboBox fx:id="cmbDialogTransition" focusColor="#2d3037" labelFloat="true" layoutX="121.0" layoutY="183.0" prefHeight="30.0" prefWidth="508.0" promptText="Select an animation type" unFocusColor="#2d3037">
+                     <styleClass>
+                        <String fx:value="combo-box-start" />
+                        <String fx:value="combo-box-popup-start" />
+                     </styleClass></JFXComboBox>
+                  <HBox fx:id="hBoxStep3" alignment="CENTER" layoutX="151.0" layoutY="301.0" prefHeight="34.0" prefWidth="449.0" spacing="20.0">
+                     <children>
+                        <JFXButton fx:id="btnBackStep3" onMouseClicked="#startStepTwo" prefHeight="36.0" prefWidth="150.0" ripplerFill="#2d3037" style="-fx-background-color: white; -fx-border-color: #2d3037; -fx-border-width: 1.5;" styleClass="button-start-back" text="Back" textFill="#2d3037">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnDialogStep3" buttonType="RAISED" onMouseClicked="#alert" prefHeight="36.0" prefWidth="150.0" ripplerFill="#2d3037" style="-fx-background-color: #2d3037;" styleClass="button-start" text="¡I want to try it!" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnStep3" buttonType="RAISED" layoutX="75.0" layoutY="10.0" onMouseClicked="#finish" prefHeight="36.0" prefWidth="150.0" ripplerFill="#2d3037" style="-fx-background-color: #2d3037;" styleClass="button-start" text="Next" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <Pane fx:id="paneFinish" layoutX="248.0" layoutY="60.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="480.0" prefWidth="750.0" visible="false">
+               <children>
+                  <Text fx:id="finish" layoutX="338.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="It's almost ready." />
+                  <JFXSpinner fx:id="spinner" layoutX="350.0" layoutY="215.0" />
+                  <HBox alignment="CENTER" layoutX="288.0" layoutY="392.0" prefHeight="30.0" prefWidth="174.0">
+                     <children>
+                        <JFXButton fx:id="btnStart" buttonType="RAISED" onMouseClicked="#mainWindow" prefHeight="36.0" prefWidth="150.0" ripplerFill="#2d3037" style="-fx-background-color: #2d3037;" styleClass="button-start" text="Start" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <Text fx:id="finishText" layoutX="131.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remember that you can change your credentials in the settings." />
+               </children>
+            </Pane>
+            <AnchorPane prefHeight="600.0" prefWidth="250.0">
+               <children>
+                  <ImageView fitHeight="600.0" fitWidth="250.0" onMouseDragged="#dragged" onMousePressed="#pressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../media/welcome.png" />
+                     </image></ImageView>
+               </children>
+            </AnchorPane>
+            <JFXProgressBar fx:id="progressBar" layoutX="504.0" layoutY="564.0" prefHeight="8.0" prefWidth="243.0" progress="0.43" styleClass="jfx-progress-bar" />
+            <Text fx:id="textProgressBar" fill="#bebec2" layoutX="607.0" layoutY="553.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 of 3" />
+            <JFXButton contentDisplay="CENTER" layoutX="964.0" onMouseClicked="#closeWindow" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+               <graphic>
+                  <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

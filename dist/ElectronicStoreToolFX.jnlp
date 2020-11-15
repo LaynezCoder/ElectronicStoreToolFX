@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="ElectronicStoreToolFX.jnlp">
+  <information>
+    <title>ElectronicStoreToolFX</title>
+    <vendor>LaynezCode</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="ElectronicStoreToolFX.jar" size="542209" download="eager" />
+    <jar href="lib\AnimateFX-1.2.1.jar" size="94267" download="eager" />
+    <jar href="lib\controlsfx-8.40.18.jar" size="1436095" download="eager" />
+    <jar href="lib\fontawesomefx-8.9.jar" size="571068" download="eager" />
+    <jar href="lib\jfoenix-8.0.10.jar" size="2710207" download="eager" />
+    <jar href="lib\mysql-connector-java-8.0.22.jar" size="2389216" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="ElectronicStoreToolFX" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="com.laynezcoder.main.Main"  name="ElectronicStoreToolFX" />
+  <update check="always"/>
+</jnlp>

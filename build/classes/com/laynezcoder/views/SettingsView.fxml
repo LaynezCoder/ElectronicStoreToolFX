@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="stckSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.SettingsController">
+   <children>
+      <AnchorPane fx:id="rootSettings" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <HBox alignment="CENTER" layoutX="195.0" layoutY="130.0" prefHeight="50.0" prefWidth="548.0" spacing="30.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="187.0">
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+               <children>
+                  <JFXTextField fx:id="txtName" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="232.0" promptText="Name" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="txtUser" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="232.0" promptText="User" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="195.0" layoutY="208.0" prefHeight="50.0" prefWidth="548.0" spacing="30.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="187.0">
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+               <children>
+                  <JFXPasswordField fx:id="txtPassword" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="232.0" promptText="Password" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <JFXPasswordField fx:id="txtConfirmPassword" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="232.0" promptText="Confirm your password" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXPasswordField>
+               </children>
+            </HBox>
+            <JFXComboBox fx:id="cmbDialogTransition" focusColor="#2ab56f" labelFloat="true" layoutX="195.0" layoutY="283.0" prefHeight="30.0" prefWidth="548.0" promptText="Select an animation" styleClass="combo-box-popup" unFocusColor="#bebec2" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="187.0" />
+            <JFXTextArea fx:id="txtBio" focusColor="#2ab56f" labelFloat="true" layoutX="195.0" layoutY="355.0" prefHeight="124.0" prefWidth="548.0" promptText="Biography" styleClass="jfx-text-field-login" unFocusColor="#bebec2" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="187.0" AnchorPane.topAnchor="355.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextArea>
+            <HBox alignment="CENTER" layoutX="379.0" layoutY="515.0" prefHeight="30.0" prefWidth="174.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="379.0" AnchorPane.rightAnchor="377.0">
+               <children>
+                  <JFXButton fx:id="btnSave" buttonType="RAISED" onMouseClicked="#updateCredentials" prefHeight="36.0" prefWidth="150.0" styleClass="login-jfx-button" text="Save" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="397.0" layoutY="37.0" prefHeight="50.0" prefWidth="119.0" spacing="30.0" AnchorPane.leftAnchor="397.0" AnchorPane.rightAnchor="414.0">
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+               <children>
+                  <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
