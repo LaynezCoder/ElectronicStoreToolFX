@@ -150,7 +150,7 @@
                   <Text fx:id="textPorcentage" layoutX="40.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Percentage not available" wrappingWidth="168.28710977733135" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="rootDeleteProducts" layoutX="289.0" layoutY="216.0" prefHeight="246.0" prefWidth="392.0" visible="false">
+            <AnchorPane fx:id="rootDeleteProducts" layoutX="289.0" layoutY="216.0" prefHeight="246.0" prefWidth="392.0">
                <children>
                   <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="208.0" layoutY="201.0" onMouseClicked="#deleteProducts" prefHeight="25.0" prefWidth="131.0" styleClass="delete-jfx-button" text="Delete" textFill="WHITE">
                      <font>
@@ -172,8 +172,8 @@
                         <Image url="@../media/usb.png" />
                      </image>
                   </ImageView>
-                  <Text fx:id="titleWindowDeleteProducts" layoutX="73.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Está seguro de eliminar este producto de forma permanente? " textAlignment="CENTER" wrappingWidth="250.6171875" />
-                  <Text fx:id="descriptionWindowDeleteProduct" fill="#bebec2" layoutX="89.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No se podrá recuperar la información" />
+                  <Text fx:id="titleWindowDeleteProducts" layoutX="73.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure to remove this product permanently?" textAlignment="CENTER" wrappingWidth="250.6171875" />
+                  <Text fx:id="descriptionWindowDeleteProduct" fill="#bebec2" layoutX="104.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information cannot be retrieved" />
                </children>
             </AnchorPane>
             <JFXButton fx:id="btnNewProduct" buttonType="RAISED" layoutX="759.0" layoutY="17.0" onMouseClicked="#showWindowAddProduct" prefHeight="39.0" prefWidth="155.0" styleClass="login-jfx-button" text="New product" textFill="WHITE" AnchorPane.rightAnchor="16.0">
