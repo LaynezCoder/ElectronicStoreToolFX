@@ -17,6 +17,11 @@ import javafx.util.Duration;
 
 public class AboutController implements Initializable {
 
+    private static final String GITHUB = "https://github.com/LaynezCode";
+    private static final String FACEBOOK = "https://www.facebook.com/LaynezCode-106644811127683";
+    private static final String GMAIL = "https://www.google.com/";
+    private static final String YOUTUBE = "https://www.youtube.com/c/LaynezCode/";
+
     @FXML
     private ImageView recursoselectronicos;
 
@@ -52,12 +57,12 @@ public class AboutController implements Initializable {
         setAnimations();
         setURL();
     }
-    
-    private void setURL(){
-        Resources.url("https://github.com/LaynezCode", github);
-        Resources.url("https://www.facebook.com/LaynezCode-106644811127683", facebook);
-        Resources.url("https://www.google.com/", google);
-        Resources.url("https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_as=subscriber", youtube);
+
+    private void setURL() {
+        Resources.url(GITHUB, github);
+        Resources.url(FACEBOOK, facebook);
+        Resources.url(GMAIL, google);
+        Resources.url(YOUTUBE, youtube);
     }
 
     private void setAnimations() {
