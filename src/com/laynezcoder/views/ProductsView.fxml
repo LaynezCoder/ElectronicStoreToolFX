@@ -150,7 +150,7 @@
                   <Text fx:id="textPorcentage" layoutX="40.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Percentage not available" wrappingWidth="168.28710977733135" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="rootDeleteProducts" layoutX="289.0" layoutY="216.0" prefHeight="246.0" prefWidth="392.0">
+            <AnchorPane fx:id="rootDeleteProducts" layoutX="289.0" layoutY="216.0" prefHeight="246.0" prefWidth="392.0" visible="false">
                <children>
                   <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="208.0" layoutY="201.0" onMouseClicked="#deleteProducts" prefHeight="25.0" prefWidth="131.0" styleClass="delete-jfx-button" text="Delete" textFill="WHITE">
                      <font>
