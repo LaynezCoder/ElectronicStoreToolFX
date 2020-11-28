@@ -357,10 +357,10 @@ public class CustomersController implements Initializable {
 
             boolean result = DatabaseHelper.insertNewCustomer(customers, listCustomers);
             if (result) {
-                Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry added successfully");
-                hideWindowAddCustomer();
-                cleanControls();
                 loadData();
+                cleanControls();
+                hideWindowAddCustomer();
+                Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry added successfully");
             } else {
                 Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
             }
@@ -371,10 +371,10 @@ public class CustomersController implements Initializable {
     private void deleteCustomer() {
         boolean result = DatabaseHelper.deleteCustomer(tblCustomers, listCustomers);
         if (result) {
-            Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry deleted successfully");
-            hideWindowDeleteCustomer();
+            loadData();  
             cleanControls();
-            loadData();    
+            hideWindowDeleteCustomer();
+            Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry deleted successfully");
         } else {
             Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
         }
@@ -409,10 +409,10 @@ public class CustomersController implements Initializable {
 
             boolean result = DatabaseHelper.updateCustomer(customers);
             if (result) {
-                Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry updated successfully");
-                hideWindowAddCustomer();
-                cleanControls();
                 loadData();  
+                cleanControls();
+                hideWindowAddCustomer();
+                Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry updated successfully");
             } else {
                 Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
             }
