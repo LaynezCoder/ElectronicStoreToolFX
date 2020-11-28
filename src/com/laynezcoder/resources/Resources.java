@@ -133,7 +133,7 @@ public class Resources {
         textTitle.setLayoutY(56);
 
         Text textBody = new Text("Select an item from the table");
-        textBody.getStyleClass().add("header-alert-error");
+        textBody.getStyleClass().add("body-alert-error");
         textBody.setFont(font);
         textBody.setLayoutX(35);
         textBody.setLayoutY(81);
@@ -193,7 +193,7 @@ public class Resources {
         textTitle.setLayoutY(56);
 
         Text textBody = new Text(bodyText);
-        textBody.getStyleClass().add("header-alert-success");
+        textBody.getStyleClass().add("body-alert-success");
         textBody.setFont(font);
         textBody.setLayoutX(35);
         textBody.setLayoutY(81);

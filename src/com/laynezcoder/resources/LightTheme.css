@@ -375,18 +375,17 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill: white;
 }
 
-.button-alert .jfx-rippler{
+.button-alert .jfx-rippler {
     -jfx-rippler-fill: none;
 }
 
 .title-alert-error {
-    -fx-text-fill: #f35f56;
+    -fx-fill: #f35f56;
     -fx-font-size: 30;
-    -fx-background-radius: 5;
 }
 
-.header-alert-error {
-    -fx-text-fill: #f35f56;
+.body-alert-error {
+    -fx-fill: #f35f56;
     -fx-font-size: 15;
 }
 
@@ -396,18 +395,17 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill: white;
 }
 
-.button-alert-success .jfx-rippler{
+.button-alert-success .jfx-rippler {
     -jfx-rippler-fill: none;
 }
 
 .title-alert-success {
-    -fx-text-fill: #2ab56f;
+    -fx-fill: #2ab56f;
     -fx-font-size: 30;
-    -fx-background-radius: 5;
 }
 
-.header-alert-success {
-    -fx-text-fill: #2ab56f;
+.body-alert-success {
+    -fx-fill: #2ab56f;
     -fx-font-size: 15;
 }
 
