@@ -372,7 +372,6 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 .button-alert-error {
     -fx-background-color: #f35f56;
     -fx-background-radius: 5;
-    -fx-background-color: white;
     -fx-text-fill: white;
 }
 
@@ -381,20 +380,19 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 }
 
 .title-alert-error {
-    -fx-fill: #2d3037;
+    -fx-text-fill: #f35f56;
     -fx-font-size: 30;
     -fx-background-radius: 5;
 }
 
 .header-alert-error {
-    -fx-fill: #2d3037;
+    -fx-text-fill: #f35f56;
     -fx-font-size: 15;
 }
 
 .button-alert-success {
     -fx-background-color: #2ab56f;
     -fx-background-radius: 5;
-    -fx-background-color: white;
     -fx-text-fill: white;
 }
 
@@ -403,13 +401,13 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 }
 
 .title-alert-success {
-    -fx-fill: #2ab56f;
+    -fx-text-fill: #2ab56f;
     -fx-font-size: 30;
     -fx-background-radius: 5;
 }
 
 .header-alert-success {
-    -fx-fill: #2ab56f;
+    -fx-text-fill: #2ab56f;
     -fx-font-size: 15;
 }
 

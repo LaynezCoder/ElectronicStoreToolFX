@@ -120,9 +120,9 @@ public class CustomersController implements Initializable {
     @FXML
     private Text description;
 
-    private JFXDialog jfxDialogAddCustomer;
+    private JFXDialog dialogAddCustomer;
 
-    private JFXDialog jfxDialogDeleteCustomer;
+    private JFXDialog dialogDeleteCustomer;
 
     private final BoxBlur blur = new BoxBlur(3, 3, 3);
 
@@ -181,23 +181,25 @@ public class CustomersController implements Initializable {
         rootCustomers.setEffect(blur);
         disableTable();
 
-        jfxDialogAddCustomer = new JFXDialog(stckCustomers, rootAddCustomer, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
-
-        rootAddCustomer.setVisible(true);
         titleWindowAddCustomer.setText("Add customer");
+        rootAddCustomer.setVisible(true);
         btnSaveCustomer.setDisable(false);
         btnUpdateCustomer.setVisible(true);
         btnSaveCustomer.toFront();
 
-        Resources.styleAlert(jfxDialogAddCustomer);
-        jfxDialogAddCustomer.setBackground(Background.EMPTY);
-        jfxDialogAddCustomer.show();
+        dialogAddCustomer = new JFXDialog();
+        dialogAddCustomer.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+        dialogAddCustomer.setDialogContainer(stckCustomers);
+        dialogAddCustomer.setContent(rootAddCustomer);
+        dialogAddCustomer.setBackground(Background.EMPTY);
+        Resources.styleAlert(dialogAddCustomer);
+        dialogAddCustomer.show();
 
-        jfxDialogAddCustomer.setOnDialogOpened(ev -> {
+        dialogAddCustomer.setOnDialogOpened(ev -> {
             txtCustomerName.requestFocus();
         });
 
-        jfxDialogAddCustomer.setOnDialogClosed(ev -> {
+        dialogAddCustomer.setOnDialogClosed(ev -> {
             tblCustomers.setDisable(false);
             rootCustomers.setEffect(null);
             rootAddCustomer.setVisible(false);
@@ -207,27 +209,30 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void hideWindowAddCustomer() {
-        jfxDialogAddCustomer.close();
+        dialogAddCustomer.close();
     }
 
     @FXML
     private void showWindowDeleteCustomer() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckCustomers, rootCustomers, tblCustomers, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers);
         } else {
             rootCustomers.setEffect(blur);
             disableTable();
 
-            jfxDialogDeleteCustomer = new JFXDialog(stckCustomers, rootDeleteCustomer, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
-            Resources.styleAlert(jfxDialogDeleteCustomer);
-            jfxDialogDeleteCustomer.setBackground(Background.EMPTY);
+            dialogDeleteCustomer = new JFXDialog();
+            dialogDeleteCustomer.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            dialogDeleteCustomer.setDialogContainer(stckCustomers);
+            dialogDeleteCustomer.setBackground(Background.EMPTY);
+            dialogDeleteCustomer.setContent(rootDeleteCustomer);
             rootDeleteCustomer.setVisible(true);
-            jfxDialogDeleteCustomer.show();
+            Resources.styleAlert(dialogDeleteCustomer);
+            dialogDeleteCustomer.show();
 
-            jfxDialogDeleteCustomer.setOnDialogClosed(ev -> {
+            dialogDeleteCustomer.setOnDialogClosed(ev -> {
+                rootDeleteCustomer.setVisible(false);
                 tblCustomers.setDisable(false);
                 rootCustomers.setEffect(null);
-                rootDeleteCustomer.setVisible(false);
                 cleanControls();
             });
         }
@@ -235,13 +240,16 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void hideWindowDeleteCustomer() {
-        jfxDialogDeleteCustomer.close();
+        try {
+            dialogDeleteCustomer.close();
+        } catch (NullPointerException ex) {
+        }
     }
 
     @FXML
     private void showWindowUptadeCustomer() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckCustomers, rootCustomers, tblCustomers, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers);
         } else {
             showWindowAddCustomer();
             titleWindowAddCustomer.setText("Update customer");
@@ -253,15 +261,15 @@ public class CustomersController implements Initializable {
     @FXML
     private void showWindowDetailsCustomer() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckCustomers, rootCustomers, tblCustomers, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers);
         } else {
             showWindowAddCustomer();
             titleWindowAddCustomer.setText("Customer details");
-            btnSaveCustomer.setDisable(true);
             btnUpdateCustomer.setVisible(false);
+            btnSaveCustomer.setDisable(true);
             btnSaveCustomer.toFront();
-            selectedRecord();
             disableControlsEdit();
+            selectedRecord();
         }
     }
 
@@ -331,24 +339,30 @@ public class CustomersController implements Initializable {
                 customers.setIt(txtIt.getText());
             }
 
-            DatabaseHelper.insertNewCustomer(customers, listCustomers);
-            loadData();
-            cleanControls();
-            hideWindowAddCustomer();
-            Resources.simpleAlert(stckCustomers, rootCustomers, tblCustomers, "Okey", "Nice job!", "¡Registry added successfully!", "#2ab56f", "#2ab56f");
+            boolean result = DatabaseHelper.insertNewCustomer(customers, listCustomers);
+            if (result) {
+                Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry added successfully");
+                hideWindowAddCustomer();
+                cleanControls();
+                loadData();
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            }
+
         }
     }
 
     @FXML
     private void deleteCustomer() {
-        DatabaseHelper.deleteCustomer(tblCustomers, listCustomers);
-        cleanControls();
-        loadData();
-        try {
+        boolean result = DatabaseHelper.deleteCustomer(tblCustomers, listCustomers);
+        if (result) {
+            Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry deleted successfully");
+            cleanControls();
+            loadData();
             hideWindowDeleteCustomer();
-        } catch (NullPointerException ex) {
+        } else {
+            Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
         }
-        Resources.simpleAlert(stckCustomers, rootCustomers, tblCustomers, "Okey", "Nice job!", "¡Registry deleted successfully!", "#2ab56f", "#2ab56f");
     }
 
     @FXML
@@ -378,11 +392,16 @@ public class CustomersController implements Initializable {
                 customers.setIt(txtIt.getText());
             }
 
-            DatabaseHelper.updateCustomer(customers);
-            loadData();
-            cleanControls();
-            hideWindowAddCustomer();
-            Resources.simpleAlert(stckCustomers, rootCustomers, tblCustomers, "Okey", "Nice job!", "¡Registry updated successfully!", "#2ab56f", "#2ab56f");
+            boolean result = DatabaseHelper.updateCustomer(customers);
+            if (result) {
+                Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry updated successfully");
+                hideWindowAddCustomer();
+                cleanControls();
+                loadData();  
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            }
+
         }
     }
 
@@ -421,8 +440,7 @@ public class CustomersController implements Initializable {
                     rootCustomers.setEffect(null);
                     jfxDialog.close();
                 }
-            } catch (NullPointerException ex) {
-            }
+            } catch (NullPointerException ex) {}
         });
     }
 
@@ -458,7 +476,7 @@ public class CustomersController implements Initializable {
                 if (tblCustomers.isDisable()) {
                     System.out.println("To delete, finish saving the record or cancel the operation");
                 } else if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.simpleAlert(stckCustomers, rootCustomers, tblCustomers, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+                    Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers);
                 } else {
                     deleteCustomer();
                 }
