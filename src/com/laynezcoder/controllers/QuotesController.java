@@ -163,18 +163,18 @@ public class QuotesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        animateNodes();
-        loadData();
-        keyEscapeWindows();
+        filterQuotes = FXCollections.observableArrayList();
         escapeWindowWithTextFields();
-        keyDeleteCustomer();
         validationOfJFXDatePicker();
-        validations();
-        selectText();
-        setFonts();
         setActionToggleButton();
         initializeComboBox();
-        filterQuotes = FXCollections.observableArrayList();
+        keyDeleteCustomer();
+        keyEscapeWindows();
+        animateNodes();
+        validations();
+        selectText();
+        loadData();
+        setFonts();
     }
 
     private void initializeComboBox() {
