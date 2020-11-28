@@ -141,11 +141,11 @@ public class CustomersController implements Initializable {
     }
 
     private void setFonts() {
+        Resources.setFontToJFXButton(btnUpdateCustomer, 15);
+        Resources.setFontToJFXButton(btnSaveCustomer, 15);
+        Resources.setFontToJFXButton(btnCancelDelete, 15);
         Resources.setFontToJFXButton(btnAddCustomer, 12);
         Resources.setFontToJFXButton(btnCancel, 15);
-        Resources.setFontToJFXButton(btnSaveCustomer, 15);
-        Resources.setFontToJFXButton(btnUpdateCustomer, 15);
-        Resources.setFontToJFXButton(btnCancelDelete, 15);
         Resources.setFontToJFXButton(btnDelete, 15);
 
         Resources.setFontToText(titleWindowAddCustomer, 20);
@@ -154,14 +154,14 @@ public class CustomersController implements Initializable {
     }
 
     private void animateNodes() {
-        Resources.fadeInUpAnimation(tblCustomers);
         Resources.fadeInUpAnimation(rootSearchCustomers);
         Resources.fadeInUpAnimation(btnAddCustomer);
+        Resources.fadeInUpAnimation(tblCustomers);
     }
 
     private void selectText() {
-        Resources.selectTextToJFXTextField(txtCustomerName);
         Resources.selectTextToJFXTextField(txtCustomerNumber);
+        Resources.selectTextToJFXTextField(txtCustomerName);
         Resources.selectTextToJFXTextField(txtEmail);
         Resources.selectTextToJFXTextField(txtIt);
 
@@ -170,28 +170,45 @@ public class CustomersController implements Initializable {
     }
 
     private void validation() {
-        Resources.validationOfJFXTextField(txtCustomerName);
         Resources.validationOfJFXTextField(txtCustomerNumber);
+        Resources.validationOfJFXTextField(txtCustomerName);
+    }
+    
+    private void characterLimiter() {
+        Resources.limitTextField(txtCustomerName, 150);
+        Resources.limitTextField(txtCustomerNumber, 15);
+        Resources.limitTextField(txtEmail, 150);
+        Resources.limitTextField(txtIt, 50);
+    }
+
+    @FXML
+    private void onlyTextFieldNumber() {
+        Resources.validationOnlyNumbers(txtSearchNumber);
+    }
+
+    @FXML
+    private void onlyTextFieldAddNumber() {
+        Resources.validationOnlyNumbers(txtCustomerNumber);
     }
 
     @FXML
     private void showWindowAddCustomer() {
-        resetValidation();
-        enableControlsEdit();
         rootCustomers.setEffect(blur);
+        enableControlsEdit();
+        resetValidation(); 
         disableTable();
 
         titleWindowAddCustomer.setText("Add customer");
-        rootAddCustomer.setVisible(true);
-        btnSaveCustomer.setDisable(false);
         btnUpdateCustomer.setVisible(true);
+        btnSaveCustomer.setDisable(false);
+        rootAddCustomer.setVisible(true);
         btnSaveCustomer.toFront();
 
         dialogAddCustomer = new JFXDialog();
         dialogAddCustomer.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
         dialogAddCustomer.setDialogContainer(stckCustomers);
-        dialogAddCustomer.setContent(rootAddCustomer);
         dialogAddCustomer.setBackground(Background.EMPTY);
+        dialogAddCustomer.setContent(rootAddCustomer);
         Resources.styleAlert(dialogAddCustomer);
         dialogAddCustomer.show();
 
@@ -200,9 +217,9 @@ public class CustomersController implements Initializable {
         });
 
         dialogAddCustomer.setOnDialogClosed(ev -> {
+            rootAddCustomer.setVisible(false);
             tblCustomers.setDisable(false);
             rootCustomers.setEffect(null);
-            rootAddCustomer.setVisible(false);
             cleanControls();
         });
     }
@@ -225,8 +242,8 @@ public class CustomersController implements Initializable {
             dialogDeleteCustomer.setDialogContainer(stckCustomers);
             dialogDeleteCustomer.setBackground(Background.EMPTY);
             dialogDeleteCustomer.setContent(rootDeleteCustomer);
-            rootDeleteCustomer.setVisible(true);
             Resources.styleAlert(dialogDeleteCustomer);
+            rootDeleteCustomer.setVisible(true);
             dialogDeleteCustomer.show();
 
             dialogDeleteCustomer.setOnDialogClosed(ev -> {
@@ -242,8 +259,7 @@ public class CustomersController implements Initializable {
     private void hideWindowDeleteCustomer() {
         try {
             dialogDeleteCustomer.close();
-        } catch (NullPointerException ex) {
-        }
+        } catch (NullPointerException ex) {}
     }
 
     @FXML
@@ -348,7 +364,6 @@ public class CustomersController implements Initializable {
             } else {
                 Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
             }
-
         }
     }
 
@@ -406,25 +421,43 @@ public class CustomersController implements Initializable {
     }
 
     private void cleanControls() {
-        txtCustomerName.clear();
         txtCustomerNumber.clear();
+        txtCustomerName.clear();
         txtEmail.clear();
         txtIt.clear();
     }
 
     private void disableControlsEdit() {
-        txtCustomerName.setEditable(false);
         txtCustomerNumber.setEditable(false);
+        txtCustomerName.setEditable(false);
         txtEmail.setEditable(false);
         txtIt.setEditable(false);
     }
 
     private void enableControlsEdit() {
-        txtCustomerName.setEditable(true);
         txtCustomerNumber.setEditable(true);
+        txtCustomerName.setEditable(true);
         txtEmail.setEditable(true);
         txtIt.setEditable(true);
     }
+    
+    private void resetValidation() {
+        txtCustomerNumber.resetValidation();
+        txtCustomerName.resetValidation();
+        txtEmail.resetValidation();
+        txtIt.resetValidation();
+    }
+    
+    private void disableTable() {
+        tblCustomers.setDisable(true);
+    }
+    
+    private boolean validateEmailAddress(String email) {
+        String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(email).matches();
+    } 
 
     private void keyEscapeWindows() {
         rootCustomers.setOnKeyReleased((KeyEvent keyEvent) -> {
@@ -484,10 +517,6 @@ public class CustomersController implements Initializable {
         });
     }
 
-    private void disableTable() {
-        tblCustomers.setDisable(true);
-    }
-
     @FXML
     private void filterNameCustomer() {
         String filterName = txtSearchCustomer.getText();
@@ -518,36 +547,5 @@ public class CustomersController implements Initializable {
             }
             tblCustomers.setItems(filterCustomers);
         }
-    }
-
-    private void characterLimiter() {
-        Resources.limitTextField(txtCustomerName, 150);
-        Resources.limitTextField(txtCustomerNumber, 15);
-        Resources.limitTextField(txtEmail, 150);
-        Resources.limitTextField(txtIt, 50);
-    }
-
-    @FXML
-    private void onlyTextFieldNumber() {
-        Resources.validationOnlyNumbers(txtSearchNumber);
-    }
-
-    @FXML
-    private void onlyTextFieldAddNumber() {
-        Resources.validationOnlyNumbers(txtCustomerNumber);
-    }
-
-    private boolean validateEmailAddress(String email) {
-        String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        Pattern pattern = Pattern.compile(regex);
-        return pattern.matcher(email).matches();
-    }
-
-    private void resetValidation() {
-        txtCustomerName.resetValidation();
-        txtCustomerNumber.resetValidation();
-        txtEmail.resetValidation();
-        txtIt.resetValidation();
     }
 }
