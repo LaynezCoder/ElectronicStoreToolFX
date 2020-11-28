@@ -14,7 +14,7 @@ import javafx.scene.control.TableView;
 
 public class DatabaseHelper {
 
-    public static void insertNewCustomer(Customers customers, ObservableList<Customers> listCustomers) {
+    public static boolean insertNewCustomer(Customers customers, ObservableList<Customers> listCustomers) {
         try {
             String sql = "INSERT INTO Customers (customerName, customerNumber, customerEmail, it) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -24,24 +24,28 @@ public class DatabaseHelper {
             preparedStatement.setString(4, customers.getIt());
             preparedStatement.execute();
             listCustomers.add(customers);
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void deleteCustomer(TableView<Customers> tbl, ObservableList<Customers> listCustomers) {
+    public static boolean deleteCustomer(TableView<Customers> tbl, ObservableList<Customers> listCustomers) {
         try {
             String sql = "DELETE FROM Customers WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, tbl.getSelectionModel().getSelectedItem().getId());
             preparedStatement.execute();
             listCustomers.remove(tbl.getSelectionModel().getSelectedIndex());
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void updateCustomer(Customers customers) {
+    public static boolean updateCustomer(Customers customers) {
         try {
             String sql = "UPDATE Customers SET customerName = ?, customerNumber = ?, customerEmail = ?, it = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -51,9 +55,11 @@ public class DatabaseHelper {
             preparedStatement.setString(4, customers.getIt());
             preparedStatement.setInt(5, customers.getId());
             preparedStatement.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
     public static Customers searchCustomer(int customerId) {
@@ -74,7 +80,7 @@ public class DatabaseHelper {
         return cutomers;
     }
 
-    public static void insertNewQuote(Quotes quotes, ObservableList<Quotes> listQuotes) {
+    public static boolean insertNewQuote(Quotes quotes, ObservableList<Quotes> listQuotes) {
         try {
             String sql = "INSERT INTO Quotes (descriptionQuote, requestDate, price, existence, realization, report, customerId) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -87,24 +93,28 @@ public class DatabaseHelper {
             preparedStatement.setInt(7, quotes.getCustomerId());
             preparedStatement.execute();
             listQuotes.add(quotes);
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void deeleteQuotes(TableView<Quotes> tbl, ObservableList<Quotes> listQuotes) {
+    public static boolean deeleteQuotes(TableView<Quotes> tbl, ObservableList<Quotes> listQuotes) {
         try {
             String sql = "DELETE FROM Quotes WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, tbl.getSelectionModel().getSelectedItem().getId());
             preparedStatement.execute();
             listQuotes.remove(tbl.getSelectionModel().getSelectedIndex());
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void updateQuotes(Quotes quotes) {
+    public static boolean updateQuotes(Quotes quotes) {
         try {
             String sql = "UPDATE Quotes SET descriptionQuote = ?, requestDate = ?, price = ?, existence = ?, realization = ?, report = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -116,12 +126,14 @@ public class DatabaseHelper {
             preparedStatement.setString(6, quotes.getReport());
             preparedStatement.setInt(7, quotes.getId());
             preparedStatement.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void insertNewProduct(Products products, ObservableList<Products> listProducts) {
+    public static boolean insertNewProduct(Products products, ObservableList<Products> listProducts) {
         try {
             String sql = "INSERT INTO Products (barcode, productName, purchasePrice, porcentage, salePrice, minimalPrice, descriptionProduct) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -135,24 +147,28 @@ public class DatabaseHelper {
             preparedStatement.setString(7, products.getDescriptionProduct());
             preparedStatement.execute();
             listProducts.add(products);
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void deleteProduct(TableView<Products> tbl, ObservableList<Products> listProducts) {
+    public static boolean deleteProduct(TableView<Products> tbl, ObservableList<Products> listProducts) {
         try {
             String sql = "DELETE FROM Products WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, tbl.getSelectionModel().getSelectedItem().getId());
             preparedStatement.execute();
             listProducts.remove(tbl.getSelectionModel().getSelectedIndex());
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void updateProduct(Products products) {
+    public static boolean updateProduct(Products products) {
         try {
             String sql = "UPDATE Products SET barcode = ?, productName = ?, purchasePrice = ?, "
                     + "porcentage = ?, salePrice = ?, minimalPrice = ?, descriptionProduct = ? "
@@ -167,9 +183,11 @@ public class DatabaseHelper {
             preparedStatement.setString(7, products.getDescriptionProduct());
             preparedStatement.setInt(8, products.getId());
             preparedStatement.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
     public static int checkIfProductExists(String barcode) {
@@ -188,7 +206,7 @@ public class DatabaseHelper {
         return count;
     }
 
-    public static void insertNewUser(Users users, ObservableList<Users> listUsers) {
+    public static boolean insertNewUser(Users users, ObservableList<Users> listUsers) {
         try {
             String sql = "INSERT INTO Users (nameUser, email, pass, userType) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -198,24 +216,28 @@ public class DatabaseHelper {
             preparedStatement.setString(4, users.getUserType());
             preparedStatement.execute();
             listUsers.add(users);
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void deleteUser(TableView<Users> tbl, ObservableList<Users> listUsers) {
+    public static boolean deleteUser(TableView<Users> tbl, ObservableList<Users> listUsers) {
         try {
             String sql = "DELETE FROM Users WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, tbl.getSelectionModel().getSelectedItem().getId());
             preparedStatement.execute();
             listUsers.remove(tbl.getSelectionModel().getSelectedIndex());
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void updateUser(Users users) {
+    public static boolean updateUser(Users users) {
         try {
             String sql = "UPDATE Users SET nameUser = ?, email = ?, pass = ?, userType = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -225,12 +247,14 @@ public class DatabaseHelper {
             preparedStatement.setString(4, users.getUserType());
             preparedStatement.setInt(5, users.getId());
             preparedStatement.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    public static void updateUserFromSettings(Users users) {
+    public static boolean updateUserFromSettings(Users users) {
         try {
             String sql = "UPDATE Users SET nameUser = ?, email = ?, pass = ?, biography = ?, dialogTransition = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -241,9 +265,11 @@ public class DatabaseHelper {
             preparedStatement.setString(5, users.getDialogTransition());
             preparedStatement.setInt(6, users.getId());
             preparedStatement.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
     public static int checkIfUserExists(String username) {
@@ -262,15 +288,17 @@ public class DatabaseHelper {
         return count;
     }
 
-    public static void insertUsserSession(int id) {
+    public static boolean insertUsserSession(int id) {
         try {
             String sql = "INSERT INTO UserSession (userId) VALUES (?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
     public static int checkIfUserExists() {
