@@ -128,16 +128,16 @@ public class CustomersController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadData();
-        animateNodes();
-        keyEscapeWindows();
-        keyDeleteCustomer();
-        escapeWindowWithTextFields();
-        characterLimiter();
-        selectText();
-        setFonts();
-        validation();
         filterCustomers = FXCollections.observableArrayList();
+        escapeWindowWithTextFields();
+        keyDeleteCustomer();
+        keyEscapeWindows();
+        characterLimiter();
+        animateNodes();
+        validation();
+        selectText();
+        loadData();
+        setFonts();
     }
 
     private void setFonts() {
@@ -357,9 +357,9 @@ public class CustomersController implements Initializable {
         boolean result = DatabaseHelper.deleteCustomer(tblCustomers, listCustomers);
         if (result) {
             Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry deleted successfully");
-            cleanControls();
-            loadData();
             hideWindowDeleteCustomer();
+            cleanControls();
+            loadData();    
         } else {
             Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
         }
