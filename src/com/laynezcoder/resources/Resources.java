@@ -110,7 +110,7 @@ public class Resources {
         });
     }
 
-    public static void showErrorAlert(StackPane containter, Node rootPaneSetEffect, Node nodeDisable, String bodyText) {
+    public static void showErrorAlert(StackPane containter, Node rootPaneSetEffect, Node nodeDisable) {
         Font font = Font.loadFont(Resources.class.getResourceAsStream(FONT), 17);
 
         AnchorPane root = new AnchorPane();
@@ -132,7 +132,7 @@ public class Resources {
         textTitle.setLayoutX(31);
         textTitle.setLayoutY(56);
 
-        Text textBody = new Text(bodyText);
+        Text textBody = new Text("Select an item from the table");
         textBody.getStyleClass().add("header-alert-error");
         textBody.setFont(font);
         textBody.setLayoutX(35);
@@ -186,7 +186,7 @@ public class Resources {
         button.setPrefWidth(320);
         button.setPrefHeight(41);
 
-        Text textTitle = new Text("Oops!");
+        Text textTitle = new Text("Nice job!");
         textTitle.getStyleClass().add("title-alert-success");
         textTitle.setFont(font);
         textTitle.setLayoutX(31);
