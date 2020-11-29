@@ -326,7 +326,8 @@ public class DatabaseHelper {
                 dialogTransition = resultSet.getString("dialogTransition");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);  
+            dialogTransition = "CENTER";
         }
         return dialogTransition;
     }
