@@ -114,7 +114,7 @@ public class HomeController implements Initializable {
     private TableColumn<Quotes, String> colDate;
 
     @FXML
-    private TableColumn<Quotes, Integer> colCustomerId;
+    private TableColumn<Quotes, String> colCustomerName;
 
     @FXML
     private TableColumn<Quotes, JFXButton> colExistence;
@@ -313,7 +313,7 @@ public class HomeController implements Initializable {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("descriptionQuote"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         colExistence.setCellValueFactory(new JFXButtonExistsCellValueFactory());
         colRealization.setCellValueFactory(new JFXButtonRealizedCellValueFactory());
         colReport.setCellValueFactory(new JFXButtonReportCellValueFactory());
@@ -323,7 +323,9 @@ public class HomeController implements Initializable {
         ArrayList<Quotes> list = new ArrayList<>();
         try {
             int total = 0;
-            String sql = "SELECT * FROM Quotes WHERE requestDate = DATE(NOW())";
+            String sql = "SELECT q.id, q.descriptionQuote, q.requestDate, q.price, q.existence, q.realization, q.report, c.customerName\n"
+                    + "FROM Quotes AS q\n"
+                    + "INNER JOIN Customers AS c ON q.customerId = c.id WHERE requestDate = DATE(NOW())";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -335,8 +337,8 @@ public class HomeController implements Initializable {
                 String existence = resultSet.getString("existence");
                 String realization = resultSet.getString("realization");
                 String report = resultSet.getString("report");
-                int customerId = resultSet.getInt("customerId");
-                list.add(new Quotes(id, descriptionQuote, requestDate, price, existence, realization, report, customerId));
+                String customeName = resultSet.getString("customerName");
+                list.add(new Quotes(id, descriptionQuote, requestDate, price, existence, realization, report, customeName));
                 total++;
             }
 

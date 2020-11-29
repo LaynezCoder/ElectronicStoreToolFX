@@ -61,7 +61,7 @@
                   <TableColumn fx:id="colDescription" prefWidth="75.0" text="Description" />
                   <TableColumn fx:id="colDate" prefWidth="75.0" text="Request date" />
                   <TableColumn fx:id="colPrice" prefWidth="75.0" text="Price" />
-                  <TableColumn fx:id="colCustomerId" maxWidth="3000.0" prefWidth="76.0" text="Customer" />
+                  <TableColumn fx:id="colCustomerName" prefWidth="76.0" text="Customer" />
                   <TableColumn fx:id="colExistence" prefWidth="115.0" text="Existence" />
                   <TableColumn fx:id="colRealization" prefWidth="75.0" text="Realization" />
                   <TableColumn fx:id="colReport" prefWidth="75.0" text="Report" />
