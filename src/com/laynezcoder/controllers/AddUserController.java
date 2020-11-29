@@ -144,27 +144,27 @@ public class AddUserController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadData();
-        animateNodes();
+        filterUsers = FXCollections.observableArrayList();
+        escapeWindowWithTextFields();
         setOptionsToComboBox();
         keyDeleteCustomer();
+        maxinumCharactert();
         keyEscapeWindows();
-        escapeWindowWithTextFields();
+        showPassword();
+        animateNodes();
         validations();
         selectText();
+        loadData();
         setFonts();
-        showPassword();
-        maxinumCharactert();
-        filterUsers = FXCollections.observableArrayList();
     }
 
     private void setFonts() {
-        Resources.setFontToJFXButton(btnNewUser, 12);
-        Resources.setFontToJFXButton(btnSaveUser, 15);
-        Resources.setFontToJFXButton(btnCancel, 15);
-        Resources.setFontToJFXButton(btnUpdateUser, 15);
-        Resources.setFontToJFXButton(btnDelete, 15);
         Resources.setFontToJFXButton(btnCancelDelete, 15);
+        Resources.setFontToJFXButton(btnUpdateUser, 15);
+        Resources.setFontToJFXButton(btnSaveUser, 15);
+        Resources.setFontToJFXButton(btnNewUser, 12);
+        Resources.setFontToJFXButton(btnCancel, 15);
+        Resources.setFontToJFXButton(btnDelete, 15);
 
         Resources.setFontToText(titleWindowAddUser, 20);
         Resources.setFontToText(textConfirmation, 15);
@@ -198,17 +198,20 @@ public class AddUserController implements Initializable {
     private void showWindowAddUser() {
         resetValidation();
         enableControlsEdit();
-
         rootUsers.setEffect(blur);
 
-        dialogAddUser = new JFXDialog(stckUsers, rootAddUser, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
-        Resources.styleAlert(dialogAddUser);
-        rootAddUser.setVisible(true);
-        dialogAddUser.setBackground(Background.EMPTY);
         titleWindowAddUser.setText("Add user");
         btnSaveUser.setDisable(false);
         btnUpdateUser.setVisible(true);
         btnSaveUser.toFront();
+        
+        dialogAddUser = new JFXDialog();
+        dialogAddUser.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+        dialogAddUser.setBackground(Background.EMPTY);
+        dialogAddUser.setDialogContainer(stckUsers);
+        dialogAddUser.setContent(rootAddUser);
+        Resources.styleAlert(dialogAddUser);
+        rootAddUser.setVisible(true);      
         dialogAddUser.show();
 
         dialogAddUser.setOnDialogOpened(ev -> {
@@ -226,22 +229,23 @@ public class AddUserController implements Initializable {
     @FXML
     private void hideWindowAddUser() {
         dialogAddUser.close();
-        rootUsers.setEffect(null);
-        tblUsers.setDisable(false);
-        cleanControls();
     }
 
     @FXML
     private void showWindowDeleteUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckUsers, rootUsers, tblUsers, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers);
         } else {
             rootUsers.setEffect(blur);
             disableTable();
-            dialogDeleteUser = new JFXDialog(stckUsers, rootDeleteUser, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            
+            dialogDeleteUser = new JFXDialog();
+            dialogDeleteUser.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            dialogDeleteUser.setBackground(Background.EMPTY);
+            dialogDeleteUser.setDialogContainer(stckUsers);
+            dialogDeleteUser.setContent(rootDeleteUser);
             Resources.styleAlert(dialogDeleteUser);
             rootDeleteUser.setVisible(true);
-            dialogDeleteUser.setBackground(Background.EMPTY);
             dialogDeleteUser.show();
 
             cmbTypeUser.focusedProperty().addListener(ev -> {
@@ -259,15 +263,15 @@ public class AddUserController implements Initializable {
 
     @FXML
     private void hideWindowDeleteUser() {
-        dialogDeleteUser.close();
-        rootUsers.setEffect(null);
-        tblUsers.setDisable(false);
+        try {
+            dialogDeleteUser.close();
+        } catch (NullPointerException ex) {}
     }
 
     @FXML
     private void showWindowUptadeProduct() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckUsers, rootUsers, tblUsers, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers);
         } else {
             showWindowAddUser();
             titleWindowAddUser.setText("Update user");
@@ -279,15 +283,15 @@ public class AddUserController implements Initializable {
     @FXML
     private void showWindowDetailsProduct() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckUsers, rootUsers, tblUsers, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers);
         } else {
             showWindowAddUser();
             titleWindowAddUser.setText("User details");
-            btnSaveUser.setDisable(true);
             btnUpdateUser.setVisible(false);
+            btnSaveUser.setDisable(true);
             btnSaveUser.toFront();
-            selectedRecord();
             disableControlsEdit();
+            selectedRecord();
         }
     }
 
@@ -347,12 +351,15 @@ public class AddUserController implements Initializable {
             new Shake(txtUser).play();
         } else {
             Users users = new Users(txtName.getText(), txtUser.getText(), pfPassword.getText(), cmbTypeUser.getSelectionModel().getSelectedItem());
-
-            DatabaseHelper.insertNewUser(users, listUsers);
-            loadData();
-            cleanControls();
-            hideWindowAddUser();
-            Resources.simpleAlert(stckUsers, rootUsers, tblUsers, "Okey", "Nice job!", "¡Registry added successfully!", "#2ab56f", "#2ab56f");
+            boolean result = DatabaseHelper.insertNewUser(users, listUsers);
+            if (result) {
+                loadData();
+                cleanControls();
+                hideWindowAddUser();
+                Resources.showSuccessAlert(stckUsers, rootUsers, tblUsers, "Registry added successfully");
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            }
         }
     }
 
@@ -387,11 +394,15 @@ public class AddUserController implements Initializable {
             new Shake(cmbTypeUser).play();
         } else {
             Users users = new Users(id, txtName.getText(), txtUser.getText(), pfPassword.getText(), cmbTypeUser.getSelectionModel().getSelectedItem());
-            DatabaseHelper.updateUser(users);
-            loadData();
-            cleanControls();
-            hideWindowAddUser();
-            Resources.simpleAlert(stckUsers, rootUsers, tblUsers, "Okey", "Nice job!", "¡Registry updated successfully!", "#2ab56f", "#2ab56f");
+            boolean result = DatabaseHelper.updateUser(users);
+            if (result) {
+                loadData();
+                cleanControls();
+                hideWindowAddUser();
+                Resources.showSuccessAlert(stckUsers, rootUsers, tblUsers, "Registry updated successfully");
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            }
         }
     }
 
@@ -404,13 +415,15 @@ public class AddUserController implements Initializable {
         } else if (id == DatabaseHelper.getIdUserSession()) {
             Resources.notification("Invalid action", "This user cannot be deleted", "error.png");
         } else {
-            DatabaseHelper.deleteUser(tblUsers, listUsers);
-            loadData();
-            try {
+            boolean result = DatabaseHelper.deleteUser(tblUsers, listUsers);
+            if (result) {
+                loadData();
                 hideWindowDeleteUser();
-            } catch (NullPointerException ex) {
+                Resources.showSuccessAlert(stckUsers, rootUsers, tblUsers, "Registry deleted successfully");
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
             }
-            Resources.simpleAlert(stckUsers, rootUsers, tblUsers, "Okey", "Nice job!", "¡Registry deleted successfully!", "#2ab56f", "#2ab56f");
+            
         }
     }
 
@@ -493,8 +506,7 @@ public class AddUserController implements Initializable {
                     rootUsers.setEffect(null);
                     jfxDialog.close();
                 }
-            } catch (NullPointerException ex) {
-            }
+            } catch (NullPointerException ex) {}
         });
     }
 
@@ -530,7 +542,7 @@ public class AddUserController implements Initializable {
                 if (tblUsers.isDisable()) {
                     System.out.println("To delete, finish saving the record or cancel the operation");
                 } else if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.simpleAlert(stckUsers, rootUsers, tblUsers, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+                    Resources.showErrorAlert(stckUsers, rootUsers, tblUsers);
                 } else {
                     deleteUser();
                 }
@@ -593,23 +605,23 @@ public class AddUserController implements Initializable {
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Users, JFXButton> param) {
             Users item = param.getValue();
 
+            MaterialDesignIconView iconView = new MaterialDesignIconView();
+            iconView.setGlyphSize(15);
+            iconView.setFill(Color.WHITE);
+            
             JFXButton button = new JFXButton();
             button.setPrefWidth(colTypeUser.getWidth() / 0.5);
             button.setText(item.getUserType());
+            button.setGraphic(iconView);
             button.getStylesheets().add((AddUserController.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
 
-            MaterialDesignIconView icon = new MaterialDesignIconView();
-            icon.setGlyphSize(15);
-            icon.setFill(Color.WHITE);
 
             if (item.getUserType().equals("Administrator")) {
-                icon.setGlyphName(String.valueOf(MaterialDesignIcon.ACCOUNT_STAR));
+                iconView.setGlyphName(String.valueOf(MaterialDesignIcon.ACCOUNT_STAR));
                 button.getStyleClass().addAll("cell-button-administrador", "table-row-cell");
-                button.setGraphic(icon);
             } else {
-                icon.setGlyphName(String.valueOf(MaterialDesignIcon.ACCOUNT));
+                iconView.setGlyphName(String.valueOf(MaterialDesignIcon.ACCOUNT));
                 button.getStyleClass().addAll("cell-button-user", "table-row-cell");
-                button.setGraphic(icon);
             }
             return new SimpleObjectProperty<>(button);
         }
