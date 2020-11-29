@@ -36,7 +36,7 @@
                   <TableColumn fx:id="colPrice" prefWidth="75.0" text="Price" />
                   <TableColumn fx:id="colDate" prefWidth="75.0" text="Request date" />
                   <TableColumn fx:id="colDescription" prefWidth="75.0" text="Description" />
-                  <TableColumn fx:id="colCustomerId" maxWidth="3500.0" prefWidth="75.0" text="Id customer" />
+                  <TableColumn fx:id="colCustomerName" prefWidth="75.0" text="Customer" />
                   <TableColumn fx:id="colExistence" prefWidth="75.0" text="Existence" />
                   <TableColumn fx:id="colRealization" prefWidth="75.0" text="Realization" />
                   <TableColumn fx:id="colReport" prefWidth="75.0" text="Report" />
@@ -140,7 +140,7 @@
                </padding>
                <children>
                   <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="20" translateY="10.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="txtSarchCodeCustomers" onKeyReleased="#filterQuotes" onKeyTyped="#onlyNumbers" prefHeight="39.0" prefWidth="356.0" promptText="Search customer" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="txtSearchCustomer" onKeyReleased="#filterQuotes" prefHeight="39.0" prefWidth="356.0" promptText="Search customer" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
                   <FontAwesomeIconView glyphName="SEARCH" layoutX="15.0" layoutY="29.0" opacity="0.5" size="20" translateY="10.0" />
                   <TextField fx:id="txtSearchQuotes" layoutX="39.0" layoutY="10.0" onKeyReleased="#filterDescriptionQuotes" prefHeight="25.0" prefWidth="331.0" promptText="Search quote" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" />
                </children>

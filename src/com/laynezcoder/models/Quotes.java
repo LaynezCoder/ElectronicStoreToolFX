@@ -12,21 +12,12 @@ public class Quotes {
     private String realization;
     private String report;
     private Integer customerId;
+    private String customerName;
 
     public Quotes() {
     }
-
-    public Quotes(String descriptionQuote, Date requestDate, Double price, String existence, String realization, String report, Integer customerId) {
-        this.descriptionQuote = descriptionQuote;
-        this.requestDate = requestDate;
-        this.price = price;
-        this.existence = existence;
-        this.realization = realization;
-        this.report = report;
-        this.customerId = customerId;
-    }
     
-    public Quotes(Integer id, String descriptionQuote, Date requestDate, Double price, String existence, String realization, String report, Integer customerId) {
+    public Quotes(Integer id, String descriptionQuote, Date requestDate, Double price, String existence, String realization, String report, String customerName) {
         this.id = id;
         this.descriptionQuote = descriptionQuote;
         this.requestDate = requestDate;
@@ -34,7 +25,7 @@ public class Quotes {
         this.existence = existence;
         this.realization = realization;
         this.report = report;
-        this.customerId = customerId;
+        this.customerName = customerName;
     }
     
     public Integer getId() {
@@ -100,4 +91,12 @@ public class Quotes {
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }    
 }

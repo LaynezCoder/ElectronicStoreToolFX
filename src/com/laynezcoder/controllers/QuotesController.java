@@ -81,7 +81,7 @@ public class QuotesController implements Initializable {
     private TableColumn<Quotes, String> colDate;
 
     @FXML
-    private TableColumn<Quotes, Integer> colCustomerId;
+    private TableColumn<Quotes, String> colCustomerName;
 
     @FXML
     private TableColumn<Quotes, JFXButton> colExistence;
@@ -102,7 +102,7 @@ public class QuotesController implements Initializable {
     private AnchorPane rootDeleteQuotes;
 
     @FXML
-    private TextField txtSarchCodeCustomers;
+    private TextField txtSearchCustomer;
 
     @FXML
     private TextField txtSearchQuotes;
@@ -266,8 +266,8 @@ public class QuotesController implements Initializable {
             dialogDeleteQuote = new JFXDialog();
             dialogDeleteQuote.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
             dialogDeleteQuote.setBackground(Background.EMPTY);
-            dialogAddQuote.setDialogContainer(stckQuotes);
-            dialogAddQuote.setContent(rootDeleteQuotes);
+            dialogDeleteQuote.setDialogContainer(stckQuotes);
+            dialogDeleteQuote.setContent(rootDeleteQuotes);
             Resources.styleAlert(dialogDeleteQuote);
             rootDeleteQuotes.setVisible(true);
             dialogDeleteQuote.show();
@@ -285,8 +285,7 @@ public class QuotesController implements Initializable {
     private void hideWindowDeleteQuotes() {
         try {
             dialogDeleteQuote.close();
-        } catch (NullPointerException ex) {
-        }
+        } catch (NullPointerException ex) {}
     }
 
     @FXML
@@ -332,7 +331,7 @@ public class QuotesController implements Initializable {
         txtPrice.setText(String.valueOf(quotes.getPrice()));
         dtpDate.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(quotes.getRequestDate())));
         txtDescription.setText(quotes.getDescriptionQuote());
-        cmbIdCustomer.getSelectionModel().select(DatabaseHelper.searchCustomer(quotes.getCustomerId()));
+        cmbIdCustomer.getSelectionModel().select(DatabaseHelper.searchCustomer(quotes.getCustomerName()));
         toggleButtonExists.setText(quotes.getExistence());
         toggleButtonRealized.setText(quotes.getRealization());
         toggleButtonReport.setText(quotes.getReport());
@@ -384,7 +383,7 @@ public class QuotesController implements Initializable {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("descriptionQuote"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         colExistence.setCellValueFactory(new JFXButtonExistsCellValueFactory());
         colReport.setCellValueFactory(new JFXButtonReportCellValueFactory());
         colRealization.setCellValueFactory(new JFXButtonRealizedCellValueFactory());
@@ -393,9 +392,12 @@ public class QuotesController implements Initializable {
     private void loadTable() {
         ArrayList<Quotes> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Quotes";
+            String sql = "SELECT q.id, q.descriptionQuote, q.requestDate, q.price, q.existence, q.realization, q.report, c.customerName\n"
+                    + "FROM Quotes AS q\n"
+                    + "INNER JOIN Customers AS c ON q.customerId = c.id";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
+            
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String descriptionQuote = resultSet.getString("descriptionQuote");
@@ -404,8 +406,8 @@ public class QuotesController implements Initializable {
                 String existence = resultSet.getString("existence");
                 String realization = resultSet.getString("realization");
                 String report = resultSet.getString("report");
-                int customerId = resultSet.getInt("customerId");
-                list.add(new Quotes(id, descriptionQuote, requestDate, price, existence, realization, report, customerId));
+                String customerName = resultSet.getString("customerName");
+                list.add(new Quotes(id, descriptionQuote, requestDate, price, existence, realization, report, customerName));
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -635,7 +637,7 @@ public class QuotesController implements Initializable {
     }
 
     private void selectText() {
-        Resources.selectTextToTextField(txtSarchCodeCustomers);
+        Resources.selectTextToTextField(txtSearchCustomer);
         Resources.selectTextToJFXTextArea(txtDescription);
         Resources.selectTextToJFXTextField(txtPrice);
 
@@ -643,26 +645,19 @@ public class QuotesController implements Initializable {
     }
     
     @FXML
-    private void onlyNumbers() {
-        Resources.validationOnlyNumbers(txtSarchCodeCustomers);
-    }
-
-    @FXML
     private void filterQuotes() {
-        try {
-            String filterCustomers = txtSarchCodeCustomers.getText();
-            if (filterCustomers.isEmpty()) {
-                tblQuotes.setItems(listQuotes);
-            } else {
-                filterQuotes.clear();
-                for (Quotes q : listQuotes) {
-                    if (q.getCustomerId() == Integer.parseInt(filterCustomers)) {
-                        filterQuotes.add(q);
-                    }
+        String filterCustomers = txtSearchCustomer.getText();
+        if (filterCustomers.isEmpty()) {
+            tblQuotes.setItems(listQuotes);
+        } else {
+            filterQuotes.clear();
+            for (Quotes q : listQuotes) {
+                if (q.getCustomerName().toLowerCase().contains(filterCustomers.toLowerCase())) {
+                filterQuotes.add(q);
                 }
-                tblQuotes.setItems(filterQuotes);
             }
-        } catch (NumberFormatException ex) {}
+            tblQuotes.setItems(filterQuotes);
+        }
     }
 
     @FXML

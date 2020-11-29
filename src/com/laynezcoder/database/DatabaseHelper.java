@@ -62,12 +62,12 @@ public class DatabaseHelper {
         return false;
     }
 
-    public static Customers searchCustomer(int customerId) {
+    public static Customers searchCustomer(String name) {
         Customers cutomers = null;
         try {
-            String sql = "SELECT id, customerName FROM Customers WHERE id = ?";
+            String sql = "SELECT id, customerName FROM Customers WHERE customerName = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, customerId);
+            preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
