@@ -135,7 +135,7 @@ public class QuotesController implements Initializable {
     private JFXButton btnCancelDelete;
 
     @FXML
-    private JFXComboBox <Customers> cmbIdCustomer;
+    private JFXComboBox<Customers> cmbIdCustomer;
 
     @FXML
     private Text titleWindowAddQuotes;
@@ -155,9 +155,9 @@ public class QuotesController implements Initializable {
     @FXML
     private JFXToggleButton toggleButtonRealized;
 
-    private JFXDialog jfxDialogAddQuotes;
+    private JFXDialog dialogAddQuote;
 
-    private JFXDialog jfxDialogDeleteQuotes;
+    private JFXDialog dialogDeleteQuote;
 
     private final BoxBlur blur = new BoxBlur(3, 3, 3);
 
@@ -183,22 +183,22 @@ public class QuotesController implements Initializable {
     }
 
     private void setFonts() {
+        Resources.setFontToJFXButton(btnCancelDelete, 15);
+        Resources.setFontToJFXButton(btnUpdateQuotes, 15);
+        Resources.setFontToJFXButton(btnSaveQuotes, 15);
         Resources.setFontToJFXButton(btnAddQuotes, 12);
         Resources.setFontToJFXButton(btnCancelAdd, 15);
-        Resources.setFontToJFXButton(btnSaveQuotes, 15);
-        Resources.setFontToJFXButton(btnUpdateQuotes, 15);
         Resources.setFontToJFXButton(btnDelete, 15);
-        Resources.setFontToJFXButton(btnCancelDelete, 15);
 
-        Resources.setFontToText(titleWindowAddQuotes, 20);
-        Resources.setFontToText(titleWindowDeleteQuotes, 15);
         Resources.setFontToText(descriptionWindowDeleteQuotes, 12);
+        Resources.setFontToText(titleWindowDeleteQuotes, 15);
+        Resources.setFontToText(titleWindowAddQuotes, 20);
     }
 
     private void animateNodes() {
-        Resources.fadeInUpAnimation(tblQuotes);
         Resources.fadeInUpAnimation(rootSearchQuotes);
         Resources.fadeInUpAnimation(btnAddQuotes);
+        Resources.fadeInUpAnimation(tblQuotes);
     }
 
     @FXML
@@ -212,22 +212,25 @@ public class QuotesController implements Initializable {
         disableTable();
         rootQuotes.setEffect(blur);
 
-        jfxDialogAddQuotes = new JFXDialog(stckQuotes, rootAddQuotes, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
-        Resources.styleAlert(jfxDialogAddQuotes);
-        jfxDialogAddQuotes.setBackground(Background.EMPTY);
-
-        rootAddQuotes.setVisible(true);
         btnUpdateQuotes.setVisible(true);
         btnSaveQuotes.setDisable(false);
+        rootAddQuotes.setVisible(true);
         btnSaveQuotes.toFront();
         titleWindowAddQuotes.setText("Add Quote");
-        jfxDialogAddQuotes.show();
 
-        jfxDialogAddQuotes.setOnDialogOpened(ev -> {
+        dialogAddQuote = new JFXDialog();
+        dialogAddQuote.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+        dialogAddQuote.setBackground(Background.EMPTY);
+        dialogAddQuote.setDialogContainer(stckQuotes);
+        dialogAddQuote.setContent(rootAddQuotes);
+        Resources.styleAlert(dialogAddQuote);
+        dialogAddQuote.show();
+
+        dialogAddQuote.setOnDialogOpened(ev -> {
             txtPrice.requestFocus();
         });
 
-        jfxDialogAddQuotes.setOnDialogClosed(ev -> {
+        dialogAddQuote.setOnDialogClosed(ev -> {
             rootAddQuotes.setVisible(false);
             tblQuotes.setDisable(false);
             rootQuotes.setEffect(null);
@@ -249,24 +252,27 @@ public class QuotesController implements Initializable {
 
     @FXML
     private void hideWindowAddQuotes() {
-        jfxDialogAddQuotes.close();
+        dialogAddQuote.close();
     }
 
     @FXML
     private void showWindowDeleteQuotes() {
         if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckQuotes, rootQuotes, tblQuotes, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes);
         } else {
             rootQuotes.setEffect(blur);
             disableTable();
 
-            jfxDialogDeleteQuotes = new JFXDialog(stckQuotes, rootDeleteQuotes, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
-            Resources.styleAlert(jfxDialogDeleteQuotes);
-            jfxDialogDeleteQuotes.setBackground(Background.EMPTY);
+            dialogDeleteQuote = new JFXDialog();
+            dialogDeleteQuote.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            dialogDeleteQuote.setBackground(Background.EMPTY);
+            dialogAddQuote.setDialogContainer(stckQuotes);
+            dialogAddQuote.setContent(rootDeleteQuotes);
+            Resources.styleAlert(dialogDeleteQuote);
             rootDeleteQuotes.setVisible(true);
-            jfxDialogDeleteQuotes.show();
+            dialogDeleteQuote.show();
 
-            jfxDialogDeleteQuotes.setOnDialogClosed(ev -> {
+            dialogDeleteQuote.setOnDialogClosed(ev -> {
                 rootDeleteQuotes.setVisible(false);
                 tblQuotes.setDisable(false);
                 rootQuotes.setEffect(null);
@@ -277,13 +283,16 @@ public class QuotesController implements Initializable {
 
     @FXML
     private void hideWindowDeleteQuotes() {
-        jfxDialogDeleteQuotes.close();
+        try {
+            dialogDeleteQuote.close();
+        } catch (NullPointerException ex) {
+        }
     }
 
     @FXML
     private void showWindowUpdateQuotes() {
         if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckQuotes, rootQuotes, tblQuotes, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes);
         } else {
             showWindowAddQuotes();
 
@@ -301,7 +310,7 @@ public class QuotesController implements Initializable {
     @FXML
     private void showWindowDetailsQuotes() {
         if (tblQuotes.getSelectionModel().isEmpty()) {
-            Resources.simpleAlert(stckQuotes, rootQuotes, tblQuotes, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes);
         } else {
             showWindowAddQuotes();
 
@@ -462,23 +471,30 @@ public class QuotesController implements Initializable {
             quotes.setDescriptionQuote(txtDescription.getText());
             quotes.setRequestDate(java.sql.Date.valueOf(dtpDate.getValue()));
             quotes.setCustomerId(AutocompleteComboBox.getComboBoxValue(cmbIdCustomer).getId());
-            DatabaseHelper.insertNewQuote(quotes, listQuotes);
-            loadData();
-            cleanControls();
-            hideWindowAddQuotes();
-            Resources.simpleAlert(stckQuotes, rootQuotes, tblQuotes, "Okey", "Nice job!", "¡Record added successfully!", "#2ab56f", "#2ab56f");
+
+            boolean result = DatabaseHelper.insertNewQuote(quotes, listQuotes);
+            if (result) {
+                loadData();
+                cleanControls();
+                hideWindowAddQuotes();
+                Resources.showSuccessAlert(stckQuotes, rootQuotes, tblQuotes, "Registry added successfully");
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            }
         }
     }
 
     @FXML
     private void deleteQuotes() {
-        DatabaseHelper.deeleteQuotes(tblQuotes, listQuotes);
-        loadData();
-        try {
+        boolean result = DatabaseHelper.deeleteQuotes(tblQuotes, listQuotes);
+        if (result) {
+            loadData();
             hideWindowDeleteQuotes();
-        } catch (NullPointerException ex) {
+            Resources.showSuccessAlert(stckQuotes, rootQuotes, tblQuotes, "Registry deleted successfully");
+        } else {
+            Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
         }
-        Resources.simpleAlert(stckQuotes, rootQuotes, tblQuotes, "Okey", "Nice job!", "¡Registry deleted successfully!", "#2ab56f", "#2ab56f");
+
     }
 
     @FXML
@@ -517,11 +533,17 @@ public class QuotesController implements Initializable {
             quotes.setDescriptionQuote(txtDescription.getText());
             quotes.setRequestDate(java.sql.Date.valueOf(dtpDate.getValue()));
             quotes.setId(quotes.getId());
-            DatabaseHelper.updateQuotes(quotes);
-            loadData();
-            cleanControls();
-            hideWindowAddQuotes();
-            Resources.simpleAlert(stckQuotes, rootQuotes, tblQuotes, "Okey", "Nice job!", "¡Registry updated successfully!", "#2ab56f", "#2ab56f");
+
+            boolean result = DatabaseHelper.updateQuotes(quotes);
+            if (result) {
+                loadData();
+                cleanControls();
+                hideWindowAddQuotes();
+                Resources.showSuccessAlert(stckQuotes, rootQuotes, tblQuotes, "Registry updated successfully");
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            }
+
         }
     }
 
@@ -539,8 +561,7 @@ public class QuotesController implements Initializable {
                     rootQuotes.setEffect(null);
                     jfxDialog.close();
                 }
-            } catch (NullPointerException ex) {
-            }
+            } catch (NullPointerException ex) {}
         });
     }
 
@@ -570,7 +591,7 @@ public class QuotesController implements Initializable {
                 if (tblQuotes.isDisable()) {
                     System.out.println("To delete, finish saving the record or cancel the operation");
                 } else if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.simpleAlert(stckQuotes, rootQuotes, tblQuotes, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+                    Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes);
                 } else {
                     deleteQuotes();
                 }
@@ -583,22 +604,47 @@ public class QuotesController implements Initializable {
     }
 
     private void cleanControls() {
-        txtDescription.clear();
-        txtPrice.clear();
         cmbIdCustomer.getSelectionModel().clearSelection();
+        txtDescription.clear();
         dtpDate.setValue(null);
+        txtPrice.clear();
     }
 
     private void disableControlsEdit() {
+        txtDescription.setEditable(false);
         txtPrice.setEditable(false);
         dtpDate.setEditable(false);
-        txtDescription.setEditable(false);
     }
 
     private void enableControlsEdit() {
+        txtDescription.setEditable(true);
         txtPrice.setEditable(true);
         dtpDate.setEditable(true);
-        txtDescription.setEditable(true);
+    }
+    
+    private void validations() {
+        Resources.validationOfJFXTextArea(txtDescription);
+        Resources.validationOfJFXComboBox(cmbIdCustomer);
+    }
+
+    private void resetValidations() {
+        txtDescription.resetValidation();
+        cmbIdCustomer.resetValidation();
+        txtPrice.resetValidation();
+        dtpDate.resetValidation();
+    }
+
+    private void selectText() {
+        Resources.selectTextToTextField(txtSarchCodeCustomers);
+        Resources.selectTextToJFXTextArea(txtDescription);
+        Resources.selectTextToJFXTextField(txtPrice);
+
+        Resources.doubleNumbersValidationTextField(txtPrice);
+    }
+    
+    @FXML
+    private void onlyNumbers() {
+        Resources.validationOnlyNumbers(txtSarchCodeCustomers);
     }
 
     @FXML
@@ -616,8 +662,7 @@ public class QuotesController implements Initializable {
                 }
                 tblQuotes.setItems(filterQuotes);
             }
-        } catch (NumberFormatException ex) {
-        }
+        } catch (NumberFormatException ex) {}
     }
 
     @FXML
@@ -636,11 +681,6 @@ public class QuotesController implements Initializable {
         }
     }
 
-    @FXML
-    private void onlyNumbers() {
-        Resources.validationOnlyNumbers(txtSarchCodeCustomers);
-    }
-
     private void validationOfJFXDatePicker() {
         RequiredFieldValidator validator = new RequiredFieldValidator();
         validator.setMessage("Obligatory field");
@@ -656,48 +696,27 @@ public class QuotesController implements Initializable {
         });
     }
 
-    private void validations() {
-        Resources.validationOfJFXTextArea(txtDescription);
-        Resources.validationOfJFXComboBox(cmbIdCustomer);
-    }
-
-    private void resetValidations() {
-        txtPrice.resetValidation();
-        dtpDate.resetValidation();
-        cmbIdCustomer.resetValidation();
-        txtDescription.resetValidation();
-    }
-
-    private void selectText() {
-        Resources.selectTextToJFXTextField(txtPrice);
-        Resources.selectTextToTextField(txtSarchCodeCustomers);
-        Resources.selectTextToJFXTextArea(txtDescription);
-
-        Resources.doubleNumbersValidationTextField(txtPrice);
-    }
-
     private class JFXButtonExistsCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, JFXButton>, ObservableValue<JFXButton>> {
 
         @Override
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView();
+            icon.setFill(Color.WHITE);
 
             JFXButton button = new JFXButton();
+            button.setGraphic(icon);
             button.setText(item.getExistence());
             button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
             button.setPrefWidth(colExistence.getWidth() / 0.5);
 
-            FontAwesomeIconView icon = new FontAwesomeIconView();
-            icon.setFill(Color.WHITE);
-
             if (item.getExistence().equals("Existent")) {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
-                button.setGraphic(icon);
             } else {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
-                button.setGraphic(icon);
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -709,22 +728,21 @@ public class QuotesController implements Initializable {
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
 
+            FontAwesomeIconView icon = new FontAwesomeIconView();
+            icon.setFill(Color.WHITE);
+            
             JFXButton button = new JFXButton();
+            button.setGraphic(icon);
             button.setText(item.getReport());
             button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
             button.setPrefWidth(colReport.getWidth() / 0.5);
 
-            FontAwesomeIconView icon = new FontAwesomeIconView();
-            icon.setFill(Color.WHITE);
-
             if (item.getReport().equals("Reported")) {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
-                button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
-                button.setGraphic(icon);
+                button.getStyleClass().addAll("cell-button-exists", "table-row-cell");  
             } else {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
-                button.setGraphic(icon);
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -735,23 +753,22 @@ public class QuotesController implements Initializable {
         @Override
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
-
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView();
+            icon.setFill(Color.WHITE);
+            
             JFXButton button = new JFXButton();
+            button.setGraphic(icon);
             button.setText(item.getRealization());
             button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
-            FontAwesomeIconView icon = new FontAwesomeIconView();
-            icon.setFill(Color.WHITE);
-
             if (item.getRealization().equals("Realized")) {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
-                button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
-                button.setGraphic(icon);
+                button.getStyleClass().addAll("cell-button-exists", "table-row-cell"); 
             } else {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
-                button.setGraphic(icon);
             }
             return new SimpleObjectProperty<>(button);
         }
