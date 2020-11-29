@@ -165,64 +165,65 @@ public class ProductsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadData();
-        animateNodes();
-        keyEscapeWindows();
-        escapeWindowWithTextFields();
-        selectText();
-        setValidations();
-        characterLimiter();
-        setFonts();
-        validateUser();
         filterProducts = FXCollections.observableArrayList();
+        escapeWindowWithTextFields();
+        keyEscapeWindows();
+        characterLimiter();
+        setValidations();
+        animateNodes();
+        validateUser();
+        selectText();
+        loadData();
+        setFonts();
     }
 
     private void setFonts() {
-        Resources.setFontToJFXButton(btnNewProduct, 12);
         Resources.setFontToJFXButton(btnCancelAddProduct, 15);
-        Resources.setFontToJFXButton(btnSaveProduct, 15);
         Resources.setFontToJFXButton(btnUpdateProduct, 15);
         Resources.setFontToJFXButton(btnCancelDelete, 15);
+        Resources.setFontToJFXButton(btnSaveProduct, 15);
+        Resources.setFontToJFXButton(btnNewProduct, 12);
         Resources.setFontToJFXButton(btnDelete, 15);
 
-        Resources.setFontToText(textAddProduct, 20);
-        Resources.setFontToText(titleWindowDeleteProducts, 15);
         Resources.setFontToText(descriptionWindowDeleteProduct, 12);
-        Resources.setFontToText(textPurchase, 13);
+        Resources.setFontToText(titleWindowDeleteProducts, 15);
+        Resources.setFontToText(textAddProduct, 20);
         Resources.setFontToText(textPorcentage, 13);
+        Resources.setFontToText(textPurchase, 13);
     }
 
     private void animateNodes() {
+        Resources.fadeInUpAnimation(btnNewProduct);
         Resources.fadeInUpAnimation(tblProducts);
         Resources.fadeInUpAnimation(hBoxSearch);
-        Resources.fadeInUpAnimation(btnNewProduct);
     }
 
     private void setValidations() {
         emptyText();
+        
+        Resources.validationOfJFXTextArea(txtDescriptionProduct);
 
         Resources.doubleNumbersValidationTextField(txtPurchasePrice);
         Resources.doubleNumbersValidationTextField(txtSalePrice);
         Resources.doubleNumbersValidationTextField(txtMinPrice);
 
-        Resources.validationOfJFXTextField(txtBarCode);
-        Resources.validationOfJFXTextField(txtNameProduct);
         Resources.validationOfJFXTextField(txtPurchasePrice);
-        Resources.validationOfJFXTextField(txtSalePrice);
+        Resources.validationOfJFXTextField(txtNameProduct);
         Resources.validationOfJFXTextField(txtPorcentage);
+        Resources.validationOfJFXTextField(txtSalePrice);
         Resources.validationOfJFXTextField(txtMinPrice);
+        Resources.validationOfJFXTextField(txtBarCode);
 
-        Resources.validationOfJFXTextArea(txtDescriptionProduct);
     }
 
     private void selectText() {
-        Resources.selectTextToJFXTextField(txtBarCode);
-        Resources.selectTextToJFXTextField(txtNameProduct);
-        Resources.selectTextToJFXTextField(txtPurchasePrice);
-        Resources.selectTextToJFXTextField(txtSalePrice);
-        Resources.selectTextToJFXTextField(txtMinPrice);
-        Resources.selectTextToJFXTextField(txtPorcentage);
         Resources.selectTextToJFXTextArea(txtDescriptionProduct);
+        Resources.selectTextToJFXTextField(txtPurchasePrice);
+        Resources.selectTextToJFXTextField(txtNameProduct);
+        Resources.selectTextToJFXTextField(txtSalePrice);
+        Resources.selectTextToJFXTextField(txtPorcentage);
+        Resources.selectTextToJFXTextField(txtMinPrice);
+        Resources.selectTextToJFXTextField(txtBarCode);
     }
 
     @FXML
@@ -232,17 +233,19 @@ public class ProductsController implements Initializable {
         enableControlsEdit();
         rootProducts.setEffect(blur);
         disableTable();
-
-        dialogAddProduct = new JFXDialog(stckProducts, rootAddProduct, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
-        Resources.styleAlert(dialogAddProduct);
-        dialogAddProduct.setBackground(Background.EMPTY);
-
+        
         textAddProduct.setText("Add Product");
         rootAddProduct.setVisible(true);
         btnSaveProduct.setDisable(false);
         btnUpdateProduct.setVisible(true);
         btnSaveProduct.toFront();
 
+        dialogAddProduct = new JFXDialog();
+        dialogAddProduct.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+        dialogAddProduct.setBackground(Background.EMPTY);
+        dialogAddProduct.setDialogContainer(stckProducts);
+        dialogAddProduct.setContent(rootAddProduct);
+        Resources.styleAlert(dialogAddProduct);
         dialogAddProduct.show();
 
         dialogAddProduct.setOnDialogOpened(ev -> {
@@ -265,14 +268,17 @@ public class ProductsController implements Initializable {
     @FXML
     private void showWindowDeleteProduct() {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckProducts, rootProducts, tblProducts, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts);
         } else {
             rootProducts.setEffect(blur);
             disableTable();
-            dialogDeleteProduct = new JFXDialog(stckProducts, rootDeleteProducts, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            dialogDeleteProduct = new JFXDialog();
+            dialogDeleteProduct.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            dialogDeleteProduct.setBackground(Background.EMPTY);
+            dialogDeleteProduct.setDialogContainer(stckProducts);
+            dialogDeleteProduct.setContent(rootDeleteProducts);
             Resources.styleAlert(dialogDeleteProduct);
             rootDeleteProducts.setVisible(true);
-            dialogDeleteProduct.setBackground(Background.EMPTY);
             dialogDeleteProduct.show();
 
             dialogDeleteProduct.setOnDialogClosed(ev -> {
@@ -286,13 +292,15 @@ public class ProductsController implements Initializable {
 
     @FXML
     private void hideWindowDeleteProduct() {
-        dialogDeleteProduct.close();
+        try {
+            dialogDeleteProduct.close();
+        } catch (NullPointerException ex) {}
     }
 
     @FXML
     private void showWindowUptadeProduct() {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckProducts, rootProducts, tblProducts, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts);
         } else {
             showWindowAddProduct();
             textAddProduct.setText("Update product");
@@ -304,15 +312,15 @@ public class ProductsController implements Initializable {
     @FXML
     private void showWindowDetailsProduct() {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.simpleAlert(stckProducts, rootProducts, tblProducts, "Okey", "Oops!", "Select an item from the table", "#f35f56", "#f35f56");
+            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts);
         } else {
-            showWindowAddProduct();
-            selectedRecord();
+            showWindowAddProduct();       
             textAddProduct.setText("Product details");
-            btnSaveProduct.setDisable(true);
             btnUpdateProduct.setVisible(false);
+            btnSaveProduct.setDisable(true);
             btnSaveProduct.toFront();
             disableControlsEdit();
+            selectedRecord();
         }
     }
 
@@ -394,12 +402,16 @@ public class ProductsController implements Initializable {
             products.setSalePrice(Double.parseDouble(txtSalePrice.getText()));
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
 
-            DatabaseHelper.insertNewProduct(products, listProducts);
-            loadData();
-            cleanControls();
-            hideWindowAddProduct();
-            Resources.simpleAlert(stckProducts, rootProducts, tblProducts, "Okey", "Nice job!", "¡Registry added successfully!", "#2ab56f", "#2ab56f");
-
+            boolean result = DatabaseHelper.insertNewProduct(products, listProducts);
+            
+            if (result) {
+                loadData();
+                cleanControls();
+                hideWindowAddProduct();
+                Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry added successfully");  
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            }
         }
     }
 
@@ -436,43 +448,47 @@ public class ProductsController implements Initializable {
             products.setSalePrice(Double.parseDouble(txtSalePrice.getText()));
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
 
-            DatabaseHelper.updateProduct(products);
-            loadData();
-            cleanControls();
-            hideWindowAddProduct();
-            Resources.simpleAlert(stckProducts, rootProducts, tblProducts, "Okey", "Nice job!", "¡Registry updated successfully!", "#2ab56f", "#2ab56f");
+            boolean result = DatabaseHelper.updateProduct(products);
+            if (result) {
+                loadData();
+                cleanControls();
+                hideWindowAddProduct();
+                Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry updated successfully");     
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            }
         }
     }
 
     @FXML
     private void deleteProducts() {
-        DatabaseHelper.deleteProduct(tblProducts, listProducts);
-        cleanControls();
-        loadData();
-        try {
+        boolean result = DatabaseHelper.deleteProduct(tblProducts, listProducts);
+        if (result) {
+            loadData();
+            cleanControls();
             hideWindowDeleteProduct();
-        } catch (NullPointerException ex) {
-        }
-        Resources.simpleAlert(stckProducts, rootProducts, tblProducts, "Okey", "Nice job!", "¡Registry deleted successfully!", "#2ab56f", "#2ab56f");
-
+            Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry deleted successfully");
+        } else {
+            Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+        }  
     }
 
     private void cleanControls() {
-        txtBarCode.clear();
-        txtNameProduct.clear();
-        txtPurchasePrice.clear();
-        txtSalePrice.clear();
         txtDescriptionProduct.clear();
+        txtPurchasePrice.clear();
+        txtNameProduct.clear();
         txtPorcentage.clear();
+        txtSalePrice.clear();
         txtMinPrice.clear();
+        txtBarCode.clear();
     }
 
     private void disableControlsEdit() {
         txtBarCode.setEditable(false);
+        txtDescriptionProduct.setEditable(false);
         txtNameProduct.setEditable(false);
         txtPurchasePrice.setEditable(false);
         txtSalePrice.setEditable(false);
-        txtDescriptionProduct.setEditable(false);
         txtPorcentage.setEditable(false);
         txtMinPrice.setEditable(false);
     }
@@ -489,6 +505,76 @@ public class ProductsController implements Initializable {
 
     private void disableTable() {
         tblProducts.setDisable(true);
+    }
+    
+    private void emptyText() {
+        Resources.setTextIsEmpty(txtPurchasePrice);
+        Resources.setTextIsEmpty(txtMinPrice);
+        Resources.setTextIsEmpty(txtPorcentage);
+        Resources.setTextIsEmpty(txtSalePrice);
+    }
+
+    private void resetValidation() {
+        txtBarCode.resetValidation();
+        txtNameProduct.resetValidation();
+        txtPurchasePrice.resetValidation();
+        txtPorcentage.resetValidation();
+        txtSalePrice.resetValidation();
+        txtMinPrice.resetValidation();
+        txtDescriptionProduct.resetValidation();
+    }
+
+    private void validateUser() {
+        if (DatabaseHelper.getUserType().equals("Administrator")) {
+            colPorcentage.setVisible(true);
+            colPurchasePrice.setVisible(true);
+            btnNewProduct.setDisable(false);
+            txtPurchasePrice.setVisible(true);
+            txtPorcentage.setVisible(true);
+            textPurchase.setVisible(false);
+            textPorcentage.setVisible(false);
+            setEnableMenuItem();
+        } else {
+            setDisableMenuItem();
+            colPorcentage.setVisible(false);
+            colPurchasePrice.setVisible(false);
+            btnNewProduct.setDisable(true);
+            txtPurchasePrice.setVisible(false);
+            textPurchase.setVisible(true);
+            textPorcentage.setVisible(true);
+            txtPorcentage.setVisible(false);
+        }
+        keyDeleteProduct();
+    }
+
+    private void setDisableMenuItem() {
+        menuEdit.setDisable(true);
+        menuDelete.setDisable(true);
+    }
+
+    private void setEnableMenuItem() {
+        menuEdit.setDisable(false);
+        menuDelete.setDisable(false);
+    }
+    
+    @FXML
+    private void onlyTextFieldCodeBarNumbers() {
+        Resources.validationOnlyNumbers(txtBarCode);
+    }
+
+    @FXML
+    private void onlyTextFielSearchCodeBardNumbers() {
+        Resources.validationOnlyNumbers(txtSearchBarCode);
+    }
+
+    @FXML
+    private void onlyTextFieldPorcentage() {
+        Resources.validationOnlyNumbers(txtPorcentage);
+    }
+
+    private void characterLimiter() {
+        Resources.limitTextField(txtBarCode, 20);
+        Resources.limitTextField(txtPorcentage, 5);
     }
 
     private void keyEscapeWindows() {
@@ -568,33 +654,13 @@ public class ProductsController implements Initializable {
                     if (tblProducts.isDisable()) {
                         System.out.println("To delete, finish saving the registry or cancel the operation");
                     } else if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-                        Resources.simpleAlert(stckProducts, rootProducts, tblProducts, "Okey", "Oops!", "select an item from the table", "#f35f56", "#f35f56");
+                        Resources.showErrorAlert(stckProducts, rootProducts, tblProducts);
                     } else {
                         deleteProducts();
                     }
                 }
             });
         }
-    }
-
-    @FXML
-    private void onlyTextFieldCodeBarNumbers() {
-        Resources.validationOnlyNumbers(txtBarCode);
-    }
-
-    @FXML
-    private void onlyTextFielSearchCodeBardNumbers() {
-        Resources.validationOnlyNumbers(txtSearchBarCode);
-    }
-
-    @FXML
-    private void onlyTextFieldPorcentage() {
-        Resources.validationOnlyNumbers(txtPorcentage);
-    }
-
-    private void characterLimiter() {
-        Resources.limitTextField(txtBarCode, 20);
-        Resources.limitTextField(txtPorcentage, 5);
     }
 
     @FXML
@@ -663,55 +729,5 @@ public class ProductsController implements Initializable {
             double salePrice = ((purchasePrice * porcentage) / 100) + purchasePrice;
             txtSalePrice.setText(String.valueOf(salePrice));
         });
-    }
-
-    private void emptyText() {
-        Resources.setTextIsEmpty(txtPurchasePrice);
-        Resources.setTextIsEmpty(txtMinPrice);
-        Resources.setTextIsEmpty(txtPorcentage);
-        Resources.setTextIsEmpty(txtSalePrice);
-    }
-
-    private void resetValidation() {
-        txtBarCode.resetValidation();
-        txtNameProduct.resetValidation();
-        txtPurchasePrice.resetValidation();
-        txtPorcentage.resetValidation();
-        txtSalePrice.resetValidation();
-        txtMinPrice.resetValidation();
-        txtDescriptionProduct.resetValidation();
-    }
-
-    private void validateUser() {
-        if (DatabaseHelper.getUserType().equals("Administrator")) {
-            colPorcentage.setVisible(true);
-            colPurchasePrice.setVisible(true);
-            btnNewProduct.setDisable(false);
-            txtPurchasePrice.setVisible(true);
-            txtPorcentage.setVisible(true);
-            textPurchase.setVisible(false);
-            textPorcentage.setVisible(false);
-            setEnableMenuItem();
-        } else {
-            setDisableMenuItem();
-            colPorcentage.setVisible(false);
-            colPurchasePrice.setVisible(false);
-            btnNewProduct.setDisable(true);
-            txtPurchasePrice.setVisible(false);
-            textPurchase.setVisible(true);
-            textPorcentage.setVisible(true);
-            txtPorcentage.setVisible(false);
-        }
-        keyDeleteProduct();
-    }
-
-    private void setDisableMenuItem() {
-        menuEdit.setDisable(true);
-        menuDelete.setDisable(true);
-    }
-
-    private void setEnableMenuItem() {
-        menuEdit.setDisable(false);
-        menuDelete.setDisable(false);
-    }
+    } 
 }
