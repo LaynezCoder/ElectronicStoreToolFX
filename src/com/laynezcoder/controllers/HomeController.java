@@ -376,22 +376,22 @@ public class HomeController implements Initializable {
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
 
+            FontAwesomeIconView icon = new FontAwesomeIconView();
+            icon.setFill(Color.WHITE);
+            
             JFXButton button = new JFXButton();
+            button.setGraphic(icon);
             button.setText(item.getExistence());
             button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
             button.setPrefWidth(colExistence.getWidth() / 0.5);
-
-            FontAwesomeIconView icon = new FontAwesomeIconView();
-            icon.setFill(Color.WHITE);
-
+            
             if (item.getExistence().equals("Existent")) {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
-                button.setGraphic(icon);
+                
             } else {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
-                button.setGraphic(icon);
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -402,23 +402,22 @@ public class HomeController implements Initializable {
         @Override
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
-
-            JFXButton button = new JFXButton();
-            button.setText(item.getReport());
-            button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
-            button.setPrefWidth(colReport.getWidth() / 0.5);
-
+            
             FontAwesomeIconView icon = new FontAwesomeIconView();
             icon.setFill(Color.WHITE);
 
+            JFXButton button = new JFXButton();
+            button.setGraphic(icon);
+            button.setText(item.getReport());
+            button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
+            button.setPrefWidth(colReport.getWidth() / 0.5);
+            
             if (item.getReport().equals("Reported")) {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
-                button.setGraphic(icon);
             } else {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
-                button.setGraphic(icon);
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -429,23 +428,22 @@ public class HomeController implements Initializable {
         @Override
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView();
+            icon.setFill(Color.WHITE);
 
             JFXButton button = new JFXButton();
+            button.setGraphic(icon);
             button.setText(item.getRealization());
             button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
-            FontAwesomeIconView icon = new FontAwesomeIconView();
-            icon.setFill(Color.WHITE);
-
             if (item.getRealization().equals("Realized")) {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
-                button.setGraphic(icon);
             } else {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
-                button.setGraphic(icon);
             }
             return new SimpleObjectProperty<>(button);
         }
