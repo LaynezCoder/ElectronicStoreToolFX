@@ -615,7 +615,6 @@ public class AddUserController implements Initializable {
             button.setGraphic(iconView);
             button.getStylesheets().add((AddUserController.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
 
-
             if (item.getUserType().equals("Administrator")) {
                 iconView.setGlyphName(String.valueOf(MaterialDesignIcon.ACCOUNT_STAR));
                 button.getStyleClass().addAll("cell-button-administrador", "table-row-cell");
