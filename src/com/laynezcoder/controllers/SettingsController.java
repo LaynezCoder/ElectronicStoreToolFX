@@ -58,21 +58,13 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setOptionsToComboBox();
+        maximumCharacters();
+        animationNodes();
+        validations();
+        selectText();
         setFonts();
         loadData();
-        setOptionsToComboBox();
-        animationNodes();
-        selectText();
-        maximumCharacters();
-        validations();
-    }
-
-    private void setOptionsToComboBox() {
-        cmbDialogTransition.getItems().addAll("Left", "Right", "Top", "Bottom", "Center");
-    }
-
-    private void setFonts() {
-        Resources.setFontToText(title, 30);
     }
 
     private void loadData() {
@@ -97,7 +89,6 @@ public class SettingsController implements Initializable {
     @FXML
     private void updateCredentials() {
         if (txtName.getText().isEmpty() && txtUser.getText().isEmpty() && txtPassword.getText().isEmpty() && txtConfirmPassword.getText().isEmpty() && txtBio.getText().isEmpty()) {
-            Resources.notification("Error", "No deje campos vacios", "error.png");
             shakeAnimation(txtName);
             shakeAnimation(txtUser);
             shakeAnimation(txtPassword);
@@ -136,10 +127,15 @@ public class SettingsController implements Initializable {
             users.setPass(txtPassword.getText());
             users.setBiography(txtBio.getText());
             saveTypeAnimation(users);
-            DatabaseHelper.updateUserFromSettings(users);
-            loadData();
-            Resources.simpleAlert(stckSettings, rootSettings, rootSettings, "Okey", "Nice job!", "¡Credentials saved successfully!", "#2ab56f", "#2ab56f");
-            rootSettings.setDisable(false);
+            
+            boolean result = DatabaseHelper.updateUserFromSettings(users);
+            if (result) {
+                loadData();
+                rootSettings.setDisable(false);
+                Resources.showSuccessAlert(stckSettings, rootSettings, rootSettings, "¡Credentials saved successfully!");
+            } else {
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            }
 
         }
     }
@@ -192,6 +188,14 @@ public class SettingsController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void setOptionsToComboBox() {
+        cmbDialogTransition.getItems().addAll("Left", "Right", "Top", "Bottom", "Center");
+    }
+
+    private void setFonts() {
+        Resources.setFontToText(title, 30);
     }
 
     private void animationNodes() {
