@@ -26,6 +26,7 @@ public class Main extends Application {
 
     private void loginWindow(Stage stage) {
         try {
+            DatabaseHelper.logout();
             Parent root = FXMLLoader.load(getClass().getResource("/com/laynezcoder/views/LoginView.fxml"));
             Scene scene = new Scene(root);
             stage.initStyle(StageStyle.UNDECORATED);
