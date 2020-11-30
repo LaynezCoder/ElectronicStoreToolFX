@@ -258,7 +258,7 @@ public class QuotesController implements Initializable {
     @FXML
     private void showWindowDeleteQuotes() {
         if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes);
+            Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes, "Select an item from the table");
         } else {
             rootQuotes.setEffect(blur);
             disableTable();
@@ -291,7 +291,7 @@ public class QuotesController implements Initializable {
     @FXML
     private void showWindowUpdateQuotes() {
         if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes);
+            Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes, "Select an item from the table");
         } else {
             showWindowAddQuotes();
 
@@ -309,7 +309,7 @@ public class QuotesController implements Initializable {
     @FXML
     private void showWindowDetailsQuotes() {
         if (tblQuotes.getSelectionModel().isEmpty()) {
-            Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes);
+            Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes, "Select an item from the table");
         } else {
             showWindowAddQuotes();
 
@@ -593,7 +593,7 @@ public class QuotesController implements Initializable {
                 if (tblQuotes.isDisable()) {
                     System.out.println("To delete, finish saving the record or cancel the operation");
                 } else if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes);
+                    Resources.showErrorAlert(stckQuotes, rootQuotes, tblQuotes, "Select an item from the table");
                 } else {
                     deleteQuotes();
                 }

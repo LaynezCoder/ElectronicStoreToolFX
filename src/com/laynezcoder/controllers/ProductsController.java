@@ -268,7 +268,7 @@ public class ProductsController implements Initializable {
     @FXML
     private void showWindowDeleteProduct() {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts);
+            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts, "Select an item from the table");
         } else {
             rootProducts.setEffect(blur);
             disableTable();
@@ -300,7 +300,7 @@ public class ProductsController implements Initializable {
     @FXML
     private void showWindowUptadeProduct() {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts);
+            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts, "Select an item from the table");
         } else {
             showWindowAddProduct();
             textAddProduct.setText("Update product");
@@ -312,7 +312,7 @@ public class ProductsController implements Initializable {
     @FXML
     private void showWindowDetailsProduct() {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts);
+            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts, "Select an item from the table");
         } else {
             showWindowAddProduct();       
             textAddProduct.setText("Product details");
@@ -654,7 +654,7 @@ public class ProductsController implements Initializable {
                     if (tblProducts.isDisable()) {
                         System.out.println("To delete, finish saving the registry or cancel the operation");
                     } else if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-                        Resources.showErrorAlert(stckProducts, rootProducts, tblProducts);
+                        Resources.showErrorAlert(stckProducts, rootProducts, tblProducts, "Select an item from the table");
                     } else {
                         deleteProducts();
                     }

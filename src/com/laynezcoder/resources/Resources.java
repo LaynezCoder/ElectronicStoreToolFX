@@ -46,7 +46,7 @@ public class Resources {
     public static final String PACKAGE_MEDIA = "/com/laynezcoder/media/";
     public static JFXDialog jfxDialog;
 
-    public static void showErrorAlert(StackPane containter, Node rootPaneSetEffect, Node nodeDisable) {
+    public static void showErrorAlert(StackPane containter, Node rootPaneSetEffect, Node nodeDisable, String text) {
         Font font = Font.loadFont(Resources.class.getResourceAsStream(FONT), 17);
 
         AnchorPane root = new AnchorPane();
@@ -68,7 +68,7 @@ public class Resources {
         textTitle.setLayoutX(31);
         textTitle.setLayoutY(56);
 
-        Text textBody = new Text("Select an item from the table");
+        Text textBody = new Text(text);
         textBody.getStyleClass().add("body-alert-error");
         textBody.setFont(font);
         textBody.setLayoutX(35);

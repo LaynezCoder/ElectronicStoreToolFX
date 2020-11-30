@@ -234,7 +234,7 @@ public class AddUserController implements Initializable {
     @FXML
     private void showWindowDeleteUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers);
+            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
         } else {
             rootUsers.setEffect(blur);
             disableTable();
@@ -271,7 +271,7 @@ public class AddUserController implements Initializable {
     @FXML
     private void showWindowUptadeProduct() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers);
+            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
         } else {
             showWindowAddUser();
             titleWindowAddUser.setText("Update user");
@@ -283,7 +283,7 @@ public class AddUserController implements Initializable {
     @FXML
     private void showWindowDetailsProduct() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers);
+            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
         } else {
             showWindowAddUser();
             titleWindowAddUser.setText("User details");
@@ -542,7 +542,7 @@ public class AddUserController implements Initializable {
                 if (tblUsers.isDisable()) {
                     System.out.println("To delete, finish saving the record or cancel the operation");
                 } else if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.showErrorAlert(stckUsers, rootUsers, tblUsers);
+                    Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
                 } else {
                     deleteUser();
                 }

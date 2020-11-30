@@ -232,7 +232,7 @@ public class CustomersController implements Initializable {
     @FXML
     private void showWindowDeleteCustomer() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers);
+            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "Select an item from the table");
         } else {
             rootCustomers.setEffect(blur);
             disableTable();
@@ -265,7 +265,7 @@ public class CustomersController implements Initializable {
     @FXML
     private void showWindowUptadeCustomer() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers);
+            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "Select an item from the table");
         } else {
             showWindowAddCustomer();
             titleWindowAddCustomer.setText("Update customer");
@@ -277,7 +277,7 @@ public class CustomersController implements Initializable {
     @FXML
     private void showWindowDetailsCustomer() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers);
+            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "Select an item from the table");
         } else {
             showWindowAddCustomer();
             titleWindowAddCustomer.setText("Customer details");
@@ -509,7 +509,7 @@ public class CustomersController implements Initializable {
                 if (tblCustomers.isDisable()) {
                     System.out.println("To delete, finish saving the record or cancel the operation");
                 } else if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers);
+                    Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "Select an item from the table");
                 } else {
                     deleteCustomer();
                 }
