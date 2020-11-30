@@ -159,9 +159,13 @@ public class LoginController implements Initializable {
                     int id = rs.getInt("id");
                     String nameUser = rs.getString("nameUser");
                     
-                    DatabaseHelper.insertUsserSession(id);
-                    loadMain();
-                    Resources.notification("Success", "Welcome to the system " + nameUser + "!", "check.png");
+                    boolean result = DatabaseHelper.insertUsserSession(id);
+                    if (result) {
+                        loadMain();
+                        Resources.notification("Success", "Welcome to the system " + nameUser + "!", "check.png");
+                    } else {
+                        Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+                    } 
                 } else {
                     Resources.notification("Error", "Incorrect user or password!", "error.png");
                     shakeAnimation(txtUser);
@@ -170,6 +174,7 @@ public class LoginController implements Initializable {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
             }
         }
     }
