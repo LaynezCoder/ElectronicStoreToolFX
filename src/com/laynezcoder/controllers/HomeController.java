@@ -349,6 +349,8 @@ public class HomeController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            Resources.showErrorAlert(stckHome, rootHome, tblQuotes, "An error occurred when connecting to MySQL.\n"
+                    + "Check your connection to MySQL");
         }
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);

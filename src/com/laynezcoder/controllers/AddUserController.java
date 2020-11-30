@@ -325,6 +325,8 @@ public class AddUserController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(AddUserController.class.getName()).log(Level.SEVERE, null, ex);
+            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "An error occurred when connecting to MySQL.\n"
+                    + "Check your connection to MySQL");
         }
         listUsers = FXCollections.observableArrayList(list);
         tblUsers.setItems(listUsers);

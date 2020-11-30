@@ -83,6 +83,8 @@ public class SettingsController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
+            Resources.showErrorAlert(stckSettings, rootSettings, title, "An error occurred when connecting to MySQL.\n"
+                    + "Check your connection to MySQL");
         }
     }
 

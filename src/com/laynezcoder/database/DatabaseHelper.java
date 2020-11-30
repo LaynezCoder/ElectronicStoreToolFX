@@ -4,6 +4,7 @@ import com.laynezcoder.models.Customers;
 import com.laynezcoder.models.Products;
 import com.laynezcoder.models.Quotes;
 import com.laynezcoder.models.Users;
+import com.laynezcoder.resources.Resources;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -343,6 +344,7 @@ public class DatabaseHelper {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            userType = "User";
         }
         return userType;
     }
@@ -398,6 +400,7 @@ public class DatabaseHelper {
                 count = rs.getInt(1);
             }
         } catch (SQLException ex) {
+            count = 0;
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
@@ -414,7 +417,9 @@ public class DatabaseHelper {
                 count = rs.getInt(1);
             }
         } catch (SQLException ex) {
+            count = 0;
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
         }
         return count;
     }
@@ -430,6 +435,7 @@ public class DatabaseHelper {
                 count = rs.getInt(1);
             }
         } catch (SQLException ex) {
+            count = 0;
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;

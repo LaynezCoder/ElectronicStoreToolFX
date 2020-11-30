@@ -324,6 +324,8 @@ public class CustomersController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "An error occurred when connecting to MySQL.\n"
+                    + "Check your connection to MySQL");
         }
         listCustomers = FXCollections.observableArrayList(list);
         tblCustomers.setItems(listCustomers);

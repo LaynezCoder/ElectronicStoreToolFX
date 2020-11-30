@@ -356,6 +356,8 @@ public class ProductsController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            Resources.showErrorAlert(stckProducts, rootProducts, tblProducts, "An error occurred when connecting to MySQL.\n"
+                    + "Check your connection to MySQL");
         }
         listProducts = FXCollections.observableArrayList(list);
         tblProducts.setItems(listProducts);
