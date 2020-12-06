@@ -33,11 +33,6 @@
                   <Font size="15.0" />
                </font>
             </JFXPasswordField>
-            <Pane layoutX="355.0" layoutY="290.0" prefHeight="31.0" prefWidth="35.0" style="-fx-background-color: WHITE;">
-               <children>
-                  <FontAwesomeIconView fx:id="icon" glyphName="EYE_SLASH" layoutX="11.0" layoutY="22.0" opacity="0.5" size="15" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" />
-               </children>
-            </Pane>
             <JFXCheckBox fx:id="cbViewPassword" checkedColor="#2ab56f" layoutX="111.0" layoutY="355.0" onAction="#showPassword" text="Show password" textFill="#bebec2" unCheckedColor="LIGHTGRAY">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -50,6 +45,11 @@
             </JFXButton>
             <MaterialDesignIconView fx:id="icon_login" fill="WHITE" glyphName="ARROW_RIGHT" layoutX="303.0" layoutY="429.0" size="20" />
             <Text fx:id="title" layoutX="164.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" />
+            <Pane layoutX="354.0" layoutY="285.0" prefHeight="31.0" prefWidth="36.0">
+               <children>
+                  <FontAwesomeIconView fx:id="icon" glyphName="EYE_SLASH" layoutX="11.0" layoutY="22.0" opacity="0.5" size="15" text="" />
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="rootImage" layoutX="500.0" prefHeight="600.0" prefWidth="500.0">
