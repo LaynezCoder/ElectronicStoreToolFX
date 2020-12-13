@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -85,7 +85,6 @@
             </HBox>
             <AnchorPane fx:id="rootAddProduct" layoutX="96.0" layoutY="98.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="429.0" prefWidth="740.0" style="-fx-background-radius: 10;" visible="false">
                <children>
-                  <Line endX="465.0" layoutX="186.0" layoutY="60.0" startX="-81.5" stroke="#fafafc" />
                   <JFXTextField fx:id="txtBarCode" focusColor="#2ab56f" labelFloat="true" layoutX="40.0" layoutY="78.0" onKeyTyped="#onlyTextFieldCodeBarNumbers" prefHeight="30.0" prefWidth="195.0" promptText="Barcode" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                      <font>
                         <Font size="14.0" />
@@ -116,11 +115,6 @@
                         <Font size="14.0" />
                      </font>
                   </JFXTextField>
-                  <Text fx:id="textAddProduct" layoutX="294.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add product">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
                   <JFXTextArea fx:id="txtDescriptionProduct" focusColor="#2ab56f" labelFloat="true" layoutX="40.0" layoutY="222.0" prefHeight="135.0" prefWidth="663.0" promptText="Description" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                      <font>
                         <Font size="14.0" />
@@ -148,6 +142,15 @@
                   </JFXButton>
                   <Text fx:id="textPurchase" layoutX="508.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase price not available" />
                   <Text fx:id="textPorcentage" layoutX="40.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Percentage not available" wrappingWidth="168.28710977733135" />
+                  <HBox alignment="CENTER" layoutY="14.0" prefHeight="45.0" prefWidth="740.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Text fx:id="textAddProduct" strokeType="OUTSIDE" strokeWidth="0.0" text="Add product">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="rootDeleteProducts" layoutX="289.0" layoutY="216.0" prefHeight="246.0" prefWidth="392.0" visible="false">
@@ -167,13 +170,17 @@
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
                   </JFXButton>
-                  <ImageView fitHeight="100.0" fitWidth="103.0" layoutX="148.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../media/usb.png" />
-                     </image>
-                  </ImageView>
-                  <Text fx:id="titleWindowDeleteProducts" layoutX="73.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure to remove this product permanently?" textAlignment="CENTER" wrappingWidth="250.6171875" />
-                  <Text fx:id="descriptionWindowDeleteProduct" fill="#bebec2" layoutX="104.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information cannot be retrieved" />
+                  <VBox alignment="CENTER" layoutY="14.0" prefHeight="188.0" prefWidth="396.0" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/usb.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="titleWindowDeleteProducts" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure to remove this product permanently?" textAlignment="CENTER" wrappingWidth="250.6171875" />
+                        <Text fx:id="descriptionWindowDeleteProduct" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Information cannot be retrieved" />
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
             <JFXButton fx:id="btnNewProduct" buttonType="RAISED" layoutX="759.0" layoutY="17.0" onMouseClicked="#showWindowAddProduct" prefHeight="39.0" prefWidth="155.0" styleClass="login-jfx-button" text="New product" textFill="WHITE" AnchorPane.rightAnchor="16.0">
