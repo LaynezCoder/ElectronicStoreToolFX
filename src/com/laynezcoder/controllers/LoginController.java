@@ -3,7 +3,6 @@ package com.laynezcoder.controllers;
 import animatefx.animation.FadeIn;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.database.DatabaseConnection;
@@ -31,7 +30,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -49,7 +47,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private JFXPasswordField pfPassword;
-    
+
     @FXML
     private FontAwesomeIconView icon;
 
@@ -57,16 +55,13 @@ public class LoginController implements Initializable {
     private Text title;
 
     @FXML
-    private MaterialDesignIconView icon_web;
+    private MaterialDesignIconView iconWeb;
 
     @FXML
-    private MaterialDesignIconView icon_facebook;
+    private MaterialDesignIconView iconFacebook;
 
     @FXML
-    private MaterialDesignIconView icon_whatsApp;
-
-    @FXML
-    private AnchorPane rootImage;
+    private MaterialDesignIconView iconInstagram;
 
     private double x, y;
 
@@ -82,24 +77,24 @@ public class LoginController implements Initializable {
     }
 
     private void setURL() {
-        Resources.url("", icon_web);
-        Resources.url("", icon_facebook);
-        Resources.url("", icon_whatsApp);
+        Resources.url("", iconWeb);
+        Resources.url("", iconFacebook);
+        Resources.url("", iconInstagram);
     }
 
     private void animations() {
-        Resources.hoverAnimation(icon_web, 50, 1.2);
-        Resources.hoverAnimation(icon_facebook, 50, 1.2);
-        Resources.hoverAnimation(icon_whatsApp, 50, 1.2);
+        Resources.hoverAnimation(iconWeb, 50, 1.2);
+        Resources.hoverAnimation(iconFacebook, 50, 1.2);
+        Resources.hoverAnimation(iconInstagram, 50, 1.2);
 
         FadeAnimation(title);
         FadeAnimation(txtUser);
         FadeAnimation(txtPassword);
         FadeAnimation(pfPassword);
         FadeAnimation(btnLogin);
-        FadeAnimation(icon_web);
-        FadeAnimation(icon_facebook);
-        FadeAnimation(icon_whatsApp);
+        FadeAnimation(iconWeb);
+        FadeAnimation(iconFacebook);
+        FadeAnimation(iconInstagram);
     }
 
     private void setFonts() {
@@ -123,41 +118,36 @@ public class LoginController implements Initializable {
     private void login() {
         String email = txtUser.getText();
         String pass = pfPassword.getText();
-        String showPass = txtPassword.getText();
-        
-        if (email.isEmpty() && pass.isEmpty() && showPass.isEmpty()) {
+
+        if (email.isEmpty() && pass.isEmpty()) {
             Resources.notification("Error", "Insufficient data!", "error.png");
             shakeAnimation(txtUser);
             shakeAnimation(pfPassword);
-            shakeAnimation(txtPassword);
         } else if (email.isEmpty()) {
             Resources.notification("Error", "Insufficient data!", "error.png");
             shakeAnimation(txtUser);
         } else if (pass.isEmpty()) {
             Resources.notification("Error", "Insufficient data!", "error.png");
             shakeAnimation(pfPassword);
-        } else if (showPass.isEmpty()) {
-            Resources.notification("Error", "Insufficient data!", "error.png");
-            shakeAnimation(txtPassword);
         } else {
             try {
                 String sql = "SELECT id, nameUser FROM Users WHERE email = BINARY ? AND pass = BINARY ?";
                 PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
                 preparedStatement.setString(1, email);
                 preparedStatement.setString(2, pass);
-                
+
                 ResultSet rs = preparedStatement.executeQuery();
                 if (rs.next()) {
                     int id = rs.getInt("id");
                     String nameUser = rs.getString("nameUser");
-                    
+
                     boolean result = DatabaseHelper.insertUsserSession(id);
                     if (result) {
                         loadMain();
                         Resources.notification("Success", "Welcome to the system " + nameUser + "!", "check.png");
                     } else {
                         Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
-                    } 
+                    }
                 } else {
                     Resources.notification("Error", "Incorrect user or password!", "error.png");
                     shakeAnimation(txtUser);
@@ -219,7 +209,7 @@ public class LoginController implements Initializable {
         pfPassword.visibleProperty().bind(icon.pressedProperty().not());
 
         txtPassword.textProperty().bindBidirectional(pfPassword.textProperty());
-        
+
         icon.pressedProperty().addListener((o, oldVal, newVal) -> {
             if (newVal) {
                 icon.setIcon(FontAwesomeIcon.EYE);
