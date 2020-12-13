@@ -101,7 +101,7 @@
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
                   </JFXButton>
-                  <VBox alignment="CENTER" prefHeight="195.0" prefWidth="396.0">
+                  <VBox alignment="CENTER" prefHeight="195.0" prefWidth="396.0" spacing="10.0">
                      <children>
                         <ImageView fitHeight="98.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -153,7 +153,7 @@
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
                   </JFXButton>
-                  <HBox alignment="CENTER" layoutY="-2.0" prefHeight="60.0" prefWidth="600.0">
+                  <HBox alignment="CENTER" layoutY="-2.0" prefHeight="68.0" prefWidth="600.0">
                      <children>
                         <Text fx:id="titleWindowAddCustomer" strokeType="OUTSIDE" strokeWidth="0.0" text="Add customer">
                            <font>
