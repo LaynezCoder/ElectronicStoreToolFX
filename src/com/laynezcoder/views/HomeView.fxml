@@ -40,7 +40,7 @@
                         <Image url="@../media/home.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER_LEFT" prefHeight="134.0" prefWidth="900.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="131.0" prefWidth="900.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
                         <Text fx:id="textWelcome" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back">
                            <font>
