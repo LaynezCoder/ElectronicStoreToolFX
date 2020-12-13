@@ -141,16 +141,14 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         animationsNodes();
         customerCounter();
-        quoteCounter();
         productsCounter();
-        setTextWelcomeQuotes();
+        setWelcomeText();
         loadData();
         setFonts();
         selectText();
         filterQuotes = FXCollections.observableArrayList();
     }
 
-    //The congratulations dialog is optional
     private void dialogCongrulations(String text, String subtext) {
         JFXDialog dialog = new JFXDialog(stckHome, rootCongrulations, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
         Resources.styleAlert(dialog);
@@ -192,37 +190,15 @@ public class HomeController implements Initializable {
 
     private void customerCounter() {
         try {
-            String sql = "SELECT * FROM Customers";
+            String sql = "SELECT COUNT(*) FROM Customers";
             PreparedStatement preparedStatetent = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatetent.executeQuery();
-            int total = 0;
-            while (resultSet.next()) {
-                total++;
-            }
-            if (total == 0) {
-                labelTotalCustomers.setText("0");
-            } else {
-                labelTotalCustomers.setText(String.valueOf(total));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
-    private void quoteCounter() {
-        try {
-            String sql = "SELECT * FROM Quotes";
-            PreparedStatement preparedStatetent = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatetent.executeQuery();
             int total = 0;
             while (resultSet.next()) {
-                total++;
+                total = resultSet.getInt(1);
             }
-            if (total == 0) {
-                labelTotalQuotes.setText("0");
-            } else {
-                labelTotalQuotes.setText(String.valueOf(total));
-            }
+            labelTotalCustomers.setText(String.valueOf(total));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -230,26 +206,23 @@ public class HomeController implements Initializable {
 
     private void productsCounter() {
         try {
-            String sql = "SELECT * FROM Products";
+            String sql = "SELECT COUNT(*) FROM Products";
             PreparedStatement preparedStatetent = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatetent.executeQuery();
+
             int total = 0;
             while (resultSet.next()) {
-                total++;
+                total = resultSet.getInt(1);
             }
-            if (total == 0) {
-                labelTotalProduct.setText("0");
-            } else {
-                labelTotalProduct.setText(String.valueOf(total));
-            }
+            labelTotalProduct.setText(String.valueOf(total));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void setTextWelcomeQuotes() {
+    private void setWelcomeText() {
         try {
-            String sql = "SELECT * FROM Quotes";
+            String sql = "SELECT COUNT(*) FROM Quotes";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -259,52 +232,45 @@ public class HomeController implements Initializable {
 
             int total = 0;
             while (resultSet.next()) {
-                total++;
+                total = resultSet.getInt(1);
             }
+            labelTotalQuotes.setText(String.valueOf(total));
 
             while (resultSetTwo.next()) {
                 String name = resultSetTwo.getString("nameUser");
                 switch (total) {
                     case 10:
-                        textWelcome.setText("¡Congratulations " + name + ", 10 new quotes have been registered!");
-                        textDescriptionWelcome.setText("!Nice job!");
-                        //dialogCongrulations(textWelcome.getText(), textDescriptionWelcome.getText());
+                        setText(name, 10);
                         break;
                     case 20:
-                        textWelcome.setText("¡Congratulations " + name + ", 20 new quotes have been registered!");
-                        textDescriptionWelcome.setText("!Nice job!");
-                        //dialogCongrulations(textWelcome.getText(), textDescriptionWelcome.getText());
+                        setText(name, 20);
                         break;
                     case 30:
-                        textWelcome.setText("¡Congratulations " + name + ", 30 new quotes have been registered!");
-                        textDescriptionWelcome.setText("!Nice job!");
-                        //dialogCongrulations(textWelcome.getText(), textDescriptionWelcome.getText());
+                        setText(name, 30);
                         break;
                     case 50:
-                        textWelcome.setText("¡Congratulations " + name + ", 40 new quotes have been registered!");
-                        textDescriptionWelcome.setText("!Nice job!");
-                        //dialogCongrulations(textWelcome.getText(), textDescriptionWelcome.getText());
+                        setText(name, 50);
                         break;
                     case 100:
-                        textWelcome.setText("¡Congratulations " + name + ", 100 new quotes have been registered!");
-                        textDescriptionWelcome.setText("!Nice job!");
-                        //dialogCongrulations(textWelcome.getText(), textDescriptionWelcome.getText());
+                        setText(name, 100);
                         break;
                     case 500:
-                        textWelcome.setText("¡Congratulations " + name + ", 500 new quotes have been registered!");
-                        textDescriptionWelcome.setText("!Nice job!");
-                        //dialogCongrulations(textWelcome.getText(), textDescriptionWelcome.getText());
+                        setText(name, 500);
                         break;
                     default:
                         textWelcome.setText("¡Welcome back, " + name + "!");
                         textDescriptionWelcome.setText("¿What do you think if you start adding a new client?");
-                        //dialogCongrulations(textWelcome.getText(), textDescriptionWelcome.getText());
                         break;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void setText(String name, int total) {
+        textWelcome.setText("¡Congratulations " + name + ", " + total + " new quotes have been registered!");
+        textDescriptionWelcome.setText("!Nice job!");
     }
 
     private void loadData() {
@@ -341,12 +307,7 @@ public class HomeController implements Initializable {
                 list.add(new Quotes(id, descriptionQuote, requestDate, price, existence, realization, report, customeName));
                 total++;
             }
-
-            if (total == 0) {
-                labelNowQuotes.setText("0");
-            } else {
-                labelNowQuotes.setText(String.valueOf(total));
-            }
+            labelNowQuotes.setText(String.valueOf(total));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
             Resources.showErrorAlert(stckHome, rootHome, tblQuotes, "An error occurred when connecting to MySQL.\n"
@@ -380,17 +341,16 @@ public class HomeController implements Initializable {
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
             icon.setFill(Color.WHITE);
-            
+
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getExistence());
             button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
             button.setPrefWidth(colExistence.getWidth() / 0.5);
-            
+
             if (item.getExistence().equals("Existent")) {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
-                
             } else {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
@@ -404,7 +364,7 @@ public class HomeController implements Initializable {
         @Override
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
-            
+
             FontAwesomeIconView icon = new FontAwesomeIconView();
             icon.setFill(Color.WHITE);
 
@@ -413,7 +373,7 @@ public class HomeController implements Initializable {
             button.setText(item.getReport());
             button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
             button.setPrefWidth(colReport.getWidth() / 0.5);
-            
+
             if (item.getReport().equals("Reported")) {
                 icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
@@ -430,7 +390,7 @@ public class HomeController implements Initializable {
         @Override
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
-            
+
             FontAwesomeIconView icon = new FontAwesomeIconView();
             icon.setFill(Color.WHITE);
 

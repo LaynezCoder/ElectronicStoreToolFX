@@ -40,16 +40,23 @@
                         <Image url="@../media/home.png" />
                      </image>
                   </ImageView>
-                  <Text fx:id="textWelcome" layoutX="14.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="textDescriptionWelcome" fill="#76787c" layoutX="10.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿What do you think if you start adding a new client?" translateY="-5.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
+                  <VBox alignment="CENTER_LEFT" prefHeight="134.0" prefWidth="900.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Text fx:id="textWelcome" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="textDescriptionWelcome" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="¿What do you think if you start adding a new client?">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
                </children>
                <effect>
                   <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
