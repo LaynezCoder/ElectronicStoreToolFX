@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -13,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
@@ -73,24 +73,27 @@
                   <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
                </effect>
             </TableView>
-            <HBox alignment="CENTER" layoutX="17.0" layoutY="228.0" prefHeight="150.0" prefWidth="900.0" spacing="20.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="13.0">
+            <HBox alignment="CENTER" layoutX="17.0" layoutY="228.0" prefHeight="75.0" prefWidth="900.0" spacing="20.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="13.0">
                <children>
                   <AnchorPane fx:id="rootTotalCustomers" layoutX="230.0" layoutY="10.0" prefHeight="0.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 5;" translateY="10.0" HBox.hgrow="ALWAYS">
                      <effect>
                         <DropShadow color="#d7d6d6" offsetX="10.0" offsetY="10.0" />
                      </effect>
                      <children>
-                        <Label fx:id="labelTotalCustomers" layoutX="15.0" layoutY="51.0" text="5000" textFill="#76787c">
-                           <font>
-                              <Font name="System Bold" size="50.0" />
-                           </font>
-                        </Label>
-                        <MaterialDesignIconView fill="#76787c" glyphName="ACCOUNT" layoutX="220.0" layoutY="106.0" size="50" AnchorPane.rightAnchor="14.0" />
-                        <Text fx:id="textCustomers" fill="#76787c" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total customers" translateX="-6.0" AnchorPane.leftAnchor="14.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
+                        <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label fx:id="labelTotalCustomers" text="5000" textFill="#76787c">
+                                 <font>
+                                    <Font name="System Bold" size="50.0" />
+                                 </font>
+                              </Label>
+                              <Text fx:id="textCustomers" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="Total customers">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="rootTotalQuotes" layoutX="330.0" layoutY="10.0" prefHeight="0.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 5;" translateY="10.0" HBox.hgrow="ALWAYS">
@@ -98,17 +101,20 @@
                         <DropShadow color="#d7d6d6" offsetX="10.0" offsetY="10.0" />
                      </effect>
                      <children>
-                        <Label fx:id="labelTotalQuotes" layoutX="14.0" layoutY="54.0" text="5000" textFill="#76787c" translateY="-2.0">
-                           <font>
-                              <Font name="System Bold" size="50.0" />
-                           </font>
-                        </Label>
-                        <MaterialDesignIconView fill="#76787c" glyphName="DESKTOP_MAC" layoutX="219.0" layoutY="109.0" size="50" AnchorPane.rightAnchor="14.0" />
-                        <Text fx:id="texQuotes" fill="#76787c" layoutX="6.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Quotes" AnchorPane.leftAnchor="8.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
+                        <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label fx:id="labelTotalQuotes" text="5000" textFill="#76787c">
+                                 <font>
+                                    <Font name="System Bold" size="50.0" />
+                                 </font>
+                              </Label>
+                              <Text fx:id="texQuotes" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Quotes">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="rootProducts" layoutX="480.0" layoutY="10.0" prefHeight="0.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 5;" translateY="10.0" HBox.hgrow="ALWAYS">
@@ -116,17 +122,20 @@
                         <DropShadow color="#d7d6d6" offsetX="10.0" offsetY="10.0" />
                      </effect>
                      <children>
-                        <Label fx:id="labelTotalProduct" layoutX="14.0" layoutY="46.0" text="5000" textFill="#76787c" translateY="6.0">
-                           <font>
-                              <Font name="System Bold" size="50.0" />
-                           </font>
-                        </Label>
-                        <MaterialDesignIconView fill="#76787c" glyphName="INBOX" layoutX="218.0" layoutY="109.0" size="50" AnchorPane.rightAnchor="14.0" />
-                        <Text fx:id="textProducts" fill="#76787c" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total products" AnchorPane.leftAnchor="8.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
+                        <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label fx:id="labelTotalProduct" text="5000" textFill="#76787c">
+                                 <font>
+                                    <Font name="System Bold" size="50.0" />
+                                 </font>
+                              </Label>
+                              <Text fx:id="textProducts" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="Total products">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="rootRecentQuotes" layoutX="630.0" layoutY="10.0" prefHeight="0.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 5;" translateY="10.0" HBox.hgrow="ALWAYS">
@@ -134,17 +143,20 @@
                         <DropShadow color="#d7d6d6" offsetX="10.0" offsetY="10.0" />
                      </effect>
                      <children>
-                        <Label fx:id="labelNowQuotes" layoutX="14.0" layoutY="46.0" text="5000" textFill="#76787c" translateY="6.0">
-                           <font>
-                              <Font name="System Bold" size="50.0" />
-                           </font>
-                        </Label>
-                        <MaterialDesignIconView fill="#76787c" glyphName="CALENDAR_CLOCK" layoutX="218.0" layoutY="109.0" size="50" AnchorPane.rightAnchor="14.0" />
-                        <Text fx:id="textRecentQuotes" fill="#76787c" layoutX="8.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent quotes" AnchorPane.leftAnchor="8.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
+                        <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label fx:id="labelNowQuotes" text="5000" textFill="#76787c">
+                                 <font>
+                                    <Font name="System Bold" size="50.0" />
+                                 </font>
+                              </Label>
+                              <Text fx:id="textRecentQuotes" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent quotes">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                </children>

@@ -17,7 +17,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -96,12 +95,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton contentDisplay="CENTER" layoutX="360.0" onAction="#hideWindowDeleteCustomer" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
-                     <graphic>
-                        <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
-                     </graphic>
-                  </JFXButton>
-                  <VBox alignment="CENTER" prefHeight="195.0" prefWidth="396.0" spacing="10.0">
+                  <VBox alignment="CENTER" layoutY="-1.0" prefHeight="200.0" prefWidth="396.0" spacing="10.0">
                      <children>
                         <ImageView fitHeight="98.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -112,6 +106,11 @@
                         <Text fx:id="description" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="All related quotes will be removed" />
                      </children>
                   </VBox>
+                  <JFXButton contentDisplay="CENTER" layoutX="360.0" onAction="#hideWindowDeleteCustomer" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="rootAddCustomer" layoutX="166.0" layoutY="153.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="259.0" prefWidth="600.0" style="-fx-background-radius: 10;" visible="false">
@@ -132,7 +131,6 @@
                      <font>
                         <Font size="14.0" />
                      </font></JFXTextField>
-                  <Line endX="465.0" layoutX="105.0" layoutY="56.0" startX="-81.5" stroke="#fafafc" />
                   <JFXButton fx:id="btnUpdateCustomer" buttonType="RAISED" layoutX="312.0" layoutY="219.0" onMouseClicked="#updateCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="login-jfx-button" text="Uptade" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -148,11 +146,6 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton contentDisplay="CENTER" layoutX="564.0" onAction="#hideWindowAddCustomer" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
-                     <graphic>
-                        <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
-                     </graphic>
-                  </JFXButton>
                   <HBox alignment="CENTER" layoutY="-2.0" prefHeight="68.0" prefWidth="600.0">
                      <children>
                         <Text fx:id="titleWindowAddCustomer" strokeType="OUTSIDE" strokeWidth="0.0" text="Add customer">
@@ -162,6 +155,11 @@
                         </Text>
                      </children>
                   </HBox>
+                  <JFXButton contentDisplay="CENTER" layoutX="564.0" onAction="#hideWindowAddCustomer" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </children>

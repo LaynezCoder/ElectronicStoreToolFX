@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -91,7 +91,6 @@
                         <Font size="14.0" />
                      </font>
                   </JFXToggleButton>
-                  <Line endX="680.0" layoutX="103.0" layoutY="61.0" startX="-81.5" stroke="#fafafc" strokeWidth="2.0" />
                   <JFXButton fx:id="btnUpdateQuotes" buttonType="RAISED" layoutX="408.0" layoutY="361.0" onMouseClicked="#updateQuotes" prefHeight="25.0" prefWidth="131.0" styleClass="login-jfx-button" text="Update" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -107,21 +106,11 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton contentDisplay="CENTER" layoutX="764.0" onMouseClicked="#hideWindowAddQuotes" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
-                     <graphic>
-                        <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
-                     </graphic>
-                  </JFXButton>
                   <Label fx:id="labelEmpty" layoutX="226.0" layoutY="189.0" text="Agregue un nombre de cliente" textFill="#e84c4c" visible="false">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Text fx:id="titleWindowAddQuotes" layoutX="322.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add quote">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
                   <JFXToggleButton fx:id="toggleButtonReport" layoutX="491.0" layoutY="285.0" onAction="#setActionToggleButton" prefHeight="60.0" prefWidth="165.0" text="Reported" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
                      <font>
                         <Font size="14.0" />
@@ -132,6 +121,20 @@
                         <Font size="14.0" />
                      </font>
                   </JFXToggleButton>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0">
+                     <children>
+                        <Text fx:id="titleWindowAddQuotes" strokeType="OUTSIDE" strokeWidth="0.0" text="Add quote">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <JFXButton contentDisplay="CENTER" layoutX="764.0" onMouseClicked="#hideWindowAddQuotes" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
             <HBox fx:id="rootSearchQuotes" alignment="CENTER" layoutX="14.0" layoutY="20.0" prefHeight="45.0" prefWidth="743.0" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 5;" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="20.0">
@@ -142,7 +145,7 @@
                   <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="20" translateY="10.0" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="txtSearchCustomer" onKeyReleased="#filterQuotes" prefHeight="39.0" prefWidth="356.0" promptText="Search customer" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
                   <FontAwesomeIconView glyphName="SEARCH" layoutX="15.0" layoutY="29.0" opacity="0.5" size="20" translateY="10.0" />
-                  <TextField fx:id="txtSearchQuotes" layoutX="39.0" layoutY="10.0" onKeyReleased="#filterDescriptionQuotes" prefHeight="25.0" prefWidth="331.0" promptText="Search quote" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" />
+                  <TextField fx:id="txtSearchQuotes" layoutX="39.0" layoutY="10.0" onKeyReleased="#filterDescriptionQuotes" prefHeight="25.0" prefWidth="331.0" promptText="Search quote" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
                </children>
                <effect>
                   <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
@@ -168,18 +171,22 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="396.0" spacing="15.0">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/usb.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="titleWindowDeleteQuotes" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure to delete this quote permanently?" textAlignment="CENTER" wrappingWidth="250.6171875" />
+                        <Text fx:id="descriptionWindowDeleteQuotes" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Information cannot be retrieved" />
+                     </children>
+                  </VBox>
                   <JFXButton contentDisplay="CENTER" layoutX="360.0" onMouseClicked="#hideWindowDeleteQuotes" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
                      <graphic>
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
                   </JFXButton>
-                  <ImageView fitHeight="100.0" fitWidth="103.0" layoutX="148.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../media/usb.png" />
-                     </image>
-                  </ImageView>
-                  <Text fx:id="titleWindowDeleteQuotes" layoutX="73.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure to delete this quote permanently?" textAlignment="CENTER" wrappingWidth="250.6171875" />
-                  <Text fx:id="descriptionWindowDeleteQuotes" fill="#bebec2" layoutX="104.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information cannot be retrieved" />
                </children>
             </AnchorPane>
          </children>
