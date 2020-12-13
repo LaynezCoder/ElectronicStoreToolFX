@@ -137,7 +137,7 @@
                         <Font size="14.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXTextField fx:id="txtPassword" focusColor="#2ab56f" labelFloat="true" layoutX="42.0" layoutY="152.0" prefHeight="25.0" prefWidth="239.0" promptText="Contraseña" styleClass="jfx-text-field-login" unFocusColor="#bebec2" visible="false">
+                  <JFXTextField fx:id="txtPassword" focusColor="#2ab56f" labelFloat="true" layoutX="42.0" layoutY="152.0" prefHeight="25.0" prefWidth="239.0" promptText="Password" styleClass="jfx-text-field-login" unFocusColor="#bebec2" visible="false">
                      <font>
                         <Font size="14.0" />
                      </font>

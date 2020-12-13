@@ -174,6 +174,7 @@ public class AddUserController implements Initializable {
     private void validations() {
         Resources.validationOfJFXTextField(txtName);
         Resources.validationOfJFXTextField(txtUser);
+        Resources.validationOfJFXTextField(txtPassword);
         Resources.validationOfJFXPasswordField(pfPassword);
         Resources.validationOfJFXComboBox(cmbTypeUser);
     }
@@ -431,21 +432,21 @@ public class AddUserController implements Initializable {
 
     @FXML
     private void showPassword() {
-        txtPassword.managedProperty().bind(icon.hoverProperty());
-        txtPassword.visibleProperty().bind(icon.hoverProperty());
+        txtPassword.managedProperty().bind(icon.pressedProperty());
+        txtPassword.visibleProperty().bind(icon.pressedProperty());
 
-        pfPassword.managedProperty().bind(icon.hoverProperty().not());
-        pfPassword.visibleProperty().bind(icon.hoverProperty().not());
+        pfPassword.managedProperty().bind(icon.pressedProperty().not());
+        pfPassword.visibleProperty().bind(icon.pressedProperty().not());
 
         txtPassword.textProperty().bindBidirectional(pfPassword.textProperty());
-
-        icon.setOnMouseEntered(ev -> {
-            icon.setIcon(FontAwesomeIcon.EYE);
-        });
-
-        icon.setOnMouseExited(ev -> {
-            icon.setIcon(FontAwesomeIcon.EYE_SLASH);
-            pfPassword.requestFocus();
+        
+        icon.pressedProperty().addListener((o, oldVal, newVal) -> {
+            if (newVal) {
+                txtPassword.validate();
+                icon.setIcon(FontAwesomeIcon.EYE);
+            } else {
+                icon.setIcon(FontAwesomeIcon.EYE_SLASH);
+            }
         });
     }
 
@@ -607,21 +608,14 @@ public class AddUserController implements Initializable {
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Users, JFXButton> param) {
             Users item = param.getValue();
 
-            MaterialDesignIconView iconView = new MaterialDesignIconView();
-            iconView.setGlyphSize(15);
-            iconView.setFill(Color.WHITE);
-            
             JFXButton button = new JFXButton();
             button.setPrefWidth(colTypeUser.getWidth() / 0.5);
             button.setText(item.getUserType());
-            button.setGraphic(iconView);
             button.getStylesheets().add((AddUserController.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
 
             if (item.getUserType().equals("Administrator")) {
-                iconView.setGlyphName(String.valueOf(MaterialDesignIcon.ACCOUNT_STAR));
                 button.getStyleClass().addAll("cell-button-administrador", "table-row-cell");
             } else {
-                iconView.setGlyphName(String.valueOf(MaterialDesignIcon.ACCOUNT));
                 button.getStyleClass().addAll("cell-button-user", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
