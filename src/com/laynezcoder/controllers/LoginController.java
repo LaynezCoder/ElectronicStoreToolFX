@@ -49,10 +49,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private JFXPasswordField pfPassword;
-
-    @FXML
-    private JFXCheckBox cbViewPassword;
-
+    
     @FXML
     private FontAwesomeIconView icon;
 
@@ -67,9 +64,6 @@ public class LoginController implements Initializable {
 
     @FXML
     private MaterialDesignIconView icon_whatsApp;
-
-    @FXML
-    private MaterialDesignIconView icon_login;
 
     @FXML
     private AnchorPane rootImage;
@@ -102,16 +96,14 @@ public class LoginController implements Initializable {
         FadeAnimation(txtUser);
         FadeAnimation(txtPassword);
         FadeAnimation(pfPassword);
-        FadeAnimation(cbViewPassword);
         FadeAnimation(btnLogin);
-        FadeAnimation(rootImage);
         FadeAnimation(icon_web);
         FadeAnimation(icon_facebook);
         FadeAnimation(icon_whatsApp);
     }
 
     private void setFonts() {
-        Resources.setFontToText(title, 35);
+        Resources.setFontToText(title, 25);
         Resources.setFontToJFXButton(btnLogin, 15);
     }
 
@@ -220,19 +212,21 @@ public class LoginController implements Initializable {
 
     @FXML
     private void showPassword() {
-        txtPassword.managedProperty().bind(cbViewPassword.selectedProperty());
-        txtPassword.visibleProperty().bind(cbViewPassword.selectedProperty());
+        txtPassword.managedProperty().bind(icon.pressedProperty());
+        txtPassword.visibleProperty().bind(icon.pressedProperty());
 
-        pfPassword.managedProperty().bind(cbViewPassword.selectedProperty().not());
-        pfPassword.visibleProperty().bind(cbViewPassword.selectedProperty().not());
+        pfPassword.managedProperty().bind(icon.pressedProperty().not());
+        pfPassword.visibleProperty().bind(icon.pressedProperty().not());
 
         txtPassword.textProperty().bindBidirectional(pfPassword.textProperty());
-
-        if (cbViewPassword.isSelected()) {
-            icon.setIcon(FontAwesomeIcon.EYE);
-        } else {
-            icon.setIcon(FontAwesomeIcon.EYE_SLASH);
-        }
+        
+        icon.pressedProperty().addListener((o, oldVal, newVal) -> {
+            if (newVal) {
+                icon.setIcon(FontAwesomeIcon.EYE);
+            } else {
+                icon.setIcon(FontAwesomeIcon.EYE_SLASH);
+            }
+        });
     }
 
     @FXML
