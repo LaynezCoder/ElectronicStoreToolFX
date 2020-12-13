@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -100,13 +101,17 @@
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
                   </JFXButton>
-                  <ImageView fitHeight="98.0" fitWidth="103.0" layoutX="149.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../media/delete.png" />
-                     </image>
-                  </ImageView>
-                  <Text fx:id="textConfirmation" layoutX="63.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete this client permanently?" textAlignment="CENTER" wrappingWidth="269.90625" />
-                  <Text fx:id="description" fill="#bebec2" layoutX="101.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All related quotes will be removed" translateX="-7.0" />
+                  <VBox alignment="CENTER" prefHeight="195.0" prefWidth="396.0">
+                     <children>
+                        <ImageView fitHeight="98.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/delete.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="textConfirmation" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete this client permanently?" textAlignment="CENTER" wrappingWidth="269.90625" />
+                        <Text fx:id="description" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="All related quotes will be removed" />
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="rootAddCustomer" layoutX="166.0" layoutY="153.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="259.0" prefWidth="600.0" style="-fx-background-radius: 10;" visible="false">
@@ -148,11 +153,15 @@
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
                   </JFXButton>
-                  <Text fx:id="titleWindowAddCustomer" layoutX="218.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add customer">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
+                  <HBox alignment="CENTER" layoutY="-2.0" prefHeight="60.0" prefWidth="600.0">
+                     <children>
+                        <Text fx:id="titleWindowAddCustomer" strokeType="OUTSIDE" strokeWidth="0.0" text="Add customer">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </children>
