@@ -5,27 +5,16 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="430.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="430.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.LoginController">
    <children>
-      <AnchorPane onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="400.0" prefWidth="430.0" style="-fx-background-color: white;">
+      <AnchorPane layoutX="-1.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="349.0" prefWidth="432.0" style="-fx-background-color: white;">
          <children>
-            <HBox alignment="CENTER" layoutY="350.0" prefHeight="50.0" prefWidth="430.0" spacing="25.0" style="-fx-background-color: BLACK;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <MaterialDesignIconView id="glyph-icon-login" fx:id="iconWeb" fill="WHITE" glyphName="EARTH" size="25" styleClass="glyph-icon-login" />
-                  <MaterialDesignIconView id="glyph-icon-login" fx:id="iconFacebook" fill="WHITE" glyphName="FACEBOOK" size="25" styleClass="glyph-icon-login" />
-                  <MaterialDesignIconView id="glyph-icon-login" fx:id="iconInstagram" fill="WHITE" glyphName="INSTAGRAM" size="25" styleClass="glyph-icon-login" />
-               </children>
-               <padding>
-                  <Insets left="50.0" right="50.0" />
-               </padding>
-            </HBox>
             <JFXTextField fx:id="txtUser" focusColor="#2ab56f" labelFloat="true" layoutX="77.0" layoutY="104.0" onAction="#login" prefHeight="25.0" prefWidth="279.0" promptText="User" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                <font>
                   <Font size="15.0" />
@@ -51,6 +40,11 @@
                   <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                </graphic>
             </JFXButton>
+            <Pane layoutX="320.0" layoutY="178.0" prefHeight="29.0" prefWidth="36.0" style="-fx-background-color: white;">
+               <children>
+                  <FontAwesomeIconView fx:id="icon" glyphName="EYE_SLASH" layoutX="11.0" layoutY="21.0" opacity="0.5" size="15" />
+               </children>
+            </Pane>
             <HBox alignment="CENTER" layoutX="2.0" layoutY="29.0" prefHeight="50.0" prefWidth="430.0">
                <children>
                   <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome">
@@ -60,11 +54,6 @@
                   </Text>
                </children>
             </HBox>
-            <Pane layoutX="320.0" layoutY="178.0" prefHeight="29.0" prefWidth="36.0">
-               <children>
-                  <FontAwesomeIconView fx:id="icon" glyphName="EYE_SLASH" layoutX="11.0" layoutY="21.0" opacity="0.5" size="15" />
-               </children>
-            </Pane>
          </children>
       </AnchorPane>
    </children>

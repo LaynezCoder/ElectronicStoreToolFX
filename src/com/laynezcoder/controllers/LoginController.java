@@ -72,29 +72,15 @@ public class LoginController implements Initializable {
         selectText();
         setFonts();
         animations();
-        setURL();
         maxinumCharactert();
     }
 
-    private void setURL() {
-        Resources.url("", iconWeb);
-        Resources.url("", iconFacebook);
-        Resources.url("", iconInstagram);
-    }
-
     private void animations() {
-        Resources.hoverAnimation(iconWeb, 50, 1.2);
-        Resources.hoverAnimation(iconFacebook, 50, 1.2);
-        Resources.hoverAnimation(iconInstagram, 50, 1.2);
-
         FadeAnimation(title);
         FadeAnimation(txtUser);
         FadeAnimation(txtPassword);
         FadeAnimation(pfPassword);
         FadeAnimation(btnLogin);
-        FadeAnimation(iconWeb);
-        FadeAnimation(iconFacebook);
-        FadeAnimation(iconInstagram);
     }
 
     private void setFonts() {
