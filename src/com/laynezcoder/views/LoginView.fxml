@@ -15,17 +15,17 @@
    <children>
       <AnchorPane layoutX="-1.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="349.0" prefWidth="432.0" style="-fx-background-color: white;">
          <children>
-            <JFXTextField fx:id="txtUser" focusColor="#2ab56f" labelFloat="true" layoutX="77.0" layoutY="104.0" onAction="#login" prefHeight="25.0" prefWidth="279.0" promptText="User" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
+            <JFXTextField fx:id="txtUser" focusColor="#2ab56f" labelFloat="true" layoutX="77.0" layoutY="96.0" onAction="#login" prefHeight="25.0" prefWidth="279.0" promptText="User" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXTextField>
-            <JFXPasswordField fx:id="pfPassword" focusColor="#2ab56f" labelFloat="true" layoutX="77.0" layoutY="177.0" onAction="#login" prefHeight="25.0" prefWidth="279.0" promptText="Password" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
+            <JFXPasswordField fx:id="pfPassword" focusColor="#2ab56f" labelFloat="true" layoutX="77.0" layoutY="169.0" onAction="#login" prefHeight="25.0" prefWidth="279.0" promptText="Password" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXPasswordField>
-            <JFXTextField fx:id="txtPassword" focusColor="#2ab56f" labelFloat="true" layoutX="77.0" layoutY="177.0" onAction="#login" prefHeight="25.0" prefWidth="279.0" promptText="Password" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
+            <JFXTextField fx:id="txtPassword" focusColor="#2ab56f" labelFloat="true" layoutX="77.0" layoutY="169.0" onAction="#login" prefHeight="25.0" prefWidth="279.0" promptText="Password" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                <font>
                   <Font size="15.0" />
                </font>
@@ -35,17 +35,12 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton contentDisplay="CENTER" layoutX="394.0" layoutY="-1.0" onMouseClicked="#closeStage" prefHeight="28.0" prefWidth="20.0" stylesheets="@../resources/LightTheme.css" text=" ">
-               <graphic>
-                  <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
-               </graphic>
-            </JFXButton>
-            <Pane layoutX="320.0" layoutY="178.0" prefHeight="29.0" prefWidth="36.0" style="-fx-background-color: white;">
+            <Pane layoutX="320.0" layoutY="170.0" prefHeight="29.0" prefWidth="36.0" style="-fx-background-color: white;">
                <children>
                   <FontAwesomeIconView fx:id="icon" glyphName="EYE_SLASH" layoutX="11.0" layoutY="21.0" opacity="0.5" size="15" />
                </children>
             </Pane>
-            <HBox alignment="CENTER" layoutX="2.0" layoutY="29.0" prefHeight="50.0" prefWidth="430.0">
+            <HBox alignment="CENTER" layoutX="1.0" layoutY="28.0" prefHeight="50.0" prefWidth="432.0">
                <children>
                   <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome">
                      <font>
@@ -54,6 +49,11 @@
                   </Text>
                </children>
             </HBox>
+            <JFXButton contentDisplay="CENTER" layoutX="396.0" onMouseClicked="#closeStage" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-login-window" stylesheets="@../resources/LightTheme.css" text=" ">
+               <graphic>
+                  <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" styleClass="glyph-icon" />
+               </graphic>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>

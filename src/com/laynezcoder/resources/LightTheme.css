@@ -21,18 +21,18 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 
 /*Close JFXButton*/
 .close-jfx-button-login-window .glyph-icon, .jfx-rippler{
-    -fx-background-color: transparent;
+    -fx-background-color: none;
     -fx-fill: grey;
-    -jfx-rippler-fill: transparent;
+    -jfx-rippler-fill: none;
 }
 
 .close-jfx-button-login-window:hover{
-    -fx-background-color: transparent;
+    -fx-background-color: none;
 }
 
 .close-jfx-button-login-window:hover .glyph-icon, .close-jfx-button-login-window:hover .glyph-icon, .close-jfx-button-login-window:pressed .glyph-icon {  
-    -fx-background-color: transparent;
-    -fx-fill: white;
+    -fx-background-color: none;
+    -fx-fill: black;
 } 
 
 /*JFXButton login*/ 
