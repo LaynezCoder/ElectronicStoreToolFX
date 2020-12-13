@@ -35,7 +35,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <Pane layoutX="320.0" layoutY="170.0" prefHeight="29.0" prefWidth="36.0" style="-fx-background-color: white;">
+            <Pane fx:id="paneIcon" layoutX="320.0" layoutY="170.0" prefHeight="29.0" prefWidth="43.0" style="-fx-background-color: white;">
                <children>
                   <FontAwesomeIconView fx:id="icon" glyphName="EYE_SLASH" layoutX="11.0" layoutY="21.0" opacity="0.5" size="15" />
                </children>

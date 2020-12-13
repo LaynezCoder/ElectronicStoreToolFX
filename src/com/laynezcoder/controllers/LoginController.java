@@ -30,6 +30,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -38,6 +39,9 @@ public class LoginController implements Initializable {
 
     @FXML
     private JFXButton btnLogin;
+    
+    @FXML
+    private Pane paneIcon;
 
     @FXML
     private JFXTextField txtUser;
@@ -109,12 +113,14 @@ public class LoginController implements Initializable {
             Resources.notification("Error", "Insufficient data!", "error.png");
             shakeAnimation(txtUser);
             shakeAnimation(pfPassword);
+            shakeAnimation(paneIcon);
         } else if (email.isEmpty()) {
             Resources.notification("Error", "Insufficient data!", "error.png");
             shakeAnimation(txtUser);
         } else if (pass.isEmpty()) {
             Resources.notification("Error", "Insufficient data!", "error.png");
             shakeAnimation(pfPassword);
+            shakeAnimation(paneIcon);
         } else {
             try {
                 String sql = "SELECT id, nameUser FROM Users WHERE email = BINARY ? AND pass = BINARY ?";
@@ -139,6 +145,7 @@ public class LoginController implements Initializable {
                     shakeAnimation(txtUser);
                     shakeAnimation(pfPassword);
                     shakeAnimation(txtPassword);
+                    shakeAnimation(paneIcon);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,6 +205,7 @@ public class LoginController implements Initializable {
 
         icon.pressedProperty().addListener((o, oldVal, newVal) -> {
             if (newVal) {
+                txtPassword.validate();
                 icon.setIcon(FontAwesomeIcon.EYE);
             } else {
                 icon.setIcon(FontAwesomeIcon.EYE_SLASH);
