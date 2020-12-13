@@ -14,13 +14,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="430.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.LoginController">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="430.0">
+      <AnchorPane onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="400.0" prefWidth="430.0" style="-fx-background-color: white;">
          <children>
             <HBox alignment="CENTER" layoutY="350.0" prefHeight="50.0" prefWidth="430.0" spacing="25.0" style="-fx-background-color: BLACK;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <MaterialDesignIconView id="glyph-icon-login" fx:id="icon_web" fill="WHITE" glyphName="EARTH" size="25" styleClass="glyph-icon-login" />
-                  <MaterialDesignIconView id="glyph-icon-login" fx:id="icon_facebook" fill="WHITE" glyphName="FACEBOOK" size="25" styleClass="glyph-icon-login" />
-                  <MaterialDesignIconView id="glyph-icon-login" fx:id="icon_whatsApp" fill="WHITE" glyphName="WHATSAPP" size="25" styleClass="glyph-icon-login" text="" />
+                  <MaterialDesignIconView id="glyph-icon-login" fx:id="iconWeb" fill="WHITE" glyphName="EARTH" size="25" styleClass="glyph-icon-login" />
+                  <MaterialDesignIconView id="glyph-icon-login" fx:id="iconFacebook" fill="WHITE" glyphName="FACEBOOK" size="25" styleClass="glyph-icon-login" />
+                  <MaterialDesignIconView id="glyph-icon-login" fx:id="iconInstagram" fill="WHITE" glyphName="INSTAGRAM" size="25" styleClass="glyph-icon-login" />
                </children>
                <padding>
                   <Insets left="50.0" right="50.0" />
@@ -41,19 +41,14 @@
                   <Font size="15.0" />
                </font>
             </JFXTextField>
-            <Pane layoutX="320.0" layoutY="177.0" prefHeight="31.0" prefWidth="36.0">
-               <children>
-                  <FontAwesomeIconView fx:id="icon" glyphName="EYE_SLASH" layoutX="11.0" layoutY="22.0" opacity="0.5" size="15" text="" />
-               </children>
-            </Pane>
             <JFXButton fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" layoutX="77.0" layoutY="246.0" onAction="#login" prefHeight="57.0" prefWidth="279.0" styleClass="login-jfx-button" text="Login" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton contentDisplay="CENTER" layoutX="394.0" layoutY="-1.0" onMouseClicked="#closeStage" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-login-window" stylesheets="@../resources/LightTheme.css" text=" ">
+            <JFXButton contentDisplay="CENTER" layoutX="394.0" layoutY="-1.0" onMouseClicked="#closeStage" prefHeight="28.0" prefWidth="20.0" stylesheets="@../resources/LightTheme.css" text=" ">
                <graphic>
-                  <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" styleClass="glyph-icon" />
+                  <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                </graphic>
             </JFXButton>
             <HBox alignment="CENTER" layoutX="2.0" layoutY="29.0" prefHeight="50.0" prefWidth="430.0">
@@ -65,6 +60,11 @@
                   </Text>
                </children>
             </HBox>
+            <Pane layoutX="320.0" layoutY="178.0" prefHeight="29.0" prefWidth="36.0">
+               <children>
+                  <FontAwesomeIconView fx:id="icon" glyphName="EYE_SLASH" layoutX="11.0" layoutY="21.0" opacity="0.5" size="15" />
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>
