@@ -28,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import static javafx.scene.input.KeyCode.ESCAPE;
 import javafx.scene.input.KeyEvent;
@@ -117,6 +118,9 @@ public class ProductsController implements Initializable {
 
     @FXML
     private Text textPorcentage;
+    
+    @FXML
+    private Text textUploadImage;
 
     @FXML
     private JFXTextField txtSalePrice;
@@ -156,6 +160,9 @@ public class ProductsController implements Initializable {
 
     @FXML
     private MenuItem menuLoad;
+    
+    @FXML
+    private ImageView imageProduct;
 
     private JFXDialog dialogAddProduct;
 
@@ -190,6 +197,7 @@ public class ProductsController implements Initializable {
         Resources.setFontToText(textAddProduct, 20);
         Resources.setFontToText(textPorcentage, 13);
         Resources.setFontToText(textPurchase, 13);
+        Resources.setFontToText(textUploadImage, 10);
     }
 
     private void animateNodes() {
@@ -405,7 +413,6 @@ public class ProductsController implements Initializable {
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
 
             boolean result = DatabaseHelper.insertNewProduct(products, listProducts);
-            
             if (result) {
                 loadData();
                 cleanControls();
