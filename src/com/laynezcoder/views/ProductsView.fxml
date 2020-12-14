@@ -16,6 +16,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -115,11 +116,6 @@
                         <Font size="14.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextArea fx:id="txtDescriptionProduct" focusColor="#2ab56f" labelFloat="true" layoutX="40.0" layoutY="222.0" prefHeight="135.0" prefWidth="663.0" promptText="Description" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextArea>
                   <JFXButton fx:id="btnUpdateProduct" buttonType="RAISED" layoutX="392.0" layoutY="390.0" onMouseClicked="#updateProduct" prefHeight="25.0" prefWidth="131.0" styleClass="login-jfx-button" text="Update" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -151,6 +147,30 @@
                         </Text>
                      </children>
                   </HBox>
+                  <JFXTextArea fx:id="txtDescriptionProduct" focusColor="#2ab56f" labelFloat="true" layoutX="41.0" layoutY="215.0" prefHeight="146.0" prefWidth="425.0" promptText="Description" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextArea>
+                  <Pane layoutX="511.0" layoutY="215.0" prefHeight="146.0" prefWidth="195.0" style="-fx-border-color: #bebec2;">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="146.0" prefWidth="195.0" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="52.0" fitWidth="49.0" opacity="0.24" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../media/subir.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload image" wrappingWidth="74.384765625" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="146.0" prefWidth="195.0">
+                           <children>
+                              <ImageView fitHeight="146.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="rootDeleteProducts" layoutX="289.0" layoutY="216.0" prefHeight="246.0" prefWidth="392.0" visible="false">
