@@ -6,13 +6,6 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 
 /*LOGIN WINDOW CSS*/
 
-/*
-@font-face {
-    src: url("rimouski.ttf");
-    -fx-font-family: "Rimouski Sb";
-}
-/*
-
 /*JFXTextField Login*/
 .jfx-text-field-login {
     -fx-accent:  #2ab56f;
@@ -20,36 +13,40 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 
 
 /*Close JFXButton*/
-.close-jfx-button-login-window .glyph-icon, .jfx-rippler{
+.close-jfx-button-login-window .glyph-icon, 
+.jfx-rippler {
     -fx-background-color: none;
     -fx-fill: grey;
     -jfx-rippler-fill: none;
 }
 
-.close-jfx-button-login-window:hover{
+.close-jfx-button-login-window:hover {
     -fx-background-color: none;
 }
 
-.close-jfx-button-login-window:hover .glyph-icon, .close-jfx-button-login-window:hover .glyph-icon, .close-jfx-button-login-window:pressed .glyph-icon {  
+.close-jfx-button-login-window:hover .glyph-icon, 
+.close-jfx-button-login-window:hover .glyph-icon, 
+.close-jfx-button-login-window:pressed .glyph-icon {  
     -fx-background-color: none;
     -fx-fill: black;
 } 
 
 /*JFXButton login*/ 
 
-.login-jfx-button{
+.login-jfx-button {
     -fx-background-color:  #2ab56f;
     -fx-background-radius: 5;
     -fx-text-fill: white;
 }
 
-.login-jfx-button:hover, .login-jfx-button:pressed{
+.login-jfx-button:hover, 
+.login-jfx-button:pressed {
     -fx-background-color:  #2BA266;
     -fx-text-fill: white;
     -jfx-rippler-fill: #2BA266;
 }
 
-.login-jfx-button .jfx-rippler{
+.login-jfx-button .jfx-rippler {
     -jfx-rippler-fill: #2BA266;
 }
 
@@ -65,12 +62,14 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 /*MAIN WINDOW CSS*/
 
 /*Icons Main*/
-.jfx-button-main:hover{
+.jfx-button-main:hover {
     -fx-background-color : #76787c;
     -fx-text-fill: white;
 }
 
-.jfx-button-main:hover .glyph-icon, .jfx-button-main:hover .glyph-icon, .jfx-button-main:pressed .glyph-icon{  
+.jfx-button-main:hover .glyph-icon, 
+.jfx-button-main:hover .glyph-icon, 
+.jfx-button-main:pressed .glyph-icon {  
     -fx-fill: white;
 }
 
@@ -87,11 +86,11 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill: white;
 }
 
-.cell-button-administrador .jfx-rippler{
+.cell-button-administrador .jfx-rippler {
     -jfx-rippler-fill: #2ab56f;
 }
 
-.cell-button-user .jfx-rippler{
+.cell-button-user .jfx-rippler {
     -jfx-rippler-fill: #4A86FF;
 }
 
@@ -105,11 +104,11 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill: white;
 }
 
-.cell-button-not-exists .jfx-rippler{
+.cell-button-not-exists .jfx-rippler { 
     -jfx-rippler-fill: #e14a4a;
 }
 
-.cell-button-exists .jfx-rippler{
+.cell-button-exists .jfx-rippler {
     -jfx-rippler-fill: #2ab56f;
 }
 
@@ -117,7 +116,8 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-border-color: transparent; 
 }
 
-.table-view .column-header, .table-view .column-header-background .filler {
+.table-view .column-header, 
+.table-view .column-header-background .filler {
     -fx-cell-size : 20;
     -fx-background-color:white;
 }
@@ -142,50 +142,54 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-background-color:#cccdd0;
 }
 
-.table-row-cell:selected .text{
+.table-row-cell:selected .text {
     -fx-fill: white;
 }
 
 /*Add action JFXButton*/
-.jfx-button-add-action{
+.jfx-button-add-action {
     -fx-background-color: #2ab56f;
     -fx-background-radius: 5;
     -fx-text-fill: white;
 }
 
-.jfx-button-add-action:hover, .jfx-button-add-action:pressed{
+.jfx-button-add-action:hover, 
+.jfx-button-add-action:pressed {
     -fx-background-color:  #2BA266;
     -fx-text-fill: white;
     -jfx-rippler-fill: #2BA266;
 }
 
-.jfx-button-add-action .jfx-rippler{
+.jfx-button-add-action .jfx-rippler {
     -jfx-rippler-fill: #2BA266;
 }
 
 
 /*CUSTOMERS WINDOWS */
-.close-jfx-button-customers .jfx-rippler{
+.close-jfx-button-customers .jfx-rippler {
     -fx-background-color: transparent;
     -fx-fill: grey;
     -jfx-rippler-fill: white;
 }
 
-.close-jfx-button-customers:hover{
+.close-jfx-button-customers:hover {
     -fx-background-color: transparent;
 }
 
-.close-jfx-button-customers:hover .glyph-icon, .close-jfx-button-customers:hover .glyph-icon, .close-jfx-button-customers:pressed .glyph-icon {  
+.close-jfx-button-customers:hover .glyph-icon,
+.close-jfx-button-customers:hover .glyph-icon, 
+.close-jfx-button-customers:pressed .glyph-icon {  
     -fx-background-color: transparent;
     -fx-fill: black;
 }
 
-.button-cancel{  
+.button-cancel {  
     -fx-text-fill: black;
     -fx-background-color: white;
 }
 
-.button-cancel:hover, .button-cancel:pressed{
+.button-cancel:hover, 
+.button-cancel:pressed {
     -fx-background-color: #FDFEFD;
     -fx-text-fill: #2BA266;
 
@@ -195,52 +199,57 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -jfx-rippler-fill: #FDFEFD;
 }
 
-.delete-jfx-button{
+.delete-jfx-button {
     -fx-background-color: #e14a4a;
     -fx-text-fill: white;
 }
 
-.delete-jfx-button:hover, .delete-jfx-button:pressed{
+.delete-jfx-button:hover, 
+.delete-jfx-button:pressed {
     -fx-background-color:  #DE1A1A;
     -fx-text-fill: white;
     -jfx-rippler-fill: #DE1A1A;
 }
 
-.delete-jfx-button .jfx-rippler{
+.delete-jfx-button .jfx-rippler {
     -jfx-rippler-fill: #DE1A1A;
 }
 
 
-.cancel-delete{
+.cancel-delete {
     -fx-text-fill: grey;
 }
 
-.cancel-delete:hover, .cancel-delete:pressed{
+.cancel-delete:hover, 
+.cancel-delete:pressed  {
     -fx-background-color:  white;
     -fx-text-fill: black;
     -jfx-rippler-fill: white;
 }
 
-.cancel-delete .jfx-rippler{
+.cancel-delete .jfx-rippler {
     -jfx-rippler-fill: white;
 }
 
 
 
-.menu-item .label{
+.menu-item .label {
     -fx-text-fill: grey;
     -fx-fill: black;
     -fx-font-size: 15;
     -fx-font-family: rimouski;
 }
 
-.menu-item:hover, .menu-item:focused, .menu-item:focused .label{
+.menu-item:hover, 
+.menu-item:focused, 
+.menu-item:focused .label {
     -fx-background-color: #2ab56f;  
     -fx-text-fill: white;
     -fx-fill: black;
 }
 
-.menu-item:hover .glyph-icon, .menu-item:focused .glyph-icon{
+.menu-item:hover .glyph-icon, 
+.menu-item:focused .glyph-icon {
     -fx-background-color: #2ab56f;  
     -fx-text-fill: white;
     -fx-fill: white;
@@ -252,7 +261,7 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-background-color: transparent;
 }
 
-.date-picker .arrow-button .arrow{
+.date-picker .arrow-button .arrow {
     -fx-background-color: white;
 }
 
@@ -265,12 +274,11 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill: white;
 }
 
-#arrow-button .jfx-svg-glyph{
+#arrow-button .jfx-svg-glyph {
     -fx-shape: "M48.083,80.355l-1.915,11.374c-0.261,1.555,0.377,3.122,1.65,4.05c1.275,0.926,2.968,1.05,4.361,0.32l10.226-5.338    L72.631,96.1c0.605,0.314,1.268,0.472,1.924,0.472c0.859,0,1.716-0.269,2.439-0.792c1.274-0.928,1.914-2.495,1.651-4.05    l-1.913-11.374l8.234-8.077c1.126-1.103,1.527-2.749,1.044-4.247c-0.485-1.497-1.783-2.593-3.341-2.823l-11.41-1.692    l-5.139-10.329c-0.697-1.41-2.141-2.303-3.716-2.303c-1.572,0-3.015,0.893-3.718,2.303l-5.134,10.329l-11.41,1.691    c-1.561,0.23-2.853,1.326-3.339,2.823c-0.486,1.498-0.086,3.146,1.042,4.247L48.083,80.355z";
-    -fx-shape: "M111.443,13.269H98.378V6.022C98.378,2.696,95.682,0,92.355,0H91.4c-3.326,0-6.021,2.696-6.021,6.022v7.247H39.282V6.022    C39.282,2.696,36.586,0,33.261,0h-0.956c-3.326,0-6.021,2.696-6.021,6.022v7.247H13.371c-6.833,0-12.394,5.559-12.394,12.394    v86.757c0,6.831,5.561,12.394,12.394,12.394h98.073c6.832,0,12.394-5.562,12.394-12.394V25.663    C123.837,18.828,118.275,13.269,111.443,13.269z M109.826,110.803H14.988V43.268h94.838V110.803z";
 }
 
-.date-picker .text-field{
+.date-picker .text-field {
     -jfx-unfocus-color: #bebec2;
 }
 
@@ -285,7 +293,7 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill: black;
 }
 
-.combo-box-popup .list-view .list-cell:filled:hover{
+.combo-box-popup .list-view .list-cell:filled:hover {
     -fx-background-color: #2ab56f;
     -fx-text-fill: white;
 }
@@ -302,7 +310,7 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-pie-color: #2BA266;
 }
 .data2.chart-pie {
-    -fx-pie-color: #41C474   ;
+    -fx-pie-color: #41C474;
 }
 .chart-pie-label {
     -fx-font-size: 18;
@@ -317,7 +325,7 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-pref-width: 100px;
 }
 
-.button-start-dialog .jfx-rippler{
+.button-start-dialog .jfx-rippler {
     -jfx-rippler-fill: none;
 }
 
@@ -326,7 +334,7 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill: white;
 }
 
-.button-start .jfx-rippler{
+.button-start .jfx-rippler {
     -jfx-rippler-fill: none;
 }
 
@@ -337,7 +345,7 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill: black;
 }
 
-.button-start-back .jfx-rippler{
+.button-start-back .jfx-rippler {
     -jfx-rippler-fill: none;
 }
 
@@ -414,7 +422,7 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill:  black;
 }
 
-.table-row-cell:selected .password-field-cell{
+.table-row-cell:selected .password-field-cell {
     -fx-background-color:  #cccdd0;
     -fx-text-fill:  white;
 }
