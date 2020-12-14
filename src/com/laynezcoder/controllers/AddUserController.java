@@ -442,7 +442,6 @@ public class AddUserController implements Initializable {
         
         icon.pressedProperty().addListener((o, oldVal, newVal) -> {
             if (newVal) {
-                txtPassword.validate();
                 icon.setIcon(FontAwesomeIcon.EYE);
             } else {
                 icon.setIcon(FontAwesomeIcon.EYE_SLASH);
