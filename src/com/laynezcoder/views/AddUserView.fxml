@@ -122,7 +122,7 @@
             </AnchorPane>
             <AnchorPane fx:id="rootAddUser" layoutX="176.0" layoutY="163.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="259.0" prefWidth="600.0" style="-fx-background-radius: 10;" visible="false">
                <children>
-                  <JFXTextField fx:id="txtName" focusColor="#2ab56f" labelFloat="true" layoutX="42.0" layoutY="70.0" prefHeight="25.0" prefWidth="239.0" promptText="Name" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
+                  <JFXTextField fx:id="txtName" focusColor="#2ab56f" labelFloat="true" layoutX="42.0" layoutY="77.0" prefHeight="25.0" prefWidth="239.0" promptText="Name" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                      <font>
                         <Font size="14.0" />
                      </font>
