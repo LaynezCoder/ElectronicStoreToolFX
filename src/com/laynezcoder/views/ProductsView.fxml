@@ -161,12 +161,12 @@
                                     <Image url="@../media/subir.png" />
                                  </image>
                               </ImageView>
-                              <Text fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload image" wrappingWidth="74.384765625" />
+                              <Text fx:id="textUploadImage" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload image" textAlignment="CENTER" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="146.0" prefWidth="195.0">
                            <children>
-                              <ImageView fitHeight="146.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="imageProduct" fitHeight="146.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </VBox>
                      </children>
