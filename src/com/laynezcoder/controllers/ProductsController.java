@@ -10,6 +10,10 @@ import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Products;
 import com.laynezcoder.resources.Resources;
 import static com.laynezcoder.resources.Resources.jfxDialog;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,27 +26,36 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import static javafx.scene.input.KeyCode.ESCAPE;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class ProductsController implements Initializable {
+
+    private final String NO_IMAGE_AVAILABLE = "/com/laynezcoder/media/empty-image.jpg";
 
     private ObservableList<Products> listProducts;
 
     private ObservableList<Products> filterProducts;
+
+    @FXML
+    private BorderPane imageContainer;
 
     @FXML
     private StackPane stckProducts;
@@ -118,9 +131,6 @@ public class ProductsController implements Initializable {
 
     @FXML
     private Text textPorcentage;
-    
-    @FXML
-    private Text textUploadImage;
 
     @FXML
     private JFXTextField txtSalePrice;
@@ -160,7 +170,7 @@ public class ProductsController implements Initializable {
 
     @FXML
     private MenuItem menuLoad;
-    
+
     @FXML
     private ImageView imageProduct;
 
@@ -170,19 +180,24 @@ public class ProductsController implements Initializable {
 
     private final BoxBlur blur = new BoxBlur(3, 3, 3);
 
+    private File imageFile;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        filterProducts = FXCollections.observableArrayList();
-        escapeWindowWithTextFields();
-        keyEscapeWindows();
-        characterLimiter();
-        setValidations();
+        loadData();
+        setFonts();
         animateNodes();
         validateUser();
         selectText();
-        loadData();
-        setFonts();
-    }
+        setValidations();
+        characterLimiter();
+        keyEscapeWindows();
+        escapeWindowWithTextFields();
+        imageContainer.setPadding(new Insets(5));
+        filterProducts = FXCollections.observableArrayList();
+        imageProduct.setFitHeight(imageContainer.getPrefHeight() - 10);
+        imageProduct.setFitWidth(imageContainer.getPrefWidth() - 10);
+    }                  
 
     private void setFonts() {
         Resources.setFontToJFXButton(btnCancelAddProduct, 15);
@@ -197,7 +212,6 @@ public class ProductsController implements Initializable {
         Resources.setFontToText(textAddProduct, 20);
         Resources.setFontToText(textPorcentage, 13);
         Resources.setFontToText(textPurchase, 13);
-        Resources.setFontToText(textUploadImage, 10);
     }
 
     private void animateNodes() {
@@ -208,11 +222,11 @@ public class ProductsController implements Initializable {
 
     private void setValidations() {
         emptyText();
-        
+
         Resources.validationOfJFXTextArea(txtDescriptionProduct);
 
         Resources.doubleNumbersValidationTextField(txtPurchasePrice);
-        Resources.doubleNumbersValidationTextField(txtSalePrice);
+        Resources.doubleNumbersValidation(txtSalePrice, 10, 2);
         Resources.doubleNumbersValidationTextField(txtMinPrice);
 
         Resources.validationOfJFXTextField(txtPurchasePrice);
@@ -241,7 +255,7 @@ public class ProductsController implements Initializable {
         enableControlsEdit();
         rootProducts.setEffect(blur);
         disableTable();
-        
+
         textAddProduct.setText("Add Product");
         rootAddProduct.setVisible(true);
         btnSaveProduct.setDisable(false);
@@ -322,7 +336,7 @@ public class ProductsController implements Initializable {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
             Resources.showErrorAlert(stckProducts, rootProducts, tblProducts, "Select an item from the table");
         } else {
-            showWindowAddProduct();       
+            showWindowAddProduct();
             textAddProduct.setText("Product details");
             btnUpdateProduct.setVisible(false);
             btnSaveProduct.setDisable(true);
@@ -348,7 +362,7 @@ public class ProductsController implements Initializable {
     private void loadTable() {
         ArrayList<Products> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Products";
+            String sql = "SELECT id, barcode, productName, purchasePrice, porcentage, salePrice, minimalPrice, descriptionProduct FROM Products";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -380,6 +394,7 @@ public class ProductsController implements Initializable {
         txtSalePrice.setText(String.valueOf(products.getSalePrice()));
         txtDescriptionProduct.setText(products.getDescriptionProduct());
         txtMinPrice.setText(String.valueOf(products.getMinimalPrice()));
+        imageProduct.setImage(getImage(products.getId()));
     }
 
     @FXML
@@ -411,23 +426,61 @@ public class ProductsController implements Initializable {
             products.setPorcentage(Integer.valueOf(txtPorcentage.getText()));
             products.setSalePrice(Double.parseDouble(txtSalePrice.getText()));
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
+            setInputStream(products);
 
             boolean result = DatabaseHelper.insertNewProduct(products, listProducts);
             if (result) {
                 loadData();
                 cleanControls();
                 hideWindowAddProduct();
-                Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry added successfully");  
+                Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry added successfully");
             } else {
                 Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
             }
         }
     }
 
+    private void setInputStream(Products products) {
+        try {
+            if (imageFile != null) {
+                InputStream is = new FileInputStream(imageFile);
+                products.setInputStream(is);
+            } else {
+                products.setInputStream(ProductsController.class.getResourceAsStream(NO_IMAGE_AVAILABLE));
+            }
+        } catch (FileNotFoundException ex) {
+            Resources.notification("Error", "File not found.", "error.png");
+            Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
+            products.setInputStream(ProductsController.class.getResourceAsStream(NO_IMAGE_AVAILABLE));
+        }
+    }
+
+    private Image getImage(int id) {
+        Image image = null;
+        try {
+            String sql = "SELECT imageProduct FROM Products WHERE id = ?";
+            PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                InputStream img = rs.getBinaryStream("imageProduct");
+                if (img != null) {
+                    image = new Image(img, 200, 200, true, true);
+                } else {
+                    image = new Image(NO_IMAGE_AVAILABLE, 200, 200, true, true);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return image;
+    }
+
     @FXML
     private void updateProduct() {
         String barcode = tblProducts.getSelectionModel().getSelectedItem().getBarcode();
-        
+
         if (txtBarCode.getText().isEmpty()) {
             new Shake(txtBarCode).play();
         } else if (DatabaseHelper.checkIfProductExists(txtBarCode.getText()) != 0 && !barcode.equals(txtBarCode.getText())) {
@@ -456,15 +509,28 @@ public class ProductsController implements Initializable {
             products.setPorcentage(Integer.valueOf(txtPorcentage.getText()));
             products.setSalePrice(Double.parseDouble(txtSalePrice.getText()));
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
-
-            boolean result = DatabaseHelper.updateProduct(products);
-            if (result) {
-                loadData();
-                cleanControls();
-                hideWindowAddProduct();
-                Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry updated successfully");     
+            setInputStream(products);
+            
+            if (imageFile != null) { 
+                boolean result = DatabaseHelper.updateProduct(products);
+                if (result) {
+                    hideWindowAddProduct();
+                    loadData();
+                    cleanControls();
+                    Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry updated successfully");
+                } else {
+                    Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+                }
             } else {
-                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+                boolean result = DatabaseHelper.updateProductIfFileIsNull(products);
+                if (result) {
+                    hideWindowAddProduct();
+                    loadData();
+                    cleanControls();
+                    Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry updated successfully");
+                } else {
+                    Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+                } 
             }
         }
     }
@@ -479,17 +545,19 @@ public class ProductsController implements Initializable {
             Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry deleted successfully");
         } else {
             Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
-        }  
+        }
     }
 
     private void cleanControls() {
-        txtDescriptionProduct.clear();
-        txtPurchasePrice.clear();
-        txtNameProduct.clear();
-        txtPorcentage.clear();
-        txtSalePrice.clear();
         txtMinPrice.clear();
         txtBarCode.clear();
+        txtSalePrice.clear();
+        txtPorcentage.clear();
+        txtNameProduct.clear();
+        txtPurchasePrice.clear();
+        txtDescriptionProduct.clear();
+        imageProduct.setImage(new Image(NO_IMAGE_AVAILABLE));
+        imageFile = null;
     }
 
     private void disableControlsEdit() {
@@ -515,7 +583,7 @@ public class ProductsController implements Initializable {
     private void disableTable() {
         tblProducts.setDisable(true);
     }
-    
+
     private void emptyText() {
         Resources.setTextIsEmpty(txtPurchasePrice);
         Resources.setTextIsEmpty(txtMinPrice);
@@ -565,7 +633,7 @@ public class ProductsController implements Initializable {
         menuEdit.setDisable(false);
         menuDelete.setDisable(false);
     }
-    
+
     @FXML
     private void onlyTextFieldCodeBarNumbers() {
         Resources.validationOnlyNumbers(txtBarCode);
@@ -583,7 +651,7 @@ public class ProductsController implements Initializable {
 
     private void characterLimiter() {
         Resources.limitTextField(txtBarCode, 20);
-        Resources.limitTextField(txtPorcentage, 5);
+        Resources.limitTextField(txtPorcentage, 3);
     }
 
     private void keyEscapeWindows() {
@@ -738,5 +806,20 @@ public class ProductsController implements Initializable {
             double salePrice = ((purchasePrice * porcentage) / 100) + purchasePrice;
             txtSalePrice.setText(String.valueOf(salePrice));
         });
-    } 
+    }
+
+    @FXML
+    private void showFileChooser() {
+        imageFile = Resources.getImageFromFileChooser(getStage());
+        if (imageFile != null) {
+            Image image = new Image(imageFile.toURI().toString(),
+                    imageProduct.getFitWidth() - 10,
+                    imageProduct.getFitHeight() - 10, true, true);
+            imageProduct.setImage(image);
+        } 
+    }
+
+    private Stage getStage() {
+        return (Stage) btnCancelAddProduct.getScene().getWindow();
+    }
 }
