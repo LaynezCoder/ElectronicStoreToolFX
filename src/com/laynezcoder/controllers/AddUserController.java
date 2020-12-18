@@ -591,7 +591,7 @@ public class AddUserController implements Initializable {
             Users item = param.getValue();
 
             PasswordField password = new PasswordField();
-            password.setDisable(true);
+            password.setEditable(false);
             password.setPrefWidth(colPassword.getWidth() / 0.5);
             password.setText(item.getPass());
             password.getStylesheets().add((AddUserController.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
