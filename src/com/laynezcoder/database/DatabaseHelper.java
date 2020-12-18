@@ -5,6 +5,9 @@ import com.laynezcoder.models.Products;
 import com.laynezcoder.models.Quotes;
 import com.laynezcoder.models.Users;
 import com.laynezcoder.resources.Resources;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -136,8 +139,8 @@ public class DatabaseHelper {
 
     public static boolean insertNewProduct(Products products, ObservableList<Products> listProducts) {
         try {
-            String sql = "INSERT INTO Products (barcode, productName, purchasePrice, porcentage, salePrice, minimalPrice, descriptionProduct) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Products (barcode, productName, purchasePrice, porcentage, salePrice, minimalPrice, descriptionProduct, imageProduct) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, products.getBarcode());
             preparedStatement.setString(2, products.getProductName());
@@ -145,7 +148,8 @@ public class DatabaseHelper {
             preparedStatement.setInt(4, products.getPorcentage());
             preparedStatement.setDouble(5, products.getSalePrice());
             preparedStatement.setDouble(6, products.getMinimalPrice());
-            preparedStatement.setString(7, products.getDescriptionProduct());
+            preparedStatement.setString(7,  products.getDescriptionProduct());
+            preparedStatement.setBlob(8,  products.getInputStream());
             preparedStatement.execute();
             listProducts.add(products);
             return true;
@@ -172,7 +176,7 @@ public class DatabaseHelper {
     public static boolean updateProduct(Products products) {
         try {
             String sql = "UPDATE Products SET barcode = ?, productName = ?, purchasePrice = ?, "
-                    + "porcentage = ?, salePrice = ?, minimalPrice = ?, descriptionProduct = ? "
+                    + "porcentage = ?, salePrice = ?, minimalPrice = ?, descriptionProduct = ?, imageProduct = ? "
                     + "WHERE  id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, products.getBarcode());
@@ -182,7 +186,8 @@ public class DatabaseHelper {
             preparedStatement.setDouble(5, products.getSalePrice());
             preparedStatement.setDouble(6, products.getMinimalPrice());
             preparedStatement.setString(7, products.getDescriptionProduct());
-            preparedStatement.setInt(8, products.getId());
+            preparedStatement.setBlob(8, products.getInputStream());
+            preparedStatement.setInt(9, products.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
