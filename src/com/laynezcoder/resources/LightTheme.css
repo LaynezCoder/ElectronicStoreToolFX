@@ -275,7 +275,7 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 }
 
 #arrow-button .jfx-svg-glyph {
-    -fx-shape: "M48.083,80.355l-1.915,11.374c-0.261,1.555,0.377,3.122,1.65,4.05c1.275,0.926,2.968,1.05,4.361,0.32l10.226-5.338    L72.631,96.1c0.605,0.314,1.268,0.472,1.924,0.472c0.859,0,1.716-0.269,2.439-0.792c1.274-0.928,1.914-2.495,1.651-4.05    l-1.913-11.374l8.234-8.077c1.126-1.103,1.527-2.749,1.044-4.247c-0.485-1.497-1.783-2.593-3.341-2.823l-11.41-1.692    l-5.139-10.329c-0.697-1.41-2.141-2.303-3.716-2.303c-1.572,0-3.015,0.893-3.718,2.303l-5.134,10.329l-11.41,1.691    c-1.561,0.23-2.853,1.326-3.339,2.823c-0.486,1.498-0.086,3.146,1.042,4.247L48.083,80.355z";
+    -fx-shape: "M426.667,51.2h-51.2V17.067C375.467,7.641,367.826,0,358.4,0s-17.067,7.641-17.067,17.067V51.2h-204.8V17.067    C136.533,7.641,128.892,0,119.467,0S102.4,7.641,102.4,17.067V51.2H51.2C22.923,51.2,0,74.123,0,102.4v324.267    c0,28.277,22.923,51.2,51.2,51.2h375.467c28.277,0,51.2-22.923,51.2-51.2V102.4C477.867,74.123,454.944,51.2,426.667,51.2z     M443.733,426.667c0,9.426-7.641,17.067-17.067,17.067H51.2c-9.426,0-17.067-7.641-17.067-17.067V204.8h409.6V426.667z     M443.733,170.667h-409.6V102.4c0-9.426,7.641-17.067,17.067-17.067h51.2v34.133c0,9.426,7.641,17.067,17.067,17.067    s17.067-7.641,17.067-17.067V85.333h204.8v34.133c0,9.426,7.641,17.067,17.067,17.067s17.067-7.641,17.067-17.067V85.333h51.2    c9.426,0,17.067,7.641,17.067,17.067V170.667z";
 }
 
 .date-picker .text-field {
@@ -420,6 +420,8 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 .password-field-cell {
     -fx-background-color:  white;
     -fx-text-fill:  black;
+    -fx-highlight-fill: null;
+    -fx-highlight-text-fill: null;
 }
 
 .table-row-cell:selected .password-field-cell {
@@ -427,29 +429,26 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-text-fill:  white;
 }
 
-.scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background
-	{
-	-fx-background-color: rgb(230.0, 230.0, 230.0);
-	-fx-background-insets: 0.0;
+.scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background {
+    -fx-background-color: rgb(230.0, 230.0, 230.0);
+    -fx-background-insets: 0.0;
 }
 
 .scroll-bar:vertical>.thumb, .scroll-bar:horizontal>.thumb {
-	-fx-background-color: rgb(200.0, 200.0, 200.0);
-	-fx-background-insets: 0.0;
-	-fx-background-radius: 4.0;
+    -fx-background-color: rgb(200.0, 200.0, 200.0);
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 4.0;
 }
 
 .scroll-bar>.increment-button, .scroll-bar>.decrement-button,
-	.scroll-bar:hover>.increment-button, .scroll-bar:hover>.decrement-button
-	{
-	-fx-background-color: transparent;
+.scroll-bar:hover>.increment-button, .scroll-bar:hover>.decrement-button {
+    -fx-background-color: transparent;
 }
 
-.scroll-bar>.increment-button>.increment-arrow, .scroll-bar>.decrement-button>.decrement-arrow
-	{
-	-fx-background-color: rgb(150.0, 150.0, 150.0);
+.scroll-bar>.increment-button>.increment-arrow, .scroll-bar>.decrement-button>.decrement-arrow {
+    -fx-background-color: rgb(150.0, 150.0, 150.0);
 }
 
 .scroll-bar>.track-background {
-	-fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
