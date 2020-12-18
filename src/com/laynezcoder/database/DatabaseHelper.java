@@ -195,6 +195,28 @@ public class DatabaseHelper {
         }
         return false;
     }
+    
+    public static boolean updateProductIfFileIsNull(Products products) {
+        try {
+            String sql = "UPDATE Products SET barcode = ?, productName = ?, purchasePrice = ?, "
+                    + "porcentage = ?, salePrice = ?, minimalPrice = ?, descriptionProduct = ? "
+                    + "WHERE  id = ?";
+            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, products.getBarcode());
+            preparedStatement.setString(2, products.getProductName());
+            preparedStatement.setDouble(3, products.getPurchasePrice());
+            preparedStatement.setInt(4, products.getPorcentage());
+            preparedStatement.setDouble(5, products.getSalePrice());
+            preparedStatement.setDouble(6, products.getMinimalPrice());
+            preparedStatement.setString(7, products.getDescriptionProduct());
+            preparedStatement.setInt(8, products.getId());
+            preparedStatement.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     public static int checkIfProductExists(String barcode) {
         int count = 0;
