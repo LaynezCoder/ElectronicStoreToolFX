@@ -152,19 +152,12 @@
                         </Text>
                      </children>
                   </HBox>
-                  <VBox fx:id="loadImageContainer" alignment="CENTER" layoutX="40.0" layoutY="215.0" prefHeight="148.0" prefWidth="197.0" spacing="5.0">
-                     <children>
-                        <ImageView fitHeight="52.0" fitWidth="49.0" opacity="0.24" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../media/subir.png" />
-                           </image>
-                        </ImageView>
-                        <Text fx:id="textUploadImage" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload image" textAlignment="CENTER" />
-                     </children>
-                  </VBox>
-                  <BorderPane fx:id="imageContainer" layoutX="40.0" layoutY="215.0" onMouseClicked="#example" prefHeight="146.0" prefWidth="195.0" style="-fx-border-color: #bebec2;">
+                  <BorderPane fx:id="imageContainer" layoutX="40.0" layoutY="215.0" onMouseClicked="#showFileChooser" prefHeight="146.0" prefWidth="195.0" style="-fx-border-color: #bebec2;">
                      <center>
-                        <ImageView fx:id="imageProduct" fitHeight="146.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fx:id="imageProduct" fitHeight="146.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@../media/empty-image.jpg" />
+                           </image></ImageView>
                      </center>
                   </BorderPane>
                </children>
