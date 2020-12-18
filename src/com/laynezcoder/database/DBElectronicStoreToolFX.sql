@@ -36,7 +36,7 @@ CREATE TABLE Products (
     salePrice DOUBLE NOT NULL,
     minimalPrice DOUBLE NOT NULL,
     descriptionProduct LONGTEXT NOT NULL,
-    imageProduct LONGBLOB,
+    imageProduct LONGBLOB NOT NULL,
     insertionDate DATE NOT NULL,
     PRIMARY KEY (id)
 );
