@@ -1,5 +1,7 @@
 package com.laynezcoder.models;
 
+import java.io.InputStream;
+
 public class Products {
     private Integer id;
     private String barcode;
@@ -9,6 +11,7 @@ public class Products {
     private Double salePrice;
     private Double minimalPrice;
     private String descriptionProduct;
+    private InputStream inputStream;
 
     public Products() {
     }
@@ -22,6 +25,18 @@ public class Products {
         this.salePrice = salePrice;
         this.minimalPrice = minimalPrice;
         this.descriptionProduct = descriptionProduct;
+    }
+    
+    public Products(Integer id, String barcode, String productName, Double purchasePrice, Integer porcentage, Double salePrice, Double minimalPrice, String descriptionProduct, InputStream inputStream) {
+        this.id = id;
+        this.barcode = barcode;
+        this.productName = productName;
+        this.purchasePrice = purchasePrice;
+        this.porcentage = porcentage;
+        this.salePrice = salePrice;
+        this.minimalPrice = minimalPrice;
+        this.descriptionProduct = descriptionProduct;
+        this.inputStream = inputStream;
     }
 
     public Integer getId() {
@@ -86,5 +101,13 @@ public class Products {
 
     public void setDescriptionProduct(String descriptionProduct) {
         this.descriptionProduct = descriptionProduct;
+    }
+
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
     }
 }
