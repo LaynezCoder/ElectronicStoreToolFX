@@ -49,7 +49,9 @@ import javafx.stage.Stage;
 public class ProductsController implements Initializable {
 
     private final String NO_IMAGE_AVAILABLE = "/com/laynezcoder/media/empty-image.jpg";
-
+    
+    private final long LIMIT = 16777215;
+    
     private ObservableList<Products> listProducts;
 
     private ObservableList<Products> filterProducts;
@@ -417,6 +419,9 @@ public class ProductsController implements Initializable {
             Resources.notification("Error", "Minimum price cannot be higher than sale price!", "error.png");
         } else if (txtDescriptionProduct.getText().isEmpty()) {
             new Shake(txtDescriptionProduct).play();
+        } else if (imageFile != null && imageFile.length() > LIMIT) {
+            new Shake(imageContainer).play();
+            Resources.notification("Error", "Minimum price cannot be higher than sale price!", "error.png");
         } else {
             Products products = new Products();
             products.setBarcode(txtBarCode.getText());
@@ -499,6 +504,9 @@ public class ProductsController implements Initializable {
             Resources.notification("Error", "Minimum price cannot be higher than sale price!", "error.png");
         } else if (txtDescriptionProduct.getText().isEmpty()) {
             new Shake(txtDescriptionProduct).play();
+        } else if (imageFile != null && imageFile.length() > LIMIT) {
+            new Shake(imageContainer).play();
+            Resources.notification("Error", "Minimum price cannot be higher than sale price!", "error.png");
         } else {
             Products products = tblProducts.getSelectionModel().getSelectedItem();
             products.setId(products.getId());
