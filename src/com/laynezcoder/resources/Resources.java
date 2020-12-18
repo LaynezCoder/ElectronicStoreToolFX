@@ -292,6 +292,14 @@ public class Resources {
             }
         });
     }
+    
+    public static void doubleNumbersValidation(TextField txt, int integer, int decimal) {
+        txt.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d{0," + integer + "}([\\.]\\d{0," + decimal + "})?")) {
+                txt.setText(oldValue);
+            }
+        });
+    }
 
     public static void validationOnlyNumbers(TextField txt) {
         txt.textProperty().addListener((observable, oldValue, newValue) -> {
