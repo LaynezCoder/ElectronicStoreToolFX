@@ -154,7 +154,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void addUserWindows(MouseEvent event) {
-        showFXMLWindows("AddUserView");
+        showFXMLWindows("UsersView");
         setDisableButtons(event);
     }
 
