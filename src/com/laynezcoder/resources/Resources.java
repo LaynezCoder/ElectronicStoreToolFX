@@ -294,9 +294,9 @@ public class Resources {
         });
     }
     
-    public static void doubleNumbersValidation(TextField txt, int integer, int decimal) {
+    public static void doubleNumbersValidation(TextField txt) {
         txt.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if (!newValue.matches("\\d{0," + integer + "}([\\.]\\d{0," + decimal + "})?")) {
+            if (!newValue.matches("\\d{0,10}([\\.]\\d{0,2})?")) {
                 txt.setText(oldValue);
             }
         });
