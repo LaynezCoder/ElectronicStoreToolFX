@@ -5,8 +5,6 @@ import com.laynezcoder.models.Products;
 import com.laynezcoder.models.Quotes;
 import com.laynezcoder.models.Users;
 import com.laynezcoder.resources.Resources;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
