@@ -14,7 +14,7 @@ public class Preferences {
 
     public static final String CONFIG_FILE = "config.txt";
 
-    String initialPathFileChooser;
+    private String initialPathFileChooser;
 
     public Preferences() {
         initialPathFileChooser = System.getProperty("user.home");
