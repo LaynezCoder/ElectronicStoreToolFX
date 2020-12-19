@@ -80,11 +80,11 @@ public class LoginController implements Initializable {
     }
 
     private void animations() {
-        FadeAnimation(title);
-        FadeAnimation(txtUser);
-        FadeAnimation(txtPassword);
-        FadeAnimation(pfPassword);
-        FadeAnimation(btnLogin);
+        fadeAnimation(title);
+        fadeAnimation(txtUser);
+        fadeAnimation(txtPassword);
+        fadeAnimation(pfPassword);
+        fadeAnimation(btnLogin);
     }
 
     private void setFonts() {
@@ -187,6 +187,9 @@ public class LoginController implements Initializable {
 
             stage.setOnCloseRequest(ev -> {
                 DatabaseHelper.logout();
+                if (ProductsController.stage != null) {
+                    ProductsController.stage.close();   
+                }
             });
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -234,7 +237,7 @@ public class LoginController implements Initializable {
         new Shake(node).play();
     }
 
-    private void FadeAnimation(Node node) {
+    private void fadeAnimation(Node node) {
         new FadeIn(node).play();
     }
 
