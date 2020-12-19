@@ -47,6 +47,7 @@ public class Resources {
     public static final String FONT = "/com/laynezcoder/fonts/rimouski.ttf";
     public static final String SOURCE_PACKAGES = "/com/laynezcoder";
     public static final String PACKAGE_MEDIA = "/com/laynezcoder/media/";
+    public static final String NO_IMAGE_AVAILABLE = "/com/laynezcoder/media/empty-image.jpg";
     public static JFXDialog jfxDialog;
 
     public static void showErrorAlert(StackPane containter, Node rootPaneSetEffect, Node nodeDisable, String text) {
