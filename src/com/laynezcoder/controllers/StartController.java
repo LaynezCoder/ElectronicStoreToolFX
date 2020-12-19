@@ -306,7 +306,7 @@ public class StartController implements Initializable {
         users.setEmail(txtUser.getText());
         users.setPass(txtPassword.getText());
         users.setBiography(txtBio.getText());
-        setTypeAnimation(users);
+        users.setDialogTransition(getTypeTransition());
         users.setUserType("Administrator");
         try {
             String sql = "INSERT INTO Users (nameUser, email, pass, userType) VALUES (?, ?, ?, ?)";
@@ -334,28 +334,27 @@ public class StartController implements Initializable {
         }
     }
 
-    private Users setTypeAnimation(Users user) {
-        String animation = cmbDialogTransition.getSelectionModel().getSelectedItem();
-
-        switch (animation) {
+    private String getTypeTransition() {
+        String dialogTransitionSelected = cmbDialogTransition.getSelectionModel().getSelectedItem();
+        String dialogTransition = null;
+        switch (dialogTransitionSelected) {
             case "Left":
-                user.setDialogTransition("LEFT");
+                dialogTransition = "LEFT";
                 break;
             case "Right":
-                user.setDialogTransition("RIGHT");
+                dialogTransition = "RIGHT";
                 break;
             case "Top":
-                user.setDialogTransition("TOP");
+                dialogTransition = "TOP";
                 break;
             case "Bottom":
-                user.setDialogTransition("BOTTOM");
+                dialogTransition = "BOTTOM";
                 break;
             case "Center":
-                user.setDialogTransition("CENTER");
+                dialogTransition = "CENTER";
                 break;
         }
-
-        return user;
+        return dialogTransition;
     }
 
     @FXML
@@ -406,7 +405,7 @@ public class StartController implements Initializable {
         button.getStyleClass().add("button-start-dialog");
 
         String body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-        JFXDialog dialog = new JFXDialog(stckStart, dialogLayout, JFXDialog.DialogTransition.valueOf(getTypeAnimation()));
+        JFXDialog dialog = new JFXDialog(stckStart, dialogLayout, JFXDialog.DialogTransition.valueOf(getTypeTransition()));
         dialogLayout.setBody(new Label(body));
         dialogLayout.setActions(button);
         Resources.styleAlert(dialog);
@@ -417,31 +416,6 @@ public class StartController implements Initializable {
         });
     }
 
-    private String getTypeAnimation() {
-        String selection = cmbDialogTransition.getSelectionModel().getSelectedItem();
-        String animation = null;
-
-        switch (selection) {
-            case "Left":
-                animation = "LEFT";
-                break;
-            case "Right":
-                animation = "RIGHT";
-                break;
-            case "Top":
-                animation = "TOP";
-                break;
-            case "Bottom":
-                animation = "BOTTOM";
-                break;
-            case "Center":
-                animation = "CENTER";
-            break;
-        }
-
-        return animation;
-    }
-    
     private void selectText() {
         Resources.selectTextToJFXTextField(txtName);
         Resources.selectTextToJFXTextField(txtUser);
