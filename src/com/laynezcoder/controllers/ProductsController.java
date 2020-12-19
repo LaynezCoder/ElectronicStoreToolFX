@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Products;
+import com.laynezcoder.preferences.Preferences;
 import com.laynezcoder.resources.Resources;
 import static com.laynezcoder.resources.Resources.jfxDialog;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -451,7 +452,7 @@ public class ProductsController implements Initializable {
             products.setPorcentage(Integer.valueOf(txtPorcentage.getText()));
             products.setSalePrice(Double.parseDouble(txtSalePrice.getText()));
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
-            setInputStream(products);
+            products.setInputStream(getInputStream());
 
             boolean result = DatabaseHelper.insertNewProduct(products, listProducts);
             if (result) {
@@ -465,19 +466,20 @@ public class ProductsController implements Initializable {
         }
     }
 
-    private void setInputStream(Products products) {
+    private InputStream getInputStream() {
+        InputStream is;
         try {
             if (imageFile != null) {
-                InputStream is = new FileInputStream(imageFile);
-                products.setInputStream(is);
+                is = new FileInputStream(imageFile);
             } else {
-                products.setInputStream(ProductsController.class.getResourceAsStream(Resources.NO_IMAGE_AVAILABLE));
+                is = ProductsController.class.getResourceAsStream(Resources.NO_IMAGE_AVAILABLE);
             }
         } catch (FileNotFoundException ex) {
-            Resources.notification("Error", "File not found.", "error.png");
+            Resources.notification("Error", "Image not found, the record is saved.", "error.png");
             Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
-            products.setInputStream(ProductsController.class.getResourceAsStream(Resources.NO_IMAGE_AVAILABLE));
+            is = ProductsController.class.getResourceAsStream(Resources.NO_IMAGE_AVAILABLE);
         }
+        return is;
     }
 
     private Image getImage(int id) {
@@ -537,7 +539,7 @@ public class ProductsController implements Initializable {
             products.setPorcentage(Integer.valueOf(txtPorcentage.getText()));
             products.setSalePrice(Double.parseDouble(txtSalePrice.getText()));
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
-            setInputStream(products);
+            products.setInputStream(getInputStream());
             
             if (imageFile != null) { 
                 boolean result = DatabaseHelper.updateProduct(products);
@@ -844,11 +846,18 @@ public class ProductsController implements Initializable {
                     imageProduct.getFitWidth() - 10,
                     imageProduct.getFitHeight() - 10, true, true);
             imageProduct.setImage(image);
+            setInitialDirectory();
         } 
     }
 
     private Stage getStage() {
         return (Stage) btnCancelAddProduct.getScene().getWindow();
+    }
+    
+    private void setInitialDirectory() {
+        Preferences preferences = Preferences.getPreferences();
+        preferences.setInitialPathFileChooser(imageFile.getParent());
+        Preferences.writePreferencesToFile(preferences);
     }
     
     private void expandImage(int id, String title) {
