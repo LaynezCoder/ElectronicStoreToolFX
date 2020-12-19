@@ -158,11 +158,6 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton contentDisplay="CENTER" layoutX="564.0" onMouseClicked="#hideWindowAddUser" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
-                     <graphic>
-                        <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
-                     </graphic>
-                  </JFXButton>
                   <Pane layoutX="245.0" layoutY="151.0" prefHeight="28.0" prefWidth="36.0" style="-fx-background-color: white;">
                      <children>
                         <FontAwesomeIconView fx:id="icon" glyphName="EYE_SLASH" layoutX="11.0" layoutY="21.0" opacity="0.5" size="15" />
@@ -177,6 +172,11 @@
                         </Text>
                      </children>
                   </HBox>
+                  <JFXButton contentDisplay="CENTER" layoutX="564.0" onMouseClicked="#hideWindowAddUser" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </children>
