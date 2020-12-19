@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.laynezcoder.database.DatabaseHelper;
+import com.laynezcoder.preferences.Preferences;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.awt.Desktop;
@@ -428,9 +429,21 @@ public class Resources {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilterImages = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg");
         fileChooser.getExtensionFilters().addAll(extFilterImages);
+        fileChooser.setInitialDirectory(getInitialDirectoy());
         fileChooser.setTitle("Select an image");
 
         File selectedImage = fileChooser.showOpenDialog(stage);
         return selectedImage;
+    }
+    
+    private static File getInitialDirectoy() {
+        Preferences preferences = Preferences.getPreferences();
+        File initPath = new File(preferences.getInitialPathFileChooser());
+        if(!initPath.exists()) {
+            preferences.setInitialPathFileChooser(System.getProperty("user.home"));
+            Preferences.writePreferencesToFile(preferences);
+            initPath = new File(preferences.getInitialPathFileChooser());
+        }
+        return initPath;
     }
 }
