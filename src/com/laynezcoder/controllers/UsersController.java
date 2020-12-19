@@ -43,7 +43,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
-public class AddUserController implements Initializable {
+public class UsersController implements Initializable {
 
     private ObservableList<Users> listUsers;
 
@@ -322,7 +322,7 @@ public class AddUserController implements Initializable {
                 list.add(new Users(id, nameUser, email, pass, userType));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AddUserController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
             Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "An error occurred when connecting to MySQL.\n"
                     + "Check your connection to MySQL");
         }
@@ -591,7 +591,7 @@ public class AddUserController implements Initializable {
             password.setEditable(false);
             password.setPrefWidth(colPassword.getWidth() / 0.5);
             password.setText(item.getPass());
-            password.getStylesheets().add((AddUserController.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
+            password.getStylesheets().add((UsersController.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
             password.getStyleClass().addAll("password-field-cell", "table-row-cell");
 
             return new SimpleObjectProperty<>(password);
@@ -607,7 +607,7 @@ public class AddUserController implements Initializable {
             JFXButton button = new JFXButton();
             button.setPrefWidth(colTypeUser.getWidth() / 0.5);
             button.setText(item.getUserType());
-            button.getStylesheets().add((AddUserController.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
+            button.getStylesheets().add((UsersController.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
 
             if (item.getUserType().equals("Administrator")) {
                 button.getStyleClass().addAll("cell-button-administrador", "table-row-cell");
