@@ -1,6 +1,7 @@
 package com.laynezcoder.preferences;
 
 import com.google.gson.Gson;
+import com.laynezcoder.resources.Resources;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -53,6 +54,7 @@ public class Preferences {
         } catch (FileNotFoundException ex) {
             initConfig();
             Logger.getLogger(Preferences.class.getName()).log(Level.SEVERE, null, ex);
+            Resources.notification("Error", "The configuration file was not found. A new file will be created.", "error.png");
         }
         return preferences;
     }
