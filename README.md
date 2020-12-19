@@ -6,11 +6,6 @@ Management software for electronics store, developed with Java and MySQL. The vi
 Before you begin, access your MySQL database manager and run the script that is stored in the src/com/laynezcoder/database/DBElectronicStoreToolFX folder. Then enter the DatabaseConnection class stored in the same folder and edit the access credentials with yours. After this, enjoy the program.
 
 ### App Features
-* Start window
-<p align="center">
-  <img src=https://i.imgur.com/jumHES1.png>
-</p>
-
 * Home window
 <p align="center">
   <img src=https://i.imgur.com/DESDu3l.png>
@@ -38,7 +33,13 @@ Before you begin, access your MySQL database manager and run the script that is 
 
 * Product management
 <p align="center">
-  <img src=https://i.imgur.com/9DXSIpn.png>
+  <img src=https://i.imgur.com/y1N0LmW.png>
+  <img src=https://i.imgur.com/APxcM5W.png>
+</p>
+
+* Detailed picture of the products.
+<p align="center">
+  <img src=https://i.imgur.com/kocF2d0.png>
 </p>
 
 * Manage users and access control
@@ -63,7 +64,7 @@ Before you begin, access your MySQL database manager and run the script that is 
 
 * Login window
 <p align="center">
-  <img src=https://i.imgur.com/tfIZsg9.png>
+  <img src=https://i.imgur.com/12kIK3G.png>
 </p>
 
 ### Miscellaneous
@@ -74,6 +75,5 @@ Before you begin, access your MySQL database manager and run the script that is 
   <img src=https://i.imgur.com/oMHpIyZ.png>
   <img src=https://i.imgur.com/wcCeqzs.png>
   <img src=https://i.imgur.com/uv9Nk5B.png>
-  <img src=https://i.imgur.com/AwNBvXV.png>
-  <img src=https://i.imgur.com/SM6UfcG.png>
+  <img src=https://i.imgur.com/5QvVDdy.png>
 </p>
