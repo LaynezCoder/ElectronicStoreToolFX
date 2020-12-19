@@ -1,5 +1,7 @@
 package com.laynezcoder.controllers;
 
+import animatefx.animation.FadeInUp;
+import animatefx.animation.FadeOutUp;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -10,6 +12,7 @@ import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Products;
 import com.laynezcoder.resources.Resources;
 import static com.laynezcoder.resources.Resources.jfxDialog;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,6 +30,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -42,13 +46,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ProductsController implements Initializable {
-
-    private final String NO_IMAGE_AVAILABLE = "/com/laynezcoder/media/empty-image.jpg";
     
     private final long LIMIT = 16777215;
     
@@ -175,12 +178,20 @@ public class ProductsController implements Initializable {
 
     @FXML
     private ImageView imageProduct;
+    
+    @FXML
+    private Pane paneContainer;
+    
+    @FXML
+    private MaterialDesignIconView icon;
 
     private JFXDialog dialogAddProduct;
 
     private JFXDialog dialogDeleteProduct;
 
     private final BoxBlur blur = new BoxBlur(3, 3, 3);
+    
+    public static final Stage stage = new Stage();
 
     private File imageFile;
 
@@ -228,7 +239,7 @@ public class ProductsController implements Initializable {
         Resources.validationOfJFXTextArea(txtDescriptionProduct);
 
         Resources.doubleNumbersValidationTextField(txtPurchasePrice);
-        Resources.doubleNumbersValidation(txtSalePrice, 10, 2);
+        Resources.doubleNumbersValidation(txtSalePrice);
         Resources.doubleNumbersValidationTextField(txtMinPrice);
 
         Resources.validationOfJFXTextField(txtPurchasePrice);
@@ -259,6 +270,8 @@ public class ProductsController implements Initializable {
         disableTable();
 
         textAddProduct.setText("Add Product");
+        imageContainer.toFront();
+        icon.setVisible(false);
         rootAddProduct.setVisible(true);
         btnSaveProduct.setDisable(false);
         btnUpdateProduct.setVisible(true);
@@ -281,6 +294,10 @@ public class ProductsController implements Initializable {
             rootProducts.setEffect(null);
             rootAddProduct.setVisible(false);
             cleanControls();
+            
+            if (stage != null) {
+                stage.hide();   
+            }
         });
     }
 
@@ -340,6 +357,8 @@ public class ProductsController implements Initializable {
         } else {
             showWindowAddProduct();
             textAddProduct.setText("Product details");
+            paneContainer.toFront();
+            icon.setVisible(true);
             btnUpdateProduct.setVisible(false);
             btnSaveProduct.setDisable(true);
             btnSaveProduct.toFront();
@@ -397,6 +416,7 @@ public class ProductsController implements Initializable {
         txtDescriptionProduct.setText(products.getDescriptionProduct());
         txtMinPrice.setText(String.valueOf(products.getMinimalPrice()));
         imageProduct.setImage(getImage(products.getId()));
+        expandImage(products.getId(), products.getProductName());
     }
 
     @FXML
@@ -451,12 +471,12 @@ public class ProductsController implements Initializable {
                 InputStream is = new FileInputStream(imageFile);
                 products.setInputStream(is);
             } else {
-                products.setInputStream(ProductsController.class.getResourceAsStream(NO_IMAGE_AVAILABLE));
+                products.setInputStream(ProductsController.class.getResourceAsStream(Resources.NO_IMAGE_AVAILABLE));
             }
         } catch (FileNotFoundException ex) {
             Resources.notification("Error", "File not found.", "error.png");
             Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
-            products.setInputStream(ProductsController.class.getResourceAsStream(NO_IMAGE_AVAILABLE));
+            products.setInputStream(ProductsController.class.getResourceAsStream(Resources.NO_IMAGE_AVAILABLE));
         }
     }
 
@@ -473,7 +493,7 @@ public class ProductsController implements Initializable {
                 if (img != null) {
                     image = new Image(img, 200, 200, true, true);
                 } else {
-                    image = new Image(NO_IMAGE_AVAILABLE, 200, 200, true, true);
+                    image = new Image(Resources.NO_IMAGE_AVAILABLE, 200, 200, true, true);
                 }
             }
         } catch (SQLException ex) {
@@ -564,7 +584,7 @@ public class ProductsController implements Initializable {
         txtNameProduct.clear();
         txtPurchasePrice.clear();
         txtDescriptionProduct.clear();
-        imageProduct.setImage(new Image(NO_IMAGE_AVAILABLE));
+        imageProduct.setImage(new Image(Resources.NO_IMAGE_AVAILABLE));
         imageFile = null;
     }
 
@@ -829,5 +849,40 @@ public class ProductsController implements Initializable {
 
     private Stage getStage() {
         return (Stage) btnCancelAddProduct.getScene().getWindow();
+    }
+    
+    private void expandImage(int id, String title) {
+        new FadeOutUp(icon).play();
+        paneContainer.hoverProperty().addListener((o, oldValue, newValue) -> {
+            if (newValue) {
+               new FadeInUp(icon).play();
+            } else {
+               new FadeOutUp(icon).play();
+            }
+        });
+        
+        icon.setOnMouseClicked(ev -> {
+            Image image = DatabaseHelper.getImageProduct(id);
+            double width = image.getWidth();
+            double height = image.getHeight();
+
+            ImageView imageView = new ImageView(image);
+            if (width > 1000 && height > 600) {
+                imageView.setFitHeight(height / 2);
+                imageView.setFitWidth(width / 2);
+            } else {
+                imageView.setFitHeight(height);
+                imageView.setFitWidth(width);
+            }
+
+            BorderPane root = new BorderPane(imageView);
+            root.setStyle("-fx-background-color: white");
+            root.setPrefSize(width, height);
+
+            stage.setScene(new Scene(root, imageView.getFitWidth(), imageView.getFitHeight()));
+            stage.setTitle(title);
+            stage.getIcons().add(new Image(Resources.SOURCE_PACKAGES + "/media/reicon.png"));
+            stage.show();         
+        });
     }
 }
