@@ -441,7 +441,7 @@ public class ProductsController implements Initializable {
             new Shake(txtDescriptionProduct).play();
         } else if (imageFile != null && imageFile.length() > LIMIT) {
             new Shake(imageContainer).play();
-            Resources.notification("Error", "Minimum price cannot be higher than sale price!", "error.png");
+            Resources.notification("Error", "The selected image is too large, please select another", "error.png");
         } else {
             Products products = new Products();
             products.setBarcode(txtBarCode.getText());
@@ -526,7 +526,7 @@ public class ProductsController implements Initializable {
             new Shake(txtDescriptionProduct).play();
         } else if (imageFile != null && imageFile.length() > LIMIT) {
             new Shake(imageContainer).play();
-            Resources.notification("Error", "Minimum price cannot be higher than sale price!", "error.png");
+            Resources.notification("Error", "The selected image is too large, please select another", "error.png");
         } else {
             Products products = tblProducts.getSelectionModel().getSelectedItem();
             products.setId(products.getId());
