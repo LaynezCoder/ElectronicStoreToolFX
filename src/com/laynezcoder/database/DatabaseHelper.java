@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 
 public class DatabaseHelper {
 
@@ -232,6 +233,29 @@ public class DatabaseHelper {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
+    }
+    
+    public static Image getImageProduct(int id) {
+        Image image = null;
+        try {
+            String sql = "SELECT imageProduct FROM Products WHERE id = ?";
+            PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                InputStream img = rs.getBinaryStream("imageProduct");
+                if (img != null) {
+                    image = new Image(img);
+                } else {
+                    image = new Image(Resources.NO_IMAGE_AVAILABLE);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            image = new Image(Resources.NO_IMAGE_AVAILABLE);
+        }
+        return image;
     }
 
     public static boolean insertNewUser(Users users, ObservableList<Users> listUsers) {
