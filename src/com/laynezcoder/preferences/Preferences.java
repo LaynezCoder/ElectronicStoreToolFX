@@ -54,7 +54,7 @@ public class Preferences {
         } catch (FileNotFoundException ex) {
             initConfig();
             Logger.getLogger(Preferences.class.getName()).log(Level.SEVERE, null, ex);
-            Resources.notification("Error", "The configuration file was not found. A new file will be created.", "error.png");
+            Resources.notification("Warning", "The configuration file was not found. A new file will be created.", "warning.png");
         }
         return preferences;
     }
