@@ -705,7 +705,7 @@ public class QuotesController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getExistence());
-            button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
+            button.getStylesheets().add(Resources.LIGHT_THEME);
             button.setPrefWidth(colExistence.getWidth() / 0.5);
 
             if (item.getExistence().equals("Existent")) {
@@ -731,7 +731,7 @@ public class QuotesController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getReport());
-            button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
+            button.getStylesheets().add(Resources.LIGHT_THEME);
             button.setPrefWidth(colReport.getWidth() / 0.5);
 
             if (item.getReport().equals("Reported")) {
@@ -757,7 +757,7 @@ public class QuotesController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getRealization());
-            button.getStylesheets().add((Quotes.class.getResource(Resources.LIGHT_THEME).toExternalForm()));
+            button.getStylesheets().add(Resources.LIGHT_THEME);
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
             if (item.getRealization().equals("Realized")) {

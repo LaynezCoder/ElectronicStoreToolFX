@@ -44,20 +44,21 @@ import org.controlsfx.control.Notifications;
 
 public class Resources {
 
-    public static final String LIGHT_THEME = "/com/laynezcoder/resources/LightTheme.css";
-    public static final String FONT = "/com/laynezcoder/fonts/rimouski.ttf";
     public static final String SOURCE_PACKAGES = "/com/laynezcoder";
     public static final String PACKAGE_MEDIA = "/com/laynezcoder/media/";
+    public static final String RIMOUSKI_FONT = "/com/laynezcoder/fonts/rimouski.ttf";
     public static final String NO_IMAGE_AVAILABLE = "/com/laynezcoder/media/empty-image.jpg";
+    public static final String CSS_LIGHT_THEME = "/com/laynezcoder/resources/LightTheme.css";
+    public static final String LIGHT_THEME = Resources.class.getResource(CSS_LIGHT_THEME).toExternalForm();
     public static JFXDialog jfxDialog;
 
     public static void showErrorAlert(StackPane containter, Node rootPaneSetEffect, Node nodeDisable, String text) {
-        Font font = Font.loadFont(Resources.class.getResourceAsStream(FONT), 17);
+        Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), 17);
 
         AnchorPane root = new AnchorPane();
         root.setPrefWidth(390);
         root.setPrefHeight(230);
-        root.getStylesheets().add(Resources.class.getResource(LIGHT_THEME).toExternalForm());
+        root.getStylesheets().add(LIGHT_THEME);
 
         JFXButton button = new JFXButton("Okey");
         button.getStyleClass().add("button-alert-error");
@@ -112,12 +113,12 @@ public class Resources {
     }
 
     public static void showSuccessAlert(StackPane containter, Node rootPaneSetEffect, Node nodeDisable, String bodyText) {
-        Font font = Font.loadFont(Resources.class.getResourceAsStream(FONT), 17);
+        Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), 17);
 
         AnchorPane root = new AnchorPane();
         root.setPrefWidth(390);
         root.setPrefHeight(230);
-        root.getStylesheets().add(Resources.class.getResource(LIGHT_THEME).toExternalForm());
+        root.getStylesheets().add(LIGHT_THEME);
 
         JFXButton button = new JFXButton("Okey");
         button.getStyleClass().add("button-alert-success");
@@ -294,7 +295,7 @@ public class Resources {
             }
         });
     }
-    
+
     public static void doubleNumbersValidation(TextField txt) {
         txt.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d{0,10}([\\.]\\d{0,2})?")) {
@@ -360,17 +361,17 @@ public class Resources {
     }
 
     public static void styleAlert(JFXDialog alert) {
-        alert.getStylesheets().add(Resources.class.getResource(LIGHT_THEME).toExternalForm());
+        alert.getStylesheets().add(LIGHT_THEME);
         alert.getStyleClass().add("jfx-dialog-overlay-pane");
     }
 
     public static void setFontToText(Text text, int sizeFont) {
-        Font font = Font.loadFont(Resources.class.getResourceAsStream(FONT), sizeFont);
+        Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), sizeFont);
         text.setFont(font);
     }
 
     public static void setFontToJFXButton(JFXButton btn, int sizeFont) {
-        Font font = Font.loadFont(Resources.class.getResourceAsStream(FONT), sizeFont);
+        Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), sizeFont);
         btn.setFont(font);
     }
 
@@ -435,7 +436,7 @@ public class Resources {
         File selectedImage = fileChooser.showOpenDialog(stage);
         return selectedImage;
     }
-    
+
     private static File getInitialDirectoy() {
         Preferences preferences = Preferences.getPreferences();
         File initPath = new File(preferences.getInitialPathFileChooser());
