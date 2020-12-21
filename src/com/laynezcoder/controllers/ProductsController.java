@@ -33,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -248,8 +249,7 @@ public class ProductsController implements Initializable {
         Resources.validationOfJFXTextField(txtPorcentage);
         Resources.validationOfJFXTextField(txtSalePrice);
         Resources.validationOfJFXTextField(txtMinPrice);
-        Resources.validationOfJFXTextField(txtBarCode);
-
+        Resources.validationOfJFXTextField(txtBarCode); 
     }
 
     private void selectText() {
@@ -871,24 +871,37 @@ public class ProductsController implements Initializable {
         });
         
         icon.setOnMouseClicked(ev -> {
-            Image image = DatabaseHelper.getImageProduct(id);
+            final Image image = DatabaseHelper.getImageProduct(id);
             double width = image.getWidth();
             double height = image.getHeight();
 
-            ImageView imageView = new ImageView(image);
-            if (width > 1000 && height > 600) {
+            final ImageView imageView = new ImageView(image);  
+            if (width > 1000 || height > 600) {
                 imageView.setFitHeight(height / 2);
                 imageView.setFitWidth(width / 2);
+                
+                final BorderPane borderPane = new BorderPane();
+                borderPane.setCenter(imageView);
+                
+                final ScrollPane root = new ScrollPane();
+                root.setFitToWidth(true);
+                root.setFitToHeight(true);
+                root.setContent(borderPane);
+                root.setStyle("-fx-background-color: white");
+                root.getStylesheets().add(Resources.LIGHT_THEME);
+                root.getStyleClass().add("scroll-bar");
+                
+                stage.setScene(new Scene(root, 1000, 600));
             } else {
                 imageView.setFitHeight(height);
                 imageView.setFitWidth(width);
+                
+                final BorderPane root = new BorderPane(imageView);
+                root.setStyle("-fx-background-color: white");
+                
+                stage.setScene(new Scene(root, imageView.getFitWidth(), imageView.getFitHeight()));
             }
-
-            BorderPane root = new BorderPane(imageView);
-            root.setStyle("-fx-background-color: white");
-            root.setPrefSize(width, height);
-
-            stage.setScene(new Scene(root, imageView.getFitWidth(), imageView.getFitHeight()));
+            
             stage.setTitle(title);
             stage.getIcons().add(new Image(Resources.SOURCE_PACKAGES + "/media/reicon.png"));
             stage.show();         
