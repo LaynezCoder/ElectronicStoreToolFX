@@ -1,9 +1,7 @@
 package com.laynezcoder.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
 import com.laynezcoder.database.DatabaseConnection;
-import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Quotes;
 import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -28,7 +26,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -134,9 +131,6 @@ public class HomeController implements Initializable {
     @FXML
     private Text subTextCongrulations;
 
-    @FXML
-    private ImageView image;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         animationsNodes();
@@ -147,20 +141,6 @@ public class HomeController implements Initializable {
         setFonts();
         selectText();
         filterQuotes = FXCollections.observableArrayList();
-    }
-
-    private void dialogCongrulations(String text, String subtext) {
-        JFXDialog dialog = new JFXDialog(stckHome, rootCongrulations, JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
-        Resources.styleAlert(dialog);
-        rootCongrulations.setVisible(true);
-        dialog.show();
-
-        textCongrulations.setText(text);
-        subTextCongrulations.setText(subtext);
-
-        dialog.setOnDialogClosed(ev -> {
-            rootCongrulations.setVisible(false);
-        });
     }
 
     private void selectText() {
@@ -289,8 +269,7 @@ public class HomeController implements Initializable {
         ArrayList<Quotes> list = new ArrayList<>();
         try {
             int total = 0;
-            String sql = "SELECT q.id, q.descriptionQuote, q.requestDate, q.price, q.existence, q.realization, q.report, c.customerName\n"
-                    + "FROM Quotes AS q\n"
+            String sql = "SELECT q.id, q.descriptionQuote, q.requestDate, q.price, q.existence, q.realization, q.report, c.customerName\nFROM Quotes AS q\n"
                     + "INNER JOIN Customers AS c ON q.customerId = c.id WHERE requestDate = DATE(NOW())";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
