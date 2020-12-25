@@ -58,13 +58,13 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setOptionsToComboBox();
-        maximumCharacters();
         animationNodes();
-        validations();
         selectText();
         setFonts();
         loadData();
+        validations();
+        maximumCharacters();
+        setOptionsToComboBox();
     }
 
     private void loadData() {
@@ -79,7 +79,7 @@ public class SettingsController implements Initializable {
                 txtPassword.setText(resultSet.getString("pass"));
                 txtConfirmPassword.setText(resultSet.getString("pass"));
                 txtBio.setText(resultSet.getString("biography"));
-                startJFXComboBox(resultSet);
+                initializeJFXComboBox(resultSet);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,7 +128,7 @@ public class SettingsController implements Initializable {
             users.setEmail(txtUser.getText());
             users.setPass(txtPassword.getText());
             users.setBiography(txtBio.getText());
-            saveTypeAnimation(users);
+            users.setDialogTransition(getDialogTransition());
             
             boolean result = DatabaseHelper.updateUserFromSettings(users);
             if (result) {
@@ -142,34 +142,33 @@ public class SettingsController implements Initializable {
         }
     }
 
-    private Users saveTypeAnimation(Users user) {
-        String animation = cmbDialogTransition.getSelectionModel().getSelectedItem();
+    private String getDialogTransition() {
+        String dialogTransitionSelected = cmbDialogTransition.getSelectionModel().getSelectedItem();
+        String dialogTransition = null;
 
-        switch (animation) {
+        switch (dialogTransitionSelected) {
             case "Left":
-                user.setDialogTransition("LEFT");
+                dialogTransition = "LEFT";
                 break;
             case "Right":
-                user.setDialogTransition("RIGHT");
+                dialogTransition = "RIGHT";
                 break;
             case "Top":
-                user.setDialogTransition("TOP");
+                dialogTransition = "TOP";
                 break;
             case "Bottom":
-                user.setDialogTransition("BOTTOM");
+                dialogTransition = "BOTTOM";
                 break;
             case "Center":
-                user.setDialogTransition("CENTER");
+                dialogTransition = "CENTER";
                 break;
         }
-
-        return user;
+        return dialogTransition;
     }
 
-    private void startJFXComboBox(ResultSet rs) {
+    private void initializeJFXComboBox(ResultSet rs) {
         try {
             String value = rs.getString("dialogTransition");
-
             switch (value) {
                 case "LEFT":
                     cmbDialogTransition.setValue("Left");
@@ -238,37 +237,4 @@ public class SettingsController implements Initializable {
         Resources.limitJFXPasswordField(txtPassword, 20);
         Resources.limitJFXPasswordField(txtConfirmPassword, 20);
     }
-
-    /*
-    //action of setting profile image in process
-    @FXML
-    private void openFileExplorer() {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-        
-        File selectedFile = fileChooser.showOpenDialog(getStage());
-        if (selectedFile != null) {
-            try {
-                BufferedImage bufferedImage = ImageIO.read(selectedFile);
-                BufferedImage image
-                        = Scalr.resize(bufferedImage, Scalr.Method.AUTOMATIC, 200, 200);
-                
-                Image myImage = SwingFXUtils.toFXImage(image, null);
-                
-                System.out.println("Buffered Image: " + bufferedImage.getWidth() + " " + bufferedImage.getHeight());
-                System.out.println("Image Final: " + myImage.getWidth() + " " + myImage.getHeight());
-            } catch (IOException ex) {
-                Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            System.out.println("file is not valid!");
-        }
-    }
-
-    private Stage getStage() {
-        return (Stage) btnSave.getScene().getWindow();
-    }
-    */
 }
