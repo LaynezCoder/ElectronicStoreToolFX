@@ -1,5 +1,6 @@
 package com.laynezcoder.database;
 
+import com.jfoenix.controls.JFXDialog;
 import com.laynezcoder.models.Customers;
 import com.laynezcoder.models.Products;
 import com.laynezcoder.models.Quotes;
@@ -366,7 +367,7 @@ public class DatabaseHelper {
         return count;
     }
 
-    public static String getDialogTransition() {
+    private static String getDialogTransition() {
         String dialogTransition = null;
         try {
             String sql = "SELECT Users.dialogTransition FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
@@ -380,6 +381,10 @@ public class DatabaseHelper {
             dialogTransition = "CENTER";
         }
         return dialogTransition;
+    }
+    
+    public final static JFXDialog.DialogTransition dialogTransition() {
+        return JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition());
     }
 
     public static String getUserType() {
