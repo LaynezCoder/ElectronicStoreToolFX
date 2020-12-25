@@ -310,7 +310,7 @@ public class CustomersController implements Initializable {
     private void loadTable() {
         ArrayList<Customers> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Customers";
+            String sql = "SELECT id, customerName, customerNumber, customerEmail, it FROM Customers";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -319,8 +319,7 @@ public class CustomersController implements Initializable {
                 String customerNumber = resultSet.getString("customerNumber");
                 String customerEmail = resultSet.getString("customerEmail");
                 String it = resultSet.getString("it");
-                Date insertionDate = resultSet.getDate("insertionDate");
-                list.add(new Customers(id, customerName, customerNumber, customerEmail, it, insertionDate));
+                list.add(new Customers(id, customerName, customerNumber, customerEmail, it));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);

@@ -18,6 +18,14 @@ public class Customers {
         this.customerName = customerName;
     }
     
+    public Customers(Integer id, String customerName, String customerNumber, String customerEmail, String it) {
+        this.id = id;
+        this.customerName = customerName;
+        this.customerNumber = customerNumber;
+        this.customerEmail = customerEmail;
+        this.it = it;
+    }
+    
     public Customers(Integer id, String customerName, String customerNumber, String customerEmail, String it, Date insertionDate) {
         this.id = id;
         this.customerName = customerName;
