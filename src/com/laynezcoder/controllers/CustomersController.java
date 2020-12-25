@@ -205,7 +205,7 @@ public class CustomersController implements Initializable {
         btnSaveCustomer.toFront();
 
         dialogAddCustomer = new JFXDialog();
-        dialogAddCustomer.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+        dialogAddCustomer.setTransitionType(DatabaseHelper.dialogTransition());
         dialogAddCustomer.setDialogContainer(stckCustomers);
         dialogAddCustomer.setBackground(Background.EMPTY);
         dialogAddCustomer.setContent(rootAddCustomer);
@@ -238,7 +238,7 @@ public class CustomersController implements Initializable {
             disableTable();
 
             dialogDeleteCustomer = new JFXDialog();
-            dialogDeleteCustomer.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            dialogDeleteCustomer.setTransitionType(DatabaseHelper.dialogTransition());
             dialogDeleteCustomer.setDialogContainer(stckCustomers);
             dialogDeleteCustomer.setBackground(Background.EMPTY);
             dialogDeleteCustomer.setContent(rootDeleteCustomer);
