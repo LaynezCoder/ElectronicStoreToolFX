@@ -173,12 +173,6 @@ public class ProductsController implements Initializable {
     private MenuItem menuDelete;
 
     @FXML
-    private MenuItem menuDetails;
-
-    @FXML
-    private MenuItem menuLoad;
-
-    @FXML
     private ImageView imageProduct;
     
     @FXML
@@ -334,9 +328,9 @@ public class ProductsController implements Initializable {
 
     @FXML
     private void hideWindowDeleteProduct() {
-        try {
+        if (dialogDeleteProduct != null) {
             dialogDeleteProduct.close();
-        } catch (NullPointerException ex) {}
+        } 
     }
 
     @FXML
@@ -692,13 +686,13 @@ public class ProductsController implements Initializable {
             if (keyEvent.getCode() == ESCAPE && rootDeleteProducts.isVisible()) {
                 hideWindowDeleteProduct();
             }
-            try {
+            if (jfxDialog != null) {
                 if (keyEvent.getCode() == ESCAPE && jfxDialog.isVisible()) {
                     tblProducts.setDisable(false);
                     rootProducts.setEffect(null);
                     jfxDialog.close();
                 }
-            } catch (NullPointerException ex) {}
+            }
         });
 
     }
@@ -872,36 +866,41 @@ public class ProductsController implements Initializable {
         
         icon.setOnMouseClicked(ev -> {
             final Image image = DatabaseHelper.getImageProduct(id);
-            double width = image.getWidth();
-            double height = image.getHeight();
+            double widthImage = image.getWidth();
+            double heightImage = image.getHeight();
 
             final ImageView imageView = new ImageView(image);  
-            if (width > 1000 || height > 600) {
-                imageView.setFitHeight(height / 2);
-                imageView.setFitWidth(width / 2);
+            double widthImageView = imageView.getFitWidth();
+            double heightImageView = imageView.getFitHeight();
+            
+            if (widthImage > 1000 || heightImage > 600) {
+                imageView.setFitHeight(heightImage / 2);
+                imageView.setFitWidth(widthImage / 2);
+                
+                final BorderPane borderPane = new BorderPane();
+                borderPane.setPrefSize(widthImageView, heightImageView);
+                borderPane.setCenter(imageView);
+                
+                final ScrollPane scrollPane = new ScrollPane();
+                scrollPane.setFitToWidth(true);
+                scrollPane.setFitToHeight(true);
+                scrollPane.setContent(borderPane);
+                scrollPane.setStyle("-fx-background-color: white");
+                scrollPane.getStylesheets().add(Resources.LIGHT_THEME);
+                scrollPane.getStyleClass().add("scroll-bar");
+
+                stage.setScene(new Scene(scrollPane, 1000, 600));
+            } else {
+                imageView.setFitHeight(heightImage);
+                imageView.setFitWidth(widthImage);
                 
                 final BorderPane borderPane = new BorderPane();
                 borderPane.setCenter(imageView);
+                borderPane.setStyle("-fx-background-color: white");
+                borderPane.setPrefSize(widthImage, heightImage);
                 
-                final ScrollPane root = new ScrollPane();
-                root.setFitToWidth(true);
-                root.setFitToHeight(true);
-                root.setContent(borderPane);
-                root.setStyle("-fx-background-color: white");
-                root.getStylesheets().add(Resources.LIGHT_THEME);
-                root.getStyleClass().add("scroll-bar");
-                
-                stage.setScene(new Scene(root, 1000, 600));
-            } else {
-                imageView.setFitHeight(height);
-                imageView.setFitWidth(width);
-                
-                final BorderPane root = new BorderPane(imageView);
-                root.setStyle("-fx-background-color: white");
-                
-                stage.setScene(new Scene(root, imageView.getFitWidth(), imageView.getFitHeight()));
+                stage.setScene(new Scene(borderPane, widthImage, heightImage));
             }
-            
             stage.setTitle(title);
             stage.getIcons().add(new Image(Resources.SOURCE_PACKAGES + "/media/reicon.png"));
             stage.show();         
