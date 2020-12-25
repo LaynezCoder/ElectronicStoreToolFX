@@ -219,7 +219,7 @@ public class QuotesController implements Initializable {
         titleWindowAddQuotes.setText("Add Quote");
 
         dialogAddQuote = new JFXDialog();
-        dialogAddQuote.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+        dialogAddQuote.setTransitionType(DatabaseHelper.dialogTransition());
         dialogAddQuote.setBackground(Background.EMPTY);
         dialogAddQuote.setDialogContainer(stckQuotes);
         dialogAddQuote.setContent(rootAddQuotes);
@@ -264,7 +264,7 @@ public class QuotesController implements Initializable {
             disableTable();
 
             dialogDeleteQuote = new JFXDialog();
-            dialogDeleteQuote.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            dialogDeleteQuote.setTransitionType(DatabaseHelper.dialogTransition());
             dialogDeleteQuote.setBackground(Background.EMPTY);
             dialogDeleteQuote.setDialogContainer(stckQuotes);
             dialogDeleteQuote.setContent(rootDeleteQuotes);

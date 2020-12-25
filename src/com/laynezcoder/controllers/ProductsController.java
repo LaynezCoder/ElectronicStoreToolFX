@@ -279,7 +279,7 @@ public class ProductsController implements Initializable {
         btnSaveProduct.toFront();
 
         dialogAddProduct = new JFXDialog();
-        dialogAddProduct.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+        dialogAddProduct.setTransitionType(DatabaseHelper.dialogTransition());
         dialogAddProduct.setBackground(Background.EMPTY);
         dialogAddProduct.setDialogContainer(stckProducts);
         dialogAddProduct.setContent(rootAddProduct);
@@ -315,7 +315,7 @@ public class ProductsController implements Initializable {
             rootProducts.setEffect(blur);
             disableTable();
             dialogDeleteProduct = new JFXDialog();
-            dialogDeleteProduct.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            dialogDeleteProduct.setTransitionType(DatabaseHelper.dialogTransition());
             dialogDeleteProduct.setBackground(Background.EMPTY);
             dialogDeleteProduct.setDialogContainer(stckProducts);
             dialogDeleteProduct.setContent(rootDeleteProducts);

@@ -204,7 +204,7 @@ public class UsersController implements Initializable {
         btnSaveUser.toFront();
         
         dialogAddUser = new JFXDialog();
-        dialogAddUser.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+        dialogAddUser.setTransitionType(DatabaseHelper.dialogTransition());
         dialogAddUser.setBackground(Background.EMPTY);
         dialogAddUser.setDialogContainer(stckUsers);
         dialogAddUser.setContent(rootAddUser);
@@ -238,7 +238,7 @@ public class UsersController implements Initializable {
             disableTable();
             
             dialogDeleteUser = new JFXDialog();
-            dialogDeleteUser.setTransitionType(JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition()));
+            dialogDeleteUser.setTransitionType(DatabaseHelper.dialogTransition());
             dialogDeleteUser.setBackground(Background.EMPTY);
             dialogDeleteUser.setDialogContainer(stckUsers);
             dialogDeleteUser.setContent(rootDeleteUser);
