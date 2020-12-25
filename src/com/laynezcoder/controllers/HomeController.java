@@ -122,12 +122,6 @@ public class HomeController implements Initializable {
     @FXML
     private TableColumn<Quotes, JFXButton> colReport;
 
-    @FXML
-    private Text textCongrulations;
-
-    @FXML
-    private Text subTextCongrulations;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         animationsNodes();
@@ -151,8 +145,6 @@ public class HomeController implements Initializable {
         Resources.setFontToText(texQuotes, 15);
         Resources.setFontToText(textProducts, 15);
         Resources.setFontToText(textRecentQuotes, 15);
-        Resources.setFontToText(textCongrulations, 15);
-        Resources.setFontToText(subTextCongrulations, 15);
     }
 
     private void animationsNodes() {
