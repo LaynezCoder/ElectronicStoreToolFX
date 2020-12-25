@@ -306,7 +306,7 @@ public class StartController implements Initializable {
         users.setEmail(txtUser.getText());
         users.setPass(txtPassword.getText());
         users.setBiography(txtBio.getText());
-        users.setDialogTransition(getTypeTransition());
+        users.setDialogTransition(getDialogTransition());
         users.setUserType("Administrator");
         try {
             String sql = "INSERT INTO Users (nameUser, email, pass, userType) VALUES (?, ?, ?, ?)";
@@ -334,7 +334,7 @@ public class StartController implements Initializable {
         }
     }
 
-    private String getTypeTransition() {
+    private String getDialogTransition() {
         String dialogTransitionSelected = cmbDialogTransition.getSelectionModel().getSelectedItem();
         String dialogTransition = null;
         switch (dialogTransitionSelected) {
@@ -405,7 +405,7 @@ public class StartController implements Initializable {
         button.getStyleClass().add("button-start-dialog");
 
         String body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-        JFXDialog dialog = new JFXDialog(stckStart, dialogLayout, JFXDialog.DialogTransition.valueOf(getTypeTransition()));
+        JFXDialog dialog = new JFXDialog(stckStart, dialogLayout, JFXDialog.DialogTransition.valueOf(getDialogTransition()));
         dialogLayout.setBody(new Label(body));
         dialogLayout.setActions(button);
         Resources.styleAlert(dialog);
