@@ -199,6 +199,7 @@ public class MainController implements Initializable {
     }
 
     private void showFXMLWindows(String FXMLName) {
+        rootContainer.getChildren().clear();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/laynezcoder/views/" + FXMLName + ".fxml"));
             AnchorPane.setBottomAnchor(root, 0.0);
