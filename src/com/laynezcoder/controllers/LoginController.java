@@ -58,15 +58,6 @@ public class LoginController implements Initializable {
     @FXML
     private Text title;
 
-    @FXML
-    private MaterialDesignIconView iconWeb;
-
-    @FXML
-    private MaterialDesignIconView iconFacebook;
-
-    @FXML
-    private MaterialDesignIconView iconInstagram;
-
     private double x, y;
 
     @Override
@@ -200,11 +191,10 @@ public class LoginController implements Initializable {
     private void showPassword() {
         txtPassword.managedProperty().bind(icon.pressedProperty());
         txtPassword.visibleProperty().bind(icon.pressedProperty());
+        txtPassword.textProperty().bindBidirectional(pfPassword.textProperty());
 
         pfPassword.managedProperty().bind(icon.pressedProperty().not());
         pfPassword.visibleProperty().bind(icon.pressedProperty().not());
-
-        txtPassword.textProperty().bindBidirectional(pfPassword.textProperty());
 
         icon.pressedProperty().addListener((o, oldVal, newVal) -> {
             if (newVal) {
