@@ -83,12 +83,11 @@ public class Resources {
         root.getChildren().addAll(button, textBody, textTitle);
 
         BoxBlur blur = new BoxBlur(3, 3, 3);
-        String dialogTransition = DatabaseHelper.getDialogTransition();
 
         jfxDialog = new JFXDialog();
         jfxDialog.setDialogContainer(containter);
         jfxDialog.setContent(root);
-        jfxDialog.setTransitionType(JFXDialog.DialogTransition.valueOf(dialogTransition));
+        jfxDialog.setTransitionType(DatabaseHelper.dialogTransition());
         jfxDialog.setBackground(Background.EMPTY);
 
         styleAlert(jfxDialog);
@@ -143,12 +142,11 @@ public class Resources {
         root.getChildren().addAll(button, textBody, textTitle);
 
         BoxBlur blur = new BoxBlur(3, 3, 3);
-        String dialogTransition = DatabaseHelper.getDialogTransition();
 
         jfxDialog = new JFXDialog();
         jfxDialog.setDialogContainer(containter);
         jfxDialog.setContent(root);
-        jfxDialog.setTransitionType(JFXDialog.DialogTransition.valueOf(dialogTransition));
+        jfxDialog.setTransitionType(DatabaseHelper.dialogTransition());
         jfxDialog.setBackground(Background.EMPTY);
 
         styleAlert(jfxDialog);
