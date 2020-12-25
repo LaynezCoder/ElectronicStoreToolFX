@@ -394,7 +394,6 @@ public class QuotesController implements Initializable {
         try {
             String sql = "SELECT q.id, q.descriptionQuote, q.requestDate, q.price, q.existence, q.realization, q.report, c.customerName\nFROM Quotes AS q\n"
                     + "INNER JOIN Customers AS c ON q.customerId = c.id";
-            System.out.println(sql);
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             
