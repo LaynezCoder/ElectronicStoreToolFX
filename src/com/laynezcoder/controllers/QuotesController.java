@@ -164,17 +164,17 @@ public class QuotesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         filterQuotes = FXCollections.observableArrayList();
-        escapeWindowWithTextFields();
-        validationOfJFXDatePicker();
         setActionToggleButton();
         initializeComboBox();
         keyDeleteCustomer();
         keyEscapeWindows();
+        loadData();
+        setFonts();
         animateNodes();
         validations();
         selectText();
-        loadData();
-        setFonts();
+        validationOfJFXDatePicker();
+        escapeWindowWithTextFields();
     }
 
     private void initializeComboBox() {
@@ -283,9 +283,9 @@ public class QuotesController implements Initializable {
 
     @FXML
     private void hideWindowDeleteQuotes() {
-        try {
+        if (dialogDeleteQuote != null) {
             dialogDeleteQuote.close();
-        } catch (NullPointerException ex) {}
+        }
     }
 
     @FXML
@@ -392,9 +392,9 @@ public class QuotesController implements Initializable {
     private void loadTable() {
         ArrayList<Quotes> list = new ArrayList<>();
         try {
-            String sql = "SELECT q.id, q.descriptionQuote, q.requestDate, q.price, q.existence, q.realization, q.report, c.customerName\n"
-                    + "FROM Quotes AS q\n"
+            String sql = "SELECT q.id, q.descriptionQuote, q.requestDate, q.price, q.existence, q.realization, q.report, c.customerName\nFROM Quotes AS q\n"
                     + "INNER JOIN Customers AS c ON q.customerId = c.id";
+            System.out.println(sql);
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             
@@ -559,13 +559,13 @@ public class QuotesController implements Initializable {
             if (keyEvent.getCode() == ESCAPE && rootAddQuotes.isVisible()) {
                 hideWindowAddQuotes();
             }
-            try {
+            if (jfxDialog != null) {
                 if (keyEvent.getCode() == ESCAPE && jfxDialog.isVisible()) {
                     tblQuotes.setDisable(false);
                     rootQuotes.setEffect(null);
                     jfxDialog.close();
                 }
-            } catch (NullPointerException ex) {}
+            }
         });
     }
 
