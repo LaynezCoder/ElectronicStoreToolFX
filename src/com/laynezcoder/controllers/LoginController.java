@@ -10,7 +10,6 @@ import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
