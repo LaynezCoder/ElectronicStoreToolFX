@@ -10,7 +10,6 @@ import com.laynezcoder.models.Customers;
 import com.laynezcoder.resources.Resources;
 import static com.laynezcoder.resources.Resources.jfxDialog;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,6 +37,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 public class CustomersController implements Initializable {
+    
+    private final BoxBlur blur = new BoxBlur(3, 3, 3);
 
     private ObservableList<Customers> listCustomers;
 
@@ -84,6 +85,7 @@ public class CustomersController implements Initializable {
 
     @FXML
     private JFXButton btnCancel;
+    
     @FXML
     private JFXButton btnDelete;
 
@@ -123,8 +125,6 @@ public class CustomersController implements Initializable {
     private JFXDialog dialogAddCustomer;
 
     private JFXDialog dialogDeleteCustomer;
-
-    private final BoxBlur blur = new BoxBlur(3, 3, 3);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
