@@ -173,7 +173,7 @@ public class CustomersController implements Initializable {
         Resources.validationOfJFXTextField(txtCustomerNumber);
         Resources.validationOfJFXTextField(txtCustomerName);
     }
-    
+
     private void characterLimiter() {
         Resources.limitTextField(txtCustomerName, 150);
         Resources.limitTextField(txtCustomerNumber, 15);
@@ -195,7 +195,7 @@ public class CustomersController implements Initializable {
     private void showWindowAddCustomer() {
         rootCustomers.setEffect(blur);
         enableControlsEdit();
-        resetValidation(); 
+        resetValidation();
         disableTable();
 
         titleWindowAddCustomer.setText("Add customer");
@@ -257,9 +257,9 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void hideWindowDeleteCustomer() {
-        try {
+        if (dialogDeleteCustomer != null) {
             dialogDeleteCustomer.close();
-        } catch (NullPointerException ex) {}
+        }
     }
 
     @FXML
@@ -373,7 +373,7 @@ public class CustomersController implements Initializable {
     private void deleteCustomer() {
         boolean result = DatabaseHelper.deleteCustomer(tblCustomers, listCustomers);
         if (result) {
-            loadData();  
+            loadData();
             cleanControls();
             hideWindowDeleteCustomer();
             Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry deleted successfully");
@@ -411,7 +411,7 @@ public class CustomersController implements Initializable {
 
             boolean result = DatabaseHelper.updateCustomer(customers);
             if (result) {
-                loadData();  
+                loadData();
                 cleanControls();
                 hideWindowAddCustomer();
                 Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry updated successfully");
@@ -442,24 +442,24 @@ public class CustomersController implements Initializable {
         txtEmail.setEditable(true);
         txtIt.setEditable(true);
     }
-    
+
     private void resetValidation() {
         txtCustomerNumber.resetValidation();
         txtCustomerName.resetValidation();
         txtEmail.resetValidation();
         txtIt.resetValidation();
     }
-    
+
     private void disableTable() {
         tblCustomers.setDisable(true);
     }
-    
+
     private boolean validateEmailAddress(String email) {
         String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(email).matches();
-    } 
+    }
 
     private void keyEscapeWindows() {
         rootCustomers.setOnKeyReleased((KeyEvent keyEvent) -> {
@@ -469,13 +469,13 @@ public class CustomersController implements Initializable {
             if (keyEvent.getCode() == ESCAPE && rootAddCustomer.isVisible()) {
                 hideWindowAddCustomer();
             }
-            try {
+            if (jfxDialog != null) {
                 if (keyEvent.getCode() == ESCAPE && jfxDialog.isVisible()) {
                     tblCustomers.setDisable(false);
                     rootCustomers.setEffect(null);
                     jfxDialog.close();
                 }
-            } catch (NullPointerException ex) {}
+            }
         });
     }
 
