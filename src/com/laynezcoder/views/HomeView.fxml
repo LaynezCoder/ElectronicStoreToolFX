@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
 
 <StackPane fx:id="stckHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.HomeController">
    <children>
@@ -171,33 +170,6 @@
                   <Insets bottom="20.0" />
                </padding>
             </HBox>
-            <AnchorPane fx:id="rootCongrulations" layoutX="231.0" layoutY="147.0" prefHeight="270.0" prefWidth="470.0" style="-fx-border-radius: 10;" visible="false">
-               <children>
-                  <ImageView fitHeight="270.0" fitWidth="470.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 10; -fx-padding: 10;">
-                     <image>
-                        <Image url="@../media/congrulations.png" />
-                     </image>
-                  </ImageView>
-                  <TextFlow layoutX="107.0" layoutY="96.0" prefHeight="41.0" prefWidth="242.0" textAlignment="CENTER">
-                     <children>
-                        <Text fx:id="textCongrulations" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Felicidades, se han registrado 10 nuevas cotizaciones!">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </TextFlow>
-                  <TextFlow layoutX="147.0" layoutY="147.0" prefHeight="32.0" prefWidth="163.0" textAlignment="CENTER">
-                     <children>
-                        <Text fx:id="subTextCongrulations" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="!Buen trabajo!">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </TextFlow>
-               </children>
-            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

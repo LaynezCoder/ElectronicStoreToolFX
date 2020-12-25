@@ -123,9 +123,6 @@ public class HomeController implements Initializable {
     private TableColumn<Quotes, JFXButton> colReport;
 
     @FXML
-    private AnchorPane rootCongrulations;
-
-    @FXML
     private Text textCongrulations;
 
     @FXML
@@ -282,8 +279,8 @@ public class HomeController implements Initializable {
                 String existence = resultSet.getString("existence");
                 String realization = resultSet.getString("realization");
                 String report = resultSet.getString("report");
-                String customeName = resultSet.getString("customerName");
-                list.add(new Quotes(id, descriptionQuote, requestDate, price, existence, realization, report, customeName));
+                String customerName = resultSet.getString("customerName");
+                list.add(new Quotes(id, descriptionQuote, requestDate, price, existence, realization, report, customerName));
                 total++;
             }
             labelNowQuotes.setText(String.valueOf(total));
