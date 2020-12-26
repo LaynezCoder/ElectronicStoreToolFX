@@ -12,22 +12,17 @@ import java.util.logging.Logger;
 
 public class Preferences {
 
-    public static final String CONFIG_FILE = "config.txt";
+    private static final String CONFIG_FILE = "config.txt";
 
-    private String initialPathFileChooser;
+    private String initialPathFileChooserProductsController;
+    
+    private String initialPathFileChooserSettingsController;
 
     public Preferences() {
-        initialPathFileChooser = System.getProperty("user.home");
+        initialPathFileChooserProductsController = System.getProperty("user.home");
+        initialPathFileChooserSettingsController = System.getProperty("user.home");
     }
-
-    public String getInitialPathFileChooser() {
-        return initialPathFileChooser;
-    }
-
-    public void setInitialPathFileChooser(String initialPathFileChooser) {
-        this.initialPathFileChooser = initialPathFileChooser;
-    }
-
+    
     public static void initConfig() {
         Writer writer = null;
         try {
@@ -74,5 +69,21 @@ public class Preferences {
                 Logger.getLogger(Preferences.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public String getInitialPathFileChooserProductsController() {
+        return initialPathFileChooserProductsController;
+    }
+
+    public void setInitialPathFileChooserProductsController(String initialPathFileChooserProductsController) {
+        this.initialPathFileChooserProductsController = initialPathFileChooserProductsController;
+    }
+
+    public String getInitialPathFileChooserSettingsController() {
+        return initialPathFileChooserSettingsController;
+    }
+
+    public void setInitialPathFileChooserSettingsController(String initialPathFileChooserSettingsController) {
+        this.initialPathFileChooserSettingsController = initialPathFileChooserSettingsController;
     }
 }
