@@ -261,9 +261,9 @@ public class UsersController implements Initializable {
 
     @FXML
     private void hideWindowDeleteUser() {
-        try {
+        if (dialogDeleteUser != null) {
             dialogDeleteUser.close();
-        } catch (NullPointerException ex) {}
+        }
     }
 
     @FXML
@@ -423,7 +423,6 @@ public class UsersController implements Initializable {
             } else {
                 Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
             }
-            
         }
     }
 
@@ -499,13 +498,13 @@ public class UsersController implements Initializable {
             if (keyEvent.getCode() == ESCAPE && rootAddUser.isVisible()) {
                 hideWindowAddUser();
             }
-            try {
+            if (jfxDialog != null) {
                 if (keyEvent.getCode() == ESCAPE && jfxDialog.isVisible()) {
                     tblUsers.setDisable(false);
                     rootUsers.setEffect(null);
                     jfxDialog.close();
                 }
-            } catch (NullPointerException ex) {}
+            }
         });
     }
 
