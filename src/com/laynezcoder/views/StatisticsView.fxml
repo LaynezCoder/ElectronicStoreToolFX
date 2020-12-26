@@ -28,7 +28,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="364.0" layoutY="25.0" prefHeight="47.0" prefWidth="200.0" spacing="10.0" AnchorPane.leftAnchor="364.0" AnchorPane.rightAnchor="366.0">
+                  <HBox alignment="CENTER" layoutY="25.0" prefHeight="67.0" prefWidth="930.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <padding>
                         <Insets bottom="20.0" />
                      </padding>

@@ -65,7 +65,7 @@
                   </JFXButton>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="397.0" layoutY="37.0" prefHeight="50.0" prefWidth="119.0" spacing="30.0" AnchorPane.leftAnchor="397.0" AnchorPane.rightAnchor="414.0">
+            <HBox alignment="CENTER" layoutY="14.0" prefHeight="50.0" prefWidth="930.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <padding>
                   <Insets bottom="20.0" />
                </padding>
