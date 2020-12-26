@@ -51,12 +51,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ProductsController implements Initializable {
-    
+
     private final long LIMIT = 16777215;
-    
+
     private ObservableList<Products> listProducts;
 
     private ObservableList<Products> filterProducts;
@@ -174,10 +175,10 @@ public class ProductsController implements Initializable {
 
     @FXML
     private ImageView imageProduct;
-    
+
     @FXML
     private Pane paneContainer;
-    
+
     @FXML
     private MaterialDesignIconView icon;
 
@@ -186,7 +187,7 @@ public class ProductsController implements Initializable {
     private JFXDialog dialogDeleteProduct;
 
     private final BoxBlur blur = new BoxBlur(3, 3, 3);
-    
+
     public static final Stage stage = new Stage();
 
     private File imageFile;
@@ -206,7 +207,7 @@ public class ProductsController implements Initializable {
         filterProducts = FXCollections.observableArrayList();
         imageProduct.setFitHeight(imageContainer.getPrefHeight() - 10);
         imageProduct.setFitWidth(imageContainer.getPrefWidth() - 10);
-    }                  
+    }
 
     private void setFonts() {
         Resources.setFontToJFXButton(btnCancelAddProduct, 15);
@@ -243,7 +244,7 @@ public class ProductsController implements Initializable {
         Resources.validationOfJFXTextField(txtPorcentage);
         Resources.validationOfJFXTextField(txtSalePrice);
         Resources.validationOfJFXTextField(txtMinPrice);
-        Resources.validationOfJFXTextField(txtBarCode); 
+        Resources.validationOfJFXTextField(txtBarCode);
     }
 
     private void selectText() {
@@ -289,9 +290,9 @@ public class ProductsController implements Initializable {
             rootProducts.setEffect(null);
             rootAddProduct.setVisible(false);
             cleanControls();
-            
+
             if (stage != null) {
-                stage.hide();   
+                stage.hide();
             }
         });
     }
@@ -330,7 +331,7 @@ public class ProductsController implements Initializable {
     private void hideWindowDeleteProduct() {
         if (dialogDeleteProduct != null) {
             dialogDeleteProduct.close();
-        } 
+        }
     }
 
     @FXML
@@ -534,8 +535,8 @@ public class ProductsController implements Initializable {
             products.setSalePrice(Double.parseDouble(txtSalePrice.getText()));
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
             products.setInputStream(getInputStream());
-            
-            if (imageFile != null) { 
+
+            if (imageFile != null) {
                 boolean result = DatabaseHelper.updateProduct(products);
                 if (result) {
                     hideWindowAddProduct();
@@ -554,7 +555,7 @@ public class ProductsController implements Initializable {
                     Resources.showSuccessAlert(stckProducts, rootProducts, tblProducts, "Registry updated successfully");
                 } else {
                     Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
-                } 
+                }
             }
         }
     }
@@ -834,53 +835,75 @@ public class ProductsController implements Initializable {
 
     @FXML
     private void showFileChooser() {
-        imageFile = Resources.getImageFromFileChooser(getStage());
+        imageFile = getImageFromFileChooser(getStage());
         if (imageFile != null) {
             Image image = new Image(imageFile.toURI().toString(),
                     imageProduct.getFitWidth() - 10,
                     imageProduct.getFitHeight() - 10, true, true);
             imageProduct.setImage(image);
             setInitialDirectory();
-        } 
+        }
     }
 
     private Stage getStage() {
         return (Stage) btnCancelAddProduct.getScene().getWindow();
     }
-    
+
     private void setInitialDirectory() {
         Preferences preferences = Preferences.getPreferences();
-        preferences.setInitialPathFileChooser(imageFile.getParent());
+        preferences.setInitialPathFileChooserProductsController(imageFile.getParent());
         Preferences.writePreferencesToFile(preferences);
     }
-    
+
+    private File getImageFromFileChooser(Stage stage) {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilterImages = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg");
+        fileChooser.getExtensionFilters().addAll(extFilterImages);
+        fileChooser.setInitialDirectory(getInitialDirectoy());
+        fileChooser.setTitle("Select an image");
+
+        File selectedImage = fileChooser.showOpenDialog(stage);
+        return selectedImage;
+    }
+
+    private File getInitialDirectoy() {
+        Preferences preferences = Preferences.getPreferences();
+        File initPath = new File(preferences.getInitialPathFileChooserProductsController());
+        if (!initPath.exists()) {
+            preferences.setInitialPathFileChooserProductsController(System.getProperty("user.home"));
+            Preferences.writePreferencesToFile(preferences);
+            initPath = new File(preferences.getInitialPathFileChooserProductsController());
+        }
+        return initPath;
+    }
+
     private void expandImage(int id, String title) {
         new FadeOutUp(icon).play();
         paneContainer.hoverProperty().addListener((o, oldValue, newValue) -> {
             if (newValue) {
-               new FadeInUp(icon).play();
+                new FadeInUp(icon).play();
             } else {
-               new FadeOutUp(icon).play();
+                new FadeOutUp(icon).play();
             }
         });
-        
+
         icon.setOnMouseClicked(ev -> {
             final Image image = DatabaseHelper.getImageProduct(id);
             double widthImage = image.getWidth();
             double heightImage = image.getHeight();
 
-            final ImageView imageView = new ImageView(image);  
+            final ImageView imageView = new ImageView(image);
             double widthImageView = imageView.getFitWidth();
             double heightImageView = imageView.getFitHeight();
-            
+
             if (widthImage > 1000 || heightImage > 600) {
                 imageView.setFitHeight(heightImage / 2);
                 imageView.setFitWidth(widthImage / 2);
-                
+
                 final BorderPane borderPane = new BorderPane();
                 borderPane.setPrefSize(widthImageView, heightImageView);
                 borderPane.setCenter(imageView);
-                
+
                 final ScrollPane scrollPane = new ScrollPane();
                 scrollPane.setFitToWidth(true);
                 scrollPane.setFitToHeight(true);
@@ -893,17 +916,17 @@ public class ProductsController implements Initializable {
             } else {
                 imageView.setFitHeight(heightImage);
                 imageView.setFitWidth(widthImage);
-                
+
                 final BorderPane borderPane = new BorderPane();
                 borderPane.setCenter(imageView);
                 borderPane.setStyle("-fx-background-color: white");
                 borderPane.setPrefSize(widthImage, heightImage);
-                
+
                 stage.setScene(new Scene(borderPane, widthImage, heightImage));
             }
             stage.setTitle(title);
             stage.getIcons().add(new Image(Resources.SOURCE_PACKAGES + "/media/reicon.png"));
-            stage.show();         
+            stage.show();
         });
     }
 }
