@@ -241,7 +241,7 @@ public class Resources {
 
     public static void validationOfJFXComboBox(JFXComboBox comboBox) {
         RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage("Campo obligatorio");
+        validator.setMessage("Obligatory field");
         comboBox.getValidators().add(validator);
 
         FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
