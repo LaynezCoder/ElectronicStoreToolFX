@@ -138,32 +138,11 @@ public class SettingsController implements Initializable {
             } else {
                 Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
             }
-
         }
     }
 
     private String getDialogTransition() {
-        String dialogTransitionSelected = cmbDialogTransition.getSelectionModel().getSelectedItem();
-        String dialogTransition = null;
-
-        switch (dialogTransitionSelected) {
-            case "Left":
-                dialogTransition = "LEFT";
-                break;
-            case "Right":
-                dialogTransition = "RIGHT";
-                break;
-            case "Top":
-                dialogTransition = "TOP";
-                break;
-            case "Bottom":
-                dialogTransition = "BOTTOM";
-                break;
-            case "Center":
-                dialogTransition = "CENTER";
-                break;
-        }
-        return dialogTransition;
+        return cmbDialogTransition.getSelectionModel().getSelectedItem().toUpperCase();
     }
 
     private void initializeJFXComboBox(ResultSet rs) {
