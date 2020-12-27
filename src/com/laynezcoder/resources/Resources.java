@@ -23,6 +23,7 @@ import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -32,7 +33,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -46,126 +49,134 @@ public class Resources {
     public static final String NO_IMAGE_AVAILABLE = "/com/laynezcoder/media/empty-image.jpg";
     public static final String CSS_LIGHT_THEME = "/com/laynezcoder/resources/LightTheme.css";
     public static final String LIGHT_THEME = Resources.class.getResource(CSS_LIGHT_THEME).toExternalForm();
-    public static JFXDialog jfxDialog;
-
-    public static void showErrorAlert(StackPane containter, Node rootPaneSetEffect, Node nodeDisable, String text) {
+    public static JFXDialog dialog;
+    
+    public static void showSuccessAlert(StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String text) {
         Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), 17);
 
         AnchorPane root = new AnchorPane();
-        root.setPrefWidth(390);
-        root.setPrefHeight(230);
-        root.getStylesheets().add(LIGHT_THEME);
-
-        JFXButton button = new JFXButton("Okey");
-        button.getStyleClass().add("button-alert-error");
-        button.setFont(font);
-        button.setLayoutX(38);
-        button.setLayoutY(152);
-        button.setPrefWidth(320);
-        button.setPrefHeight(41);
-
-        Text textTitle = new Text("Oops!");
-        textTitle.getStyleClass().add("title-alert-error");
-        textTitle.setFont(font);
-        textTitle.setLayoutX(31);
-        textTitle.setLayoutY(56);
-
-        Text textBody = new Text(text);
-        textBody.getStyleClass().add("body-alert-error");
-        textBody.setFont(font);
-        textBody.setLayoutX(35);
-        textBody.setLayoutY(81);
-
-        root.getChildren().addAll(button, textBody, textTitle);
-
-        BoxBlur blur = new BoxBlur(3, 3, 3);
-
-        jfxDialog = new JFXDialog();
-        jfxDialog.setDialogContainer(containter);
-        jfxDialog.setContent(root);
-        jfxDialog.setTransitionType(DatabaseHelper.dialogTransition());
-        jfxDialog.setBackground(Background.EMPTY);
-
-        styleAlert(jfxDialog);
-        nodeDisable.setDisable(true);
-        rootPaneSetEffect.setEffect(blur);
-
-        jfxDialog.show();
-
-        button.setOnMouseClicked(e -> {
-            jfxDialog.close();
-        });
-
-        jfxDialog.setOnDialogClosed(e -> {
-            nodeDisable.setDisable(false);
-            rootPaneSetEffect.setEffect(null);
-        });
-
-        jfxDialog.setOnDialogOpened(e -> {
-            nodeDisable.setDisable(true);
-            rootPaneSetEffect.setEffect(blur);
-        });
-    }
-
-    public static void showSuccessAlert(StackPane containter, Node rootPaneSetEffect, Node nodeDisable, String bodyText) {
-        Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), 17);
-
-        AnchorPane root = new AnchorPane();
-        root.setPrefWidth(390);
-        root.setPrefHeight(230);
+        root.setPrefSize(390, 230);
         root.getStylesheets().add(LIGHT_THEME);
 
         JFXButton button = new JFXButton("Okey");
         button.getStyleClass().add("button-alert-success");
         button.setFont(font);
-        button.setLayoutX(38);
-        button.setLayoutY(152);
-        button.setPrefWidth(320);
-        button.setPrefHeight(41);
+        
+        HBox hBox = new HBox();
+        hBox.setLayoutY(115);
+        hBox.setPrefSize(390, 115);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.getChildren().addAll(button);
 
-        Text textTitle = new Text("Nice job!");
+        Text textTitle = new Text("Oops!");
         textTitle.getStyleClass().add("title-alert-success");
         textTitle.setFont(font);
-        textTitle.setLayoutX(31);
-        textTitle.setLayoutY(56);
 
-        Text textBody = new Text(bodyText);
+        Text textBody = new Text(text);
         textBody.getStyleClass().add("body-alert-success");
         textBody.setFont(font);
-        textBody.setLayoutX(35);
-        textBody.setLayoutY(81);
+        
+        VBox vBox = new VBox();
+        vBox.setSpacing(5);
+        vBox.setPrefSize(390, 115);
+        vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.setPadding(new Insets(0, 0, 0, 30));
+        vBox.getChildren().addAll(textTitle, textBody);
 
-        root.getChildren().addAll(button, textBody, textTitle);
+        root.getChildren().addAll(hBox, vBox);
 
         BoxBlur blur = new BoxBlur(3, 3, 3);
 
-        jfxDialog = new JFXDialog();
-        jfxDialog.setDialogContainer(containter);
-        jfxDialog.setContent(root);
-        jfxDialog.setTransitionType(DatabaseHelper.dialogTransition());
-        jfxDialog.setBackground(Background.EMPTY);
+        dialog = new JFXDialog();
+        dialog.setContent(root);
+        dialog.setDialogContainer(dialogContainer);
+        dialog.setBackground(Background.EMPTY);
+        dialog.setTransitionType(DatabaseHelper.dialogTransition());
 
-        styleAlert(jfxDialog);
-        nodeDisable.setDisable(true);
-        rootPaneSetEffect.setEffect(blur);
+        setStyleToAlerts(dialog);
+        nodeToDisable.setDisable(true);
+        nodeToBlur.setEffect(blur);
 
-        jfxDialog.show();
+        dialog.show();
 
         button.setOnMouseClicked(e -> {
-            jfxDialog.close();
+            dialog.close();
+        });
+        
+        dialog.setOnDialogOpened(e -> {
+            nodeToDisable.setDisable(true);
+            nodeToBlur.setEffect(blur);
         });
 
-        jfxDialog.setOnDialogClosed(e -> {
-            nodeDisable.setDisable(false);
-            rootPaneSetEffect.setEffect(null);
-        });
-
-        jfxDialog.setOnDialogOpened(e -> {
-            nodeDisable.setDisable(true);
-            rootPaneSetEffect.setEffect(blur);
+        dialog.setOnDialogClosed(e -> {
+            nodeToDisable.setDisable(false);
+            nodeToBlur.setEffect(null);
         });
     }
+    
+    public static void showErrorAlert(StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String text) {
+        Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), 17);
 
+        AnchorPane root = new AnchorPane();
+        root.setPrefSize(390, 230);
+        root.getStylesheets().add(LIGHT_THEME);
+
+        JFXButton button = new JFXButton("Okey");
+        button.getStyleClass().add("button-alert-error");
+        button.setFont(font);
+        
+        HBox hBox = new HBox();
+        hBox.setLayoutY(115);
+        hBox.setPrefSize(390, 115);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.getChildren().addAll(button);
+
+        Text textTitle = new Text("Oops!");
+        textTitle.getStyleClass().add("title-alert-error");
+        textTitle.setFont(font);
+
+        Text textBody = new Text(text);
+        textBody.getStyleClass().add("body-alert-error");
+        textBody.setFont(font);
+        
+        VBox vBox = new VBox();
+        vBox.setSpacing(5);
+        vBox.setPrefSize(390, 115);
+        vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.setPadding(new Insets(0, 0, 0, 30));
+        vBox.getChildren().addAll(textTitle, textBody);
+
+        root.getChildren().addAll(hBox, vBox);
+
+        BoxBlur blur = new BoxBlur(3, 3, 3);
+
+        dialog = new JFXDialog();
+        dialog.setContent(root);
+        dialog.setDialogContainer(dialogContainer);
+        dialog.setBackground(Background.EMPTY);
+        dialog.setTransitionType(DatabaseHelper.dialogTransition());
+
+        setStyleToAlerts(dialog);
+        nodeToDisable.setDisable(true);
+        nodeToBlur.setEffect(blur);
+
+        dialog.show();
+
+        button.setOnMouseClicked(e -> {
+            dialog.close();
+        });
+        
+        dialog.setOnDialogOpened(e -> {
+            nodeToDisable.setDisable(true);
+            nodeToBlur.setEffect(blur);
+        });
+
+        dialog.setOnDialogClosed(e -> {
+            nodeToDisable.setDisable(false);
+            nodeToBlur.setEffect(null);
+        });
+    }
+    
     public static void notification(String title, String text, String iconName) {
         Image img = new Image(PACKAGE_MEDIA + iconName);
         Notifications notificationsBuilder = Notifications.create();
@@ -354,7 +365,7 @@ public class Resources {
         });
     }
 
-    public static void styleAlert(JFXDialog alert) {
+    public static void setStyleToAlerts(JFXDialog alert) {
         alert.getStylesheets().add(LIGHT_THEME);
         alert.getStyleClass().add("jfx-dialog-overlay-pane");
     }
