@@ -10,7 +10,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -32,9 +31,6 @@
                   <TableColumn fx:id="colCorreoCliente" prefWidth="75.0" text="Email" />
                   <TableColumn fx:id="colNitCliente" prefWidth="75.0" text="It" />
                </columns>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
                <contextMenu>
                   <ContextMenu fx:id="contextMenu" styleClass="colored-context-menu">
                     <items>
@@ -61,7 +57,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <JFXButton fx:id="btnAddCustomer" buttonType="RAISED" layoutX="797.0" layoutY="23.0" onMouseClicked="#showWindowAddCustomer" prefHeight="39.0" prefWidth="131.0" styleClass="login-jfx-button" text="New customer" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="23.0">
+            <JFXButton fx:id="btnAddCustomer" layoutX="797.0" layoutY="23.0" onMouseClicked="#showWindowAddCustomer" prefHeight="39.0" prefWidth="131.0" styleClass="login-jfx-button" text="New customer" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="23.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -79,9 +75,6 @@
                   <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="20" translateY="10.0" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="txtSearchNumber" layoutX="233.0" layoutY="10.0" onKeyReleased="#filterNumberCustomer" onKeyTyped="#onlyTextFieldNumber" prefHeight="25.0" prefWidth="329.0" promptText="Search number" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
                </children>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
             </HBox>
             <AnchorPane fx:id="rootDeleteCustomer" layoutX="269.0" layoutY="196.0" prefHeight="246.0" prefWidth="392.0" visible="false">
                <children>

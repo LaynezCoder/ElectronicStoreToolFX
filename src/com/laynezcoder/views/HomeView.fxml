@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -28,9 +27,6 @@
                      </font></TextField>
                   <FontAwesomeIconView fill="#76787c" glyphName="SEARCH" layoutX="14.0" layoutY="27.0" size="20" />
                </children>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
             </AnchorPane>
             <AnchorPane fx:id="rootWelcome" layoutX="16.0" layoutY="72.0" prefHeight="0.0" prefWidth="900.0" style="-fx-background-color: #e2faff; -fx-background-radius: 5;" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="14.0">
                <children>
@@ -57,9 +53,6 @@
                      </padding>
                   </VBox>
                </children>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
             </AnchorPane>
             <TableView fx:id="tblQuotes" layoutX="17.0" layoutY="388.0" prefHeight="163.0" prefWidth="900.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="388.0">
                <columns>
@@ -75,16 +68,10 @@
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
             </TableView>
             <HBox alignment="CENTER" layoutX="17.0" layoutY="228.0" prefHeight="75.0" prefWidth="900.0" spacing="20.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="13.0">
                <children>
                   <AnchorPane fx:id="rootTotalCustomers" layoutX="230.0" layoutY="10.0" prefHeight="0.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 5;" translateY="10.0" HBox.hgrow="ALWAYS">
-                     <effect>
-                        <DropShadow color="#d7d6d6" offsetX="10.0" offsetY="10.0" />
-                     </effect>
                      <children>
                         <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
@@ -103,9 +90,6 @@
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="rootTotalQuotes" layoutX="330.0" layoutY="10.0" prefHeight="0.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 5;" translateY="10.0" HBox.hgrow="ALWAYS">
-                     <effect>
-                        <DropShadow color="#d7d6d6" offsetX="10.0" offsetY="10.0" />
-                     </effect>
                      <children>
                         <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
@@ -124,9 +108,6 @@
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="rootProducts" layoutX="480.0" layoutY="10.0" prefHeight="0.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 5;" translateY="10.0" HBox.hgrow="ALWAYS">
-                     <effect>
-                        <DropShadow color="#d7d6d6" offsetX="10.0" offsetY="10.0" />
-                     </effect>
                      <children>
                         <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
@@ -145,9 +126,6 @@
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="rootRecentQuotes" layoutX="630.0" layoutY="10.0" prefHeight="0.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 5;" translateY="10.0" HBox.hgrow="ALWAYS">
-                     <effect>
-                        <DropShadow color="#d7d6d6" offsetX="10.0" offsetY="10.0" />
-                     </effect>
                      <children>
                         <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>

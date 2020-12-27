@@ -16,7 +16,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -44,9 +43,6 @@
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
                <contextMenu>
                   <ContextMenu styleClass="colored-context-menu">
                      <items>
@@ -147,11 +143,8 @@
                   <FontAwesomeIconView glyphName="SEARCH" layoutX="15.0" layoutY="29.0" opacity="0.5" size="20" translateY="10.0" />
                   <TextField fx:id="txtSearchQuotes" layoutX="39.0" layoutY="10.0" onKeyReleased="#filterDescriptionQuotes" prefHeight="25.0" prefWidth="331.0" promptText="Search quote" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
                </children>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
             </HBox>
-            <JFXButton fx:id="btnAddQuotes" buttonType="RAISED" layoutX="771.0" layoutY="23.0" onMouseClicked="#showWindowAddQuotes" prefHeight="39.0" prefWidth="145.0" style="-fx-background-radius: 5;" styleClass="login-jfx-button" text="New quote" textFill="WHITE" translateY="2.0" AnchorPane.rightAnchor="14.0">
+            <JFXButton fx:id="btnAddQuotes" layoutX="771.0" layoutY="23.0" onMouseClicked="#showWindowAddQuotes" prefHeight="39.0" prefWidth="145.0" style="-fx-background-radius: 5;" styleClass="login-jfx-button" text="New quote" textFill="WHITE" translateY="2.0" AnchorPane.rightAnchor="14.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

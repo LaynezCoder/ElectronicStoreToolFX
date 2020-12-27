@@ -11,7 +11,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -38,9 +37,6 @@
                   <TableColumn fx:id="colSalePrice" prefWidth="96.0" text="Sale price" />
                   <TableColumn fx:id="colMinimalPrice" prefWidth="180.0" text="Minimal price" />
                </columns>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
                <contextMenu>
                   <ContextMenu fx:id="contextMenu" styleClass="colored-context-menu">
                      <items>
@@ -81,9 +77,6 @@
                   <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="20" translateY="10.0" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="txtSearchProduct" onKeyReleased="#filterNameProduct" prefHeight="25.0" prefWidth="339.0" promptText="Search product" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
                </children>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
             </HBox>
             <AnchorPane fx:id="rootAddProduct" layoutX="96.0" layoutY="98.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="429.0" prefWidth="740.0" style="-fx-background-radius: 10;" visible="false">
                <children>
@@ -199,7 +192,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <JFXButton fx:id="btnNewProduct" buttonType="RAISED" layoutX="759.0" layoutY="17.0" onMouseClicked="#showWindowAddProduct" prefHeight="39.0" prefWidth="155.0" styleClass="login-jfx-button" text="New product" textFill="WHITE" AnchorPane.rightAnchor="16.0">
+            <JFXButton fx:id="btnNewProduct" layoutX="759.0" layoutY="17.0" onMouseClicked="#showWindowAddProduct" prefHeight="39.0" prefWidth="155.0" styleClass="login-jfx-button" text="New product" textFill="WHITE" AnchorPane.rightAnchor="16.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

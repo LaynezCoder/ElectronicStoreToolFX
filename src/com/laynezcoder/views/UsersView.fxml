@@ -12,7 +12,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,9 +34,6 @@
                   <TableColumn fx:id="colPassword" prefWidth="172.0" text="Password" />
                   <TableColumn fx:id="colTypeUser" prefWidth="96.0" text="Type of user" />
                </columns>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
                <contextMenu>
                   <ContextMenu styleClass="colored-context-menu">
                      <items>
@@ -68,7 +64,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <JFXButton fx:id="btnNewUser" buttonType="RAISED" layoutX="761.0" layoutY="17.0" onMouseClicked="#showWindowAddUser" prefHeight="39.0" prefWidth="155.0" styleClass="login-jfx-button" text="New user" textFill="WHITE" AnchorPane.rightAnchor="14.0">
+            <JFXButton fx:id="btnNewUser" layoutX="761.0" layoutY="17.0" onMouseClicked="#showWindowAddUser" prefHeight="39.0" prefWidth="155.0" styleClass="login-jfx-button" text="New user" textFill="WHITE" AnchorPane.rightAnchor="14.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -86,9 +82,6 @@
                   <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="20" translateY="10.0" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="txtSearchUser" onKeyReleased="#filterUser" prefHeight="25.0" prefWidth="339.0" promptText="Search user" style="-fx-background-color: white;" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
                </children>
-               <effect>
-                  <DropShadow color="#cccdd0" offsetX="10.0" offsetY="10.0" />
-               </effect>
             </HBox>
             <AnchorPane fx:id="rootDeleteUser" layoutX="279.0" layoutY="206.0" prefHeight="246.0" prefWidth="392.0" visible="false">
                <children>
