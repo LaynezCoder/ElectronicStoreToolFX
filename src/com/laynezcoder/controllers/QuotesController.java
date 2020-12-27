@@ -14,7 +14,6 @@ import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Customers;
 import com.laynezcoder.models.Quotes;
 import com.laynezcoder.resources.Resources;
-import static com.laynezcoder.resources.Resources.jfxDialog;
 import com.laynezcoder.util.AutocompleteComboBox;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -50,6 +49,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import static com.laynezcoder.resources.Resources.dialog;
 
 public class QuotesController implements Initializable {
 
@@ -223,7 +223,7 @@ public class QuotesController implements Initializable {
         dialogAddQuote.setBackground(Background.EMPTY);
         dialogAddQuote.setDialogContainer(stckQuotes);
         dialogAddQuote.setContent(rootAddQuotes);
-        Resources.styleAlert(dialogAddQuote);
+        Resources.setStyleToAlerts(dialogAddQuote);
         dialogAddQuote.show();
 
         dialogAddQuote.setOnDialogOpened(ev -> {
@@ -268,7 +268,7 @@ public class QuotesController implements Initializable {
             dialogDeleteQuote.setBackground(Background.EMPTY);
             dialogDeleteQuote.setDialogContainer(stckQuotes);
             dialogDeleteQuote.setContent(rootDeleteQuotes);
-            Resources.styleAlert(dialogDeleteQuote);
+            Resources.setStyleToAlerts(dialogDeleteQuote);
             rootDeleteQuotes.setVisible(true);
             dialogDeleteQuote.show();
 
@@ -558,11 +558,11 @@ public class QuotesController implements Initializable {
             if (keyEvent.getCode() == ESCAPE && rootAddQuotes.isVisible()) {
                 hideWindowAddQuotes();
             }
-            if (jfxDialog != null) {
-                if (keyEvent.getCode() == ESCAPE && jfxDialog.isVisible()) {
+            if (dialog != null) {
+                if (keyEvent.getCode() == ESCAPE && dialog.isVisible()) {
                     tblQuotes.setDisable(false);
                     rootQuotes.setEffect(null);
-                    jfxDialog.close();
+                    dialog.close();
                 }
             }
         });

@@ -12,7 +12,6 @@ import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Products;
 import com.laynezcoder.preferences.Preferences;
 import com.laynezcoder.resources.Resources;
-import static com.laynezcoder.resources.Resources.jfxDialog;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,6 +52,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import static com.laynezcoder.resources.Resources.dialog;
 
 public class ProductsController implements Initializable {
 
@@ -278,7 +278,7 @@ public class ProductsController implements Initializable {
         dialogAddProduct.setBackground(Background.EMPTY);
         dialogAddProduct.setDialogContainer(stckProducts);
         dialogAddProduct.setContent(rootAddProduct);
-        Resources.styleAlert(dialogAddProduct);
+        Resources.setStyleToAlerts(dialogAddProduct);
         dialogAddProduct.show();
 
         dialogAddProduct.setOnDialogOpened(ev -> {
@@ -314,7 +314,7 @@ public class ProductsController implements Initializable {
             dialogDeleteProduct.setBackground(Background.EMPTY);
             dialogDeleteProduct.setDialogContainer(stckProducts);
             dialogDeleteProduct.setContent(rootDeleteProducts);
-            Resources.styleAlert(dialogDeleteProduct);
+            Resources.setStyleToAlerts(dialogDeleteProduct);
             rootDeleteProducts.setVisible(true);
             dialogDeleteProduct.show();
 
@@ -687,11 +687,11 @@ public class ProductsController implements Initializable {
             if (keyEvent.getCode() == ESCAPE && rootDeleteProducts.isVisible()) {
                 hideWindowDeleteProduct();
             }
-            if (jfxDialog != null) {
-                if (keyEvent.getCode() == ESCAPE && jfxDialog.isVisible()) {
+            if (dialog != null) {
+                if (keyEvent.getCode() == ESCAPE && dialog.isVisible()) {
                     tblProducts.setDisable(false);
                     rootProducts.setEffect(null);
-                    jfxDialog.close();
+                    dialog.close();
                 }
             }
         });

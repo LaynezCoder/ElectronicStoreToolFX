@@ -8,7 +8,6 @@ import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Customers;
 import com.laynezcoder.resources.Resources;
-import static com.laynezcoder.resources.Resources.jfxDialog;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,6 +34,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import static com.laynezcoder.resources.Resources.dialog;
 
 public class CustomersController implements Initializable {
     
@@ -137,7 +137,7 @@ public class CustomersController implements Initializable {
         validation();
         selectText();
         loadData();
-        setFonts();
+        setFonts();     
     }
 
     private void setFonts() {
@@ -209,7 +209,7 @@ public class CustomersController implements Initializable {
         dialogAddCustomer.setDialogContainer(stckCustomers);
         dialogAddCustomer.setBackground(Background.EMPTY);
         dialogAddCustomer.setContent(rootAddCustomer);
-        Resources.styleAlert(dialogAddCustomer);
+        Resources.setStyleToAlerts(dialogAddCustomer);
         dialogAddCustomer.show();
 
         dialogAddCustomer.setOnDialogOpened(ev -> {
@@ -242,7 +242,7 @@ public class CustomersController implements Initializable {
             dialogDeleteCustomer.setDialogContainer(stckCustomers);
             dialogDeleteCustomer.setBackground(Background.EMPTY);
             dialogDeleteCustomer.setContent(rootDeleteCustomer);
-            Resources.styleAlert(dialogDeleteCustomer);
+            Resources.setStyleToAlerts(dialogDeleteCustomer);
             rootDeleteCustomer.setVisible(true);
             dialogDeleteCustomer.show();
 
@@ -468,11 +468,11 @@ public class CustomersController implements Initializable {
             if (keyEvent.getCode() == ESCAPE && rootAddCustomer.isVisible()) {
                 hideWindowAddCustomer();
             }
-            if (jfxDialog != null) {
-                if (keyEvent.getCode() == ESCAPE && jfxDialog.isVisible()) {
+            if (dialog != null) {
+                if (keyEvent.getCode() == ESCAPE && dialog.isVisible()) {
                     tblCustomers.setDisable(false);
                     rootCustomers.setEffect(null);
-                    jfxDialog.close();
+                    dialog.close();
                 }
             }
         });

@@ -10,7 +10,6 @@ import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Users;
 import com.laynezcoder.resources.Resources;
-import static com.laynezcoder.resources.Resources.jfxDialog;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -42,6 +41,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import static com.laynezcoder.resources.Resources.dialog;
 
 public class UsersController implements Initializable {
 
@@ -208,7 +208,7 @@ public class UsersController implements Initializable {
         dialogAddUser.setBackground(Background.EMPTY);
         dialogAddUser.setDialogContainer(stckUsers);
         dialogAddUser.setContent(rootAddUser);
-        Resources.styleAlert(dialogAddUser);
+        Resources.setStyleToAlerts(dialogAddUser);
         rootAddUser.setVisible(true);      
         dialogAddUser.show();
 
@@ -242,7 +242,7 @@ public class UsersController implements Initializable {
             dialogDeleteUser.setBackground(Background.EMPTY);
             dialogDeleteUser.setDialogContainer(stckUsers);
             dialogDeleteUser.setContent(rootDeleteUser);
-            Resources.styleAlert(dialogDeleteUser);
+            Resources.setStyleToAlerts(dialogDeleteUser);
             rootDeleteUser.setVisible(true);
             dialogDeleteUser.show();
 
@@ -498,11 +498,11 @@ public class UsersController implements Initializable {
             if (keyEvent.getCode() == ESCAPE && rootAddUser.isVisible()) {
                 hideWindowAddUser();
             }
-            if (jfxDialog != null) {
-                if (keyEvent.getCode() == ESCAPE && jfxDialog.isVisible()) {
+            if (dialog != null) {
+                if (keyEvent.getCode() == ESCAPE && dialog.isVisible()) {
                     tblUsers.setDisable(false);
                     rootUsers.setEffect(null);
-                    jfxDialog.close();
+                    dialog.close();
                 }
             }
         });

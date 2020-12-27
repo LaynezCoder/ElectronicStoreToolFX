@@ -389,7 +389,7 @@ public class StartController implements Initializable {
         JFXDialog dialog = new JFXDialog(stckStart, dialogLayout, JFXDialog.DialogTransition.valueOf(getDialogTransition()));
         dialogLayout.setBody(new Label(body));
         dialogLayout.setActions(button);
-        Resources.styleAlert(dialog);
+        Resources.setStyleToAlerts(dialog);
         dialog.show();
 
         button.setOnMouseClicked(ev -> {
