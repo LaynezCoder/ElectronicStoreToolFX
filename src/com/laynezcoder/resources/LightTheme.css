@@ -317,7 +317,6 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-fill: black;
 }
 
-
 .button-start-dialog {
     -fx-background-color: #2d3037;
     -fx-text-fill: white;
@@ -381,6 +380,8 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-background-color: #f35f56;
     -fx-background-radius: 5;
     -fx-text-fill: white;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 340px;
 }
 
 .button-alert .jfx-rippler {
@@ -401,6 +402,8 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
     -fx-background-color: #2ab56f;
     -fx-background-radius: 5;
     -fx-text-fill: white;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 340px;
 }
 
 .button-alert-success .jfx-rippler {
