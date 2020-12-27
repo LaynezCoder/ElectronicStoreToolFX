@@ -418,7 +418,7 @@ Canal of youtube: https://www.youtube.com/channel/UCyh1gKvoLx0Jk4ujhS3OIUA?view_
 }
 
 .password-field-cell {
-    -fx-background-color:  white;
+    -fx-background-color: transparent;
     -fx-text-fill:  black;
     -fx-highlight-fill: null;
     -fx-highlight-text-fill: null;
