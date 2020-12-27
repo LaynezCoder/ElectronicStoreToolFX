@@ -121,7 +121,7 @@
                         <Font size="14.0" />
                      </font>
                   </JFXToggleButton>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0">
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0">
                      <children>
                         <Text fx:id="titleWindowAddQuotes" strokeType="OUTSIDE" strokeWidth="0.0" text="Add quote">
                            <font>
