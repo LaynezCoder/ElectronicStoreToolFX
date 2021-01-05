@@ -49,6 +49,7 @@ CREATE TABLE Users (
     biography LONGTEXT NOT NULL,
     dialogTransition VARCHAR(150) NOT NULL,
     userType VARCHAR(150) NOT NULL,
+    profileImage LONGBLOB NOT NULL,
     PRIMARY KEY (id)
 );
 
