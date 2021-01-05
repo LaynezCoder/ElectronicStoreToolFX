@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Users;
+import com.laynezcoder.resources.Constants;
 import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -42,6 +43,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import static com.laynezcoder.resources.Resources.dialog;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class UsersController implements Initializable {
 
@@ -174,6 +177,11 @@ public class UsersController implements Initializable {
         Resources.validationOfJFXTextField(txtPassword);
         Resources.validationOfJFXPasswordField(pfPassword);
         Resources.validationOfJFXComboBox(cmbTypeUser);
+
+        Resources.onlyLettersTextField(txtName);
+        Resources.noInitSpace(txtName);
+        Resources.noInitSpace(txtUser);
+        Resources.noInitSpace(pfPassword);
     }
 
     private void selectText() {
@@ -194,6 +202,7 @@ public class UsersController implements Initializable {
 
     @FXML
     private void showWindowAddUser() {
+        disableTable();
         resetValidation();
         enableControlsEdit();
         rootUsers.setEffect(blur);
@@ -202,14 +211,14 @@ public class UsersController implements Initializable {
         btnSaveUser.setDisable(false);
         btnUpdateUser.setVisible(true);
         btnSaveUser.toFront();
-        
+
         dialogAddUser = new JFXDialog();
         dialogAddUser.setTransitionType(DatabaseHelper.dialogTransition());
         dialogAddUser.setBackground(Background.EMPTY);
         dialogAddUser.setDialogContainer(stckUsers);
         dialogAddUser.setContent(rootAddUser);
         Resources.setStyleToAlerts(dialogAddUser);
-        rootAddUser.setVisible(true);      
+        rootAddUser.setVisible(true);
         dialogAddUser.show();
 
         dialogAddUser.setOnDialogOpened(ev -> {
@@ -221,6 +230,10 @@ public class UsersController implements Initializable {
             rootUsers.setEffect(null);
             rootAddUser.setVisible(false);
             cleanControls();
+        });
+
+        cmbTypeUser.focusedProperty().addListener((o, oldV, newV) -> {
+            cmbTypeUser.show();
         });
     }
 
@@ -236,7 +249,7 @@ public class UsersController implements Initializable {
         } else {
             rootUsers.setEffect(blur);
             disableTable();
-            
+
             dialogDeleteUser = new JFXDialog();
             dialogDeleteUser.setTransitionType(DatabaseHelper.dialogTransition());
             dialogDeleteUser.setBackground(Background.EMPTY);
@@ -351,6 +364,11 @@ public class UsersController implements Initializable {
             new Shake(txtUser).play();
         } else {
             Users users = new Users(txtName.getText(), txtUser.getText(), pfPassword.getText(), cmbTypeUser.getSelectionModel().getSelectedItem());
+            try {
+                users.setProfileImage(getImage(txtName.getText()));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             boolean result = DatabaseHelper.insertNewUser(users, listUsers);
             if (result) {
                 loadData();
@@ -435,7 +453,7 @@ public class UsersController implements Initializable {
         pfPassword.visibleProperty().bind(icon.pressedProperty().not());
 
         txtPassword.textProperty().bindBidirectional(pfPassword.textProperty());
-        
+
         icon.pressedProperty().addListener((o, oldVal, newVal) -> {
             if (newVal) {
                 icon.setIcon(FontAwesomeIcon.EYE);
@@ -443,6 +461,100 @@ public class UsersController implements Initializable {
                 icon.setIcon(FontAwesomeIcon.EYE_SLASH);
             }
         });
+    }
+
+    private InputStream getImage(String name) throws FileNotFoundException {
+        InputStream inputStream = null;
+
+        char character = name.toLowerCase().charAt(0);
+        switch (character) {
+            case 'a':
+                inputStream = getProfilePictureFromPackage("a");
+                break;
+            case 'b':
+                inputStream = getProfilePictureFromPackage("b");
+                break;
+            case 'c':
+                inputStream = getProfilePictureFromPackage("c");
+                break;
+            case 'd':
+                inputStream = getProfilePictureFromPackage("d");
+                break;
+            case 'e':
+                inputStream = getProfilePictureFromPackage("e");
+                break;
+            case 'f':
+                inputStream = getProfilePictureFromPackage("f");
+                break;
+            case 'g':
+                inputStream = getProfilePictureFromPackage("g");
+                break;
+            case 'h':
+                inputStream = getProfilePictureFromPackage("h");
+                break;
+            case 'i':
+                inputStream = getProfilePictureFromPackage("i");
+                break;
+            case 'j':
+                inputStream = getProfilePictureFromPackage("j");
+                break;
+            case 'k':
+                inputStream = getProfilePictureFromPackage("k");
+                break;
+            case 'l':
+                inputStream = getProfilePictureFromPackage("l");
+                break;
+            case 'm':
+                inputStream = getProfilePictureFromPackage("m");
+                break;
+            case 'n':
+                inputStream = getProfilePictureFromPackage("n");
+                break;
+            case 'ñ':
+                inputStream = getProfilePictureFromPackage("n");
+                break;
+            case 'o':
+                inputStream = getProfilePictureFromPackage("o");
+                break;
+            case 'p':
+                inputStream = getProfilePictureFromPackage("p");
+                break;
+            case 'q':
+                inputStream = getProfilePictureFromPackage("q");
+                break;
+            case 'r':
+                inputStream = getProfilePictureFromPackage("r");
+                break;
+            case 's':
+                inputStream = getProfilePictureFromPackage("s");
+                break;
+            case 't':
+                inputStream = getProfilePictureFromPackage("t");
+                break;
+            case 'u':
+                inputStream = getProfilePictureFromPackage("u");
+                break;
+            case 'v':
+                inputStream = getProfilePictureFromPackage("v");
+                break;
+            case 'w':
+                inputStream = getProfilePictureFromPackage("w");
+                break;
+            case 'x':
+                inputStream = getProfilePictureFromPackage("x");
+                break;
+            case 'y':
+                inputStream = getProfilePictureFromPackage("y");
+                break;
+            case 'z':
+                inputStream = getProfilePictureFromPackage("z");
+                break;
+        }
+        return inputStream;
+    }
+
+    private InputStream getProfilePictureFromPackage(String imageName) throws FileNotFoundException {
+        return UsersController.class.getResourceAsStream(Constants.PROFILE_PICTURES_PACKAGE + imageName + ".png");
     }
 
     private void maxinumCharactert() {
