@@ -50,7 +50,7 @@ public class Resources {
     public static final String CSS_LIGHT_THEME = "/com/laynezcoder/resources/LightTheme.css";
     public static final String LIGHT_THEME = Resources.class.getResource(CSS_LIGHT_THEME).toExternalForm();
     public static JFXDialog dialog;
-    
+
     public static void showSuccessAlert(StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String text) {
         Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), 17);
 
@@ -61,21 +61,21 @@ public class Resources {
         JFXButton button = new JFXButton("Okey");
         button.getStyleClass().add("button-alert-success");
         button.setFont(font);
-        
+
         HBox hBox = new HBox();
         hBox.setLayoutY(115);
         hBox.setPrefSize(390, 115);
         hBox.setAlignment(Pos.CENTER);
         hBox.getChildren().addAll(button);
 
-        Text textTitle = new Text("Oops!");
+        Text textTitle = new Text("Succes!");
         textTitle.getStyleClass().add("title-alert-success");
         textTitle.setFont(font);
 
         Text textBody = new Text(text);
         textBody.getStyleClass().add("body-alert-success");
         textBody.setFont(font);
-        
+
         VBox vBox = new VBox();
         vBox.setSpacing(5);
         vBox.setPrefSize(390, 115);
@@ -102,7 +102,7 @@ public class Resources {
         button.setOnMouseClicked(e -> {
             dialog.close();
         });
-        
+
         dialog.setOnDialogOpened(e -> {
             nodeToDisable.setDisable(true);
             nodeToBlur.setEffect(blur);
@@ -113,7 +113,7 @@ public class Resources {
             nodeToBlur.setEffect(null);
         });
     }
-    
+
     public static void showErrorAlert(StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String text) {
         Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), 17);
 
@@ -124,7 +124,7 @@ public class Resources {
         JFXButton button = new JFXButton("Okey");
         button.getStyleClass().add("button-alert-error");
         button.setFont(font);
-        
+
         HBox hBox = new HBox();
         hBox.setLayoutY(115);
         hBox.setPrefSize(390, 115);
@@ -138,7 +138,7 @@ public class Resources {
         Text textBody = new Text(text);
         textBody.getStyleClass().add("body-alert-error");
         textBody.setFont(font);
-        
+
         VBox vBox = new VBox();
         vBox.setSpacing(5);
         vBox.setPrefSize(390, 115);
@@ -165,7 +165,7 @@ public class Resources {
         button.setOnMouseClicked(e -> {
             dialog.close();
         });
-        
+
         dialog.setOnDialogOpened(e -> {
             nodeToDisable.setDisable(true);
             nodeToBlur.setEffect(blur);
@@ -176,7 +176,7 @@ public class Resources {
             nodeToBlur.setEffect(null);
         });
     }
-    
+
     public static void notification(String title, String text, String iconName) {
         Image img = new Image(PACKAGE_MEDIA + iconName);
         Notifications notificationsBuilder = Notifications.create();
@@ -325,6 +325,22 @@ public class Resources {
         });
     }
 
+    public static void onlyLettersTextField(TextField txt) {
+        txt.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z*") || txt.getText().isEmpty()) {
+                txt.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            }
+        });
+    }
+
+    public static void noInitSpace(TextField txt) {
+        txt.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (txt.getText().equals(" ")) {
+                txt.setText(oldValue);
+            }
+        });
+    }
+
     public static void selectTextToJFXTextField(JFXTextField txt) {
         txt.focusedProperty().addListener((ObservableValue<? extends Boolean> o, Boolean oldVal, Boolean newVal) -> {
             Platform.runLater(() -> {
@@ -429,5 +445,5 @@ public class Resources {
                 Logger.getLogger(Resources.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-    } 
+    }
 }
