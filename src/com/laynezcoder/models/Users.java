@@ -89,11 +89,11 @@ public class Users {
         this.dialogTransition = dialogTransition;
     }
 
-    public InputStream getImageProfile() {
+    public InputStream getProfileImage() {
         return profileImage;
     }
 
-    public void setImageProfile(InputStream imageProfile) {
+    public void setProfileImage(InputStream imageProfile) {
         this.profileImage = imageProfile;
     }
     
