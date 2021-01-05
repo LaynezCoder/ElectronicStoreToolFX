@@ -1,5 +1,7 @@
 package com.laynezcoder.models;
 
+import java.io.InputStream;
+
 public class Users {
 
     private Integer id;
@@ -9,6 +11,7 @@ public class Users {
     private String biography;
     private String dialogTransition;
     private String userType;
+    private InputStream profileImage;
 
     public Users() {
     }
@@ -37,7 +40,7 @@ public class Users {
         this.pass = pass;
         this.userType = userType;
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -86,6 +89,14 @@ public class Users {
         this.dialogTransition = dialogTransition;
     }
 
+    public InputStream getImageProfile() {
+        return profileImage;
+    }
+
+    public void setImageProfile(InputStream imageProfile) {
+        this.profileImage = imageProfile;
+    }
+    
     public String getUserType() {
         return userType;
     }
