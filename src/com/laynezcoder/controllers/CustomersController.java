@@ -137,7 +137,7 @@ public class CustomersController implements Initializable {
         validation();
         selectText();
         loadData();
-        setFonts();     
+        setFonts();
     }
 
     private void setFonts() {
