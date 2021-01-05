@@ -14,6 +14,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Users;
+import com.laynezcoder.resources.Constants;
 import com.laynezcoder.resources.Resources;
 import java.io.IOException;
 import java.net.URL;
@@ -308,13 +309,15 @@ public class StartController implements Initializable {
         users.setBiography(txtBio.getText());
         users.setDialogTransition(getDialogTransition());
         users.setUserType("Administrator");
+        users.setProfileImage(StartController.class.getResourceAsStream(Constants.PROFILE_PICTURES_PACKAGE + "a.png"));
         try {
-            String sql = "INSERT INTO Users (nameUser, email, pass, userType) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Users (nameUser, email, pass, userType, profileImage) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = DatabaseConnection.getInstance().getConnection().prepareCall(sql);
             stmt.setString(1, users.getNameUser());
             stmt.setString(2, users.getEmail());
             stmt.setString(3, users.getPass());
             stmt.setString(4, users.getUserType());
+            stmt.setBlob(5, users.getProfileImage());
             stmt.execute();
             updateUserInDB(users);
         } catch (SQLException ex) {
@@ -412,6 +415,12 @@ public class StartController implements Initializable {
         Resources.validationOfJFXTextField(txtUser);
         Resources.validationOfJFXPasswordField(txtPassword);
         Resources.validationOfJFXPasswordField(txtConfirmPassword);
+        Resources.onlyLettersTextField(txtName);
+        
+        Resources.noInitSpace(txtName);
+        Resources.noInitSpace(txtUser);
+        Resources.noInitSpace(txtPassword);
+        Resources.noInitSpace(txtConfirmPassword);
     }
 
     private void maximumCharacters() {
