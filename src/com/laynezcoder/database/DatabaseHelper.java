@@ -148,8 +148,8 @@ public class DatabaseHelper {
             preparedStatement.setInt(4, products.getPorcentage());
             preparedStatement.setDouble(5, products.getSalePrice());
             preparedStatement.setDouble(6, products.getMinimalPrice());
-            preparedStatement.setString(7,  products.getDescriptionProduct());
-            preparedStatement.setBlob(8,  products.getInputStream());
+            preparedStatement.setString(7, products.getDescriptionProduct());
+            preparedStatement.setBlob(8, products.getInputStream());
             preparedStatement.execute();
             listProducts.add(products);
             return true;
@@ -195,7 +195,7 @@ public class DatabaseHelper {
         }
         return false;
     }
-    
+
     public static boolean updateProductIfFileIsNull(Products products) {
         try {
             String sql = "UPDATE Products SET barcode = ?, productName = ?, purchasePrice = ?, "
@@ -233,7 +233,7 @@ public class DatabaseHelper {
         }
         return count;
     }
-    
+
     public static Image getImageProduct(int id) {
         Image image = null;
         try {
@@ -259,12 +259,13 @@ public class DatabaseHelper {
 
     public static boolean insertNewUser(Users users, ObservableList<Users> listUsers) {
         try {
-            String sql = "INSERT INTO Users (nameUser, email, pass, userType) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Users (nameUser, email, pass, userType, profileImage) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, users.getNameUser());
             preparedStatement.setString(2, users.getEmail());
             preparedStatement.setString(3, users.getPass());
             preparedStatement.setString(4, users.getUserType());
+            preparedStatement.setBlob(5, users.getProfileImage());
             preparedStatement.execute();
             listUsers.add(users);
             return true;
@@ -315,6 +316,20 @@ public class DatabaseHelper {
             preparedStatement.setString(4, users.getBiography());
             preparedStatement.setString(5, users.getDialogTransition());
             preparedStatement.setInt(6, users.getId());
+            preparedStatement.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean updateImageFromSettings(InputStream inputStream) {
+        try {
+            String sql = "UPDATE Users SET profileImage = ? WHERE id = ?";
+            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setBlob(1, inputStream);
+            preparedStatement.setInt(2, getIdUserSession());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -377,12 +392,12 @@ public class DatabaseHelper {
                 dialogTransition = resultSet.getString("dialogTransition");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);  
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
             dialogTransition = "CENTER";
         }
         return dialogTransition;
     }
-    
+
     public final static JFXDialog.DialogTransition dialogTransition() {
         return JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition());
     }
