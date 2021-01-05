@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/LaynezCode/Desktop/ElectronicStoreToolFX/src/com/laynezcoder/database/DatabaseHelper.java</file>
-            <file>file:/C:/Users/LaynezCode/Desktop/ElectronicStoreToolFX/src/com/laynezcoder/resources/Resources.java</file>
+            <file>file:/C:/Users/LaynezCode/Documents/NetBeansProjects/ElectronicStoreToolFX/src/com/laynezcoder/controllers/StartController.java</file>
+            <file>file:/C:/Users/LaynezCode/Documents/NetBeansProjects/ElectronicStoreToolFX/src/com/laynezcoder/util/CropImageProfile.java</file>
+            <file>file:/C:/Users/LaynezCode/Documents/NetBeansProjects/ElectronicStoreToolFX/src/com/laynezcoder/database/DatabaseHelper.java</file>
+            <file>file:/C:/Users/LaynezCode/Documents/NetBeansProjects/ElectronicStoreToolFX/src/com/laynezcoder/controllers/ProductsController.java</file>
+            <file>file:/C:/Users/LaynezCode/Documents/NetBeansProjects/ElectronicStoreToolFX/src/com/laynezcoder/controllers/SettingsController.java</file>
         </group>
     </open-files>
 </project-private>
