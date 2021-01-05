@@ -5,10 +5,15 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -16,47 +21,51 @@
    <children>
       <AnchorPane fx:id="rootSettings" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
          <children>
-            <HBox alignment="CENTER" layoutX="195.0" layoutY="130.0" prefHeight="50.0" prefWidth="548.0" spacing="30.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="187.0">
-               <padding>
-                  <Insets bottom="20.0" />
-               </padding>
+            <VBox alignment="CENTER" layoutX="163.0" layoutY="177.0" prefHeight="150.0" prefWidth="609.0" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="158.0" AnchorPane.topAnchor="177.0">
                <children>
-                  <JFXTextField fx:id="txtName" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="232.0" promptText="Name" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="txtUser" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="232.0" promptText="User" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
+                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="609.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <JFXTextField fx:id="txtName" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="300.0" promptText="Name" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="txtUser" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="300.0" promptText="User" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="609.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <children>
+                        <JFXPasswordField fx:id="txtPassword" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="300.0" promptText="Password" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXPasswordField>
+                        <JFXPasswordField fx:id="txtConfirmPassword" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="300.0" promptText="Confirm your password" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXPasswordField>
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="195.0" layoutY="208.0" prefHeight="50.0" prefWidth="548.0" spacing="30.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="187.0">
-               <padding>
-                  <Insets bottom="20.0" />
-               </padding>
-               <children>
-                  <JFXPasswordField fx:id="txtPassword" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="232.0" promptText="Password" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXPasswordField>
-                  <JFXPasswordField fx:id="txtConfirmPassword" focusColor="#2ab56f" labelFloat="true" prefHeight="30.0" prefWidth="232.0" promptText="Confirm your password" styleClass="jfx-text-field-login" unFocusColor="#bebec2" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXPasswordField>
-               </children>
-            </HBox>
-            <JFXComboBox fx:id="cmbDialogTransition" focusColor="#2ab56f" labelFloat="true" layoutX="195.0" layoutY="283.0" prefHeight="30.0" prefWidth="548.0" promptText="Select an animation" styleClass="combo-box-popup" unFocusColor="#bebec2" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="187.0" />
-            <JFXTextArea fx:id="txtBio" focusColor="#2ab56f" labelFloat="true" layoutX="195.0" layoutY="355.0" prefHeight="124.0" prefWidth="548.0" promptText="Biography" styleClass="jfx-text-field-login" unFocusColor="#bebec2" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="187.0" AnchorPane.topAnchor="355.0">
+            </VBox>
+            <JFXComboBox fx:id="cmbDialogTransition" focusColor="#2ab56f" labelFloat="true" layoutX="167.0" layoutY="345.0" prefHeight="30.0" prefWidth="600.0" promptText="Select an animation" styleClass="combo-box-popup" unFocusColor="#bebec2" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="163.0" />
+            <JFXTextArea fx:id="txtBio" focusColor="#2ab56f" labelFloat="true" layoutX="167.0" layoutY="411.0" prefHeight="69.0" prefWidth="600.0" promptText="Biography" styleClass="jfx-text-field-login" unFocusColor="#bebec2" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="411.0">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXTextArea>
-            <HBox alignment="CENTER" layoutX="379.0" layoutY="515.0" prefHeight="30.0" prefWidth="174.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="379.0" AnchorPane.rightAnchor="377.0">
+            <HBox alignment="CENTER" layoutX="403.0" layoutY="507.0" prefHeight="30.0" prefWidth="132.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="403.0" AnchorPane.rightAnchor="395.0">
                <children>
                   <JFXButton fx:id="btnSave" buttonType="RAISED" onMouseClicked="#updateCredentials" prefHeight="36.0" prefWidth="150.0" styleClass="login-jfx-button" text="Save" textFill="WHITE">
                      <font>
@@ -65,12 +74,31 @@
                   </JFXButton>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutY="14.0" prefHeight="50.0" prefWidth="930.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <padding>
-                  <Insets bottom="20.0" />
-               </padding>
+            <HBox fx:id="headerContainer" layoutX="163.0" layoutY="56.0" prefHeight="100.0" prefWidth="609.0" spacing="10.0">
                <children>
-                  <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;">
+                     <children>
+                        <Group fx:id="imageProfileContainer" onMouseClicked="#showFileChooser">
+                           <children>
+                              <ImageView fx:id="imageViewProfile" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../media/not-found.png" />
+                                 </image>
+                              </ImageView>
+                              <MaterialDesignIconView fx:id="icon" fill="WHITE" glyphName="BORDER_COLOR" layoutX="38.0" layoutY="60.0" size="25" visible="false" />
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="163.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="textName" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator" />
+                        <Text fx:id="textUserType" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator" />
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
                </children>
             </HBox>
          </children>
