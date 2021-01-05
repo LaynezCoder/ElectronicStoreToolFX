@@ -9,7 +9,13 @@ import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Users;
+import com.laynezcoder.preferences.Preferences;
 import com.laynezcoder.resources.Resources;
+import com.laynezcoder.util.CropImageProfile;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,12 +25,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class SettingsController implements Initializable {
+    
+    private final ColorAdjust colorAdjust = new ColorAdjust();
+    
+    private final long LIMIT = 1000000;
 
     @FXML
     private StackPane stckSettings;
@@ -54,7 +72,24 @@ public class SettingsController implements Initializable {
     private JFXButton btnSave;
 
     @FXML
-    private Text title;
+    private Group imageProfileContainer;
+
+    @FXML
+    private HBox headerContainer;
+
+    @FXML
+    private Text textName;
+
+    @FXML
+    private Text textUserType;
+
+    @FXML
+    private ImageView imageViewProfile;
+    
+    @FXML
+    private MaterialDesignIconView icon;
+
+    private File imageFile;    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,25 +100,69 @@ public class SettingsController implements Initializable {
         validations();
         maximumCharacters();
         setOptionsToComboBox();
+        initializeProfileImage();
+        effectEditImageProfile();
+    }
+
+    private void effectEditImageProfile() {
+        imageProfileContainer.hoverProperty().addListener((o, oldV, newV) -> {
+            if (!oldV) {
+                colorAdjust.setBrightness(-0.5);
+                imageViewProfile.setEffect(colorAdjust);
+                icon.setVisible(true);
+            } else {
+                imageViewProfile.setEffect(null);
+                icon.setVisible(false);
+            }
+        });
+    }
+
+    private void initializeProfileImage() {
+        loadProfileImage();
+        Circle circle = new Circle(45);
+        circle.setCenterX(imageViewProfile.getFitWidth() / 2);
+        circle.setCenterY(imageViewProfile.getFitHeight() / 2);
+        imageViewProfile.setClip(circle);
+    }
+
+    private void loadProfileImage() {
+        Image image = null;
+        try {
+            String sql = "SELECT profileImage FROM Users WHERE id = ?";
+            PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            ps.setInt(1, DatabaseHelper.getIdUserSession());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                InputStream img = rs.getBinaryStream("profileImage");
+                if (img != null) {
+                    image = new Image(img, 100, 100, true, true);
+                }
+            }
+            imageViewProfile.setImage(image);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void loadData() {
         try {
-            String sql = "SELECT Users.nameUser, Users.email, Users.pass, Users.biography, Users.dialogTransition "
+            String sql = "SELECT Users.nameUser, Users.email, Users.pass, Users.biography, Users.dialogTransition, Users.userType "
                     + "FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                txtName.setText(resultSet.getString("nameUser"));
-                txtUser.setText(resultSet.getString("email"));
-                txtPassword.setText(resultSet.getString("pass"));
-                txtConfirmPassword.setText(resultSet.getString("pass"));
-                txtBio.setText(resultSet.getString("biography"));
-                initializeJFXComboBox(resultSet);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                textName.setText(rs.getString("nameUser"));
+                textUserType.setText(rs.getString("userType"));
+                txtName.setText(rs.getString("nameUser"));
+                txtUser.setText(rs.getString("email"));
+                txtPassword.setText(rs.getString("pass"));
+                txtConfirmPassword.setText(rs.getString("pass"));
+                txtBio.setText(rs.getString("biography"));
+                initializeJFXComboBox(rs);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
-            Resources.showErrorAlert(stckSettings, rootSettings, title, "An error occurred when connecting to MySQL.\n"
+            Resources.showErrorAlert(stckSettings, rootSettings, txtBio, "An error occurred when connecting to MySQL.\n"
                     + "Check your connection to MySQL");
         }
     }
@@ -129,7 +208,7 @@ public class SettingsController implements Initializable {
             users.setPass(txtPassword.getText());
             users.setBiography(txtBio.getText());
             users.setDialogTransition(getDialogTransition());
-            
+
             boolean result = DatabaseHelper.updateUserFromSettings(users);
             if (result) {
                 loadData();
@@ -169,13 +248,15 @@ public class SettingsController implements Initializable {
             Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void setOptionsToComboBox() {
         cmbDialogTransition.getItems().addAll("Left", "Right", "Top", "Bottom", "Center");
     }
 
     private void setFonts() {
-        Resources.setFontToText(title, 30);
+        Resources.setFontToText(textName, 16);
+        Resources.setFontToText(textUserType, 12);
+        Resources.setFontToJFXButton(btnSave, 14);
     }
 
     private void animationNodes() {
@@ -186,7 +267,7 @@ public class SettingsController implements Initializable {
         Resources.fadeInUpAnimation(txtConfirmPassword);
         Resources.fadeInUpAnimation(txtBio);
         Resources.fadeInUpAnimation(cmbDialogTransition);
-        Resources.fadeInUpAnimation(title);
+        Resources.fadeInUpAnimation(headerContainer);
     }
 
     private void shakeAnimation(Node node) {
@@ -208,6 +289,12 @@ public class SettingsController implements Initializable {
         Resources.validationOfJFXTextField(txtUser);
         Resources.validationOfJFXPasswordField(txtPassword);
         Resources.validationOfJFXPasswordField(txtConfirmPassword);
+        Resources.onlyLettersTextField(txtName);
+        
+        Resources.noInitSpace(txtName);
+        Resources.noInitSpace(txtUser);
+        Resources.noInitSpace(txtPassword);
+        Resources.noInitSpace(txtConfirmPassword);
     }
 
     private void maximumCharacters() {
@@ -215,5 +302,61 @@ public class SettingsController implements Initializable {
         Resources.limitTextField(txtUser, 20);
         Resources.limitJFXPasswordField(txtPassword, 20);
         Resources.limitJFXPasswordField(txtConfirmPassword, 20);
+    }
+
+    @FXML
+    private void showFileChooser() {
+        imageFile = getImageFromFileChooser(getStage());
+        if (imageFile != null) {
+            if (imageFile.length() < LIMIT) {
+                try {
+                    CropImageProfile crop = new CropImageProfile(imageFile);
+                    boolean result = DatabaseHelper.updateImageFromSettings(crop.getInputStream());
+                    if (result) {
+                        Resources.showSuccessAlert(stckSettings, rootSettings, rootSettings, "¡Credentials saved successfully!");
+                        loadProfileImage();
+                    } else {
+                        Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+                    }
+                    setInitialDirectory();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                Resources.notification("FATAL ERROR", "Please upload a picture smaller than 1 MB.", "error.png");
+            }
+        }
+    }
+
+    private Stage getStage() {
+        return (Stage) btnSave.getScene().getWindow();
+    }
+
+    private void setInitialDirectory() {
+        Preferences preferences = Preferences.getPreferences();
+        preferences.setInitialPathFileChooserSettingsController(imageFile.getParent());
+        Preferences.writePreferencesToFile(preferences);
+    }
+
+    private File getImageFromFileChooser(Stage stage) {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilterImages = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg");
+        fileChooser.getExtensionFilters().addAll(extFilterImages);
+        fileChooser.setInitialDirectory(getInitialDirectoy());
+        fileChooser.setTitle("Select an image");
+
+        File selectedImage = fileChooser.showOpenDialog(stage);
+        return selectedImage;
+    }
+
+    private File getInitialDirectoy() {
+        Preferences preferences = Preferences.getPreferences();
+        File initPath = new File(preferences.getInitialPathFileChooserSettingsController());
+        if (!initPath.exists()) {
+            preferences.setInitialPathFileChooserSettingsController(System.getProperty("user.home"));
+            Preferences.writePreferencesToFile(preferences);
+            initPath = new File(preferences.getInitialPathFileChooserSettingsController());
+        }
+        return initPath;
     }
 }
