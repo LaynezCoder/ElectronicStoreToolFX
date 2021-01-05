@@ -24,7 +24,7 @@ public class DatabaseConnection {
     private static final String USER = "root";
     private static final String PASSWORD = "admin";
 
-    public DatabaseConnection() {
+    private DatabaseConnection() {
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException ex) {
