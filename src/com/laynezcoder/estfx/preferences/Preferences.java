@@ -1,7 +1,8 @@
 package com.laynezcoder.estfx.preferences;
 
 import com.google.gson.Gson;
-import com.laynezcoder.resources.Resources;
+import com.laynezcoder.estfx.notifications.NotificationType;
+import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 public class Preferences {
 
     private static final String CONFIG_FILE = "config.txt";
+    private static final String WARNING_MESSAGE = "The configuration file was not found. A new file will be created.";
 
     private String initialPathFileChooserProductsController;
     
@@ -49,7 +51,7 @@ public class Preferences {
         } catch (FileNotFoundException ex) {
             initConfig();
             Logger.getLogger(Preferences.class.getName()).log(Level.SEVERE, null, ex);
-            Resources.notification("Warning", "The configuration file was not found. A new file will be created.", "warning.png");
+            NotificationsBuilder.create(NotificationType.INFORMATION, WARNING_MESSAGE);
         }
         return preferences;
     }
