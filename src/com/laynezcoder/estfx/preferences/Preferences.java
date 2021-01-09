@@ -1,4 +1,4 @@
-package com.laynezcoder.preferences;
+package com.laynezcoder.estfx.preferences;
 
 import com.google.gson.Gson;
 import com.laynezcoder.resources.Resources;
