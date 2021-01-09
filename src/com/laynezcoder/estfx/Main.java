@@ -1,7 +1,7 @@
 package com.laynezcoder.estfx;
 
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.resources.Resources;
+import com.laynezcoder.estfx.resources.Constants;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,12 +27,11 @@ public class Main extends Application {
     private void loginWindow(Stage stage) {
         try {
             DatabaseHelper.logout();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/laynezcoder/views/LoginView.fxml"));
-            Scene scene = new Scene(root);
+            Parent root = FXMLLoader.load(getClass().getResource(Constants.VIEWS_PACKAGE + "LoginView.fxml"));
             stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.setTitle("Electronic Store Tool FX");
-            stage.getIcons().add(new Image(Resources.SOURCE_PACKAGES + "/media/reicon.png"));
+            stage.setTitle(Constants.TITLE);
+            stage.getIcons().add(new Image(Constants.ICON));
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -41,12 +40,11 @@ public class Main extends Application {
 
     private void startWindow(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/laynezcoder/views/StartView.fxml"));
-            Scene scene = new Scene(root);
+            Parent root = FXMLLoader.load(getClass().getResource(Constants.VIEWS_PACKAGE + "StartView.fxml"));
             stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.setTitle("Electronic Store Tool FX");
-            stage.getIcons().add(new Image(Resources.SOURCE_PACKAGES + "/media/reicon.png"));
+            stage.setScene(new Scene(root));
+            stage.setTitle(Constants.TITLE);
+            stage.getIcons().add(new Image(Constants.ICON));
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
