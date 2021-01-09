@@ -10,9 +10,11 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 public class RequieredFieldsValidators {
 
+    private static final String MESSAGE = "Obligatory field";
+
     public static void toJFXTextField(JFXTextField txt) {
         RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage("Obligatory field");
+        validator.setMessage(MESSAGE);
         txt.getValidators().add(validator);
 
         FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
@@ -27,7 +29,7 @@ public class RequieredFieldsValidators {
 
     public static void toJFXPasswordField(JFXPasswordField txt) {
         RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage("Obligatory field");
+        validator.setMessage(MESSAGE);
         txt.getValidators().add(validator);
 
         FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
@@ -42,7 +44,7 @@ public class RequieredFieldsValidators {
 
     public static void toJFXTextArea(JFXTextArea txt) {
         RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage("Obligatory field");
+        validator.setMessage(MESSAGE);
         txt.getValidators().add(validator);
 
         FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
@@ -57,7 +59,7 @@ public class RequieredFieldsValidators {
 
     public static void toJFXComboBox(JFXComboBox comboBox) {
         RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage("Obligatory field");
+        validator.setMessage(MESSAGE);
         comboBox.getValidators().add(validator);
 
         FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
