@@ -30,7 +30,7 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-            showException(Constants.ERROR_CONNECTON_MYSQL, ex);
+            showException(Constants.MESSAGE_ERROR_CONNECTION_MYSQL, ex);
         }
     }
 
