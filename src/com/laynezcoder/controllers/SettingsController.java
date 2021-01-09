@@ -9,7 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Users;
-import com.laynezcoder.preferences.Preferences;
+import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.resources.Resources;
 import com.laynezcoder.util.CropImageProfile;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -289,12 +289,7 @@ public class SettingsController implements Initializable {
         Resources.validationOfJFXTextField(txtUser);
         Resources.validationOfJFXPasswordField(txtPassword);
         Resources.validationOfJFXPasswordField(txtConfirmPassword);
-        Resources.onlyLettersTextField(txtName);
-        
-        Resources.noInitSpace(txtName);
-        Resources.noInitSpace(txtUser);
-        Resources.noInitSpace(txtPassword);
-        Resources.noInitSpace(txtConfirmPassword);
+
     }
 
     private void maximumCharacters() {
