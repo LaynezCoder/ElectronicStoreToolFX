@@ -1,4 +1,4 @@
-package com.laynezcoder.controllers;
+package com.laynezcoder.estfx.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.laynezcoder.estfx.database.DatabaseHelper;

@@ -1,4 +1,4 @@
-package com.laynezcoder.controllers;
+package com.laynezcoder.estfx.controllers;
 
 import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;

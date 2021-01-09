@@ -1,4 +1,4 @@
-package com.laynezcoder.controllers;
+package com.laynezcoder.estfx.controllers;
 
 import animatefx.animation.FadeOut;
 import animatefx.animation.Shake;
