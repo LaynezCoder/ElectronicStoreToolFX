@@ -28,19 +28,19 @@ public class NotificationsBuilder {
         switch (type) {
             case INFORMATION:
                 title = "¡Information!";
-                icon = new Image(Constants.MEDIA_PACKAGE + "information.png");
+                icon = new Image(Constants.INFORMATION_IMAGE);
                 break;
             case ERROR:
                 title = "¡Error!";
-                icon = new Image(Constants.MEDIA_PACKAGE + "error.png");
+                icon = new Image(Constants.ERROR_IMAGE);
                 break;
             case SUCCESS:
                 title = "¡Success!";
-                icon = new Image(Constants.MEDIA_PACKAGE + "success.png");
+                icon = new Image(Constants.SUCCESS_IMAGE);
                 break;
             case INVALID_ACTION:
                 title = "¡Invalid action!";
-                icon = new Image(Constants.MEDIA_PACKAGE + "error.png");
+                icon = new Image(Constants.ERROR_IMAGE);
                 break;
         }
     }
