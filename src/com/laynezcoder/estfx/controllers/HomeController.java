@@ -1,9 +1,14 @@
 package com.laynezcoder.estfx.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.laynezcoder.estfx.alerts.AlertType;
+import com.laynezcoder.estfx.alerts.AlertsBuilder;
+import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
+import com.laynezcoder.estfx.fonts.Fonts;
+import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Quotes;
-import com.laynezcoder.resources.Resources;
+import com.laynezcoder.estfx.resources.Constants;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -135,26 +140,26 @@ public class HomeController implements Initializable {
     }
 
     private void selectText() {
-        Resources.selectTextToTextField(txtSearchRecentCustomer);
+        TextFieldMask.selectText(txtSearchRecentCustomer);
     }
 
     private void setFonts() {
-        Resources.setFontToText(textWelcome, 25);
-        Resources.setFontToText(textDescriptionWelcome, 15);
-        Resources.setFontToText(textCustomers, 15);
-        Resources.setFontToText(texQuotes, 15);
-        Resources.setFontToText(textProducts, 15);
-        Resources.setFontToText(textRecentQuotes, 15);
+        Fonts.toText(textWelcome, 25);
+        Fonts.toText(textDescriptionWelcome, 15);
+        Fonts.toText(textCustomers, 15);
+        Fonts.toText(texQuotes, 15);
+        Fonts.toText(textProducts, 15);
+        Fonts.toText(textRecentQuotes, 15);
     }
 
     private void animationsNodes() {
-        Resources.fadeInUpAnimation(rootSearchMain);
-        Resources.fadeInUpAnimation(rootWelcome);
-        Resources.fadeInUpAnimation(tblQuotes);
-        Resources.fadeInUpAnimation(rootTotalCustomers);
-        Resources.fadeInUpAnimation(rootTotalQuotes);
-        Resources.fadeInUpAnimation(rootRecentQuotes);
-        Resources.fadeInUpAnimation(rootProducts);
+        Animations.fadeInUp(rootSearchMain);
+        Animations.fadeInUp(rootWelcome);
+        Animations.fadeInUp(tblQuotes);
+        Animations.fadeInUp(rootTotalCustomers);
+        Animations.fadeInUp(rootTotalQuotes);
+        Animations.fadeInUp(rootRecentQuotes);
+        Animations.fadeInUp(rootProducts);
     }
 
     private void customerCounter() {
@@ -278,8 +283,7 @@ public class HomeController implements Initializable {
             labelNowQuotes.setText(String.valueOf(total));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-            Resources.showErrorAlert(stckHome, rootHome, tblQuotes, "An error occurred when connecting to MySQL.\n"
-                    + "Check your connection to MySQL");
+            AlertsBuilder.create(AlertType.ERROR, stckHome, rootHome, rootHome, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);
@@ -287,7 +291,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void filterQuotes() {
-        String filter = txtSearchRecentCustomer.getText();
+        String filter = txtSearchRecentCustomer.getText().trim();
         if (filter.isEmpty()) {
             tblQuotes.setItems(listQuotes);
         } else {
@@ -313,7 +317,7 @@ public class HomeController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getExistence());
-            button.getStylesheets().add(Resources.LIGHT_THEME);
+            button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colExistence.getWidth() / 0.5);
 
             if (item.getExistence().equals("Existent")) {
@@ -339,7 +343,7 @@ public class HomeController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getReport());
-            button.getStylesheets().add(Resources.LIGHT_THEME);
+            button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colReport.getWidth() / 0.5);
 
             if (item.getReport().equals("Reported")) {
@@ -365,7 +369,7 @@ public class HomeController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getRealization());
-            button.getStylesheets().add(Resources.LIGHT_THEME);
+            button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
             if (item.getRealization().equals("Realized")) {
