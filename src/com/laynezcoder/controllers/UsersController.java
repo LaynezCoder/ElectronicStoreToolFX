@@ -13,7 +13,7 @@ import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.models.Users;
-import com.laynezcoder.resources.Constants;
+import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;

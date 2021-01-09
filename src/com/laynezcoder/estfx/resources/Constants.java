@@ -1,4 +1,4 @@
-package com.laynezcoder.resources;
+package com.laynezcoder.estfx.resources;
 
 public class Constants {
 

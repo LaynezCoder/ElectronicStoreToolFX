@@ -1,6 +1,6 @@
 package com.laynezcoder.estfx.notifications;
 
-import com.laynezcoder.resources.Constants;
+import com.laynezcoder.estfx.resources.Constants;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

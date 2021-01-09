@@ -14,7 +14,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Users;
-import com.laynezcoder.resources.Constants;
+import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.resources.Resources;
 import java.io.IOException;
 import java.net.URL;

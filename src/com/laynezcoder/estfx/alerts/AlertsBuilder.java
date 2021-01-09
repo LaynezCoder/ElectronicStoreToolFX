@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.estfx.fonts.Fonts;
-import com.laynezcoder.resources.Constants;
+import com.laynezcoder.estfx.resources.Constants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

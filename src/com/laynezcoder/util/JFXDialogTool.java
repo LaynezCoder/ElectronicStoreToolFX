@@ -5,7 +5,7 @@ import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import com.laynezcoder.resources.Constants;
+import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.database.DatabaseHelper;
 import javafx.event.EventHandler;
 
