@@ -16,12 +16,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class AlertsBuilder {
-    
+
     private static String title;
     private static String buttonStyle;
     private static String titleStyle;
     private static String bodyStyle;
-    private static JFXDialog dialog;
+    public static JFXDialog dialog;
 
     public static void create(AlertType type, StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String body) {
         setFunction(type);
@@ -60,11 +60,11 @@ public class AlertsBuilder {
         nodeToBlur.setEffect(Constants.BOX_BLUR_EFFECT);
 
         dialog = new JFXDialog();
-        setStyle();
         dialog.setContent(root);
         dialog.setDialogContainer(dialogContainer);
         dialog.setBackground(Background.EMPTY);
         dialog.setTransitionType(DatabaseHelper.dialogTransition());
+        setStyle();
         dialog.show();
 
         button.setOnMouseClicked(e -> {
