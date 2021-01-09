@@ -1,13 +1,17 @@
 package com.laynezcoder.controllers;
 
-import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
+import com.laynezcoder.estfx.alerts.AlertType;
+import com.laynezcoder.estfx.alerts.AlertsBuilder;
+import com.laynezcoder.estfx.animations.Animations;
+import com.laynezcoder.estfx.fonts.Fonts;
+import com.laynezcoder.estfx.notifications.NotificationsBuilder;
+import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.models.Users;
 import com.laynezcoder.resources.Constants;
 import com.laynezcoder.resources.Resources;
@@ -33,24 +37,21 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.input.KeyCode;
-import static javafx.scene.input.KeyCode.ESCAPE;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import static com.laynezcoder.resources.Resources.dialog;
+import com.laynezcoder.util.JFXDialogTool;
+import com.laynezcoder.util.RequieredFieldsValidators;
+import com.laynezcoder.util.TextFieldMask;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import javafx.scene.input.KeyCode;
 
 public class UsersController implements Initializable {
 
-    private ObservableList<Users> listUsers;
-
-    private ObservableList<Users> filterUsers;
+    private final BoxBlur blur = new BoxBlur(3, 3, 3);
 
     @FXML
     private StackPane stckUsers;
@@ -59,7 +60,7 @@ public class UsersController implements Initializable {
     private AnchorPane rootUsers;
 
     @FXML
-    private AnchorPane rootAddUser;
+    private AnchorPane addUserContainer;
 
     @FXML
     private HBox hboxSearch;
@@ -107,7 +108,7 @@ public class UsersController implements Initializable {
     private JFXButton btnNewUser;
 
     @FXML
-    private AnchorPane rootDeleteUser;
+    private AnchorPane deleteUserContainer;
 
     @FXML
     private JFXButton btnDelete;
@@ -128,7 +129,7 @@ public class UsersController implements Initializable {
     private Text textConfirmation;
 
     @FXML
-    private Text titleWindowAddUser;
+    private Text titleAddUser;
 
     @FXML
     private Text description;
@@ -136,89 +137,92 @@ public class UsersController implements Initializable {
     @FXML
     private FontAwesomeIconView icon;
 
-    private final BoxBlur blur = new BoxBlur(3, 3, 3);
+    private JFXDialogTool dialogAddUser;
 
-    private JFXDialog dialogAddUser;
+    private JFXDialogTool dialogDeleteUser;
 
-    private JFXDialog dialogDeleteUser;
+    private ObservableList<Users> listUsers;
+
+    private ObservableList<Users> filterUsers;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        filterUsers = FXCollections.observableArrayList();
-        escapeWindowWithTextFields();
-        setOptionsToComboBox();
-        keyDeleteCustomer();
-        maxinumCharactert();
-        keyEscapeWindows();
         showPassword();
         animateNodes();
-        validations();
-        selectText();
+        setValidations();
         loadData();
+        setMask();
         setFonts();
+        deleteUserDeleteKey();
+        closeDialogWithEscapeKey();
+        initalizeComboBox();
+        selectTextFromTextField();
+        closeDialogWithTextFields();
+        filterUsers = FXCollections.observableArrayList();
     }
 
     private void setFonts() {
-        Resources.setFontToJFXButton(btnCancelDelete, 15);
-        Resources.setFontToJFXButton(btnUpdateUser, 15);
-        Resources.setFontToJFXButton(btnSaveUser, 15);
-        Resources.setFontToJFXButton(btnNewUser, 12);
-        Resources.setFontToJFXButton(btnCancel, 15);
-        Resources.setFontToJFXButton(btnDelete, 15);
-
-        Resources.setFontToText(titleWindowAddUser, 20);
-        Resources.setFontToText(textConfirmation, 15);
-        Resources.setFontToText(description, 12);
+        Fonts.toButton(btnUpdateUser, 15);
+        Fonts.toButton(btnNewUser, 12);
+        Fonts.toButton(btnDelete, 15);
+        Fonts.toButton(btnCancel, 15);
+        Fonts.toButton(btnSaveUser, 15);
+        Fonts.toButton(btnCancelDelete, 15);
+        Fonts.toText(description, 12);
+        Fonts.toText(titleAddUser, 20);
+        Fonts.toText(textConfirmation, 15);
     }
 
-    private void validations() {
-        Resources.validationOfJFXTextField(txtName);
-        Resources.validationOfJFXTextField(txtUser);
-        Resources.validationOfJFXTextField(txtPassword);
-        Resources.validationOfJFXPasswordField(pfPassword);
-        Resources.validationOfJFXComboBox(cmbTypeUser);
-
-        Resources.onlyLettersTextField(txtName);
-        Resources.noInitSpace(txtName);
-        Resources.noInitSpace(txtUser);
-        Resources.noInitSpace(pfPassword);
+    private void setValidations() {
+        RequieredFieldsValidators.toJFXTextField(txtName);
+        RequieredFieldsValidators.toJFXTextField(txtUser);
+        RequieredFieldsValidators.toJFXTextField(txtPassword);
+        RequieredFieldsValidators.toJFXPasswordField(pfPassword);
+        RequieredFieldsValidators.toJFXComboBox(cmbTypeUser);
     }
 
-    private void selectText() {
-        Resources.selectTextToJFXTextField(txtName);
-        Resources.selectTextToJFXTextField(txtUser);
-        Resources.selectTextToJFXPasswordField(pfPassword);
+    private void setMask() {
+        TextFieldMask.onlyLetters(txtName, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtUser, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(pfPassword, 40);
     }
 
-    private void setOptionsToComboBox() {
-        cmbTypeUser.getItems().addAll("Administrator", "User");
+    private void selectTextFromTextField() {
+        TextFieldMask.selectText(txtName);
+        TextFieldMask.selectText(txtUser);
+        TextFieldMask.selectText(pfPassword);
     }
 
     private void animateNodes() {
-        Resources.fadeInUpAnimation(tblUsers);
-        Resources.fadeInUpAnimation(hboxSearch);
-        Resources.fadeInUpAnimation(btnNewUser);
+        Animations.fadeInUp(tblUsers);
+        Animations.fadeInUp(hboxSearch);
+        Animations.fadeInUp(btnNewUser);
+    }
+
+    private void initalizeComboBox() {
+        cmbTypeUser.getItems().addAll("Administrator", "User");
+        cmbTypeUser.focusedProperty().addListener((o, oldV, newV) -> {
+            if (!oldV) {
+                cmbTypeUser.show();
+            } else {
+                cmbTypeUser.hide();
+            }
+        });
     }
 
     @FXML
-    private void showWindowAddUser() {
+    private void showDialogAddUser() {
         disableTable();
-        resetValidation();
-        enableControlsEdit();
+        resetValidations();
+        enableEditControls();
         rootUsers.setEffect(blur);
-
-        titleWindowAddUser.setText("Add user");
-        btnSaveUser.setDisable(false);
-        btnUpdateUser.setVisible(true);
         btnSaveUser.toFront();
+        btnUpdateUser.setVisible(true);
+        btnSaveUser.setDisable(false);
+        addUserContainer.setVisible(true);
+        titleAddUser.setText("Add user");
 
-        dialogAddUser = new JFXDialog();
-        dialogAddUser.setTransitionType(DatabaseHelper.dialogTransition());
-        dialogAddUser.setBackground(Background.EMPTY);
-        dialogAddUser.setDialogContainer(stckUsers);
-        dialogAddUser.setContent(rootAddUser);
-        Resources.setStyleToAlerts(dialogAddUser);
-        rootAddUser.setVisible(true);
+        dialogAddUser = new JFXDialogTool(addUserContainer, stckUsers);
         dialogAddUser.show();
 
         dialogAddUser.setOnDialogOpened(ev -> {
@@ -228,86 +232,71 @@ public class UsersController implements Initializable {
         dialogAddUser.setOnDialogClosed(ev -> {
             tblUsers.setDisable(false);
             rootUsers.setEffect(null);
-            rootAddUser.setVisible(false);
+            addUserContainer.setVisible(false);
             cleanControls();
-        });
-
-        cmbTypeUser.focusedProperty().addListener((o, oldV, newV) -> {
-            cmbTypeUser.show();
         });
     }
 
     @FXML
-    private void hideWindowAddUser() {
+    private void closeDialogAddUser() {
         dialogAddUser.close();
     }
 
     @FXML
-    private void showWindowDeleteUser() {
+    private void showDialogDeleteUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
-        } else {
-            rootUsers.setEffect(blur);
-            disableTable();
-
-            dialogDeleteUser = new JFXDialog();
-            dialogDeleteUser.setTransitionType(DatabaseHelper.dialogTransition());
-            dialogDeleteUser.setBackground(Background.EMPTY);
-            dialogDeleteUser.setDialogContainer(stckUsers);
-            dialogDeleteUser.setContent(rootDeleteUser);
-            Resources.setStyleToAlerts(dialogDeleteUser);
-            rootDeleteUser.setVisible(true);
-            dialogDeleteUser.show();
-
-            cmbTypeUser.focusedProperty().addListener(ev -> {
-                cmbTypeUser.show();
-            });
-
-            dialogDeleteUser.setOnDialogClosed(ev -> {
-                tblUsers.setDisable(false);
-                rootUsers.setEffect(null);
-                rootDeleteUser.setVisible(false);
-                cleanControls();
-            });
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, "Select an item from the table");
+            return;
         }
+
+        deleteUserContainer.setVisible(true);
+        rootUsers.setEffect(blur);
+        disableTable();
+
+        dialogDeleteUser = new JFXDialogTool(deleteUserContainer, stckUsers);
+        dialogDeleteUser.show();
+
+        dialogDeleteUser.setOnDialogClosed(ev -> {
+            tblUsers.setDisable(false);
+            rootUsers.setEffect(null);
+            cleanControls();
+        });
     }
 
     @FXML
-    private void hideWindowDeleteUser() {
+    private void closeDialogDeleteUser() {
         if (dialogDeleteUser != null) {
             dialogDeleteUser.close();
         }
     }
 
     @FXML
-    private void showWindowUptadeProduct() {
+    private void showDialogEditUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
-        } else {
-            showWindowAddUser();
-            titleWindowAddUser.setText("Update user");
-            btnUpdateUser.toFront();
-            selectedRecord();
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, "Select an item from the table");
+            return;
         }
+
+        showDialogAddUser();
+        selectedRecord();
+        titleAddUser.setText("Update user");
+        btnUpdateUser.toFront();
     }
 
     @FXML
-    private void showWindowDetailsProduct() {
+    private void showDialogDetailsUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
-        } else {
-            showWindowAddUser();
-            titleWindowAddUser.setText("User details");
-            btnUpdateUser.setVisible(false);
-            btnSaveUser.setDisable(true);
-            btnSaveUser.toFront();
-            disableControlsEdit();
-            selectedRecord();
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, "Select an item from the table");
+            return;
         }
-    }
 
-    private void disableTable() {
-        tblUsers.setDisable(true);
+        showDialogAddUser();
+        titleAddUser.setText("User details");
+        btnSaveUser.toFront();
+        btnSaveUser.setDisable(true);
+        btnUpdateUser.setVisible(false);
+        disableEditControls();
+        selectedRecord();
     }
 
     @FXML
@@ -336,8 +325,7 @@ public class UsersController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
-            Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "An error occurred when connecting to MySQL.\n"
-                    + "Check your connection to MySQL");
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, "An error occurred when connecting to MySQL.\nCheck your connection to MySQL");
         }
         listUsers = FXCollections.observableArrayList(list);
         tblUsers.setItems(listUsers);
@@ -345,82 +333,145 @@ public class UsersController implements Initializable {
 
     @FXML
     private void newUser() {
-        if (txtName.getText().isEmpty()) {
-            new Shake(txtName).play();
-        } else if (txtUser.getText().isEmpty()) {
-            new Shake(txtUser).play();
-        } else if (txtUser.getText().length() < 4) {
-            Resources.notification("Error", "Please enter at least 4 characters", "error.png");
-            new Shake(txtUser).play();
-        } else if (pfPassword.getText().isEmpty()) {
-            new Shake(pfPassword).play();
-        } else if (txtPassword.getText().length() < 4) {
-            Resources.notification("Error", "Please enter at least 4 characters", "error.png");
-            new Shake(pfPassword).play();
-        } else if (cmbTypeUser.getSelectionModel().isEmpty()) {
-            new Shake(cmbTypeUser).play();
-        } else if (DatabaseHelper.checkIfUserExists(txtUser.getText()) != 0) {
-            Resources.notification("Invalid action", "This user already exists", "error.png");
-            new Shake(txtUser).play();
+        String name = txtName.getText().trim();
+        String user = txtUser.getText().trim();
+        String password = pfPassword.getText().trim();
+
+        if (name.isEmpty()) {
+            txtName.requestFocus();
+            Animations.shake(txtName);
+            return;
+        }
+
+        if (user.isEmpty()) {
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            return;
+        }
+
+        if (user.length() < 4) {
+            NotificationsBuilder.create(NotificationType.ERROR, "Please enter at least 4 characters");
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            return;
+        }
+
+        if (password.isEmpty()) {
+            pfPassword.requestFocus();
+            Animations.shake(pfPassword);
+            return;
+        }
+
+        if (password.length() < 4) {
+            NotificationsBuilder.create(NotificationType.ERROR, "Please enter at least 4 characters");
+            pfPassword.requestFocus();
+            Animations.shake(pfPassword);
+            return;
+        }
+
+        if (cmbTypeUser.getSelectionModel().isEmpty()) {
+            Animations.shake(cmbTypeUser);
+            return;
+        }
+
+        if (DatabaseHelper.checkIfUserExists(user) != 0) {
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user already exists");
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            return;
+        }
+
+        Users users = new Users(name, user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
+        try {
+            users.setProfileImage(getImage(name));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        boolean result = DatabaseHelper.insertNewUser(users, listUsers);
+        if (result) {
+            closeDialogAddUser();
+            loadData();
+            cleanControls();
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, "Record added successfully");
         } else {
-            Users users = new Users(txtName.getText(), txtUser.getText(), pfPassword.getText(), cmbTypeUser.getSelectionModel().getSelectedItem());
-            try {
-                users.setProfileImage(getImage(txtName.getText()));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            boolean result = DatabaseHelper.insertNewUser(users, listUsers);
-            if (result) {
-                loadData();
-                cleanControls();
-                hideWindowAddUser();
-                Resources.showSuccessAlert(stckUsers, rootUsers, tblUsers, "Registry added successfully");
-            } else {
-                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
-            }
+            NotificationsBuilder.create(NotificationType.ERROR, "An error occurred when connecting to MySQL.");
         }
     }
 
     @FXML
     private void updateUser() {
+        String name = txtName.getText().trim();
+        String user = txtUser.getText().trim();
+        String password = txtPassword.getText().trim();
         int id = tblUsers.getSelectionModel().getSelectedItem().getId();
-        String user = tblUsers.getSelectionModel().getSelectedItem().getEmail();
+        String userFromTable = tblUsers.getSelectionModel().getSelectedItem().getEmail();
         String userType = tblUsers.getSelectionModel().getSelectedItem().getUserType();
 
-        if (txtName.getText().isEmpty()) {
-            new Shake(txtName).play();
-        } else if (txtUser.getText().isEmpty()) {
-            new Shake(txtUser).play();
-        } else if (txtUser.getText().length() < 4) {
-            Resources.notification("Error", "Please enter at least 4 characters", "error.png");
-            new Shake(txtUser).play();
-        } else if (pfPassword.getText().isEmpty()) {
-            new Shake(pfPassword).play();
-        } else if (txtPassword.getText().length() < 4) {
-            Resources.notification("Error", "Please enter at least 4 characters", "error.png");
-            new Shake(pfPassword).play();
-        } else if (cmbTypeUser.getSelectionModel().isEmpty()) {
-            new Shake(cmbTypeUser).play();
-        } else if (id == 1 && cmbTypeUser.getSelectionModel().getSelectedItem().equals("User")) {
-            new Shake(cmbTypeUser).play();
-            Resources.notification("Invalid action", "This user can only be administrator type", "error.png");
-        } else if (!txtUser.getText().equals(user) && DatabaseHelper.checkIfUserExists(txtUser.getText()) != 0) {
-            new Shake(txtUser).play();
-            Resources.notification("Invalid action", "This user already exists", "error.png");
-        } else if (DatabaseHelper.getIdUserSession() == id && !cmbTypeUser.getSelectionModel().getSelectedItem().equals(userType)) {
-            Resources.notification("Invalid action", "Unable to change user type", "error.png");
-            new Shake(cmbTypeUser).play();
+        if (name.isEmpty()) {
+            txtName.requestFocus();
+            Animations.shake(txtName);
+            return;
+        }
+
+        if (user.isEmpty()) {
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            return;
+        }
+
+        if (user.length() < 4) {
+            NotificationsBuilder.create(NotificationType.ERROR, "Please enter at least 4 characters");
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            return;
+        }
+
+        if (password.isEmpty()) {
+            pfPassword.requestFocus();
+            Animations.shake(pfPassword);
+            return;
+        }
+
+        if (password.length() < 4) {
+            NotificationsBuilder.create(NotificationType.ERROR, "Please enter at least 4 characters");
+            pfPassword.requestFocus();
+            Animations.shake(pfPassword);
+            return;
+        }
+
+        if (cmbTypeUser.getSelectionModel().isEmpty()) {
+            Animations.shake(cmbTypeUser);
+            return;
+        }
+
+        if (id == 1 && cmbTypeUser.getSelectionModel().getSelectedItem().equals("User")) {
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user can only be administrator type");
+            Animations.shake(cmbTypeUser);
+            return;
+        }
+
+        if (!user.equals(userFromTable) && DatabaseHelper.checkIfUserExists(user) != 0) {
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user already exists");
+            Animations.shake(txtUser);
+            return;
+        }
+
+        if (DatabaseHelper.getIdUserSession() == id && !cmbTypeUser.getSelectionModel().getSelectedItem().equals(userType)) {
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "Unable to change user type");
+            Animations.shake(cmbTypeUser);
+            return;
+        }
+
+        Users users = new Users(id, name, user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
+        boolean result = DatabaseHelper.updateUser(users);
+        if (result) {
+            closeDialogAddUser();
+            loadData();
+            cleanControls();
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, "Record updated successfully");
         } else {
-            Users users = new Users(id, txtName.getText(), txtUser.getText(), pfPassword.getText(), cmbTypeUser.getSelectionModel().getSelectedItem());
-            boolean result = DatabaseHelper.updateUser(users);
-            if (result) {
-                loadData();
-                cleanControls();
-                hideWindowAddUser();
-                Resources.showSuccessAlert(stckUsers, rootUsers, tblUsers, "Registry updated successfully");
-            } else {
-                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
-            }
+            NotificationsBuilder.create(NotificationType.ERROR, "An error occurred when connecting to MySQL.");
         }
     }
 
@@ -429,30 +480,32 @@ public class UsersController implements Initializable {
         int id = tblUsers.getSelectionModel().getSelectedItem().getId();
 
         if (id == 1) {
-            Resources.notification("Invalid action", "This user cannot be deleted", "error.png");
-        } else if (id == DatabaseHelper.getIdUserSession()) {
-            Resources.notification("Invalid action", "This user cannot be deleted", "error.png");
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user cannot be deleted");
+            return;
+        }
+
+        if (id == DatabaseHelper.getIdUserSession()) {
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user cannot be deleted");
+            return;
+        }
+
+        boolean result = DatabaseHelper.deleteUser(tblUsers, listUsers);
+        if (result) {
+            loadData();
+            closeDialogDeleteUser();
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, "Record deleted successfully");
         } else {
-            boolean result = DatabaseHelper.deleteUser(tblUsers, listUsers);
-            if (result) {
-                loadData();
-                hideWindowDeleteUser();
-                Resources.showSuccessAlert(stckUsers, rootUsers, tblUsers, "Registry deleted successfully");
-            } else {
-                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
-            }
+            NotificationsBuilder.create(NotificationType.ERROR, "UAn error occurred when connecting to MySQL.");
         }
     }
 
-    @FXML
     private void showPassword() {
         txtPassword.managedProperty().bind(icon.pressedProperty());
         txtPassword.visibleProperty().bind(icon.pressedProperty());
+        txtPassword.textProperty().bindBidirectional(pfPassword.textProperty());
 
         pfPassword.managedProperty().bind(icon.pressedProperty().not());
         pfPassword.visibleProperty().bind(icon.pressedProperty().not());
-
-        txtPassword.textProperty().bindBidirectional(pfPassword.textProperty());
 
         icon.pressedProperty().addListener((o, oldVal, newVal) -> {
             if (newVal) {
@@ -557,26 +610,26 @@ public class UsersController implements Initializable {
         return UsersController.class.getResourceAsStream(Constants.PROFILE_PICTURES_PACKAGE + imageName + ".png");
     }
 
-    private void maxinumCharactert() {
-        Resources.limitTextField(txtName, 150);
-        Resources.limitTextField(txtUser, 150);
-        Resources.limitTextField(txtPassword, 150);
-        Resources.limitTextField(pfPassword, 150);
-    }
-
     private void selectedRecord() {
         Users users = tblUsers.getSelectionModel().getSelectedItem();
         txtName.setText(users.getNameUser());
         txtUser.setText(users.getEmail());
         pfPassword.setText(users.getPass());
-        cmbTypeUser.setValue(String.valueOf(users.getUserType()));
+        cmbTypeUser.setValue(users.getUserType());
     }
 
-    private void disableControlsEdit() {
+    private void disableEditControls() {
         txtName.setEditable(false);
         txtUser.setEditable(false);
         txtPassword.setEditable(false);
         pfPassword.setEditable(false);
+    }
+
+    private void enableEditControls() {
+        txtName.setEditable(true);
+        txtUser.setEditable(true);
+        txtPassword.setEditable(true);
+        pfPassword.setEditable(true);
     }
 
     private void cleanControls() {
@@ -587,82 +640,84 @@ public class UsersController implements Initializable {
         cmbTypeUser.getSelectionModel().clearSelection();
     }
 
-    private void enableControlsEdit() {
-        txtName.setEditable(true);
-        txtUser.setEditable(true);
-        txtPassword.setEditable(true);
-        pfPassword.setEditable(true);
-    }
-
-    private void resetValidation() {
+    private void resetValidations() {
+        txtUser.resetValidation();
         txtName.resetValidation();
         txtPassword.resetValidation();
         pfPassword.resetValidation();
-        txtUser.resetValidation();
         cmbTypeUser.resetValidation();
     }
 
-    private void keyEscapeWindows() {
-        rootUsers.setOnKeyReleased((KeyEvent keyEvent) -> {
-            if (keyEvent.getCode() == ESCAPE && rootDeleteUser.isVisible()) {
-                hideWindowDeleteUser();
+    private void disableTable() {
+        tblUsers.setDisable(true);
+    }
+
+    private void closeDialogWithEscapeKey() {
+        rootUsers.setOnKeyReleased(ev -> {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogDeleteUser();
             }
-            if (keyEvent.getCode() == ESCAPE && rootAddUser.isVisible()) {
-                hideWindowAddUser();
+
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddUser();
             }
-            if (dialog != null) {
-                if (keyEvent.getCode() == ESCAPE && dialog.isVisible()) {
+
+            if (Resources.dialog != null) {
+                if (ev.getCode().equals(KeyCode.ESCAPE)) {
                     tblUsers.setDisable(false);
                     rootUsers.setEffect(null);
-                    dialog.close();
+                    Resources.dialog.close();
                 }
+            }
+        });
+        
+        addUserContainer.setOnKeyReleased(ev -> {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddUser();
             }
         });
     }
 
-    private void escapeWindowWithTextFields() {
+    private void closeDialogWithTextFields() {
         txtName.setOnKeyReleased(ev -> {
-            if (ev.getCode() == ESCAPE) {
-                hideWindowAddUser();
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddUser();
             }
         });
 
         txtPassword.setOnKeyReleased(ev -> {
-            if (ev.getCode() == ESCAPE) {
-                hideWindowAddUser();
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddUser();
             }
         });
 
         cmbTypeUser.setOnKeyReleased(ev -> {
-            if (ev.getCode() == ESCAPE) {
-                hideWindowAddUser();
-            }
-        });
-
-        rootAddUser.setOnKeyReleased(ev -> {
-            if (ev.getCode() == ESCAPE) {
-                hideWindowAddUser();
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddUser();
             }
         });
     }
 
-    private void keyDeleteCustomer() {
-        rootUsers.setOnKeyPressed((KeyEvent keyEvent) -> {
-            if (keyEvent.getCode().equals(KeyCode.DELETE)) {
+    private void deleteUserDeleteKey() {
+        rootUsers.setOnKeyPressed(ev -> {
+            if (ev.getCode().equals(KeyCode.DELETE)) {
                 if (tblUsers.isDisable()) {
-                    System.out.println("To delete, finish saving the record or cancel the operation");
-                } else if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
-                } else {
-                    deleteUser();
+                    return;
                 }
+
+                if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
+                    Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
+                    return;
+                }
+                
+                deleteUser();
             }
         });
     }
 
     @FXML
     private void filterName() {
-        String name = txtSearchName.getText();
+        String name = txtSearchName.getText().trim();
         if (name.isEmpty()) {
             tblUsers.setItems(listUsers);
         } else {
@@ -678,7 +733,7 @@ public class UsersController implements Initializable {
 
     @FXML
     private void filterUser() {
-        String user = txtSearchUser.getText();
+        String user = txtSearchUser.getText().trim();
         if (user.isEmpty()) {
             tblUsers.setItems(listUsers);
         } else {
@@ -702,7 +757,7 @@ public class UsersController implements Initializable {
             password.setEditable(false);
             password.setPrefWidth(colPassword.getWidth() / 0.5);
             password.setText(item.getPass());
-            password.getStylesheets().add(Resources.LIGHT_THEME);
+            password.getStylesheets().add(Constants.LIGHT_THEME);
             password.getStyleClass().addAll("password-field-cell", "table-row-cell");
 
             return new SimpleObjectProperty<>(password);
@@ -718,7 +773,7 @@ public class UsersController implements Initializable {
             JFXButton button = new JFXButton();
             button.setPrefWidth(colTypeUser.getWidth() / 0.5);
             button.setText(item.getUserType());
-            button.getStylesheets().add(Resources.LIGHT_THEME);
+            button.getStylesheets().add(Constants.LIGHT_THEME);
 
             if (item.getUserType().equals("Administrator")) {
                 button.getStyleClass().addAll("cell-button-administrador", "table-row-cell");
