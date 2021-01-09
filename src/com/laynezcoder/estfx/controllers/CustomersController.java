@@ -404,7 +404,7 @@ public class CustomersController implements Initializable {
         if (phoneNumber.isEmpty()) {
             new Shake(txtCustomerNumber).play();
         }
-        if (!validateEmailAddress(email) && !email.isEmpty() && !email.equals("N/A")) {
+        if (!validateEmailAddress(email) && !email.isEmpty() && !email.equals(NOT_AVAILABLE)) {
             new Shake(txtEmail).play();
             NotificationsBuilder.create(NotificationType.ERROR, INVALID_EMAIL);
         }
