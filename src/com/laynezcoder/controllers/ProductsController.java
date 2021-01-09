@@ -10,7 +10,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.database.DatabaseConnection;
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.models.Products;
-import com.laynezcoder.preferences.Preferences;
+import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
@@ -459,7 +459,7 @@ public class ProductsController implements Initializable {
                 Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
             }
         }
-    }
+    } 
 
     private InputStream getInputStream() {
         InputStream is;
