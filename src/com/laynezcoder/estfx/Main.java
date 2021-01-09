@@ -27,7 +27,7 @@ public class Main extends Application {
     private void loginWindow(Stage stage) {
         try {
             DatabaseHelper.logout();
-            Parent root = FXMLLoader.load(getClass().getResource(Constants.VIEWS_PACKAGE + "LoginView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Constants.LOGIN_VIEW));
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle(Constants.TITLE);
             stage.getIcons().add(new Image(Constants.ICON));
@@ -40,7 +40,7 @@ public class Main extends Application {
 
     private void startWindow(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(Constants.VIEWS_PACKAGE + "StartView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Constants.START_VIEW));
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(new Scene(root));
             stage.setTitle(Constants.TITLE);
