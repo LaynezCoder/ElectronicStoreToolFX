@@ -19,6 +19,7 @@ import java.net.URISyntaxException;
 import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -26,6 +27,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.effect.BoxBlur;
@@ -45,7 +47,7 @@ public class Resources {
 
     public static final String SOURCE_PACKAGES = "/com/laynezcoder";
     public static final String PACKAGE_MEDIA = "/com/laynezcoder/media/";
-    public static final String RIMOUSKI_FONT = "/com/laynezcoder/fonts/rimouski.ttf";
+    public static final String RIMOUSKI_FONT = "/com/laynezcoder/estfx/fonts/rimouski.ttf";
     public static final String NO_IMAGE_AVAILABLE = "/com/laynezcoder/media/empty-image.jpg";
     public static final String CSS_LIGHT_THEME = "/com/laynezcoder/resources/LightTheme.css";
     public static final String LIGHT_THEME = Resources.class.getResource(CSS_LIGHT_THEME).toExternalForm();
@@ -318,27 +320,24 @@ public class Resources {
     }
 
     public static void setTextIsEmpty(TextField text) {
-        text.focusedProperty().addListener(ev -> {
-            if (text.isFocused() && text.getText().isEmpty()) {
+        text.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (text.getText().isEmpty() && newValue) {
                 text.setText("0");
             }
         });
     }
 
-    public static void onlyLettersTextField(TextField txt) {
-        txt.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\sa-zA-Z*") || txt.getText().isEmpty()) {
-                txt.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+    public static void onlyLettersTextFieldNoSpace(TextField txt) {
+        Pattern pattern = Pattern.compile("[a-zA-Z]*");
+        UnaryOperator<TextFormatter.Change> filter = c -> {
+            if (pattern.matcher(c.getControlNewText()).matches()) {
+                return c;
+            } else {
+                return null;
             }
-        });
-    }
-
-    public static void noInitSpace(TextField txt) {
-        txt.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (txt.getText().equals(" ")) {
-                txt.setText(oldValue);
-            }
-        });
+        };
+        TextFormatter<String> formatter = new TextFormatter<>(filter);
+        txt.setTextFormatter(formatter);
     }
 
     public static void selectTextToJFXTextField(JFXTextField txt) {
@@ -391,7 +390,7 @@ public class Resources {
         text.setFont(font);
     }
 
-    public static void setFontToJFXButton(JFXButton btn, int sizeFont) {
+    public static void setFontToJFXButton(Button btn, int sizeFont) {
         Font font = Font.loadFont(Resources.class.getResourceAsStream(RIMOUSKI_FONT), sizeFont);
         btn.setFont(font);
     }
