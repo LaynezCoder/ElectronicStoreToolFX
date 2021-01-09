@@ -2,6 +2,7 @@ package com.laynezcoder.estfx.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.laynezcoder.estfx.database.DatabaseHelper;
+import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.resources.Resources;
 import java.io.IOException;
 import java.net.URL;
@@ -162,10 +163,10 @@ public class MainController implements Initializable {
     private void loginWindow() {
         try {
             Stage stage = new Stage(StageStyle.UNDECORATED);
-            Parent root = FXMLLoader.load(getClass().getResource("/com/laynezcoder/views/LoginView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Constants.LOGIN_VIEW));
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.getIcons().add(new Image(Resources.SOURCE_PACKAGES + "/media/reicon.png"));
+            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.show();
             closeStage();
             DatabaseHelper.logout();
@@ -201,7 +202,7 @@ public class MainController implements Initializable {
     private void showFXMLWindows(String FXMLName) {
         rootContainer.getChildren().clear();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/laynezcoder/views/" + FXMLName + ".fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Constants.MEDIA_PACKAGE + FXMLName + ".fxml"));
             AnchorPane.setBottomAnchor(root, 0.0);
             AnchorPane.setTopAnchor(root, 0.0);
             AnchorPane.setLeftAnchor(root, 0.0);
