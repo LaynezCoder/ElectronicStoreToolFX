@@ -72,6 +72,22 @@ public class TextFieldMask {
         txt.setTextFormatter(formatter);
     }
 
+    public static void characterLimit(TextField textField, int limit) {
+        UnaryOperator<TextFormatter.Change> textLimitFilter = change -> {
+            if (change.isContentChange()) {
+                int newLength = change.getControlNewText().length();
+                if (newLength > limit) {
+                    String trimmedText = change.getControlNewText().substring(0, limit);
+                    change.setText(trimmedText);
+                    int oldLength = change.getControlText().length();
+                    change.setRange(0, oldLength);
+                }
+            }
+            return change;
+        };
+        textField.setTextFormatter(new TextFormatter(textLimitFilter));
+    }
+
     public static void setTextIfFieldIsEmpty(TextField text) {
         text.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (text.getText().isEmpty() && newValue) {
