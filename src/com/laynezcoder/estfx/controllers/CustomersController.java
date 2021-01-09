@@ -135,11 +135,11 @@ public class CustomersController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         characterLimiter();
         setValidations();
-        animateNodes();
         selectText();
         loadData();
         setFonts();
         setMask();
+        animateNodes();
         deleteUserDeleteKey();
         closeDialogWithTextFields();
         closeDialogWithEscapeKey();
@@ -540,7 +540,7 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void filterNameCustomer() {
-        String filterName = txtSearchCustomer.getText();
+        String filterName = txtSearchCustomer.getText().trim();
         if (filterName.isEmpty()) {
             tblCustomers.setItems(listCustomers);
         } else {
@@ -556,7 +556,7 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void filterNumberCustomer() {
-        String filterNumber = txtSearchNumber.getText();
+        String filterNumber = txtSearchNumber.getText().trim();
         if (filterNumber.isEmpty()) {
             tblCustomers.setItems(listCustomers);
         } else {
