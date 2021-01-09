@@ -9,7 +9,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-import com.laynezcoder.database.DatabaseHelper;
+import com.laynezcoder.estfx.database.DatabaseHelper;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.awt.Desktop;

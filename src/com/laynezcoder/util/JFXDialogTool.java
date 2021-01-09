@@ -6,7 +6,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import com.laynezcoder.estfx.resources.Constants;
-import com.laynezcoder.database.DatabaseHelper;
+import com.laynezcoder.estfx.database.DatabaseHelper;
 import javafx.event.EventHandler;
 
 public class JFXDialogTool {

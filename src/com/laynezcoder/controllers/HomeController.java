@@ -1,7 +1,7 @@
 package com.laynezcoder.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.laynezcoder.database.DatabaseConnection;
+import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.models.Quotes;
 import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;

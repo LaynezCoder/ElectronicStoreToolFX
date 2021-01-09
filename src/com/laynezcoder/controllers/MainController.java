@@ -1,7 +1,7 @@
 package com.laynezcoder.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.laynezcoder.database.DatabaseHelper;
+import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.resources.Resources;
 import java.io.IOException;
 import java.net.URL;
