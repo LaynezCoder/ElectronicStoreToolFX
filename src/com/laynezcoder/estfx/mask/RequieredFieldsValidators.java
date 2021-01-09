@@ -1,4 +1,4 @@
-package com.laynezcoder.util;
+package com.laynezcoder.estfx.mask;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;

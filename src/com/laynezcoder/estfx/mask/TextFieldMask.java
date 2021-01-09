@@ -1,4 +1,4 @@
-package com.laynezcoder.util;
+package com.laynezcoder.estfx.mask;
 
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
