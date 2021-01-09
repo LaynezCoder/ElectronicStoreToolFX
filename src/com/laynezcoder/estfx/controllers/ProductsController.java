@@ -888,7 +888,7 @@ public class ProductsController implements Initializable {
         });
 
         icon.setOnMouseClicked(ev -> {
-            final Image image = DatabaseHelper.getImageProduct(id);
+            final Image image = DatabaseHelper.getProductImage(id);
             double widthImage = image.getWidth();
             double heightImage = image.getHeight();
 

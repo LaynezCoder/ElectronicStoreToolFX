@@ -234,7 +234,7 @@ public class DatabaseHelper {
         return count;
     }
 
-    public static Image getImageProduct(int id) {
+    public static Image getProductImage(int id) {
         Image image = null;
         try {
             String sql = "SELECT imageProduct FROM Products WHERE id = ?";
@@ -329,7 +329,7 @@ public class DatabaseHelper {
             String sql = "UPDATE Users SET profileImage = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setBlob(1, inputStream);
-            preparedStatement.setInt(2, getIdUserSession());
+            preparedStatement.setInt(2, getSessionId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -354,7 +354,7 @@ public class DatabaseHelper {
         return count;
     }
 
-    public static boolean insertUsserSession(int id) {
+    public static boolean insertUserSession(int id) {
         try {
             String sql = "INSERT INTO UserSession (userId) VALUES (?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -418,7 +418,7 @@ public class DatabaseHelper {
         return userType;
     }
 
-    public static int getIdUserSession() {
+    public static int getSessionId() {
         int userId = 0;
         try {
             String sql = "SELECT userId FROM UserSession";
@@ -433,7 +433,7 @@ public class DatabaseHelper {
         return userId;
     }
 
-    public static String getUserSession() {
+    public static String getSessionUsername() {
         String user = null;
         try {
             String sql = "SELECT Users.email FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
@@ -509,5 +509,4 @@ public class DatabaseHelper {
         }
         return count;
     }
-
 }

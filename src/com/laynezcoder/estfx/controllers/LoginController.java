@@ -123,7 +123,7 @@ public class LoginController implements Initializable {
                     int id = rs.getInt("id");
                     String nameUser = rs.getString("nameUser");
 
-                    boolean result = DatabaseHelper.insertUsserSession(id);
+                    boolean result = DatabaseHelper.insertUserSession(id);
                     if (result) {
                         loadMain();
                         Resources.notification("Success", "Welcome to the system " + nameUser + "!", "check.png");

@@ -457,7 +457,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (DatabaseHelper.getIdUserSession() == id && !cmbTypeUser.getSelectionModel().getSelectedItem().equals(userType)) {
+        if (DatabaseHelper.getSessionId() == id && !cmbTypeUser.getSelectionModel().getSelectedItem().equals(userType)) {
             NotificationsBuilder.create(NotificationType.INVALID_ACTION, "Unable to change user type");
             Animations.shake(cmbTypeUser);
             return;
@@ -484,7 +484,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (id == DatabaseHelper.getIdUserSession()) {
+        if (id == DatabaseHelper.getSessionId()) {
             NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user cannot be deleted");
             return;
         }

@@ -130,7 +130,7 @@ public class SettingsController implements Initializable {
         try {
             String sql = "SELECT profileImage FROM Users WHERE id = ?";
             PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ps.setInt(1, DatabaseHelper.getIdUserSession());
+            ps.setInt(1, DatabaseHelper.getSessionId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 InputStream img = rs.getBinaryStream("profileImage");
@@ -197,12 +197,12 @@ public class SettingsController implements Initializable {
             shakeAnimation(cmbDialogTransition);
         } else if (txtBio.getText().isEmpty()) {
             shakeAnimation(txtBio);
-        } else if (DatabaseHelper.checkIfUserExists(txtUser.getText()) != 0 && !txtUser.getText().equals(DatabaseHelper.getUserSession())) {
+        } else if (DatabaseHelper.checkIfUserExists(txtUser.getText()) != 0 && !txtUser.getText().equals(DatabaseHelper.getSessionUsername())) {
             Resources.notification("Error", "This user already exists", "error.png");
             shakeAnimation(txtUser);
         } else {
             Users users = new Users();
-            users.setId(DatabaseHelper.getIdUserSession());
+            users.setId(DatabaseHelper.getSessionId());
             users.setNameUser(txtName.getText());
             users.setEmail(txtUser.getText());
             users.setPass(txtPassword.getText());

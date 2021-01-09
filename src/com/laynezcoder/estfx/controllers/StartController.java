@@ -264,7 +264,7 @@ public class StartController implements Initializable {
     @FXML
     private void finish() {
         insertUserInDB();
-        DatabaseHelper.insertUsserSession(1);
+        DatabaseHelper.insertUserSession(1);
 
         paneStep3.setVisible(false);
         paneFinish.setVisible(true);
