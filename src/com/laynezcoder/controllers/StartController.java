@@ -13,7 +13,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.models.Users;
+import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.resources.Resources;
 import java.io.IOException;

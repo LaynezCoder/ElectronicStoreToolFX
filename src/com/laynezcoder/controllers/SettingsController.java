@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.models.Users;
+import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.resources.Resources;
 import com.laynezcoder.util.CropImageProfile;

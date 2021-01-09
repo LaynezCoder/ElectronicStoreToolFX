@@ -9,7 +9,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.models.Products;
+import com.laynezcoder.estfx.models.Products;
 import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;

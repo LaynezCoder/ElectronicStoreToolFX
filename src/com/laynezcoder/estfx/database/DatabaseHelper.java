@@ -1,10 +1,10 @@
 package com.laynezcoder.estfx.database;
 
 import com.jfoenix.controls.JFXDialog;
-import com.laynezcoder.models.Customers;
-import com.laynezcoder.models.Products;
-import com.laynezcoder.models.Quotes;
-import com.laynezcoder.models.Users;
+import com.laynezcoder.estfx.models.Customers;
+import com.laynezcoder.estfx.models.Products;
+import com.laynezcoder.estfx.models.Quotes;
+import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.resources.Resources;
 import java.io.InputStream;
 import java.sql.PreparedStatement;

@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.models.Customers;
+import com.laynezcoder.estfx.models.Customers;
 import com.laynezcoder.resources.Resources;
 import java.net.URL;
 import java.sql.PreparedStatement;
