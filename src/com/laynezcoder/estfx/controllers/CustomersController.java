@@ -2,12 +2,20 @@ package com.laynezcoder.estfx.controllers;
 
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
+import com.laynezcoder.estfx.alerts.AlertType;
+import com.laynezcoder.estfx.alerts.AlertsBuilder;
+import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
+import com.laynezcoder.estfx.fonts.Fonts;
+import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
+import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Customers;
-import com.laynezcoder.resources.Resources;
+import com.laynezcoder.estfx.notifications.NotificationType;
+import com.laynezcoder.estfx.notifications.NotificationsBuilder;
+import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,23 +33,20 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
-import static javafx.scene.input.KeyCode.ESCAPE;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import static com.laynezcoder.resources.Resources.dialog;
 
 public class CustomersController implements Initializable {
-    
-    private final BoxBlur blur = new BoxBlur(3, 3, 3);
+
+    private static final String NOT_AVAILABLE = "N/A";
+
+    private static final String INVALID_EMAIL = "Invalid email";
 
     private ObservableList<Customers> listCustomers;
-
+    
     private ObservableList<Customers> filterCustomers;
 
     @FXML
@@ -51,10 +56,10 @@ public class CustomersController implements Initializable {
     private AnchorPane rootCustomers;
 
     @FXML
-    private AnchorPane rootDeleteCustomer;
+    private AnchorPane containerDeleteCustomer;
 
     @FXML
-    private AnchorPane rootAddCustomer;
+    private AnchorPane containerAddCustomer;
 
     @FXML
     private JFXButton btnUpdateCustomer;
@@ -85,7 +90,7 @@ public class CustomersController implements Initializable {
 
     @FXML
     private JFXButton btnCancel;
-    
+
     @FXML
     private JFXButton btnDelete;
 
@@ -114,7 +119,7 @@ public class CustomersController implements Initializable {
     private JFXTextField txtIt;
 
     @FXML
-    private Text titleWindowAddCustomer;
+    private Text titleAddCustomer;
 
     @FXML
     private Text textConfirmation;
@@ -122,94 +127,83 @@ public class CustomersController implements Initializable {
     @FXML
     private Text description;
 
-    private JFXDialog dialogAddCustomer;
+    private JFXDialogTool dialogAddCustomer;
 
-    private JFXDialog dialogDeleteCustomer;
+    private JFXDialogTool dialogDeleteCustomer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        filterCustomers = FXCollections.observableArrayList();
-        escapeWindowWithTextFields();
-        keyDeleteCustomer();
-        keyEscapeWindows();
         characterLimiter();
+        setValidations();
         animateNodes();
-        validation();
         selectText();
         loadData();
         setFonts();
+        setMask();
+        deleteUserDeleteKey();
+        closeDialogWithTextFields();
+        closeDialogWithEscapeKey();
+        filterCustomers = FXCollections.observableArrayList();
     }
 
     private void setFonts() {
-        Resources.setFontToJFXButton(btnUpdateCustomer, 15);
-        Resources.setFontToJFXButton(btnSaveCustomer, 15);
-        Resources.setFontToJFXButton(btnCancelDelete, 15);
-        Resources.setFontToJFXButton(btnAddCustomer, 12);
-        Resources.setFontToJFXButton(btnCancel, 15);
-        Resources.setFontToJFXButton(btnDelete, 15);
-
-        Resources.setFontToText(titleWindowAddCustomer, 20);
-        Resources.setFontToText(textConfirmation, 15);
-        Resources.setFontToText(description, 12);
+        Fonts.toButton(btnUpdateCustomer, 15);
+        Fonts.toButton(btnSaveCustomer, 15);
+        Fonts.toButton(btnCancelDelete, 15);
+        Fonts.toButton(btnAddCustomer, 12);
+        Fonts.toButton(btnCancel, 15);
+        Fonts.toButton(btnDelete, 15);
+        Fonts.toText(titleAddCustomer, 20);
+        Fonts.toText(textConfirmation, 15);
+        Fonts.toText(description, 12);
     }
 
     private void animateNodes() {
-        Resources.fadeInUpAnimation(rootSearchCustomers);
-        Resources.fadeInUpAnimation(btnAddCustomer);
-        Resources.fadeInUpAnimation(tblCustomers);
+        Animations.fadeInUp(rootSearchCustomers);
+        Animations.fadeInUp(btnAddCustomer);
+        Animations.fadeInUp(tblCustomers);
     }
 
     private void selectText() {
-        Resources.selectTextToJFXTextField(txtCustomerNumber);
-        Resources.selectTextToJFXTextField(txtCustomerName);
-        Resources.selectTextToJFXTextField(txtEmail);
-        Resources.selectTextToJFXTextField(txtIt);
-
-        Resources.selectTextToTextField(txtSearchCustomer);
-        Resources.selectTextToTextField(txtSearchNumber);
+        TextFieldMask.selectText(txtCustomerNumber);
+        TextFieldMask.selectText(txtCustomerName);
+        TextFieldMask.selectText(txtEmail);
+        TextFieldMask.selectText(txtIt);
+        TextFieldMask.selectText(txtSearchCustomer);
+        TextFieldMask.selectText(txtSearchNumber);
     }
 
-    private void validation() {
-        Resources.validationOfJFXTextField(txtCustomerNumber);
-        Resources.validationOfJFXTextField(txtCustomerName);
+    private void setValidations() {
+        RequieredFieldsValidators.toJFXTextField(txtCustomerNumber);
+        RequieredFieldsValidators.toJFXTextField(txtCustomerName);
     }
 
     private void characterLimiter() {
-        Resources.limitTextField(txtCustomerName, 150);
-        Resources.limitTextField(txtCustomerNumber, 15);
-        Resources.limitTextField(txtEmail, 150);
-        Resources.limitTextField(txtIt, 50);
+        TextFieldMask.characterLimit(txtCustomerName, 150);
+        TextFieldMask.characterLimit(txtCustomerNumber, 15);
+        TextFieldMask.characterLimit(txtEmail, 150);
+        TextFieldMask.characterLimit(txtIt, 50);
+    }
+
+    private void setMask() {
+        TextFieldMask.onlyNumbers(txtSearchNumber);
+        TextFieldMask.onlyNumbers(txtCustomerNumber);
     }
 
     @FXML
-    private void onlyTextFieldNumber() {
-        Resources.validationOnlyNumbers(txtSearchNumber);
-    }
-
-    @FXML
-    private void onlyTextFieldAddNumber() {
-        Resources.validationOnlyNumbers(txtCustomerNumber);
-    }
-
-    @FXML
-    private void showWindowAddCustomer() {
-        rootCustomers.setEffect(blur);
-        enableControlsEdit();
+    private void showDialogddCustomer() {
         resetValidation();
         disableTable();
+        enableEditControls();
+        rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
 
-        titleWindowAddCustomer.setText("Add customer");
+        titleAddCustomer.setText("Add customer");
         btnUpdateCustomer.setVisible(true);
         btnSaveCustomer.setDisable(false);
-        rootAddCustomer.setVisible(true);
+        containerAddCustomer.setVisible(true);
         btnSaveCustomer.toFront();
 
-        dialogAddCustomer = new JFXDialog();
-        dialogAddCustomer.setTransitionType(DatabaseHelper.dialogTransition());
-        dialogAddCustomer.setDialogContainer(stckCustomers);
-        dialogAddCustomer.setBackground(Background.EMPTY);
-        dialogAddCustomer.setContent(rootAddCustomer);
-        Resources.setStyleToAlerts(dialogAddCustomer);
+        dialogAddCustomer = new JFXDialogTool(containerAddCustomer, stckCustomers);
         dialogAddCustomer.show();
 
         dialogAddCustomer.setOnDialogOpened(ev -> {
@@ -217,7 +211,7 @@ public class CustomersController implements Initializable {
         });
 
         dialogAddCustomer.setOnDialogClosed(ev -> {
-            rootAddCustomer.setVisible(false);
+            containerAddCustomer.setVisible(false);
             tblCustomers.setDisable(false);
             rootCustomers.setEffect(null);
             cleanControls();
@@ -225,68 +219,69 @@ public class CustomersController implements Initializable {
     }
 
     @FXML
-    private void hideWindowAddCustomer() {
+    private void closeDialogAddCustomer() {
         dialogAddCustomer.close();
     }
 
     @FXML
-    private void showWindowDeleteCustomer() {
+    private void showDialogDeleteCustomer() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "Select an item from the table");
-        } else {
-            rootCustomers.setEffect(blur);
-            disableTable();
-
-            dialogDeleteCustomer = new JFXDialog();
-            dialogDeleteCustomer.setTransitionType(DatabaseHelper.dialogTransition());
-            dialogDeleteCustomer.setDialogContainer(stckCustomers);
-            dialogDeleteCustomer.setBackground(Background.EMPTY);
-            dialogDeleteCustomer.setContent(rootDeleteCustomer);
-            Resources.setStyleToAlerts(dialogDeleteCustomer);
-            rootDeleteCustomer.setVisible(true);
-            dialogDeleteCustomer.show();
-
-            dialogDeleteCustomer.setOnDialogClosed(ev -> {
-                rootDeleteCustomer.setVisible(false);
-                tblCustomers.setDisable(false);
-                rootCustomers.setEffect(null);
-                cleanControls();
-            });
+            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Constants.MESSAGE_NO_RECORD_SELECTED);
+            return;
         }
+
+        disableTable();
+        containerDeleteCustomer.setVisible(true);
+        rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
+
+        dialogDeleteCustomer = new JFXDialogTool(containerDeleteCustomer, stckCustomers);
+        dialogDeleteCustomer.show();
+
+        dialogDeleteCustomer.setOnDialogClosed(ev -> {
+            containerDeleteCustomer.setVisible(false);
+            tblCustomers.setDisable(false);
+            rootCustomers.setEffect(null);
+            cleanControls();
+        });
+
     }
 
     @FXML
-    private void hideWindowDeleteCustomer() {
+    private void closeDialogDeleteCustomer() {
         if (dialogDeleteCustomer != null) {
             dialogDeleteCustomer.close();
         }
     }
 
     @FXML
-    private void showWindowUptadeCustomer() {
+    private void showDialogEditCustomer() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "Select an item from the table");
-        } else {
-            showWindowAddCustomer();
-            titleWindowAddCustomer.setText("Update customer");
-            btnUpdateCustomer.toFront();
-            selectedRecord();
+            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Constants.MESSAGE_NO_RECORD_SELECTED);
+            return;
         }
+
+        showDialogddCustomer();
+        titleAddCustomer.setText("Update customer");
+        btnUpdateCustomer.toFront();
+        selectedRecord();
+
     }
 
     @FXML
-    private void showWindowDetailsCustomer() {
+    private void showDialogDetailsCustomer() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "Select an item from the table");
-        } else {
-            showWindowAddCustomer();
-            titleWindowAddCustomer.setText("Customer details");
-            btnUpdateCustomer.setVisible(false);
-            btnSaveCustomer.setDisable(true);
-            btnSaveCustomer.toFront();
-            disableControlsEdit();
-            selectedRecord();
+            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Constants.MESSAGE_NO_RECORD_SELECTED);
+            return;
         }
+
+        showDialogddCustomer();
+        titleAddCustomer.setText("Customer details");
+        btnUpdateCustomer.setVisible(false);
+        btnSaveCustomer.setDisable(true);
+        btnSaveCustomer.toFront();
+        disableEditControls();
+        selectedRecord();
+
     }
 
     private void selectedRecord() {
@@ -323,8 +318,7 @@ public class CustomersController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-            Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "An error occurred when connecting to MySQL.\n"
-                    + "Check your connection to MySQL");
+            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
         listCustomers = FXCollections.observableArrayList(list);
         tblCustomers.setItems(listCustomers);
@@ -332,40 +326,56 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void newCustomer() {
-        if (txtCustomerName.getText().isEmpty()) {
-            new Shake(txtCustomerName).play();
-        } else if (txtCustomerNumber.getText().isEmpty()) {
-            new Shake(txtCustomerNumber).play();
-        } else if (!validateEmailAddress(txtEmail.getText()) && !txtEmail.getText().isEmpty()) {
-            new Shake(txtEmail).play();
-            Resources.notification("Error", "Invalid email", "error.png");
-        } else {
-            Customers customers = new Customers();
-            customers.setCustomerName(txtCustomerName.getText());
-            customers.setCustomerNumber(txtCustomerNumber.getText());
+        String name = txtCustomerName.getText().trim();
+        String phoneNumber = txtCustomerName.getText().trim();
+        String email = txtCustomerName.getText().trim();
+        String it = txtCustomerName.getText().trim();
 
-            if (txtEmail.getText().isEmpty()) {
-                customers.setCustomerEmail("N/A");
-            } else {
-                customers.setCustomerEmail(txtEmail.getText());
-            }
-
-            if (txtIt.getText().isEmpty()) {
-                customers.setIt("N/A");
-            } else {
-                customers.setIt(txtIt.getText());
-            }
-
-            boolean result = DatabaseHelper.insertNewCustomer(customers, listCustomers);
-            if (result) {
-                loadData();
-                cleanControls();
-                hideWindowAddCustomer();
-                Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry added successfully");
-            } else {
-                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
-            }
+        if (name.isEmpty()) {
+            txtCustomerName.requestFocus();
+            Animations.shake(txtCustomerName);
+            return;
         }
+
+        if (phoneNumber.isEmpty()) {
+            txtCustomerNumber.requestFocus();
+            Animations.shake(txtCustomerNumber);
+            return;
+        }
+
+        if (!validateEmailAddress(email) && !email.isEmpty()) {
+            txtEmail.requestFocus();
+            Animations.shake(txtEmail);
+            NotificationsBuilder.create(NotificationType.ERROR, INVALID_EMAIL);
+            return;
+        }
+
+        Customers customers = new Customers();
+        customers.setCustomerName(name);
+        customers.setCustomerNumber(phoneNumber);
+
+        if (email.isEmpty()) {
+            customers.setCustomerEmail(NOT_AVAILABLE);
+        } else {
+            customers.setCustomerEmail(email);
+        }
+
+        if (it.isEmpty()) {
+            customers.setIt(NOT_AVAILABLE);
+        } else {
+            customers.setIt(it);
+        }
+
+        boolean result = DatabaseHelper.insertNewCustomer(customers, listCustomers);
+        if (result) {
+            loadData();
+            cleanControls();
+            closeDialogAddCustomer();
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MENSSAGE_ADDED);
+        } else {
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+        }
+
     }
 
     @FXML
@@ -374,72 +384,78 @@ public class CustomersController implements Initializable {
         if (result) {
             loadData();
             cleanControls();
-            hideWindowDeleteCustomer();
-            Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry deleted successfully");
+            closeDialogDeleteCustomer();
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MENSSAGE_DELETED);
         } else {
-            Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
     }
 
     @FXML
     private void updateCustomer() {
-        if (txtCustomerName.getText().isEmpty()) {
+        String name = txtCustomerName.getText().trim();
+        String phoneNumber = txtCustomerName.getText().trim();
+        String email = txtCustomerName.getText().trim();
+        String it = txtCustomerName.getText().trim();
+
+        if (name.isEmpty()) {
             new Shake(txtCustomerName).play();
-        } else if (txtCustomerNumber.getText().isEmpty()) {
+        }
+        if (phoneNumber.isEmpty()) {
             new Shake(txtCustomerNumber).play();
-        } else if (!validateEmailAddress(txtEmail.getText()) && !txtEmail.getText().isEmpty() && !txtEmail.getText().equals("N/A")) {
+        }
+        if (!validateEmailAddress(email) && !email.isEmpty() && !email.equals("N/A")) {
             new Shake(txtEmail).play();
-            Resources.notification("Error", "Invalid email", "error.png");
+            NotificationsBuilder.create(NotificationType.ERROR, INVALID_EMAIL);
+        }
+
+        Customers customers = tblCustomers.getSelectionModel().getSelectedItem();
+        customers.setId(customers.getId());
+        customers.setCustomerName(name);
+        customers.setCustomerNumber(phoneNumber);
+
+        if (email.isEmpty()) {
+            customers.setCustomerEmail(NOT_AVAILABLE);
         } else {
-            Customers customers = tblCustomers.getSelectionModel().getSelectedItem();
-            customers.setId(customers.getId());
-            customers.setCustomerName(txtCustomerName.getText());
-            customers.setCustomerNumber(txtCustomerNumber.getText());
+            customers.setCustomerEmail(email);
+        }
 
-            if (txtEmail.getText().isEmpty()) {
-                customers.setCustomerEmail("N/A");
-            } else {
-                customers.setCustomerEmail(txtEmail.getText());
-            }
+        if (it.isEmpty()) {
+            customers.setIt(NOT_AVAILABLE);
+        } else {
+            customers.setIt(it);
+        }
 
-            if (txtIt.getText().isEmpty()) {
-                customers.setIt("N/A");
-            } else {
-                customers.setIt(txtIt.getText());
-            }
-
-            boolean result = DatabaseHelper.updateCustomer(customers);
-            if (result) {
-                loadData();
-                cleanControls();
-                hideWindowAddCustomer();
-                Resources.showSuccessAlert(stckCustomers, rootCustomers, tblCustomers, "Registry updated successfully");
-            } else {
-                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
-            }
-
+        boolean result = DatabaseHelper.updateCustomer(customers);
+        if (result) {
+            loadData();
+            cleanControls();
+            closeDialogAddCustomer();
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MENSSAGE_UPDATED);
+        } else {
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
     }
 
     private void cleanControls() {
-        txtCustomerNumber.clear();
-        txtCustomerName.clear();
         txtEmail.clear();
         txtIt.clear();
+        txtCustomerName.clear();
+        txtCustomerNumber.clear();
     }
 
-    private void disableControlsEdit() {
-        txtCustomerNumber.setEditable(false);
-        txtCustomerName.setEditable(false);
+    private void disableEditControls() {
         txtEmail.setEditable(false);
         txtIt.setEditable(false);
+        txtCustomerName.setEditable(false);
+        txtCustomerNumber.setEditable(false);
     }
 
-    private void enableControlsEdit() {
-        txtCustomerNumber.setEditable(true);
-        txtCustomerName.setEditable(true);
+    private void enableEditControls() {
         txtEmail.setEditable(true);
         txtIt.setEditable(true);
+        txtCustomerName.setEditable(true);
+        txtCustomerNumber.setEditable(true);
     }
 
     private void resetValidation() {
@@ -460,60 +476,64 @@ public class CustomersController implements Initializable {
         return pattern.matcher(email).matches();
     }
 
-    private void keyEscapeWindows() {
-        rootCustomers.setOnKeyReleased((KeyEvent keyEvent) -> {
-            if (keyEvent.getCode() == ESCAPE && rootDeleteCustomer.isVisible()) {
-                hideWindowDeleteCustomer();
+    private void closeDialogWithEscapeKey() {
+        rootCustomers.setOnKeyReleased(ev -> {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogDeleteCustomer();
             }
-            if (keyEvent.getCode() == ESCAPE && rootAddCustomer.isVisible()) {
-                hideWindowAddCustomer();
+
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddCustomer();
             }
-            if (dialog != null) {
-                if (keyEvent.getCode() == ESCAPE && dialog.isVisible()) {
+
+            if (AlertsBuilder.dialog != null) {
+                if (ev.getCode().equals(KeyCode.ESCAPE)) {
                     tblCustomers.setDisable(false);
                     rootCustomers.setEffect(null);
-                    dialog.close();
+                    AlertsBuilder.dialog.close();
                 }
             }
         });
     }
 
-    private void escapeWindowWithTextFields() {
+    private void closeDialogWithTextFields() {
         txtCustomerName.setOnKeyReleased(ev -> {
-            if (ev.getCode() == ESCAPE) {
-                hideWindowAddCustomer();
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddCustomer();
             }
         });
 
         txtCustomerNumber.setOnKeyReleased(ev -> {
-            if (ev.getCode() == ESCAPE) {
-                hideWindowAddCustomer();
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddCustomer();
             }
         });
 
         txtEmail.setOnKeyReleased(ev -> {
-            if (ev.getCode() == ESCAPE) {
-                hideWindowAddCustomer();
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddCustomer();
             }
         });
 
         txtIt.setOnKeyReleased(ev -> {
-            if (ev.getCode() == ESCAPE) {
-                hideWindowAddCustomer();
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                closeDialogAddCustomer();
             }
         });
     }
 
-    private void keyDeleteCustomer() {
-        rootCustomers.setOnKeyPressed((KeyEvent keyEvent) -> {
-            if (keyEvent.getCode().equals(KeyCode.DELETE)) {
+    private void deleteUserDeleteKey() {
+        rootCustomers.setOnKeyPressed(ev -> {
+            if (ev.getCode().equals(KeyCode.DELETE)) {
                 if (tblCustomers.isDisable()) {
-                    System.out.println("To delete, finish saving the record or cancel the operation");
-                } else if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.showErrorAlert(stckCustomers, rootCustomers, tblCustomers, "Select an item from the table");
-                } else {
-                    deleteCustomer();
+                    return;
                 }
+
+                if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
+                    AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Constants.MESSAGE_NO_RECORD_SELECTED);
+                    return;
+                }
+                deleteCustomer();
             }
         });
     }
