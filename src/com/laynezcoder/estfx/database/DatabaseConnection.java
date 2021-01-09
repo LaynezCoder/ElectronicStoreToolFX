@@ -1,5 +1,6 @@
 package com.laynezcoder.estfx.database;
 
+import com.laynezcoder.estfx.resources.Constants;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
@@ -29,7 +30,7 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-            showException("Error", "An error has occurred, please check the connection to mySQL.", ex);
+            showException(Constants.ERROR_CONNECTON_MYSQL, ex);
         }
     }
 
@@ -44,11 +45,11 @@ public class DatabaseConnection {
         return connection;
     }
 
-    private void showException(String title, String message, Exception exception) {
+    private void showException(String message, Exception exception) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("Exception");
-        alert.setHeaderText(title);
+        alert.setHeaderText(Alert.AlertType.ERROR.toString());
         alert.setContentText(message);
 
         StringWriter sw = new StringWriter();
