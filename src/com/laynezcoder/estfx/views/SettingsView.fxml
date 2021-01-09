@@ -82,7 +82,7 @@
                            <children>
                               <ImageView fx:id="imageViewProfile" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../media/not-found.png" />
+                                    <Image url="@../media/image-not-found.png" />
                                  </image>
                               </ImageView>
                               <MaterialDesignIconView fx:id="icon" fill="WHITE" glyphName="BORDER_COLOR" layoutX="38.0" layoutY="60.0" size="25" visible="false" />

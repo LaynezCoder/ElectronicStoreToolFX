@@ -32,7 +32,7 @@
                <children>
                   <ImageView fitHeight="134.0" fitWidth="892.0" layoutX="38.0" layoutY="-3.0" opacity="0.76" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.5714111328125">
                      <image>
-                        <Image url="@../media/home.png" />
+                        <Image url="@../media/home-background.png" />
                      </image>
                   </ImageView>
                   <VBox alignment="CENTER_LEFT" prefHeight="131.0" prefWidth="900.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
