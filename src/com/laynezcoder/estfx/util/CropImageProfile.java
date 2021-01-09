@@ -25,6 +25,8 @@ import javax.imageio.ImageIO;
 
 public class CropImageProfile {
 
+    private final String EXTENSION = "jpg";
+
     private ImageView imageView;
 
     private double imageHeight;
@@ -48,6 +50,7 @@ public class CropImageProfile {
 
     private void createWorkSpace() {
         group = new Group();
+
         try {
             inputStream = new FileInputStream(file);
         } catch (FileNotFoundException ex) {
@@ -104,7 +107,7 @@ public class CropImageProfile {
 
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             try {
-                ImageIO.write(bufImageRGB, "jpg", os);
+                ImageIO.write(bufImageRGB, EXTENSION, os);
             } catch (IOException ex) {
                 Logger.getLogger(CropImageProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
