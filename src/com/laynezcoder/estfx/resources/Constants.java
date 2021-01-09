@@ -16,8 +16,11 @@ public class Constants {
     public static final String LOGIN_VIEW = VIEWS_PACKAGE + "LoginView.fxml";
     public static final String START_VIEW = VIEWS_PACKAGE + "StartView.fxml";
 
+    public static final String STAGE_ICON = MEDIA_PACKAGE + "icon.png";
     public static final String NO_IMAGE_AVAILABLE = MEDIA_PACKAGE + "empty-image.jpg";
-    public static final String ICON = MEDIA_PACKAGE + "icon.png";
+    public static final String INFORMATION_IMAGE = MEDIA_PACKAGE + "information.png";
+    public static final String ERROR_IMAGE = MEDIA_PACKAGE + "error.png";
+    public static final String SUCCESS_IMAGE = MEDIA_PACKAGE + "success.png";
 
     public static final String CSS_LIGHT_THEME = RESOURCES_PACKAGE + "LightTheme.css";
     public static final String LIGHT_THEME = Constants.class.getResource(CSS_LIGHT_THEME).toExternalForm();
