@@ -8,7 +8,6 @@ import com.laynezcoder.estfx.resources.Constants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
@@ -17,8 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class AlertsBuilder {
-
-    private static final BoxBlur BOX_BLUR = new BoxBlur(3, 3, 3);
+    
     private static String title;
     private static String buttonStyle;
     private static String titleStyle;
@@ -36,11 +34,11 @@ public class AlertsBuilder {
         button.getStyleClass().add(buttonStyle);
         Fonts.toButton(button, 15);
 
-        HBox hBox = new HBox();
-        hBox.setLayoutY(115);
-        hBox.setPrefSize(390, 115);
-        hBox.setAlignment(Pos.CENTER);
-        hBox.getChildren().addAll(button);
+        HBox buttonContainer = new HBox();
+        buttonContainer.setLayoutY(115);
+        buttonContainer.setPrefSize(390, 115);
+        buttonContainer.setAlignment(Pos.CENTER);
+        buttonContainer.getChildren().addAll(button);
 
         Text textTitle = new Text(title);
         textTitle.getStyleClass().add(titleStyle);
@@ -50,22 +48,23 @@ public class AlertsBuilder {
         textBody.getStyleClass().add(bodyStyle);
         Fonts.toText(textBody, 15);
 
-        VBox vBox = new VBox();
-        vBox.setSpacing(5);
-        vBox.setPrefSize(390, 115);
-        vBox.setAlignment(Pos.CENTER_LEFT);
-        vBox.setPadding(new Insets(0, 0, 0, 30));
-        vBox.getChildren().addAll(textTitle, textBody);
-        root.getChildren().addAll(hBox, vBox);
+        VBox textContainer = new VBox();
+        textContainer.setSpacing(5);
+        textContainer.setPrefSize(390, 115);
+        textContainer.setAlignment(Pos.CENTER_LEFT);
+        textContainer.setPadding(new Insets(0, 0, 0, 30));
+        textContainer.getChildren().addAll(textTitle, textBody);
+        root.getChildren().addAll(buttonContainer, textContainer);
+
+        nodeToDisable.setDisable(true);
+        nodeToBlur.setEffect(Constants.BOX_BLUR_EFFECT);
 
         dialog = new JFXDialog();
+        setStyle();
         dialog.setContent(root);
         dialog.setDialogContainer(dialogContainer);
         dialog.setBackground(Background.EMPTY);
         dialog.setTransitionType(DatabaseHelper.dialogTransition());
-        nodeToDisable.setDisable(true);
-        nodeToBlur.setEffect(BOX_BLUR);
-        setStyle();
         dialog.show();
 
         button.setOnMouseClicked(e -> {
@@ -74,7 +73,7 @@ public class AlertsBuilder {
 
         dialog.setOnDialogOpened(e -> {
             nodeToDisable.setDisable(true);
-            nodeToBlur.setEffect(BOX_BLUR);
+            nodeToBlur.setEffect(Constants.BOX_BLUR_EFFECT);
         });
 
         dialog.setOnDialogClosed(e -> {
