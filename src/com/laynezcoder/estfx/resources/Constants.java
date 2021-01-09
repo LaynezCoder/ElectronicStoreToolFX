@@ -28,7 +28,11 @@ public class Constants {
     public static final String FONT = FONTS_PACKAGE + "rimouski.ttf";
     public static final String RIMOUSKI_FONT = Constants.class.getResource(FONT).toExternalForm();
 
-    public static final String ERROR_CONNECTON_MYSQL = "An error has occurred, please check the connection to mySQL.";
+    public static final String MESSAGE_ERROR_CONNECTION_MYSQL = "An error occurred when connecting to MySQL.\nCheck your connection to MySQL";
+    public static final String MESSAGE_NO_RECORD_SELECTED = "Select an item from the table.";
+    public static final String MENSSAGE_ADDED = "Registry added successfully";
+    public static final String MENSSAGE_UPDATED = "Registry updated successfully";
+    public static final String MENSSAGE_DELETED = "Registry deleted successfully";
 
     public static final BoxBlur BOX_BLUR_EFFECT = new BoxBlur(3, 3, 3);
 }
