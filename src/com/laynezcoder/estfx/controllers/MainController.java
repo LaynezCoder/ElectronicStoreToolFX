@@ -1,6 +1,7 @@
 package com.laynezcoder.estfx.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.resources.Resources;
@@ -188,15 +189,16 @@ public class MainController implements Initializable {
     }
 
     private void tooltips() {
-        Resources.tooltip(btnHome, tooltipHome);
-        Resources.tooltip(btnCustomers, tooltipCustomers);
-        Resources.tooltip(btnQuotes, tooltipQuotes);
-        Resources.tooltip(btnSettings, tooltipSettings);
-        Resources.tooltip(btnExit, tooltipExit);
-        Resources.tooltip(btnProducts, tooltipProducts);
-        Resources.tooltip(btnStatistics, tooltipStatistics);
-        Resources.tooltip(btnAbout, tooltipAbout);
-        Resources.tooltip(btnAddUser, tooltipAddUser);
+        Animations.tooltip(btnHome, tooltipHome);
+        Animations.tooltip(btnHome, tooltipHome);
+        Animations.tooltip(btnCustomers, tooltipCustomers);
+        Animations.tooltip(btnQuotes, tooltipQuotes);
+        Animations.tooltip(btnSettings, tooltipSettings);
+        Animations.tooltip(btnExit, tooltipExit);
+        Animations.tooltip(btnProducts, tooltipProducts);
+        Animations.tooltip(btnStatistics, tooltipStatistics);
+        Animations.tooltip(btnAbout, tooltipAbout);
+        Animations.tooltip(btnAddUser, tooltipAddUser);
     }
 
     private void showFXMLWindows(String FXMLName) {
