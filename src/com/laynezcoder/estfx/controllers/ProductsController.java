@@ -447,7 +447,7 @@ public class ProductsController implements Initializable {
             products.setPorcentage(Integer.valueOf(txtPorcentage.getText()));
             products.setSalePrice(Double.parseDouble(txtSalePrice.getText()));
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
-            products.setInputStream(getInputStream());
+            products.setProductImage(getInputStream());
 
             boolean result = DatabaseHelper.insertNewProduct(products, listProducts);
             if (result) {
@@ -534,7 +534,7 @@ public class ProductsController implements Initializable {
             products.setPorcentage(Integer.valueOf(txtPorcentage.getText()));
             products.setSalePrice(Double.parseDouble(txtSalePrice.getText()));
             products.setMinimalPrice(Double.parseDouble(txtMinPrice.getText()));
-            products.setInputStream(getInputStream());
+            products.setProductImage(getInputStream());
 
             if (imageFile != null) {
                 boolean result = DatabaseHelper.updateProduct(products);

@@ -149,7 +149,7 @@ public class DatabaseHelper {
             preparedStatement.setDouble(5, products.getSalePrice());
             preparedStatement.setDouble(6, products.getMinimalPrice());
             preparedStatement.setString(7, products.getDescriptionProduct());
-            preparedStatement.setBlob(8, products.getInputStream());
+            preparedStatement.setBlob(8, products.getProductImage());
             preparedStatement.execute();
             listProducts.add(products);
             return true;
@@ -186,7 +186,7 @@ public class DatabaseHelper {
             preparedStatement.setDouble(5, products.getSalePrice());
             preparedStatement.setDouble(6, products.getMinimalPrice());
             preparedStatement.setString(7, products.getDescriptionProduct());
-            preparedStatement.setBlob(8, products.getInputStream());
+            preparedStatement.setBlob(8, products.getProductImage());
             preparedStatement.setInt(9, products.getId());
             preparedStatement.execute();
             return true;

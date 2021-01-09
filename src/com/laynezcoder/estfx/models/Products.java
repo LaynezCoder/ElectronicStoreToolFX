@@ -11,7 +11,7 @@ public class Products {
     private Double salePrice;
     private Double minimalPrice;
     private String descriptionProduct;
-    private InputStream inputStream;
+    private InputStream imageProduct;
 
     public Products() {
     }
@@ -27,7 +27,7 @@ public class Products {
         this.descriptionProduct = descriptionProduct;
     }
     
-    public Products(Integer id, String barcode, String productName, Double purchasePrice, Integer porcentage, Double salePrice, Double minimalPrice, String descriptionProduct, InputStream inputStream) {
+    public Products(Integer id, String barcode, String productName, Double purchasePrice, Integer porcentage, Double salePrice, Double minimalPrice, String descriptionProduct, InputStream imageProduct) {
         this.id = id;
         this.barcode = barcode;
         this.productName = productName;
@@ -36,7 +36,7 @@ public class Products {
         this.salePrice = salePrice;
         this.minimalPrice = minimalPrice;
         this.descriptionProduct = descriptionProduct;
-        this.inputStream = inputStream;
+        this.imageProduct = imageProduct;
     }
 
     public Integer getId() {
@@ -103,11 +103,11 @@ public class Products {
         this.descriptionProduct = descriptionProduct;
     }
 
-    public InputStream getInputStream() {
-        return inputStream;
+    public InputStream getProductImage() {
+        return imageProduct;
     }
 
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
+    public void setProductImage(InputStream imageProduct) {
+        this.imageProduct = imageProduct;
     }
 }
