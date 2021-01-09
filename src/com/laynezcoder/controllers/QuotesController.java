@@ -14,7 +14,7 @@ import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.models.Customers;
 import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.resources.Resources;
-import com.laynezcoder.util.AutocompleteComboBox;
+import com.laynezcoder.estfx.util.AutocompleteComboBox;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;

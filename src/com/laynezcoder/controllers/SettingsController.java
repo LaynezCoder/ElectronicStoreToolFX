@@ -11,7 +11,7 @@ import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.resources.Resources;
-import com.laynezcoder.util.CropImageProfile;
+import com.laynezcoder.estfx.util.CropImageProfile;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
 import java.io.FileNotFoundException;

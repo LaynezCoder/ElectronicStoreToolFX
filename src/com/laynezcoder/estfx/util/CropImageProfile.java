@@ -1,4 +1,4 @@
-package com.laynezcoder.util;
+package com.laynezcoder.estfx.util;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

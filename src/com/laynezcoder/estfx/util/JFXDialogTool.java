@@ -1,4 +1,4 @@
-package com.laynezcoder.util;
+package com.laynezcoder.estfx.util;
 
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.events.JFXDialogEvent;

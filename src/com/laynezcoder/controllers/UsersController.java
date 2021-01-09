@@ -42,7 +42,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import com.laynezcoder.util.JFXDialogTool;
+import com.laynezcoder.estfx.util.JFXDialogTool;
 import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import java.io.FileNotFoundException;
