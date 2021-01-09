@@ -37,17 +37,17 @@
                <contextMenu>
                   <ContextMenu styleClass="colored-context-menu">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showWindowUptadeProduct" text="Edit">
+                        <MenuItem mnemonicParsing="false" onAction="#showDialogEditUser" text="Edit">
                            <graphic>
                               <MaterialDesignIconView fill="GREY" glyphName="TABLE_EDIT" size="20" />
                            </graphic>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#showWindowDeleteUser" text="Delete">
+                        <MenuItem mnemonicParsing="false" onAction="#showDialogDeleteUser" text="Delete">
                            <graphic>
                               <MaterialDesignIconView fill="GREY" glyphName="DELETE_VARIANT" size="20" />
                            </graphic>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#showWindowDetailsProduct" text="Details">
+                        <MenuItem mnemonicParsing="false" onAction="#showDialogDetailsUser" text="Details">
                            <graphic>
                               <MaterialDesignIconView fill="GREY" glyphName="INFORMATION_OUTLINE" size="20" />
                            </graphic>
@@ -64,7 +64,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <JFXButton fx:id="btnNewUser" layoutX="761.0" layoutY="17.0" onMouseClicked="#showWindowAddUser" prefHeight="39.0" prefWidth="155.0" styleClass="login-jfx-button" text="New user" textFill="WHITE" AnchorPane.rightAnchor="14.0">
+            <JFXButton fx:id="btnNewUser" layoutX="761.0" layoutY="17.0" onMouseClicked="#showDialogAddUser" prefHeight="39.0" prefWidth="155.0" styleClass="login-jfx-button" text="New user" textFill="WHITE" AnchorPane.rightAnchor="14.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -83,19 +83,19 @@
                   <TextField fx:id="txtSearchUser" onKeyReleased="#filterUser" prefHeight="25.0" prefWidth="339.0" promptText="Search user" style="-fx-background-color: white;" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <AnchorPane fx:id="rootDeleteUser" layoutX="279.0" layoutY="206.0" prefHeight="246.0" prefWidth="392.0" visible="false">
+            <AnchorPane fx:id="deleteUserContainer" layoutX="279.0" layoutY="206.0" prefHeight="246.0" prefWidth="392.0" visible="false">
                <children>
                   <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="209.0" layoutY="201.0" onMouseClicked="#deleteUser" prefHeight="25.0" prefWidth="131.0" styleClass="delete-jfx-button" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancelDelete" buttonType="RAISED" layoutX="58.0" layoutY="201.0" onMouseClicked="#hideWindowDeleteUser" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel" textFill="GREY">
+                  <JFXButton fx:id="btnCancelDelete" buttonType="RAISED" layoutX="58.0" layoutY="201.0" onMouseClicked="#closeDialogDeleteUser" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel" textFill="GREY">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton contentDisplay="CENTER" layoutX="360.0" onMouseClicked="#hideWindowDeleteUser" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                  <JFXButton contentDisplay="CENTER" layoutX="360.0" onMouseClicked="#closeDialogDeleteUser" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
                      <graphic>
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
@@ -113,7 +113,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="rootAddUser" layoutX="176.0" layoutY="163.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="259.0" prefWidth="600.0" style="-fx-background-radius: 10;" visible="false">
+            <AnchorPane fx:id="addUserContainer" layoutX="176.0" layoutY="163.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="259.0" prefWidth="600.0" style="-fx-background-radius: 10;" visible="false">
                <children>
                   <JFXTextField fx:id="txtName" focusColor="#2ab56f" labelFloat="true" layoutX="42.0" layoutY="77.0" prefHeight="25.0" prefWidth="239.0" promptText="Name" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                      <font>
@@ -146,7 +146,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="166.0" layoutY="219.0" onMouseClicked="#hideWindowAddUser" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel">
+                  <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="166.0" layoutY="219.0" onMouseClicked="#closeDialogAddUser" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -158,14 +158,14 @@
                   </Pane>
                   <HBox alignment="CENTER" layoutY="14.0" prefHeight="45.0" prefWidth="600.0">
                      <children>
-                        <Text fx:id="titleWindowAddUser" strokeType="OUTSIDE" strokeWidth="0.0" text="Add user">
+                        <Text fx:id="titleAddUser" strokeType="OUTSIDE" strokeWidth="0.0" text="Add user">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Text>
                      </children>
                   </HBox>
-                  <JFXButton contentDisplay="CENTER" layoutX="564.0" onMouseClicked="#hideWindowAddUser" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                  <JFXButton contentDisplay="CENTER" layoutX="564.0" onMouseClicked="#closeDialogAddUser" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
                      <graphic>
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>

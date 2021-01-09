@@ -92,8 +92,14 @@
                   </HBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="163.0" spacing="5.0">
                      <children>
-                        <Text fx:id="textName" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator" />
-                        <Text fx:id="textUserType" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator" />
+                        <Text fx:id="textName" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Text>
+                        <Text fx:id="textUserType" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Text>
                      </children>
                      <padding>
                         <Insets left="15.0" />
