@@ -1,4 +1,4 @@
-package com.laynezcoder.main;
+package com.laynezcoder.estfx;
 
 import com.laynezcoder.database.DatabaseHelper;
 import com.laynezcoder.resources.Resources;
@@ -16,7 +16,7 @@ import javafx.stage.StageStyle;
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         if (DatabaseHelper.checkIfUserExists() == 0) {
             startWindow(stage);
         } else {
