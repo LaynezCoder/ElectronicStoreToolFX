@@ -415,12 +415,6 @@ public class StartController implements Initializable {
         Resources.validationOfJFXTextField(txtUser);
         Resources.validationOfJFXPasswordField(txtPassword);
         Resources.validationOfJFXPasswordField(txtConfirmPassword);
-        Resources.onlyLettersTextField(txtName);
-        
-        Resources.noInitSpace(txtName);
-        Resources.noInitSpace(txtUser);
-        Resources.noInitSpace(txtPassword);
-        Resources.noInitSpace(txtConfirmPassword);
     }
 
     private void maximumCharacters() {
