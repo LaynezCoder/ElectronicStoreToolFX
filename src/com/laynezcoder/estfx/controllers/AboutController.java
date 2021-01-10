@@ -1,9 +1,14 @@
 package com.laynezcoder.estfx.controllers;
 
-import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
@@ -17,10 +22,10 @@ import javafx.util.Duration;
 
 public class AboutController implements Initializable {
 
-    private static final String GITHUB = "https://github.com/LaynezCode";
-    private static final String FACEBOOK = "https://www.facebook.com/LaynezCode-106644811127683";
-    private static final String GMAIL = "https://www.google.com/";
-    private static final String YOUTUBE = "https://www.youtube.com/c/LaynezCode/";
+    private final String GITHUB = "https://github.com/LaynezCode";
+    private final String FACEBOOK = "https://www.facebook.com/LaynezCode-106644811127683";
+    private final String GMAIL = "https://www.google.com/";
+    private final String YOUTUBE = "https://www.youtube.com/c/LaynezCode/";
 
     @FXML
     private ImageView recursoselectronicos;
@@ -59,10 +64,10 @@ public class AboutController implements Initializable {
     }
 
     private void setURL() {
-        Resources.url(GITHUB, github);
-        Resources.url(FACEBOOK, facebook);
-        Resources.url(GMAIL, google);
-        Resources.url(YOUTUBE, youtube);
+        url(GITHUB, github);
+        url(FACEBOOK, facebook);
+        url(GMAIL, google);
+        url(YOUTUBE, youtube);
     }
 
     private void setAnimations() {
@@ -120,6 +125,17 @@ public class AboutController implements Initializable {
 
             scaleTransition.setRate(-1.0);
             scaleTransition.play();
+        });
+    }
+
+    private void url(String url, Node node) {
+        node.setOnMouseClicked(ev -> {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.browse(new URI(url));
+            } catch (IOException | URISyntaxException ex) {
+                Logger.getLogger(Resources.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 }
