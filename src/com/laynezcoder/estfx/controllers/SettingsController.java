@@ -6,11 +6,19 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.laynezcoder.estfx.alerts.AlertType;
+import com.laynezcoder.estfx.alerts.AlertsBuilder;
+import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
+import com.laynezcoder.estfx.fonts.Fonts;
+import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
+import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Users;
+import com.laynezcoder.estfx.notifications.NotificationType;
+import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.preferences.Preferences;
-import com.laynezcoder.resources.Resources;
+import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.estfx.util.CropImageProfile;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
@@ -39,10 +47,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class SettingsController implements Initializable {
-    
+
     private final ColorAdjust colorAdjust = new ColorAdjust();
-    
+
     private final long LIMIT = 1000000;
+
+    private final String MESSAGE_PROFILE_IMAGE_SAVED = "Success, profile picture saved.";
+
+    private final String MESSAGE_PASSWORDS_NOT_MATCH = "Passwords do not match.";
 
     @FXML
     private StackPane stckSettings;
@@ -85,11 +97,11 @@ public class SettingsController implements Initializable {
 
     @FXML
     private ImageView imageViewProfile;
-    
+
     @FXML
     private MaterialDesignIconView icon;
 
-    private File imageFile;    
+    private File imageFile;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -98,7 +110,7 @@ public class SettingsController implements Initializable {
         setFonts();
         loadData();
         validations();
-        maximumCharacters();
+        setMask();
         setOptionsToComboBox();
         initializeProfileImage();
         effectEditImageProfile();
@@ -162,61 +174,106 @@ public class SettingsController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
-            Resources.showErrorAlert(stckSettings, rootSettings, txtBio, "An error occurred when connecting to MySQL.\n"
-                    + "Check your connection to MySQL");
+            AlertsBuilder.create(AlertType.ERROR, stckSettings, rootSettings, txtBio, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
     }
 
     @FXML
     private void updateCredentials() {
-        if (txtName.getText().isEmpty() && txtUser.getText().isEmpty() && txtPassword.getText().isEmpty() && txtConfirmPassword.getText().isEmpty() && txtBio.getText().isEmpty()) {
-            shakeAnimation(txtName);
-            shakeAnimation(txtUser);
-            shakeAnimation(txtPassword);
-            shakeAnimation(txtConfirmPassword);
-            shakeAnimation(txtBio);
-        } else if (txtName.getText().isEmpty()) {
-            shakeAnimation(txtName);
-        } else if (txtUser.getText().isEmpty()) {
-            shakeAnimation(txtUser);
-        } else if (txtUser.getText().length() < 4) {
-            Resources.notification("Error", "Please enter at least 4 characters", "error.png");
-            shakeAnimation(txtUser);
-        } else if (txtPassword.getText().isEmpty()) {
-            shakeAnimation(txtPassword);
-        } else if (txtPassword.getText().length() < 4) {
-            Resources.notification("Error", "Please enter at least 4 characters", "error.png");
-            shakeAnimation(txtPassword);
-        } else if (txtConfirmPassword.getText().isEmpty()) {
-            shakeAnimation(txtConfirmPassword);
-        } else if (!txtConfirmPassword.getText().equals(txtPassword.getText())) {
-            Resources.notification("Error", "Passwords do not match", "error.png");
-            shakeAnimation(txtConfirmPassword);
-            shakeAnimation(txtPassword);
-        } else if (cmbDialogTransition.getSelectionModel().isEmpty()) {
-            shakeAnimation(cmbDialogTransition);
-        } else if (txtBio.getText().isEmpty()) {
-            shakeAnimation(txtBio);
-        } else if (DatabaseHelper.checkIfUserExists(txtUser.getText()) != 0 && !txtUser.getText().equals(DatabaseHelper.getSessionUsername())) {
-            Resources.notification("Error", "This user already exists", "error.png");
-            shakeAnimation(txtUser);
-        } else {
-            Users users = new Users();
-            users.setId(DatabaseHelper.getSessionId());
-            users.setNameUser(txtName.getText());
-            users.setEmail(txtUser.getText());
-            users.setPass(txtPassword.getText());
-            users.setBiography(txtBio.getText());
-            users.setDialogTransition(getDialogTransition());
+        String name = txtName.getText().trim();
+        String user = txtUser.getText().trim();
+        String password = txtPassword.getText().trim();
+        String confirmPassword = txtConfirmPassword.getText().trim();
+        String bio = txtBio.getText().trim();
 
-            boolean result = DatabaseHelper.updateUserFromSettings(users);
-            if (result) {
-                loadData();
-                rootSettings.setDisable(false);
-                Resources.showSuccessAlert(stckSettings, rootSettings, rootSettings, "¡Credentials saved successfully!");
-            } else {
-                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
-            }
+        if (name.isEmpty() && user.isEmpty() && password.isEmpty() && confirmPassword.isEmpty() && bio.isEmpty()) {
+            Animations.shake(txtName);
+            Animations.shake(txtUser);
+            Animations.shake(txtPassword);
+            Animations.shake(txtConfirmPassword);
+            Animations.shake(txtBio);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            return;
+        }
+
+        if (name.isEmpty()) {
+            txtName.requestFocus();
+            Animations.shake(txtName);
+            return;
+        }
+
+        if (user.isEmpty()) {
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            return;
+        }
+
+        if (user.length() < 4) {
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            return;
+        }
+
+        if (password.isEmpty()) {
+            txtPassword.requestFocus();
+            Animations.shake(txtPassword);
+            return;
+        }
+
+        if (password.length() < 4) {
+            txtPassword.requestFocus();
+            Animations.shake(txtPassword);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            return;
+        }
+
+        if (confirmPassword.isEmpty()) {
+            txtConfirmPassword.requestFocus();
+            Animations.shake(txtConfirmPassword);
+            return;
+        }
+
+        if (!confirmPassword.equals(password)) {
+            txtConfirmPassword.requestFocus();
+            Animations.shake(txtPassword);
+            Animations.shake(txtConfirmPassword);
+            NotificationsBuilder.create(NotificationType.ERROR, MESSAGE_PASSWORDS_NOT_MATCH);
+            return;
+        }
+
+        if (cmbDialogTransition.getSelectionModel().isEmpty()) {
+            Animations.shake(cmbDialogTransition);
+            return;
+        }
+
+        if (bio.isEmpty()) {
+            txtBio.requestFocus();
+            Animations.shake(txtBio);
+            return;
+        }
+
+        if (DatabaseHelper.checkIfUserExists(user) != 0 && !user.equals(DatabaseHelper.getSessionUsername())) {
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_USER_ALREADY_EXISTS);
+            return;
+        }
+
+        Users users = new Users();
+        users.setId(DatabaseHelper.getSessionId());
+        users.setNameUser(name);
+        users.setEmail(user);
+        users.setPass(password);
+        users.setBiography(bio);
+        users.setDialogTransition(getDialogTransition());
+
+        boolean result = DatabaseHelper.updateUserFromSettings(users);
+        if (result) {
+            loadData();
+            AlertsBuilder.create(AlertType.SUCCES, stckSettings, rootSettings, rootSettings, Constants.MESSAGE_ADDED);
+        } else {
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -254,20 +311,20 @@ public class SettingsController implements Initializable {
     }
 
     private void setFonts() {
-        Resources.setFontToText(textName, 16);
-        Resources.setFontToText(textUserType, 12);
-        Resources.setFontToJFXButton(btnSave, 14);
+        Fonts.toButton(btnSave, 14);
+        Fonts.toText(textName, 16);
+        Fonts.toText(textUserType, 12);
     }
 
     private void animationNodes() {
-        Resources.fadeInUpAnimation(txtName);
-        Resources.fadeInUpAnimation(txtUser);
-        Resources.fadeInUpAnimation(txtPassword);
-        Resources.fadeInUpAnimation(btnSave);
-        Resources.fadeInUpAnimation(txtConfirmPassword);
-        Resources.fadeInUpAnimation(txtBio);
-        Resources.fadeInUpAnimation(cmbDialogTransition);
-        Resources.fadeInUpAnimation(headerContainer);
+        Animations.fadeInUp(txtName);
+        Animations.fadeInUp(txtUser);
+        Animations.fadeInUp(txtPassword);
+        Animations.fadeInUp(btnSave);
+        Animations.fadeInUp(txtConfirmPassword);
+        Animations.fadeInUp(txtBio);
+        Animations.fadeInUp(cmbDialogTransition);
+        Animations.fadeInUp(headerContainer);
     }
 
     private void shakeAnimation(Node node) {
@@ -275,28 +332,27 @@ public class SettingsController implements Initializable {
     }
 
     private void selectText() {
-        Resources.selectTextToJFXTextField(txtName);
-        Resources.selectTextToJFXTextField(txtUser);
-        Resources.selectTextToJFXPasswordField(txtPassword);
-        Resources.selectTextToJFXPasswordField(txtConfirmPassword);
-        Resources.selectTextToJFXTextArea(txtBio);
+        TextFieldMask.selectText(txtName);
+        TextFieldMask.selectText(txtUser);
+        TextFieldMask.selectText(txtPassword);
+        TextFieldMask.selectText(txtConfirmPassword);
+        TextFieldMask.selectTextToJFXTextArea(txtBio);
     }
 
     private void validations() {
-        Resources.validationOfJFXTextArea(txtBio);
-        Resources.validationOfJFXComboBox(cmbDialogTransition);
-        Resources.validationOfJFXTextField(txtName);
-        Resources.validationOfJFXTextField(txtUser);
-        Resources.validationOfJFXPasswordField(txtPassword);
-        Resources.validationOfJFXPasswordField(txtConfirmPassword);
-
+        RequieredFieldsValidators.toJFXTextArea(txtBio);
+        RequieredFieldsValidators.toJFXComboBox(cmbDialogTransition);
+        RequieredFieldsValidators.toJFXTextField(txtName);
+        RequieredFieldsValidators.toJFXTextField(txtUser);
+        RequieredFieldsValidators.toJFXPasswordField(txtPassword);
+        RequieredFieldsValidators.toJFXPasswordField(txtConfirmPassword);
     }
 
-    private void maximumCharacters() {
-        Resources.limitTextField(txtName, 20);
-        Resources.limitTextField(txtUser, 20);
-        Resources.limitJFXPasswordField(txtPassword, 20);
-        Resources.limitJFXPasswordField(txtConfirmPassword, 20);
+    private void setMask() {
+        TextFieldMask.onlyLetters(txtName, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtUser, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtPassword, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtConfirmPassword, 40);
     }
 
     @FXML
@@ -308,17 +364,17 @@ public class SettingsController implements Initializable {
                     CropImageProfile crop = new CropImageProfile(imageFile);
                     boolean result = DatabaseHelper.updateImageFromSettings(crop.getInputStream());
                     if (result) {
-                        Resources.showSuccessAlert(stckSettings, rootSettings, rootSettings, "¡Credentials saved successfully!");
+                        AlertsBuilder.create(AlertType.SUCCES, stckSettings, rootSettings, rootSettings, MESSAGE_PROFILE_IMAGE_SAVED);
                         loadProfileImage();
                     } else {
-                        Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+                        NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
                     }
                     setInitialDirectory();
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                Resources.notification("FATAL ERROR", "Please upload a picture smaller than 1 MB.", "error.png");
+                NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
             }
         }
     }
