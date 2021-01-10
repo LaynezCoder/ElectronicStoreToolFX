@@ -203,7 +203,7 @@ public class MainController implements Initializable {
     private void showFXMLWindows(String FXMLName) {
         rootContainer.getChildren().clear();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(Constants.MEDIA_PACKAGE + FXMLName + ".fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Constants.VIEWS_PACKAGE + FXMLName + ".fxml"));
             AnchorPane.setBottomAnchor(root, 0.0);
             AnchorPane.setTopAnchor(root, 0.0);
             AnchorPane.setLeftAnchor(root, 0.0);
