@@ -327,10 +327,6 @@ public class SettingsController implements Initializable {
         Animations.fadeInUp(headerContainer);
     }
 
-    private void shakeAnimation(Node node) {
-        new Shake(node).play();
-    }
-
     private void selectText() {
         TextFieldMask.selectText(txtName);
         TextFieldMask.selectText(txtUser);
