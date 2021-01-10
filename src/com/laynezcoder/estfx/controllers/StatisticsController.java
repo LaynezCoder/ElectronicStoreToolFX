@@ -2,8 +2,9 @@ package com.laynezcoder.estfx.controllers;
 
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXPopup;
+import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.resources.Resources;
+import com.laynezcoder.estfx.fonts.Fonts;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -71,8 +72,8 @@ public class StatisticsController implements Initializable {
     }
 
     private void setAnimations() {
-        Resources.fadeInUpAnimation(hboxImage);
-        Resources.fadeInUpAnimation(title);
+        Animations.fadeInUp(hboxImage);
+        Animations.fadeInUp(title);
     }
 
     private void setDatePicker() {
@@ -84,7 +85,7 @@ public class StatisticsController implements Initializable {
         popup.setPopupContent(rootDate);
 
         pieChart.setOnMouseClicked(ev -> {
-            if (ev.getButton() == MouseButton.SECONDARY) {
+            if (ev.getButton().equals(MouseButton.SECONDARY)) {
                 popupContent.setVisible(true);
                 popup.show(pieChart);
                 popup.setAnchorX(ev.getScreenX());
@@ -93,7 +94,7 @@ public class StatisticsController implements Initializable {
         });
 
         hboxImage.setOnMouseClicked(ev -> {
-            if (ev.getButton() == MouseButton.SECONDARY) {
+            if (ev.getButton().equals(MouseButton.SECONDARY)) {
                 popupContent.setVisible(true);
                 popup.show(hboxImage);
                 popup.setAnchorX(ev.getScreenX());
@@ -102,7 +103,7 @@ public class StatisticsController implements Initializable {
         });
 
         emptyImage.setOnMouseClicked(ev -> {
-            if (ev.getButton() == MouseButton.SECONDARY) {
+            if (ev.getButton().equals(MouseButton.SECONDARY)) {
                 popupContent.setVisible(true);
                 popup.show(emptyImage);
                 popup.setAnchorX(ev.getScreenX());
@@ -111,7 +112,7 @@ public class StatisticsController implements Initializable {
         });
 
         rootStatistics.setOnMouseClicked(ev -> {
-            if (ev.getButton() == MouseButton.SECONDARY) {
+            if (ev.getButton().equals(MouseButton.SECONDARY)) {
                 popupContent.setVisible(true);
                 popup.show(rootStatistics);
                 popup.setAnchorX(ev.getScreenX());
@@ -121,7 +122,7 @@ public class StatisticsController implements Initializable {
     }
 
     private void setFont() {
-        Resources.setFontToText(title, 35);
+        Fonts.toText(title, 35);
     }
 
     @FXML
@@ -149,17 +150,17 @@ public class StatisticsController implements Initializable {
                 PieChart.Data one = new PieChart.Data("Total customers: " + count, count);
                 data.add(one);
                 pieChart.setData(data);
-                Resources.hoverAnimation(one.getNode(), 50, 1.1);
+                Animations.hover(one.getNode(), 50, 1.1);
 
                 PieChart.Data two = new PieChart.Data("Total quotes: " + count2, count2);
                 data.add(two);
                 pieChart.setData(data);
-                Resources.hoverAnimation(two.getNode(), 50, 1.1);
+                Animations.hover(two.getNode(), 50, 1.1);
 
                 PieChart.Data Three = new PieChart.Data("Total products: " + count3, count3);
                 data.add(Three);
                 pieChart.setData(data);
-                Resources.hoverAnimation(Three.getNode(), 50, 1.1);
+                Animations.hover(Three.getNode(), 50, 1.1);
             }
             pieChart.setData(data);
         });
