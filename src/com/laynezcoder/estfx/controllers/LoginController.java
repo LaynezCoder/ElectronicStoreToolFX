@@ -1,13 +1,17 @@
 package com.laynezcoder.estfx.controllers;
 
-import animatefx.animation.FadeIn;
-import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.resources.Resources;
+import com.laynezcoder.estfx.fonts.Fonts;
+import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
+import com.laynezcoder.estfx.mask.TextFieldMask;
+import com.laynezcoder.estfx.notifications.NotificationType;
+import com.laynezcoder.estfx.notifications.NotificationsBuilder;
+import com.laynezcoder.estfx.resources.Constants;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
@@ -35,10 +39,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
+ 
+    private final String INCORRECT_CREDENTIALS = "Incorrect user or password";
 
     @FXML
     private JFXButton btnLogin;
-    
+
     @FXML
     private Pane paneIcon;
 
@@ -62,60 +68,66 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showPassword();
-        validationJFXTextField();
+        setValidations();
         selectText();
         setFonts();
+        setMask();
         animations();
-        maxinumCharactert();
     }
 
     private void animations() {
-        fadeAnimation(title);
-        fadeAnimation(txtUser);
-        fadeAnimation(txtPassword);
-        fadeAnimation(pfPassword);
-        fadeAnimation(btnLogin);
+        Animations.fadeInUp(title);
+        Animations.fadeInUp(txtUser);
+        Animations.fadeInUp(txtPassword);
+        Animations.fadeInUp(pfPassword);
+        Animations.fadeInUp(btnLogin);
     }
 
     private void setFonts() {
-        Resources.setFontToText(title, 25);
-        Resources.setFontToJFXButton(btnLogin, 15);
+        Fonts.toText(title, 25);
+        Fonts.toButton(btnLogin, 15);
     }
 
-    private void validationJFXTextField() {
-        Resources.validationOfJFXTextField(txtUser);
-        Resources.validationOfJFXTextField(txtPassword);
-        Resources.validationOfJFXPasswordField(pfPassword);
+    private void setValidations() {
+        RequieredFieldsValidators.toJFXPasswordField(pfPassword);
+        RequieredFieldsValidators.toJFXTextField(txtUser);
+        RequieredFieldsValidators.toJFXTextField(txtPassword);
+    }
+
+    private void setMask() {
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtUser, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtPassword, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(pfPassword, 40);
     }
 
     private void selectText() {
-        Resources.selectTextToJFXTextField(txtUser);
-        Resources.selectTextToJFXTextField(txtPassword);
-        Resources.selectTextToJFXPasswordField(pfPassword);
+        TextFieldMask.selectText(txtUser);
+        TextFieldMask.selectText(txtPassword);
+        TextFieldMask.selectText(pfPassword);
     }
 
     @FXML
     private void login() {
-        String email = txtUser.getText();
-        String pass = pfPassword.getText();
+        String user = txtUser.getText().trim();
+        String pass = pfPassword.getText().trim();
 
-        if (email.isEmpty() && pass.isEmpty()) {
-            Resources.notification("Error", "Insufficient data!", "error.png");
-            shakeAnimation(txtUser);
-            shakeAnimation(pfPassword);
-            shakeAnimation(paneIcon);
-        } else if (email.isEmpty()) {
-            Resources.notification("Error", "Insufficient data!", "error.png");
-            shakeAnimation(txtUser);
+        if (user.isEmpty() && pass.isEmpty()) {
+            Animations.shake(txtUser);
+            Animations.shake(pfPassword);
+            Animations.shake(paneIcon);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+        } else if (user.isEmpty()) {
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
         } else if (pass.isEmpty()) {
-            Resources.notification("Error", "Insufficient data!", "error.png");
-            shakeAnimation(pfPassword);
-            shakeAnimation(paneIcon);
+            pfPassword.requestFocus();
+            Animations.shake(pfPassword);
+            Animations.shake(paneIcon);
         } else {
             try {
                 String sql = "SELECT id, nameUser FROM Users WHERE email = BINARY ? AND pass = BINARY ?";
                 PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-                preparedStatement.setString(1, email);
+                preparedStatement.setString(1, user);
                 preparedStatement.setString(2, pass);
 
                 ResultSet rs = preparedStatement.executeQuery();
@@ -126,20 +138,20 @@ public class LoginController implements Initializable {
                     boolean result = DatabaseHelper.insertUserSession(id);
                     if (result) {
                         loadMain();
-                        Resources.notification("Success", "Welcome to the system " + nameUser + "!", "check.png");
+                        NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + nameUser + "!");
                     } else {
-                        Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+                        NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
                     }
                 } else {
-                    Resources.notification("Error", "Incorrect user or password!", "error.png");
-                    shakeAnimation(txtUser);
-                    shakeAnimation(pfPassword);
-                    shakeAnimation(txtPassword);
-                    shakeAnimation(paneIcon);
+                    NotificationsBuilder.create(NotificationType.ERROR, INCORRECT_CREDENTIALS);
+                    Animations.shake(txtUser);
+                    Animations.shake(pfPassword);
+                    Animations.shake(txtPassword);
+                    Animations.shake(paneIcon);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+                NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
             }
         }
     }
@@ -147,7 +159,7 @@ public class LoginController implements Initializable {
     private void loadMain() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(Resources.SOURCE_PACKAGES + "/views/MainView.fxml"));
+            loader.setLocation(getClass().getResource(Constants.MAIN_VIEW));
             Parent root = loader.load();
             MainController main = loader.getController();
 
@@ -162,9 +174,9 @@ public class LoginController implements Initializable {
             }
 
             Stage stage = new Stage(StageStyle.DECORATED);
-            stage.getIcons().add(new Image(Resources.SOURCE_PACKAGES + "/media/reicon.png"));
+            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-            stage.setTitle("Electronic Store Tool FX");
+            stage.setTitle(Constants.TITLE);
             stage.setScene(new Scene(root));
             stage.show();
             closeStage();
@@ -178,7 +190,7 @@ public class LoginController implements Initializable {
             stage.setOnCloseRequest(ev -> {
                 DatabaseHelper.logout();
                 if (ProductsController.stage != null) {
-                    ProductsController.stage.close();   
+                    ProductsController.stage.close();
                 }
             });
         } catch (IOException ex) {
@@ -220,19 +232,5 @@ public class LoginController implements Initializable {
         Stage stg = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stg.setX(event.getScreenX() - x);
         stg.setY(event.getScreenY() - y);
-    }
-
-    private void shakeAnimation(Node node) {
-        new Shake(node).play();
-    }
-
-    private void fadeAnimation(Node node) {
-        new FadeIn(node).play();
-    }
-
-    private void maxinumCharactert() {
-        Resources.limitTextField(txtUser, 150);
-        Resources.limitTextField(txtPassword, 150);
-        Resources.limitTextField(pfPassword, 150);
     }
 }
