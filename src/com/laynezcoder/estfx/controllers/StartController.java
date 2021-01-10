@@ -211,14 +211,14 @@ public class StartController implements Initializable {
         if (name.isEmpty()) {
             txtName.requestFocus();
             Animations.shake(txtName);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
             return;
         }
 
         if (user.isEmpty()) {
             txtUser.requestFocus();
             Animations.shake(txtUser);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
             return;
         }
 
@@ -232,7 +232,7 @@ public class StartController implements Initializable {
         if (password.isEmpty()) {
             txtPassword.requestFocus();
             Animations.shake(txtPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
             return;
         }
 
@@ -246,7 +246,7 @@ public class StartController implements Initializable {
         if (confirmPassword.isEmpty()) {
             txtConfirmPassword.requestFocus();
             Animations.shake(txtConfirmPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
             return;
         }
 
@@ -280,7 +280,7 @@ public class StartController implements Initializable {
         bio = txtBio.getText().trim();
         if (bio.isEmpty()) {
             Animations.shake(txtBio);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
             return;
         }
 

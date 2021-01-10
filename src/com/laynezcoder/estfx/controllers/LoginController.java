@@ -115,7 +115,7 @@ public class LoginController implements Initializable {
             Animations.shake(txtUser);
             Animations.shake(pfPassword);
             Animations.shake(paneIcon);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
         } else if (user.isEmpty()) {
             txtUser.requestFocus();
             Animations.shake(txtUser);

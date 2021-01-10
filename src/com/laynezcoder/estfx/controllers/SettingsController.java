@@ -189,7 +189,7 @@ public class SettingsController implements Initializable {
             Animations.shake(txtPassword);
             Animations.shake(txtConfirmPassword);
             Animations.shake(txtBio);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
             return;
         }
 

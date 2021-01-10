@@ -32,7 +32,7 @@ public class Constants {
     public static final String MESSAGE_ERROR_CONNECTION_MYSQL = "An error occurred when connecting to MySQL.\nCheck your connection to MySQL";
     public static final String MESSAGE_IMAGE_LARGE = "Please upload a picture smaller than 1 MB.";
     public static final String MESSAGE_IMAGE_NOT_FOUND = "Image not found. The record will be saved.";
-    public static final String INSUFFICIENT_DATA = "Insufficient data";
+    public static final String MESSAGE_INSUFFICIENT_DATA = "Insufficient data";
     public static final String MESSAGE_USER_ALREADY_EXISTS = "This user already exists";
     public static final String MESSAGE_PASSWORDS_NOT_MATCH = "Passwords do not match.";
     public static final String MESSAGE_ENTER_AT_LEAST_4_CHARACTERES = "Please enter at least 4 characters";
