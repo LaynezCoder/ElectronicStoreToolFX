@@ -1,5 +1,6 @@
 package com.laynezcoder.estfx.controllers;
 
+import com.laynezcoder.estfx.animations.Animations;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.awt.Desktop;
 import java.io.IOException;
@@ -104,7 +105,7 @@ public class AboutController implements Initializable {
             });
 
             pauseTransition2.play();
-            Resources.fadeInUpAnimation(node);
+            Animations.fadeInUp(node);
             fadeTransition.play();
         });
 
@@ -134,7 +135,7 @@ public class AboutController implements Initializable {
             try {
                 desktop.browse(new URI(url));
             } catch (IOException | URISyntaxException ex) {
-                Logger.getLogger(Resources.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AboutController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
