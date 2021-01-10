@@ -1,6 +1,7 @@
 package com.laynezcoder.estfx.mask;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -68,6 +69,21 @@ public class RequieredFieldsValidators {
         comboBox.focusedProperty().addListener((o, oldVal, newVal) -> {
             if (!newVal) {
                 comboBox.validate();
+            }
+        });
+    }
+
+    public static void toJFXDatePicker(JFXDatePicker datePicker) {
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        validator.setMessage(MESSAGE);
+        datePicker.getValidators().add(validator);
+
+        FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
+        validator.setIcon(warnIcon);
+
+        datePicker.focusedProperty().addListener((o, oldVal, newVal) -> {
+            if (!newVal) {
+                datePicker.validate();
             }
         });
     }
