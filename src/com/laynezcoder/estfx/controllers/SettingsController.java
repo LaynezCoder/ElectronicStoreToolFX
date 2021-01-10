@@ -1,6 +1,5 @@
 package com.laynezcoder.estfx.controllers;
 
-import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
@@ -34,7 +33,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -53,8 +51,6 @@ public class SettingsController implements Initializable {
     private final long LIMIT = 1000000;
 
     private final String MESSAGE_PROFILE_IMAGE_SAVED = "Success, profile picture saved.";
-
-    private final String MESSAGE_PASSWORDS_NOT_MATCH = "Passwords do not match.";
 
     @FXML
     private StackPane stckSettings;
@@ -119,6 +115,7 @@ public class SettingsController implements Initializable {
     private void effectEditImageProfile() {
         imageProfileContainer.hoverProperty().addListener((o, oldV, newV) -> {
             if (!oldV) {
+                Animations.fadeInUp(icon);
                 colorAdjust.setBrightness(-0.5);
                 imageViewProfile.setEffect(colorAdjust);
                 icon.setVisible(true);
@@ -238,7 +235,7 @@ public class SettingsController implements Initializable {
             txtConfirmPassword.requestFocus();
             Animations.shake(txtPassword);
             Animations.shake(txtConfirmPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, MESSAGE_PASSWORDS_NOT_MATCH);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_PASSWORDS_NOT_MATCH);
             return;
         }
 
