@@ -36,7 +36,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -45,13 +44,17 @@ import javafx.util.Callback;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
 import com.laynezcoder.estfx.mask.TextFieldMask;
+import com.laynezcoder.estfx.util.DefaultProfileImage;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import javafx.scene.input.KeyCode;
 
 public class UsersController implements Initializable {
-
-    private final BoxBlur blur = new BoxBlur(3, 3, 3);
+    
+    private final String CANNOT_DELETED = "This user cannot be deleted";
+    
+    private final String ADMINISTRATOR_ONLY = "This user can only be administrator type";
+    
+    private final String UNABLE_TO_CHANGE = "Unable to change user type";
 
     @FXML
     private StackPane stckUsers;
@@ -215,7 +218,7 @@ public class UsersController implements Initializable {
         disableTable();
         resetValidations();
         enableEditControls();
-        rootUsers.setEffect(blur);
+        rootUsers.setEffect(Constants.BOX_BLUR_EFFECT);
         btnSaveUser.toFront();
         btnUpdateUser.setVisible(true);
         btnSaveUser.setDisable(false);
@@ -245,12 +248,12 @@ public class UsersController implements Initializable {
     @FXML
     private void showDialogDeleteUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, "Select an item from the table");
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
             return;
         }
 
         deleteUserContainer.setVisible(true);
-        rootUsers.setEffect(blur);
+        rootUsers.setEffect(Constants.BOX_BLUR_EFFECT);
         disableTable();
 
         dialogDeleteUser = new JFXDialogTool(deleteUserContainer, stckUsers);
@@ -273,7 +276,7 @@ public class UsersController implements Initializable {
     @FXML
     private void showDialogEditUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, "Select an item from the table");
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
             return;
         }
 
@@ -286,7 +289,7 @@ public class UsersController implements Initializable {
     @FXML
     private void showDialogDetailsUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, "Select an item from the table");
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
             return;
         }
 
@@ -325,7 +328,7 @@ public class UsersController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, "An error occurred when connecting to MySQL.\nCheck your connection to MySQL");
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
         listUsers = FXCollections.observableArrayList(list);
         tblUsers.setItems(listUsers);
@@ -350,7 +353,7 @@ public class UsersController implements Initializable {
         }
 
         if (user.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, "Please enter at least 4 characters");
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
             txtUser.requestFocus();
             Animations.shake(txtUser);
             return;
@@ -363,7 +366,7 @@ public class UsersController implements Initializable {
         }
 
         if (password.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, "Please enter at least 4 characters");
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
             pfPassword.requestFocus();
             Animations.shake(pfPassword);
             return;
@@ -375,7 +378,7 @@ public class UsersController implements Initializable {
         }
 
         if (DatabaseHelper.checkIfUserExists(user) != 0) {
-            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user already exists");
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, Constants.MESSAGE_USER_ALREADY_EXISTS);
             txtUser.requestFocus();
             Animations.shake(txtUser);
             return;
@@ -383,7 +386,7 @@ public class UsersController implements Initializable {
 
         Users users = new Users(name, user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
         try {
-            users.setProfileImage(getImage(name));
+            users.setProfileImage(DefaultProfileImage.getImage(name));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -393,9 +396,9 @@ public class UsersController implements Initializable {
             closeDialogAddUser();
             loadData();
             cleanControls();
-            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, "Record added successfully");
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_ADDED);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, "An error occurred when connecting to MySQL.");
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -421,7 +424,7 @@ public class UsersController implements Initializable {
         }
 
         if (user.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, "Please enter at least 4 characters");
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
             txtUser.requestFocus();
             Animations.shake(txtUser);
             return;
@@ -434,7 +437,7 @@ public class UsersController implements Initializable {
         }
 
         if (password.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, "Please enter at least 4 characters");
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
             pfPassword.requestFocus();
             Animations.shake(pfPassword);
             return;
@@ -446,19 +449,19 @@ public class UsersController implements Initializable {
         }
 
         if (id == 1 && cmbTypeUser.getSelectionModel().getSelectedItem().equals("User")) {
-            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user can only be administrator type");
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, ADMINISTRATOR_ONLY);
             Animations.shake(cmbTypeUser);
             return;
         }
 
         if (!user.equals(userFromTable) && DatabaseHelper.checkIfUserExists(user) != 0) {
-            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user already exists");
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, Constants.MESSAGE_USER_ALREADY_EXISTS);
             Animations.shake(txtUser);
             return;
         }
 
         if (DatabaseHelper.getSessionId() == id && !cmbTypeUser.getSelectionModel().getSelectedItem().equals(userType)) {
-            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "Unable to change user type");
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, UNABLE_TO_CHANGE);
             Animations.shake(cmbTypeUser);
             return;
         }
@@ -469,9 +472,9 @@ public class UsersController implements Initializable {
             closeDialogAddUser();
             loadData();
             cleanControls();
-            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, "Record updated successfully");
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_UPDATED);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, "An error occurred when connecting to MySQL.");
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -480,12 +483,12 @@ public class UsersController implements Initializable {
         int id = tblUsers.getSelectionModel().getSelectedItem().getId();
 
         if (id == 1) {
-            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user cannot be deleted");
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, CANNOT_DELETED);
             return;
         }
 
         if (id == DatabaseHelper.getSessionId()) {
-            NotificationsBuilder.create(NotificationType.INVALID_ACTION, "This user cannot be deleted");
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, CANNOT_DELETED);
             return;
         }
 
@@ -493,9 +496,9 @@ public class UsersController implements Initializable {
         if (result) {
             loadData();
             closeDialogDeleteUser();
-            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, "Record deleted successfully");
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_DELETED);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, "UAn error occurred when connecting to MySQL.");
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -514,100 +517,6 @@ public class UsersController implements Initializable {
                 icon.setIcon(FontAwesomeIcon.EYE_SLASH);
             }
         });
-    }
-
-    private InputStream getImage(String name) throws FileNotFoundException {
-        InputStream inputStream = null;
-
-        char character = name.toLowerCase().charAt(0);
-        switch (character) {
-            case 'a':
-                inputStream = getProfilePictureFromPackage("a");
-                break;
-            case 'b':
-                inputStream = getProfilePictureFromPackage("b");
-                break;
-            case 'c':
-                inputStream = getProfilePictureFromPackage("c");
-                break;
-            case 'd':
-                inputStream = getProfilePictureFromPackage("d");
-                break;
-            case 'e':
-                inputStream = getProfilePictureFromPackage("e");
-                break;
-            case 'f':
-                inputStream = getProfilePictureFromPackage("f");
-                break;
-            case 'g':
-                inputStream = getProfilePictureFromPackage("g");
-                break;
-            case 'h':
-                inputStream = getProfilePictureFromPackage("h");
-                break;
-            case 'i':
-                inputStream = getProfilePictureFromPackage("i");
-                break;
-            case 'j':
-                inputStream = getProfilePictureFromPackage("j");
-                break;
-            case 'k':
-                inputStream = getProfilePictureFromPackage("k");
-                break;
-            case 'l':
-                inputStream = getProfilePictureFromPackage("l");
-                break;
-            case 'm':
-                inputStream = getProfilePictureFromPackage("m");
-                break;
-            case 'n':
-                inputStream = getProfilePictureFromPackage("n");
-                break;
-            case 'ñ':
-                inputStream = getProfilePictureFromPackage("n");
-                break;
-            case 'o':
-                inputStream = getProfilePictureFromPackage("o");
-                break;
-            case 'p':
-                inputStream = getProfilePictureFromPackage("p");
-                break;
-            case 'q':
-                inputStream = getProfilePictureFromPackage("q");
-                break;
-            case 'r':
-                inputStream = getProfilePictureFromPackage("r");
-                break;
-            case 's':
-                inputStream = getProfilePictureFromPackage("s");
-                break;
-            case 't':
-                inputStream = getProfilePictureFromPackage("t");
-                break;
-            case 'u':
-                inputStream = getProfilePictureFromPackage("u");
-                break;
-            case 'v':
-                inputStream = getProfilePictureFromPackage("v");
-                break;
-            case 'w':
-                inputStream = getProfilePictureFromPackage("w");
-                break;
-            case 'x':
-                inputStream = getProfilePictureFromPackage("x");
-                break;
-            case 'y':
-                inputStream = getProfilePictureFromPackage("y");
-                break;
-            case 'z':
-                inputStream = getProfilePictureFromPackage("z");
-                break;
-        }
-        return inputStream;
-    }
-
-    private InputStream getProfilePictureFromPackage(String imageName) throws FileNotFoundException {
-        return UsersController.class.getResourceAsStream(Constants.PROFILE_PICTURES_PACKAGE + imageName + ".png");
     }
 
     private void selectedRecord() {
@@ -706,7 +615,7 @@ public class UsersController implements Initializable {
                 }
 
                 if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, "Select an item from the table");
+                    Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
                     return;
                 }
                 
