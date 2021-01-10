@@ -162,8 +162,6 @@ public class QuotesController implements Initializable {
 
     private JFXDialogTool dialogDeleteQuote;
 
-    private final BoxBlur blur = new BoxBlur(3, 3, 3);
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         filterQuotes = FXCollections.observableArrayList();
@@ -228,7 +226,7 @@ public class QuotesController implements Initializable {
         resetValidations();
         enableEditControls();
         disableTable();
-        rootQuotes.setEffect(blur);
+        rootQuotes.setEffect(Constants.BOX_BLUR_EFFECT);
 
         btnUpdateQuotes.setVisible(true);
         btnSaveQuotes.setDisable(false);
@@ -278,7 +276,7 @@ public class QuotesController implements Initializable {
         }
 
         containerDeleteQuotes.setVisible(true);
-        rootQuotes.setEffect(blur);
+        rootQuotes.setEffect(Constants.BOX_BLUR_EFFECT);
         disableTable();
 
         dialogDeleteQuote = new JFXDialogTool(containerDeleteQuotes, stckQuotes);
