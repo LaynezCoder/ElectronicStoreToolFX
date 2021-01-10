@@ -1,7 +1,6 @@
 package com.laynezcoder.estfx.controllers;
 
 import animatefx.animation.FadeOut;
-import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
@@ -11,11 +10,18 @@ import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
+import com.laynezcoder.estfx.fonts.Fonts;
+import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
+import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Users;
+import com.laynezcoder.estfx.notifications.NotificationType;
+import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.resources.Constants;
-import com.laynezcoder.resources.Resources;
+import com.laynezcoder.estfx.util.DefaultProfileImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -24,6 +30,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -137,15 +144,17 @@ public class StartController implements Initializable {
 
     private double x, y;
 
+    private String name, user, password, confirmPassword, bio;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         startConfig();
-        StartStepOne();
         setFonts();
-        setOptionsToComboBox();
         selectText();
+        setMask();
         validations();
-        maximumCharacters();
+        StartStepOne();
+        setOptionsToComboBox();
     }
 
     private void setOptionsToComboBox() {
@@ -154,30 +163,29 @@ public class StartController implements Initializable {
     }
 
     private void setFonts() {
-        Resources.setFontToText(title, 20);
-        Resources.setFontToText(textStep1, 14);
-        Resources.setFontToText(textStep2, 14);
-        Resources.setFontToText(textProgressBar, 12);
-        Resources.setFontToText(textStep3, 12);
-        Resources.setFontToText(finish, 12);
-        Resources.setFontToText(finishText, 15);
-        
-        Resources.setFontToJFXButton(btnStep1, 12);
-        Resources.setFontToJFXButton(btnBackStep2, 12);
-        Resources.setFontToJFXButton(btnStep3, 12);
-        Resources.setFontToJFXButton(btnDialogStep3, 12);
-        Resources.setFontToJFXButton(btnBackStep2, 12);
-        Resources.setFontToJFXButton(btnBackStep3, 12);
-        Resources.setFontToJFXButton(btnStart, 12);
+        Fonts.toText(title, 20);
+        Fonts.toText(textStep1, 14);
+        Fonts.toText(textStep2, 14);
+        Fonts.toText(textProgressBar, 12);
+        Fonts.toText(textStep3, 12);
+        Fonts.toText(finish, 12);
+        Fonts.toText(finishText, 15);
+        Fonts.toButton(btnStep1, 12);
+        Fonts.toButton(btnBackStep2, 12);
+        Fonts.toButton(btnStep3, 12);
+        Fonts.toButton(btnDialogStep3, 12);
+        Fonts.toButton(btnBackStep2, 12);
+        Fonts.toButton(btnBackStep3, 12);
+        Fonts.toButton(btnStart, 12);
     }
 
     private void startConfig() {
         textProgressBar.setText("1 of 3");
         progressBar.setProgress(0.00);
 
-        Resources.fadeInUpAnimation(title);
-        Resources.fadeInUpAnimation(textProgressBar);
-        Resources.fadeInUpAnimation(progressBar);
+        Animations.fadeInUp(title);
+        Animations.fadeInUp(textProgressBar);
+        Animations.fadeInUp(progressBar);
     }
 
     @FXML
@@ -188,39 +196,69 @@ public class StartController implements Initializable {
         textProgressBar.setText("1 of 3");
         progressBar.setProgress(0.00);
 
-        Resources.fadeInUpAnimation(paneStep1);
-        Resources.fadeInUpAnimation(paneControlsStep1);
-        Resources.fadeInUpAnimation(textStep1);
-        Resources.fadeInUpAnimation(btnStep1);
+        Animations.fadeInUp(paneStep1);
+        Animations.fadeInUp(paneControlsStep1);
+        Animations.fadeInUp(textStep1);
+        Animations.fadeInUp(btnStep1);
     }
 
     @FXML
     private void stepOneToStepTwo() {
-        if (txtName.getText().isEmpty()) {
-            Resources.notification("Error", "Insufficient data", "error.png");
-            new Shake(txtName).play();
-        } else if (txtUser.getText().isEmpty()) {
-            Resources.notification("Error", "Insufficient data", "error.png");
-            new Shake(txtUser).play();
-        } else if (txtUser.getText().length() < 4) {
-            Resources.notification("Error", "Please enter at least 4 characters", "error.png");
-            new Shake(txtUser).play();
-        } else if (txtPassword.getText().isEmpty()) {
-            Resources.notification("Error", "Insufficient data", "error.png");
-            new Shake(txtPassword).play();
-        } else if (txtPassword.getText().length() < 4) {
-            Resources.notification("Error", "Please enter at least 4 characters", "error.png");
-            new Shake(txtPassword).play();
-        } else if (txtConfirmPassword.getText().isEmpty()) {
-            Resources.notification("Error", "Insufficient data", "error.png");
-            new Shake(txtConfirmPassword).play();
-        } else if (!txtConfirmPassword.getText().equals(txtPassword.getText())) {
-            Resources.notification("Error", "Passwords do not match", "error.png");
-            new Shake(txtConfirmPassword).play();
-            new Shake(txtPassword).play();
-        } else {
-            startStepTwo();
+        name = txtName.getText().trim();
+        user = txtUser.getText().trim();
+        password = txtPassword.getText().trim();
+        confirmPassword = txtConfirmPassword.getText().trim();
+
+        if (name.isEmpty()) {
+            txtName.requestFocus();
+            Animations.shake(txtName);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            return;
         }
+
+        if (user.isEmpty()) {
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            return;
+        }
+
+        if (user.length() < 4) {
+            txtUser.requestFocus();
+            Animations.shake(txtUser);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            return;
+        }
+
+        if (password.isEmpty()) {
+            txtPassword.requestFocus();
+            Animations.shake(txtPassword);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            return;
+        }
+
+        if (password.length() < 4) {
+            txtPassword.requestFocus();
+            Animations.shake(txtPassword);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            return;
+        }
+
+        if (confirmPassword.isEmpty()) {
+            txtConfirmPassword.requestFocus();
+            Animations.shake(txtConfirmPassword);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            return;
+        }
+
+        if (!confirmPassword.equals(password)) {
+            Animations.shake(txtConfirmPassword);
+            Animations.shake(txtPassword);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_PASSWORDS_NOT_MATCH);
+            return;
+        }
+
+        startStepTwo();
     }
 
     @FXML
@@ -232,20 +270,22 @@ public class StartController implements Initializable {
         textProgressBar.setText("2 of 3");
         progressBar.setProgress(0.33);
 
-        Resources.fadeInUpAnimation(paneStep2);
-        Resources.fadeInUpAnimation(textStep2);
-        Resources.fadeInUpAnimation(txtBio);
-        Resources.fadeInUpAnimation(hBoxStep2);
+        Animations.fadeInUp(paneStep2);
+        Animations.fadeInUp(textStep2);
+        Animations.fadeInUp(txtBio);
+        Animations.fadeInUp(hBoxStep2);
     }
 
     @FXML
     private void stepTwoToStepThree() {
-        if (txtBio.getText().isEmpty()) {
-            Resources.notification("Error", "Insufficient data", "error.png");
-            new Shake(txtBio).play();
-        } else {
-            startStepThree();
+        bio = txtBio.getText().trim();
+        if (bio.isEmpty()) {
+            Animations.shake(txtBio);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.INSUFFICIENT_DATA);
+            return;
         }
+
+        startStepThree();
     }
 
     private void startStepThree() {
@@ -255,10 +295,10 @@ public class StartController implements Initializable {
         textProgressBar.setText("3 of 3");
         progressBar.setProgress(0.66);
 
-        Resources.fadeInUpAnimation(paneStep3);
-        Resources.fadeInUpAnimation(textStep3);
-        Resources.fadeInUpAnimation(cmbDialogTransition);
-        Resources.fadeInUpAnimation(hBoxStep3);
+        Animations.fadeInUp(paneStep3);
+        Animations.fadeInUp(textStep3);
+        Animations.fadeInUp(cmbDialogTransition);
+        Animations.fadeInUp(hBoxStep3);
     }
 
     @FXML
@@ -274,8 +314,8 @@ public class StartController implements Initializable {
         textProgressBar.setLayoutX(599);
         textProgressBar.setLayoutY(553);
 
-        Resources.fadeInUpAnimation(paneFinish);
-        Resources.fadeInUpAnimation(spinner);
+        Animations.fadeInUp(paneFinish);
+        Animations.fadeInUp(spinner);
 
         FadeOut fadeOut1 = new FadeOut(btnStart);
         fadeOut1.setSpeed(10);
@@ -288,8 +328,8 @@ public class StartController implements Initializable {
         PauseTransition pt = new PauseTransition(Duration.seconds(5));
         pt.setOnFinished(ev -> {
             new FadeOut(spinner).play();
-            Resources.fadeInUpAnimation(btnStart);
-            Resources.fadeInUpAnimation(finishText);
+            Animations.fadeInUp(btnStart);
+            Animations.fadeInUp(finishText);
         });
         pt.play();
     }
@@ -303,25 +343,24 @@ public class StartController implements Initializable {
 
     private void insertUserInDB() {
         Users users = new Users();
-        users.setNameUser(txtName.getText());
-        users.setEmail(txtUser.getText());
-        users.setPass(txtPassword.getText());
-        users.setBiography(txtBio.getText());
+        users.setNameUser(name);
+        users.setEmail(user);
+        users.setPass(password);
+        users.setBiography(bio);
         users.setDialogTransition(getDialogTransition());
         users.setUserType("Administrator");
-        users.setProfileImage(StartController.class.getResourceAsStream(Constants.PROFILE_PICTURES_PACKAGE + "a.png"));
+
         try {
-            String sql = "INSERT INTO Users (nameUser, email, pass, userType, profileImage) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement stmt = DatabaseConnection.getInstance().getConnection().prepareCall(sql);
-            stmt.setString(1, users.getNameUser());
-            stmt.setString(2, users.getEmail());
-            stmt.setString(3, users.getPass());
-            stmt.setString(4, users.getUserType());
-            stmt.setBlob(5, users.getProfileImage());
-            stmt.execute();
-            updateUserInDB(users);
-        } catch (SQLException ex) {
+            users.setProfileImage(DefaultProfileImage.getImage(name));
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(StartController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        boolean result = DatabaseHelper.insertNewUser(users);
+        if (result) {
+            updateUserInDB(users);
+        } else {
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -345,21 +384,22 @@ public class StartController implements Initializable {
     private void mainWindow() {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/laynezcoder/views/MainView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Constants.MAIN_VIEW));
             Scene scene = new Scene(root);
             stage.initStyle(StageStyle.DECORATED);
             stage.setScene(scene);
-            stage.setTitle("Electronic Store Tool FX");
-            stage.getIcons().add(new Image(Resources.SOURCE_PACKAGES + "/media/reicon.png"));
+            stage.setTitle(Constants.TITLE);
+            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.show();
             closeStage();
-            
+
             root.setOnKeyPressed((KeyEvent e) -> {
                 if (e.getCode() == KeyCode.F11) {
                     stage.setFullScreen(!stage.isFullScreen());
                 }
             });
             
+            NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + name + "!");
         } catch (IOException ex) {
             Logger.getLogger(StartController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -385,14 +425,15 @@ public class StartController implements Initializable {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
 
         JFXButton button = new JFXButton("¡ok!");
-        button.getStylesheets().add(Resources.LIGHT_THEME);
+        button.getStylesheets().add(Constants.LIGHT_THEME);
         button.getStyleClass().add("button-start-dialog");
 
         String body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         JFXDialog dialog = new JFXDialog(stckStart, dialogLayout, JFXDialog.DialogTransition.valueOf(getDialogTransition()));
         dialogLayout.setBody(new Label(body));
         dialogLayout.setActions(button);
-        Resources.setStyleToAlerts(dialog);
+        dialog.getStylesheets().add(Constants.LIGHT_THEME);
+        dialog.getStyleClass().add("jfx-dialog-overlay-pane");
         dialog.show();
 
         button.setOnMouseClicked(ev -> {
@@ -401,26 +442,26 @@ public class StartController implements Initializable {
     }
 
     private void selectText() {
-        Resources.selectTextToJFXTextField(txtName);
-        Resources.selectTextToJFXTextField(txtUser);
-        Resources.selectTextToJFXPasswordField(txtPassword);
-        Resources.selectTextToJFXPasswordField(txtConfirmPassword);
-        Resources.selectTextToJFXTextArea(txtBio);
+        TextFieldMask.selectText(txtName);
+        TextFieldMask.selectText(txtUser);
+        TextFieldMask.selectText(txtPassword);
+        TextFieldMask.selectText(txtConfirmPassword);
+        TextFieldMask.selectTextToJFXTextArea(txtBio);
     }
 
     private void validations() {
-        Resources.validationOfJFXTextArea(txtBio);
-        Resources.validationOfJFXComboBox(cmbDialogTransition);
-        Resources.validationOfJFXTextField(txtName);
-        Resources.validationOfJFXTextField(txtUser);
-        Resources.validationOfJFXPasswordField(txtPassword);
-        Resources.validationOfJFXPasswordField(txtConfirmPassword);
+        RequieredFieldsValidators.toJFXTextArea(txtBio);
+        RequieredFieldsValidators.toJFXComboBox(cmbDialogTransition);
+        RequieredFieldsValidators.toJFXTextField(txtName);
+        RequieredFieldsValidators.toJFXTextField(txtUser);
+        RequieredFieldsValidators.toJFXPasswordField(txtPassword);
+        RequieredFieldsValidators.toJFXPasswordField(txtConfirmPassword);
     }
 
-    private void maximumCharacters() {
-        Resources.limitTextField(txtName, 20);
-        Resources.limitTextField(txtUser, 20);
-        Resources.limitJFXPasswordField(txtPassword, 20);
-        Resources.limitJFXPasswordField(txtConfirmPassword, 20);
+    private void setMask() {
+        TextFieldMask.onlyLetters(txtName, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtUser, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtConfirmPassword, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtPassword, 40);
     }
 }

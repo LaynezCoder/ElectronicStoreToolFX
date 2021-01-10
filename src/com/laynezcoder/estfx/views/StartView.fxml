@@ -18,14 +18,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="stckStart" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.StartController">
+<StackPane fx:id="stckStart" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.StartController">
    <children>
       <AnchorPane fx:id="rootStart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;">
          <children>
-            <Text fx:id="title" layoutX="519.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Welcome to the system!" />
+            <HBox alignment="CENTER" layoutX="250.0" prefHeight="60.0" prefWidth="750.0">
+               <children>
+                  <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Welcome to the system!" />
+               </children>
+            </HBox>
             <Pane fx:id="paneStep1" layoutX="248.0" layoutY="60.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="480.0" prefWidth="750.0" style="-fx-background-color: white;" visible="false">
                <children>
-                  <Text fx:id="textStep1" layoutX="196.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter the following information to access the system" />
                   <Pane fx:id="paneControlsStep1" layoutX="121.0" layoutY="146.0" prefHeight="188.0" prefWidth="508.0">
                      <children>
                         <JFXTextField fx:id="txtName" focusColor="#2d3037" labelFloat="true" layoutY="22.0" onAction="#stepOneToStepTwo" prefHeight="30.0" prefWidth="232.0" promptText="Name" styleClass="jfx-text-field-start" unFocusColor="#2d3037">
@@ -59,11 +62,15 @@
                         </JFXButton>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="750.0">
+                     <children>
+                        <Text fx:id="textStep1" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter the following information to access the system" />
+                     </children>
+                  </HBox>
                </children>
             </Pane>
             <Pane fx:id="paneStep2" layoutX="248.0" layoutY="60.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="480.0" prefWidth="750.0" visible="false">
                <children>
-                  <Text fx:id="textStep2" layoutX="319.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your biography" />
                   <HBox fx:id="hBoxStep2" alignment="CENTER" layoutX="230.0" layoutY="370.0" prefHeight="30.0" prefWidth="300.0" spacing="20.0">
                      <children>
                         <JFXButton fx:id="btnBackStep2" buttonType="RAISED" onMouseClicked="#StartStepOne" prefHeight="36.0" prefWidth="150.0" ripplerFill="#2d3037" style="-fx-background-color: white; -fx-border-color: #2d3037; -fx-border-width: 1.5;" styleClass="button-start-back" text="Back" textFill="#2d3037">
@@ -83,11 +90,15 @@
                         <Font size="14.0" />
                      </font>
                   </JFXTextArea>
+                  <HBox alignment="CENTER" layoutX="1.0" prefHeight="60.0" prefWidth="750.0">
+                     <children>
+                        <Text fx:id="textStep2" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your biography" />
+                     </children>
+                  </HBox>
                </children>
             </Pane>
             <Pane fx:id="paneStep3" layoutX="248.0" layoutY="60.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="480.0" prefWidth="750.0" visible="false">
                <children>
-                  <Text fx:id="textStep3" layoutX="318.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select an animation type" />
                   <JFXComboBox fx:id="cmbDialogTransition" focusColor="#2d3037" labelFloat="true" layoutX="121.0" layoutY="183.0" prefHeight="30.0" prefWidth="508.0" promptText="Select an animation type" unFocusColor="#2d3037">
                      <styleClass>
                         <String fx:value="combo-box-start" />
@@ -112,11 +123,15 @@
                         </JFXButton>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="750.0">
+                     <children>
+                        <Text fx:id="textStep3" strokeType="OUTSIDE" strokeWidth="0.0" text="Select an animation type" />
+                     </children>
+                  </HBox>
                </children>
             </Pane>
-            <Pane fx:id="paneFinish" layoutX="248.0" layoutY="60.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="480.0" prefWidth="750.0" visible="false">
+            <Pane fx:id="paneFinish" layoutX="250.0" layoutY="60.0" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="480.0" prefWidth="750.0" visible="false">
                <children>
-                  <Text fx:id="finish" layoutX="338.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="It's almost ready." />
                   <JFXSpinner fx:id="spinner" layoutX="350.0" layoutY="215.0" />
                   <HBox alignment="CENTER" layoutX="288.0" layoutY="392.0" prefHeight="30.0" prefWidth="174.0">
                      <children>
@@ -127,7 +142,16 @@
                         </JFXButton>
                      </children>
                   </HBox>
-                  <Text fx:id="finishText" layoutX="131.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remember that you can change your credentials in the settings." />
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="750.0">
+                     <children>
+                        <Text fx:id="finish" strokeType="OUTSIDE" strokeWidth="0.0" text="It's almost ready." />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutY="121.0" prefHeight="60.0" prefWidth="750.0">
+                     <children>
+                        <Text fx:id="finishText" strokeType="OUTSIDE" strokeWidth="0.0" text="Remember that you can change your credentials in the settings." />
+                     </children>
+                  </HBox>
                </children>
             </Pane>
             <AnchorPane prefHeight="600.0" prefWidth="250.0">
