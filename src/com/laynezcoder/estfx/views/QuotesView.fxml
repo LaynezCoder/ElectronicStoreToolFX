@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="stckQuotes" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.controllers.QuotesController">
+<StackPane fx:id="stckQuotes" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.QuotesController">
    <children>
       <AnchorPane fx:id="rootQuotes" prefHeight="565.0" prefWidth="930.0">
          <children>
@@ -46,15 +46,15 @@
                <contextMenu>
                   <ContextMenu styleClass="colored-context-menu">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showWindowUpdateQuotes" text="Edit">
+                        <MenuItem mnemonicParsing="false" onAction="#showDialogEditQuote" text="Edit">
                            <graphic>
                               <MaterialDesignIconView fill="GREY" glyphName="TABLE_EDIT" size="20" />
                            </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#showWindowDeleteQuotes" text="Delete">
+                        <MenuItem mnemonicParsing="false" onAction="#showDialogDeleteQuotes" text="Delete">
                            <graphic>
                               <MaterialDesignIconView fill="GREY" glyphName="DELETE_VARIANT" size="20" />
                            </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#showWindowDetailsQuotes" text="Details">
+                        <MenuItem mnemonicParsing="false" onAction="#showDialogDetailsQuote" text="Details">
                            <graphic>
                               <MaterialDesignIconView fill="GREY" glyphName="INFORMATION_OUTLINE" size="20" />
                            </graphic></MenuItem>
@@ -66,7 +66,7 @@
                   </ContextMenu>
                </contextMenu>
             </TableView>
-            <AnchorPane fx:id="rootAddQuotes" layoutX="66.0" layoutY="115.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="800.0" visible="false">
+            <AnchorPane fx:id="containerAddQuotes" layoutX="66.0" layoutY="115.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="800.0">
                <children>
                   <JFXTextField fx:id="txtPrice" focusColor="#2ab56f" labelFloat="true" layoutX="50.0" layoutY="87.0" prefHeight="25.0" prefWidth="217.0" promptText="Price" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                      <font>
@@ -97,7 +97,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancelAdd" buttonType="RAISED" layoutX="262.0" layoutY="361.0" onMouseClicked="#hideWindowAddQuotes" prefHeight="25.0" prefWidth="131.0" ripplerFill="WHITE" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel">
+                  <JFXButton fx:id="btnCancelAdd" buttonType="RAISED" layoutX="262.0" layoutY="361.0" onMouseClicked="#closeDialogAddQuotes" prefHeight="25.0" prefWidth="131.0" ripplerFill="WHITE" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -126,7 +126,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <JFXButton contentDisplay="CENTER" layoutX="764.0" onMouseClicked="#hideWindowAddQuotes" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                  <JFXButton contentDisplay="CENTER" layoutX="764.0" onMouseClicked="#closeDialogAddQuotes" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
                      <graphic>
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
@@ -144,7 +144,7 @@
                   <TextField fx:id="txtSearchQuotes" layoutX="39.0" layoutY="10.0" onKeyReleased="#filterDescriptionQuotes" prefHeight="25.0" prefWidth="331.0" promptText="Search quote" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <JFXButton fx:id="btnAddQuotes" layoutX="771.0" layoutY="23.0" onMouseClicked="#showWindowAddQuotes" prefHeight="39.0" prefWidth="145.0" style="-fx-background-radius: 5;" styleClass="login-jfx-button" text="New quote" textFill="WHITE" translateY="2.0" AnchorPane.rightAnchor="14.0">
+            <JFXButton fx:id="btnAddQuotes" layoutX="771.0" layoutY="23.0" onMouseClicked="#showDialogAddQuotes" prefHeight="39.0" prefWidth="145.0" style="-fx-background-radius: 5;" styleClass="login-jfx-button" text="New quote" textFill="WHITE" translateY="2.0" AnchorPane.rightAnchor="14.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -159,7 +159,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancelDelete" buttonType="RAISED" layoutX="57.0" layoutY="201.0" onMouseClicked="#hideWindowDeleteQuotes" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel">
+                  <JFXButton fx:id="btnCancelDelete" buttonType="RAISED" layoutX="57.0" layoutY="201.0" onMouseClicked="#closeDialogDeleteQuote" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -175,7 +175,7 @@
                         <Text fx:id="descriptionWindowDeleteQuotes" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="Information cannot be retrieved" />
                      </children>
                   </VBox>
-                  <JFXButton contentDisplay="CENTER" layoutX="360.0" onMouseClicked="#hideWindowDeleteQuotes" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                  <JFXButton contentDisplay="CENTER" layoutX="360.0" onMouseClicked="#closeDialogDeleteQuote" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
                      <graphic>
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
