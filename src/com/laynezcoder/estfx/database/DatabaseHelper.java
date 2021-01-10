@@ -5,7 +5,9 @@ import com.laynezcoder.estfx.models.Customers;
 import com.laynezcoder.estfx.models.Products;
 import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.estfx.models.Users;
-import com.laynezcoder.resources.Resources;
+import com.laynezcoder.estfx.notifications.NotificationType;
+import com.laynezcoder.estfx.notifications.NotificationsBuilder;
+import com.laynezcoder.estfx.resources.Constants;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -247,12 +249,12 @@ public class DatabaseHelper {
                 if (img != null) {
                     image = new Image(img);
                 } else {
-                    image = new Image(Resources.NO_IMAGE_AVAILABLE);
+                    image = new Image(Constants.NO_IMAGE_AVAILABLE);
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-            image = new Image(Resources.NO_IMAGE_AVAILABLE);
+            image = new Image(Constants.NO_IMAGE_AVAILABLE);
         }
         return image;
     }
@@ -505,7 +507,7 @@ public class DatabaseHelper {
         } catch (SQLException ex) {
             count = 0;
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-            Resources.notification("FATAL ERROR", "An error occurred when connecting to MySQL.", "error.png");
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
         return count;
     }
