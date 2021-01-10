@@ -371,7 +371,7 @@ public class CustomersController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddCustomer();
-            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MENSSAGE_ADDED);
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MESSAGE_ADDED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
@@ -385,7 +385,7 @@ public class CustomersController implements Initializable {
             loadData();
             cleanControls();
             closeDialogDeleteCustomer();
-            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MENSSAGE_DELETED);
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MESSAGE_DELETED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
@@ -431,7 +431,7 @@ public class CustomersController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddCustomer();
-            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MENSSAGE_UPDATED);
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MESSAGE_UPDATED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }

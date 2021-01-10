@@ -516,7 +516,7 @@ public class ProductsController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddProduct();
-            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MENSSAGE_ADDED);
+            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_ADDED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
@@ -651,7 +651,7 @@ public class ProductsController implements Initializable {
                 closeDialogAddProduct();
                 loadData();
                 cleanControls();
-                AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MENSSAGE_UPDATED);
+                AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_UPDATED);
             } else {
                 NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
             }
@@ -661,7 +661,7 @@ public class ProductsController implements Initializable {
                 closeDialogAddProduct();
                 loadData();
                 cleanControls();
-                AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MENSSAGE_UPDATED);
+                AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_UPDATED);
             } else {
                 NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
             }
@@ -675,7 +675,7 @@ public class ProductsController implements Initializable {
             loadData();
             cleanControls();
             hideDialogDeleteProduct();
-            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MENSSAGE_DELETED);
+            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_DELETED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }

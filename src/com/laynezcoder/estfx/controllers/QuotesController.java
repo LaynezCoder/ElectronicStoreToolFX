@@ -503,7 +503,7 @@ public class QuotesController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddQuotes();
-            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Constants.MENSSAGE_ADDED);
+            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_ADDED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
@@ -515,7 +515,7 @@ public class QuotesController implements Initializable {
         if (result) {
             loadData();
             closeDialogDeleteQuote();
-            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Constants.MENSSAGE_DELETED);
+            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_DELETED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
@@ -573,7 +573,7 @@ public class QuotesController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddQuotes();
-            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Constants.MENSSAGE_UPDATED);
+            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_UPDATED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }

@@ -35,9 +35,9 @@ public class Constants {
     public static final String INSUFFICIENT_DATA = "Insufficient data";
     public static final String MESSAGE_NO_RECORD_SELECTED = "Select an item from the table.";
 
-    public static final String MENSSAGE_ADDED = "Registry added successfully";
-    public static final String MENSSAGE_UPDATED = "Registry updated successfully";
-    public static final String MENSSAGE_DELETED = "Registry deleted successfully";
+    public static final String MESSAGE_ADDED = "Registry added successfully";
+    public static final String MESSAGE_UPDATED = "Registry updated successfully";
+    public static final String MESSAGE_DELETED = "Registry deleted successfully";
 
     public static final String EXISTENT = "Existent";
     public static final String NOT_EXISTENT = "Not existent";
