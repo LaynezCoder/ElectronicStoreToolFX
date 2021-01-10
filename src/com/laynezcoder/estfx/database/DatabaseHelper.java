@@ -274,6 +274,23 @@ public class DatabaseHelper {
         }
         return false;
     }
+    
+    public static boolean insertNewUser(Users users) {
+        try {
+            String sql = "INSERT INTO Users (nameUser, email, pass, userType, profileImage) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, users.getNameUser());
+            preparedStatement.setString(2, users.getEmail());
+            preparedStatement.setString(3, users.getPass());
+            preparedStatement.setString(4, users.getUserType());
+            preparedStatement.setBlob(5, users.getProfileImage());
+            preparedStatement.execute(); 
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     public static boolean deleteUser(TableView<Users> tbl, ObservableList<Users> listUsers) {
         try {
