@@ -3,6 +3,7 @@ package com.laynezcoder.estfx.mask;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 import javafx.application.Platform;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
@@ -97,6 +98,16 @@ public class TextFieldMask {
     }
 
     public static void selectText(TextField txt) {
+        txt.focusedProperty().addListener((o, oldVal, newVal) -> {
+            Platform.runLater(() -> {
+                if (!txt.getText().isEmpty() && newVal) {
+                    txt.selectAll();
+                }
+            });
+        });
+    }
+
+    public static void selectTextToJFXTextArea(TextArea txt) {
         txt.focusedProperty().addListener((o, oldVal, newVal) -> {
             Platform.runLater(() -> {
                 if (!txt.getText().isEmpty() && newVal) {
