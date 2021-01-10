@@ -9,7 +9,7 @@ public class Constants {
     public static final String SOURCE_PACKAGES = "/com/laynezcoder/estfx";
     public static final String MEDIA_PACKAGE = SOURCE_PACKAGES + "/media/";
     public static final String VIEWS_PACKAGE = SOURCE_PACKAGES + "/views/";
-    public static final String PROFILE_PICTURES_PACKAGE = MEDIA_PACKAGE + "profile/";
+    public static final String PROFILE_PICTURES_PACKAGE = MEDIA_PACKAGE + "profiles/";
     public static final String RESOURCES_PACKAGE = SOURCE_PACKAGES + "/resources/";
     public static final String FONTS_PACKAGE = SOURCE_PACKAGES + "/fonts/";
 
@@ -34,6 +34,7 @@ public class Constants {
     public static final String MESSAGE_IMAGE_NOT_FOUND = "Image not found. The record will be saved.";
     public static final String INSUFFICIENT_DATA = "Insufficient data";
     public static final String MESSAGE_USER_ALREADY_EXISTS = "This user already exists";
+    public static final String MESSAGE_PASSWORDS_NOT_MATCH = "Passwords do not match.";
     public static final String MESSAGE_ENTER_AT_LEAST_4_CHARACTERES = "Please enter at least 4 characters";
     public static final String MESSAGE_NO_RECORD_SELECTED = "Select an item from the table.";
 
