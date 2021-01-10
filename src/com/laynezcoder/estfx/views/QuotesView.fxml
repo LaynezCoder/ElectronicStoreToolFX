@@ -66,7 +66,7 @@
                   </ContextMenu>
                </contextMenu>
             </TableView>
-            <AnchorPane fx:id="containerAddQuotes" layoutX="66.0" layoutY="115.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="800.0">
+            <AnchorPane fx:id="containerAddQuotes" layoutX="66.0" layoutY="115.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="800.0" visible="false">
                <children>
                   <JFXTextField fx:id="txtPrice" focusColor="#2ab56f" labelFloat="true" layoutX="50.0" layoutY="87.0" prefHeight="25.0" prefWidth="217.0" promptText="Price" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
                      <font>
@@ -152,7 +152,7 @@
                   <MaterialDesignIconView fill="WHITE" glyphName="PLUS" size="20" />
                </graphic>
             </JFXButton>
-            <AnchorPane fx:id="rootDeleteQuotes" layoutX="279.0" layoutY="206.0" prefHeight="246.0" prefWidth="392.0" visible="false">
+            <AnchorPane fx:id="containerDeleteQuotes" layoutX="279.0" layoutY="206.0" prefHeight="246.0" prefWidth="392.0" visible="false">
                <children>
                   <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="208.0" layoutY="201.0" onMouseClicked="#deleteQuotes" prefHeight="25.0" prefWidth="131.0" styleClass="delete-jfx-button" text="Delete" textFill="WHITE">
                      <font>
