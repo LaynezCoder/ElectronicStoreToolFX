@@ -14,7 +14,6 @@ import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.resources.Constants;
-import com.laynezcoder.resources.Resources;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -571,11 +570,11 @@ public class UsersController implements Initializable {
                 closeDialogAddUser();
             }
 
-            if (Resources.dialog != null) {
+            if (AlertsBuilder.dialog != null) {
                 if (ev.getCode().equals(KeyCode.ESCAPE)) {
                     tblUsers.setDisable(false);
                     rootUsers.setEffect(null);
-                    Resources.dialog.close();
+                    AlertsBuilder.dialog.close();
                 }
             }
         });
@@ -615,7 +614,7 @@ public class UsersController implements Initializable {
                 }
 
                 if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    Resources.showErrorAlert(stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
+                    AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
                     return;
                 }
                 
