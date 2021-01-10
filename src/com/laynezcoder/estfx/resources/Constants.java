@@ -15,6 +15,7 @@ public class Constants {
 
     public static final String LOGIN_VIEW = VIEWS_PACKAGE + "LoginView.fxml";
     public static final String START_VIEW = VIEWS_PACKAGE + "StartView.fxml";
+    public static final String MAIN_VIEW = VIEWS_PACKAGE + "MainView.fxml";
 
     public static final String STAGE_ICON = MEDIA_PACKAGE + "icon.png";
     public static final String NO_IMAGE_AVAILABLE = MEDIA_PACKAGE + "empty-image.jpg";
@@ -29,6 +30,7 @@ public class Constants {
     public static final String RIMOUSKI_FONT = Constants.class.getResource(FONT).toExternalForm();
 
     public static final String MESSAGE_ERROR_CONNECTION_MYSQL = "An error occurred when connecting to MySQL.\nCheck your connection to MySQL";
+    public static final String INSUFFICIENT_DATA = "Insufficient data";
     public static final String MESSAGE_NO_RECORD_SELECTED = "Select an item from the table.";
     public static final String MENSSAGE_ADDED = "Registry added successfully";
     public static final String MENSSAGE_UPDATED = "Registry updated successfully";
