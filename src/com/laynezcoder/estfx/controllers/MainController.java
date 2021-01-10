@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.resources.Constants;
-import com.laynezcoder.resources.Resources;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
