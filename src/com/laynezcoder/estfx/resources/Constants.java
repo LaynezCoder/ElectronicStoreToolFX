@@ -34,9 +34,19 @@ public class Constants {
     public static final String MESSAGE_IMAGE_NOT_FOUND = "Image not found. The record will be saved.";
     public static final String INSUFFICIENT_DATA = "Insufficient data";
     public static final String MESSAGE_NO_RECORD_SELECTED = "Select an item from the table.";
+
     public static final String MENSSAGE_ADDED = "Registry added successfully";
     public static final String MENSSAGE_UPDATED = "Registry updated successfully";
     public static final String MENSSAGE_DELETED = "Registry deleted successfully";
+
+    public static final String EXISTENT = "Existent";
+    public static final String NOT_EXISTENT = "Not existent";
+
+    public static final String REALIZED = "Realized";
+    public static final String NOT_REALIZED = "Not realized";
+
+    public static final String REPORTED = "Reported";
+    public static final String NOT_REPORTED = "Not reported";
 
     public static final BoxBlur BOX_BLUR_EFFECT = new BoxBlur(3, 3, 3);
 }
