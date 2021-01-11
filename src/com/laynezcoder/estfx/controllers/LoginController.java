@@ -182,7 +182,7 @@ public class LoginController implements Initializable {
             closeStage();
 
             root.setOnKeyPressed((KeyEvent e) -> {
-                if (e.getCode() == KeyCode.F11) {
+                if (e.getCode().equals(KeyCode.F11)) {
                     stage.setFullScreen(!stage.isFullScreen());
                 }
             });
