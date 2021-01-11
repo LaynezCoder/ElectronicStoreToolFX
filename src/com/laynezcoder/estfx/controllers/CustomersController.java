@@ -266,7 +266,6 @@ public class CustomersController implements Initializable {
         titleAddCustomer.setText("Update customer");
         btnUpdateCustomer.toFront();
         selectedRecord();
-
     }
 
     @FXML
