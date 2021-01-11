@@ -48,11 +48,11 @@ import java.io.FileNotFoundException;
 import javafx.scene.input.KeyCode;
 
 public class UsersController implements Initializable {
-    
+
     private final String CANNOT_DELETED = "This user cannot be deleted";
-    
+
     private final String ADMINISTRATOR_ONLY = "This user can only be administrator type";
-    
+
     private final String UNABLE_TO_CHANGE = "Unable to change user type";
 
     @FXML
@@ -241,7 +241,9 @@ public class UsersController implements Initializable {
 
     @FXML
     private void closeDialogAddUser() {
-        dialogAddUser.close();
+        if (dialogAddUser != null) {
+            dialogAddUser.close();
+        }
     }
 
     @FXML
@@ -570,15 +572,13 @@ public class UsersController implements Initializable {
                 closeDialogAddUser();
             }
 
-            if (AlertsBuilder.dialog != null) {
-                if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                    tblUsers.setDisable(false);
-                    rootUsers.setEffect(null);
-                    AlertsBuilder.dialog.close();
-                }
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                tblUsers.setDisable(false);
+                rootUsers.setEffect(null);
+                AlertsBuilder.close();
             }
         });
-        
+
         addUserContainer.setOnKeyReleased(ev -> {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddUser();
@@ -617,7 +617,7 @@ public class UsersController implements Initializable {
                     AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
                     return;
                 }
-                
+
                 deleteUser();
             }
         });

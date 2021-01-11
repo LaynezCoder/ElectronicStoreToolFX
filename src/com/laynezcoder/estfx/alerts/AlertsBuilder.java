@@ -21,7 +21,7 @@ public class AlertsBuilder {
     private static String buttonStyle;
     private static String titleStyle;
     private static String bodyStyle;
-    public static JFXDialog dialog;
+    private static JFXDialog dialog;
 
     public static void create(AlertType type, StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String body) {
         setFunction(type);
@@ -80,6 +80,12 @@ public class AlertsBuilder {
             nodeToDisable.setDisable(false);
             nodeToBlur.setEffect(null);
         });
+    }
+    
+    public static void close() {
+        if (dialog != null) {
+            dialog.close();
+        }
     }
 
     private static void setStyle() {
