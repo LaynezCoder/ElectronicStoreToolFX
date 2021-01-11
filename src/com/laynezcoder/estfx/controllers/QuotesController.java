@@ -590,7 +590,7 @@ public class QuotesController implements Initializable {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 tblQuotes.setDisable(false);
                 rootQuotes.setEffect(null);
-                AlertsBuilder.dialog.close();
+                AlertsBuilder.close();
             }
 
         });
