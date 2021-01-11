@@ -21,7 +21,7 @@
                   <Insets bottom="20.0" />
                </padding>
                <children>
-                  <ImageView fx:id="recursoselectronicos" blendMode="SRC_ATOP" cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="86.0" fitWidth="416.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                  <ImageView fx:id="estfx" blendMode="SRC_ATOP" cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="86.0" fitWidth="416.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>
                         <Image url="@../media/estfx-logo.png" />
                      </image>

@@ -29,7 +29,7 @@ public class AboutController implements Initializable {
     private final String YOUTUBE = "https://www.youtube.com/c/LaynezCode/";
 
     @FXML
-    private ImageView recursoselectronicos;
+    private ImageView estfx;
 
     @FXML
     private Text developer;
@@ -72,7 +72,7 @@ public class AboutController implements Initializable {
     }
 
     private void setAnimations() {
-        transition(recursoselectronicos, 0);
+        transition(estfx, 0);
         transition(developer, 2);
         transition(laynezcode, 3);
         transition(separator, 4);
