@@ -180,7 +180,7 @@ public class MainController implements Initializable {
     }
 
     private void setDisableButtons(MouseEvent event, JFXButton button) {
-        if (event.getSource() == button) {
+        if (event.getSource().equals(button)) {
             button.setDisable(true);
         } else {
             button.setDisable(false);
