@@ -320,11 +320,11 @@ public class HomeController implements Initializable {
             button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colExistence.getWidth() / 0.5);
 
-            if (item.getExistence().equals("Existent")) {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
+            if (item.getExistence().equals(Constants.EXISTENT)) {
+                icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
             } else {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
+                icon.setIcon(FontAwesomeIcon.CLOSE);
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
@@ -346,11 +346,11 @@ public class HomeController implements Initializable {
             button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colReport.getWidth() / 0.5);
 
-            if (item.getReport().equals("Reported")) {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
+            if (item.getReport().equals(Constants.REPORTED)) {
+                icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
             } else {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
+                icon.setIcon(FontAwesomeIcon.CLOSE);
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
@@ -372,11 +372,11 @@ public class HomeController implements Initializable {
             button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
-            if (item.getRealization().equals("Realized")) {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
+            if (item.getRealization().equals(Constants.REALIZED)) {
+                icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
             } else {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
+                icon.setIcon(FontAwesomeIcon.CLOSE);
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
