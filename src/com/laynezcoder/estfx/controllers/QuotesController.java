@@ -45,7 +45,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -215,6 +214,7 @@ public class QuotesController implements Initializable {
 
     private void setMask() {
         TextFieldMask.onlyDoubleNumbers5Integers(txtPrice);
+        TextFieldMask.setTextIfFieldIsEmpty(txtPrice);
     }
 
     @FXML
@@ -265,7 +265,9 @@ public class QuotesController implements Initializable {
 
     @FXML
     private void closeDialogAddQuotes() {
-        dialogAddQuote.close();
+        if (dialogAddQuote != null) {
+            dialogAddQuote.close();
+        }
     }
 
     @FXML
@@ -448,7 +450,6 @@ public class QuotesController implements Initializable {
     @FXML
     private void newQuote() {
         String description = txtDescription.getText().trim();
-        Double price = Double.valueOf(txtPrice.getText());
 
         if (dtpDate.getEditor().getText().isEmpty()) {
             dtpDate.requestFocus();
@@ -468,10 +469,10 @@ public class QuotesController implements Initializable {
 
         Quotes quotes = new Quotes();
 
-        if (description.isEmpty()) {
+        if (txtPrice.getText().isEmpty()) {
             quotes.setPrice(Double.valueOf("0"));
         } else {
-            quotes.setPrice(price);
+            quotes.setPrice(Double.valueOf(txtPrice.getText()));
         }
 
         if (toggleButtonExists.isSelected()) {
@@ -523,7 +524,6 @@ public class QuotesController implements Initializable {
     @FXML
     private void updateQuotes() {
         String description = txtDescription.getText().trim();
-        Double price = Double.valueOf(txtPrice.getText());
 
         if (dtpDate.getEditor().getText().isEmpty()) {
             dtpDate.requestFocus();
@@ -541,7 +541,7 @@ public class QuotesController implements Initializable {
         if (txtPrice.getText().isEmpty()) {
             quotes.setPrice(Double.valueOf("0"));
         } else {
-            quotes.setPrice(price);
+            quotes.setPrice(Double.valueOf(txtPrice.getText()));
         }
 
         if (toggleButtonExists.isSelected()) {
@@ -582,16 +582,17 @@ public class QuotesController implements Initializable {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogDeleteQuote();
             }
+
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddQuotes();
             }
-            if (AlertsBuilder.dialog != null) {
-                if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                    tblQuotes.setDisable(false);
-                    rootQuotes.setEffect(null);
-                    AlertsBuilder.dialog.close();
-                }
+
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                tblQuotes.setDisable(false);
+                rootQuotes.setEffect(null);
+                AlertsBuilder.dialog.close();
             }
+
         });
     }
 
@@ -710,10 +711,10 @@ public class QuotesController implements Initializable {
             button.setPrefWidth(colExistence.getWidth() / 0.5);
 
             if (item.getExistence().equals(Constants.EXISTENT)) {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
+                icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
             } else {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
+                icon.setIcon(FontAwesomeIcon.CLOSE);
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
@@ -736,10 +737,10 @@ public class QuotesController implements Initializable {
             button.setPrefWidth(colReport.getWidth() / 0.5);
 
             if (item.getReport().equals(Constants.REPORTED)) {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
+                icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
             } else {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
+                icon.setIcon(FontAwesomeIcon.CLOSE);
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
@@ -762,10 +763,10 @@ public class QuotesController implements Initializable {
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
             if (item.getRealization().equals(Constants.REALIZED)) {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CHECK));
+                icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
             } else {
-                icon.setGlyphName(String.valueOf(FontAwesomeIcon.CLOSE));
+                icon.setIcon(FontAwesomeIcon.CLOSE);
                 button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
