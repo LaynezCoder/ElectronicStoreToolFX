@@ -189,9 +189,7 @@ public class LoginController implements Initializable {
 
             stage.setOnCloseRequest(ev -> {
                 DatabaseHelper.logout();
-                if (ProductsController.stage != null) {
-                    ProductsController.stage.close();
-                }
+                ProductsController.closeStage();
             });
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);

@@ -193,7 +193,7 @@ public class ProductsController implements Initializable {
 
     private JFXDialogTool dialogDeleteProduct;
 
-    public static final Stage stage = new Stage();
+    private static final Stage stage = new Stage();
 
     private File imageFile;
 
@@ -301,10 +301,7 @@ public class ProductsController implements Initializable {
         });
 
         dialogAddProduct.setOnDialogClosed(ev -> {
-            if (stage != null) {
-                stage.hide();
-            }
-
+            closeStage();
             tblProducts.setDisable(false);
             rootProducts.setEffect(null);
             containerAddProduct.setVisible(false);
@@ -831,6 +828,12 @@ public class ProductsController implements Initializable {
         });
     }
 
+    public static void closeStage() {
+        if (stage != null) {
+            stage.hide();
+        }
+    }
+
     private void deleteUserDeleteKey() {
         if (DatabaseHelper.getUserType().equals("Administrator")) {
             rootProducts.setOnKeyPressed(ev -> {
@@ -888,15 +891,15 @@ public class ProductsController implements Initializable {
                 if (txtPurchasePrice.getText().isEmpty()) {
                     txtPurchasePrice.setText("0");
                 }
-                
+
                 if (txtPurchasePrice.isFocused() && txtPurchasePrice.getText().equals("0")) {
                     txtPurchasePrice.selectAll();
                 }
-                
+
                 if (txtPorcentage.getText().isEmpty()) {
                     txtPorcentage.setText("0");
                 }
-                
+
                 double purchasePrice = Double.valueOf(txtPurchasePrice.getText());
                 int porcentage = Integer.parseInt(txtPorcentage.getText());
                 double salePrice = ((purchasePrice * porcentage) / 100) + purchasePrice;
@@ -908,15 +911,15 @@ public class ProductsController implements Initializable {
             if (txtPorcentage.isFocused() && txtPorcentage.getText().isEmpty()) {
                 txtPorcentage.setText("0");
             }
-            
+
             if (txtPorcentage.isFocused() && txtPorcentage.getText().equals("0")) {
                 txtPorcentage.selectAll();
             }
-            
+
             if (txtPurchasePrice.getText().isEmpty()) {
                 txtPurchasePrice.setText("0");
             }
-            
+
             double purchasePrice = Double.valueOf(txtPurchasePrice.getText());
             int porcentage = Integer.parseInt(txtPorcentage.getText());
             double salePrice = ((purchasePrice * porcentage) / 100) + purchasePrice;
