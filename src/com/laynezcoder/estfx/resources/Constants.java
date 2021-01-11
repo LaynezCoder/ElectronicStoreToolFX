@@ -5,6 +5,8 @@ import javafx.scene.effect.BoxBlur;
 public class Constants {
 
     public static final String TITLE = "Electronic Store Tool FX";
+    public static final Double MIN_WIDTH = 1040.00;
+    public static final Double MIN_HEIGHT = 640.00;
 
     public static final String SOURCE_PACKAGES = "/com/laynezcoder/estfx";
     public static final String MEDIA_PACKAGE = SOURCE_PACKAGES + "/media/";

@@ -176,6 +176,8 @@ public class LoginController implements Initializable {
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+            stage.setMinHeight(Constants.MIN_HEIGHT);
+            stage.setMinWidth(Constants.MIN_WIDTH);
             stage.setTitle(Constants.TITLE);
             stage.setScene(new Scene(root));
             stage.show();

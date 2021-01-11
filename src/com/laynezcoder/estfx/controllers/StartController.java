@@ -387,6 +387,8 @@ public class StartController implements Initializable {
             Scene scene = new Scene(root);
             stage.initStyle(StageStyle.DECORATED);
             stage.setScene(scene);
+            stage.setMinHeight(Constants.MIN_HEIGHT);
+            stage.setMinWidth(Constants.MIN_WIDTH);
             stage.setTitle(Constants.TITLE);
             stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.show();
