@@ -1,6 +1,5 @@
 package com.laynezcoder.estfx.controllers;
 
-import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.alerts.AlertType;
@@ -46,7 +45,7 @@ public class CustomersController implements Initializable {
     private static final String INVALID_EMAIL = "Invalid email";
 
     private ObservableList<Customers> listCustomers;
-    
+
     private ObservableList<Customers> filterCustomers;
 
     @FXML
@@ -133,6 +132,7 @@ public class CustomersController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        filterCustomers = FXCollections.observableArrayList();
         characterLimiter();
         setValidations();
         selectText();
@@ -143,7 +143,6 @@ public class CustomersController implements Initializable {
         deleteUserDeleteKey();
         closeDialogWithTextFields();
         closeDialogWithEscapeKey();
-        filterCustomers = FXCollections.observableArrayList();
     }
 
     private void setFonts() {
@@ -179,8 +178,7 @@ public class CustomersController implements Initializable {
     }
 
     private void characterLimiter() {
-        TextFieldMask.characterLimit(txtCustomerName, 150);
-        TextFieldMask.characterLimit(txtCustomerNumber, 15);
+        TextFieldMask.characterLimit(txtCustomerNumber, 25);
         TextFieldMask.characterLimit(txtEmail, 150);
         TextFieldMask.characterLimit(txtIt, 50);
     }
@@ -188,6 +186,8 @@ public class CustomersController implements Initializable {
     private void setMask() {
         TextFieldMask.onlyNumbers(txtSearchNumber);
         TextFieldMask.onlyNumbers(txtCustomerNumber);
+        TextFieldMask.onlyLetters(txtCustomerName, 150);
+        TextFieldMask.onlyLetters(txtSearchCustomer, 150);
     }
 
     @FXML
@@ -220,7 +220,9 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void closeDialogAddCustomer() {
-        dialogAddCustomer.close();
+        if (dialogAddCustomer != null) {
+            dialogAddCustomer.close();
+        }
     }
 
     @FXML
@@ -327,9 +329,9 @@ public class CustomersController implements Initializable {
     @FXML
     private void newCustomer() {
         String name = txtCustomerName.getText().trim();
-        String phoneNumber = txtCustomerName.getText().trim();
-        String email = txtCustomerName.getText().trim();
-        String it = txtCustomerName.getText().trim();
+        String phoneNumber = txtCustomerNumber.getText().trim();
+        String email = txtEmail.getText().trim();
+        String it = txtIt.getText().trim();
 
         if (name.isEmpty()) {
             txtCustomerName.requestFocus();
@@ -371,7 +373,7 @@ public class CustomersController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddCustomer();
-            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MESSAGE_ADDED);
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, tblCustomers, Constants.MESSAGE_ADDED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
@@ -385,7 +387,7 @@ public class CustomersController implements Initializable {
             loadData();
             cleanControls();
             closeDialogDeleteCustomer();
-            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MESSAGE_DELETED);
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, tblCustomers, Constants.MESSAGE_DELETED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
@@ -394,19 +396,27 @@ public class CustomersController implements Initializable {
     @FXML
     private void updateCustomer() {
         String name = txtCustomerName.getText().trim();
-        String phoneNumber = txtCustomerName.getText().trim();
-        String email = txtCustomerName.getText().trim();
-        String it = txtCustomerName.getText().trim();
+        String phoneNumber = txtCustomerNumber.getText().trim();
+        String email = txtEmail.getText().trim();
+        String it = txtIt.getText().trim();
 
         if (name.isEmpty()) {
-            new Shake(txtCustomerName).play();
+            txtCustomerName.requestFocus();
+            Animations.shake(txtCustomerName);
+            return;
         }
+
         if (phoneNumber.isEmpty()) {
-            new Shake(txtCustomerNumber).play();
+            txtCustomerNumber.requestFocus();
+            Animations.shake(txtCustomerNumber);
+            return;
         }
+
         if (!validateEmailAddress(email) && !email.isEmpty() && !email.equals(NOT_AVAILABLE)) {
-            new Shake(txtEmail).play();
+            txtEmail.requestFocus();
+            Animations.shake(txtEmail);
             NotificationsBuilder.create(NotificationType.ERROR, INVALID_EMAIL);
+            return;
         }
 
         Customers customers = tblCustomers.getSelectionModel().getSelectedItem();
@@ -431,7 +441,7 @@ public class CustomersController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddCustomer();
-            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, txtEmail, btnDelete, Constants.MESSAGE_UPDATED);
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, tblCustomers, Constants.MESSAGE_UPDATED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
@@ -486,13 +496,12 @@ public class CustomersController implements Initializable {
                 closeDialogAddCustomer();
             }
 
-            if (AlertsBuilder.dialog != null) {
-                if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                    tblCustomers.setDisable(false);
-                    rootCustomers.setEffect(null);
-                    AlertsBuilder.dialog.close();
-                }
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                tblCustomers.setDisable(false);
+                rootCustomers.setEffect(null);
+                AlertsBuilder.close();
             }
+
         });
     }
 
