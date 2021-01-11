@@ -1,7 +1,5 @@
 package com.laynezcoder.estfx.controllers;
 
-import animatefx.animation.FadeInUp;
-import animatefx.animation.FadeOutUp;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -19,7 +17,6 @@ import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.estfx.util.JFXDialogTool;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,10 +41,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import static javafx.scene.input.KeyCode.ESCAPE;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -59,6 +56,8 @@ import javafx.stage.Stage;
 
 public class ProductsController implements Initializable {
 
+    private final ColorAdjust colorAdjust = new ColorAdjust();
+
     private final long LIMIT = 1000000;
 
     private final String ALREADY_EXISTS = "There is already a product with this barcode";
@@ -68,9 +67,6 @@ public class ProductsController implements Initializable {
     private ObservableList<Products> listProducts;
 
     private ObservableList<Products> filterProducts;
-
-    @FXML
-    private BorderPane imageContainer;
 
     @FXML
     private StackPane stckProducts;
@@ -187,7 +183,7 @@ public class ProductsController implements Initializable {
     private Pane paneContainer;
 
     @FXML
-    private MaterialDesignIconView icon;
+    private HBox imageContainer;
 
     private JFXDialogTool dialogAddProduct;
 
@@ -206,10 +202,23 @@ public class ProductsController implements Initializable {
         validateUser();
         selectText();
         setValidations();
+        initializeImage();
         characterLimiter();
         closeDialogWithEscapeKey();
         closeDialogWithTextFields();
         setTextIfFieldIsEmpty();
+    }
+
+    private void initializeImage() {
+        imageContainer.hoverProperty().addListener((o, oldV, newV) -> {
+            if (newV) {
+                colorAdjust.setBrightness(0.25);
+                imageProduct.setEffect(colorAdjust);
+            } else {
+                imageProduct.setEffect(null);
+            }
+        });
+
         imageContainer.setPadding(new Insets(5));
         filterProducts = FXCollections.observableArrayList();
         imageProduct.setFitHeight(imageContainer.getPrefHeight() - 10);
@@ -220,13 +229,13 @@ public class ProductsController implements Initializable {
         Fonts.toButton(btnDelete, 15);
         Fonts.toButton(btnCancelDelete, 15);
         Fonts.toButton(btnSaveProduct, 15);
-        Fonts.toButton(btnNewProduct, 15);
+        Fonts.toButton(btnNewProduct, 12);
         Fonts.toButton(btnCancelAddProduct, 15);
         Fonts.toButton(btnUpdateProduct, 15);
-        Fonts.toText(textAddProduct, 12);
-        Fonts.toText(textPorcentage, 12);
-        Fonts.toText(textPurchase, 12);
-        Fonts.toText(titleWindowDeleteProducts, 12);
+        Fonts.toText(textAddProduct, 20);
+        Fonts.toText(textPorcentage, 13);
+        Fonts.toText(textPurchase, 13);
+        Fonts.toText(titleWindowDeleteProducts, 15);
         Fonts.toText(descriptionWindowDeleteProduct, 12);
     }
 
@@ -287,7 +296,6 @@ public class ProductsController implements Initializable {
 
         textAddProduct.setText("Add Product");
         imageContainer.toFront();
-        icon.setVisible(false);
         containerAddProduct.setVisible(true);
         btnSaveProduct.setDisable(false);
         btnUpdateProduct.setVisible(true);
@@ -311,7 +319,9 @@ public class ProductsController implements Initializable {
 
     @FXML
     private void closeDialogAddProduct() {
-        dialogAddProduct.close();
+        if (dialogAddProduct != null) {
+            dialogAddProduct.close();
+        }
     }
 
     @FXML
@@ -351,9 +361,9 @@ public class ProductsController implements Initializable {
             return;
         }
 
+        showDialogAddProduct();
         btnUpdateProduct.toFront();
         textAddProduct.setText("Update product");
-        showDialogAddProduct();
         selectedRecord();
 
     }
@@ -369,7 +379,6 @@ public class ProductsController implements Initializable {
         textAddProduct.setText("Product details");
         selectedRecord();
         paneContainer.toFront();
-        icon.setVisible(true);
         btnUpdateProduct.setVisible(false);
         btnSaveProduct.setDisable(true);
         btnSaveProduct.toFront();
@@ -513,11 +522,10 @@ public class ProductsController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddProduct();
-            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_ADDED);
+            AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_ADDED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
-
     }
 
     private InputStream getInputStream() {
@@ -648,7 +656,7 @@ public class ProductsController implements Initializable {
                 closeDialogAddProduct();
                 loadData();
                 cleanControls();
-                AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_UPDATED);
+                AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_UPDATED);
             } else {
                 NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
             }
@@ -658,7 +666,7 @@ public class ProductsController implements Initializable {
                 closeDialogAddProduct();
                 loadData();
                 cleanControls();
-                AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_UPDATED);
+                AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_UPDATED);
             } else {
                 NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
             }
@@ -672,7 +680,7 @@ public class ProductsController implements Initializable {
             loadData();
             cleanControls();
             hideDialogDeleteProduct();
-            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_DELETED);
+            AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_DELETED);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
         }
@@ -759,69 +767,63 @@ public class ProductsController implements Initializable {
 
     private void closeDialogWithEscapeKey() {
         rootProducts.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.DELETE)) {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddProduct();
             }
 
-            if (ev.getCode().equals(KeyCode.DELETE)) {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 hideDialogDeleteProduct();
             }
 
-            if (AlertsBuilder.dialog != null) {
-                if (ev.getCode().equals(KeyCode.DELETE)) {
-                    tblProducts.setDisable(false);
-                    rootProducts.setEffect(null);
-                    AlertsBuilder.dialog.close();
-                }
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                tblProducts.setDisable(false);
+                rootProducts.setEffect(null);
+                AlertsBuilder.close();
             }
+
         });
     }
 
     private void closeDialogWithTextFields() {
         txtBarCode.setOnKeyReleased(ev -> {
-            if (ev.getCode() == ESCAPE) {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddProduct();
-                tblProducts.setDisable(false);
             }
         });
 
         txtNameProduct.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.DELETE)) {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddProduct();
-                tblProducts.setDisable(false);
             }
         });
 
         txtPurchasePrice.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.DELETE)) {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddProduct();
-                tblProducts.setDisable(false);
             }
         });
 
         txtSalePrice.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.DELETE)) {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddProduct();
-                tblProducts.setDisable(false);
             }
         });
 
         txtDescriptionProduct.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.DELETE)) {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddProduct();
-                tblProducts.setDisable(false);
             }
         });
 
         txtPorcentage.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.DELETE)) {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddProduct();
                 tblProducts.setDisable(false);
             }
         });
 
         txtMinPrice.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.DELETE)) {
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddProduct();
                 tblProducts.setDisable(false);
             }
@@ -887,24 +889,22 @@ public class ProductsController implements Initializable {
 
     private void calculateSalePrice() {
         txtPurchasePrice.setOnKeyReleased(ev -> {
-            if (!txtSalePrice.getText().isEmpty() || txtSalePrice.getText().isEmpty()) {
-                if (txtPurchasePrice.getText().isEmpty()) {
-                    txtPurchasePrice.setText("0");
-                }
-
-                if (txtPurchasePrice.isFocused() && txtPurchasePrice.getText().equals("0")) {
-                    txtPurchasePrice.selectAll();
-                }
-
-                if (txtPorcentage.getText().isEmpty()) {
-                    txtPorcentage.setText("0");
-                }
-
-                double purchasePrice = Double.valueOf(txtPurchasePrice.getText());
-                int porcentage = Integer.parseInt(txtPorcentage.getText());
-                double salePrice = ((purchasePrice * porcentage) / 100) + purchasePrice;
-                txtSalePrice.setText(String.valueOf(salePrice));
+            if (txtPurchasePrice.getText().isEmpty()) {
+                txtPurchasePrice.setText("0");
             }
+
+            if (txtPurchasePrice.isFocused() && txtPurchasePrice.getText().equals("0")) {
+                txtPurchasePrice.selectAll();
+            }
+
+            if (txtPorcentage.getText().isEmpty()) {
+                txtPorcentage.setText("0");
+            }
+
+            double purchasePrice = Double.valueOf(txtPurchasePrice.getText());
+            int porcentage = Integer.parseInt(txtPorcentage.getText());
+            double salePrice = ((purchasePrice * porcentage) / 100) + purchasePrice;
+            txtSalePrice.setText(String.valueOf(salePrice));
         });
 
         txtPorcentage.setOnKeyReleased(ev -> {
@@ -931,9 +931,7 @@ public class ProductsController implements Initializable {
     private void showFileChooser() {
         imageFile = getImageFromFileChooser(getStage());
         if (imageFile != null) {
-            Image image = new Image(imageFile.toURI().toString(),
-                    imageProduct.getFitWidth() - 10,
-                    imageProduct.getFitHeight() - 10, true, true);
+            Image image = new Image(imageFile.toURI().toString(), 200, 200, true, true);
             imageProduct.setImage(image);
             setInitialDirectory();
         }
@@ -972,52 +970,35 @@ public class ProductsController implements Initializable {
     }
 
     private void expandImage(int id, String title) {
-        new FadeOutUp(icon).play();
-        paneContainer.hoverProperty().addListener((o, oldValue, newValue) -> {
-            if (newValue) {
-                new FadeInUp(icon).play();
+        paneContainer.hoverProperty().addListener((o, oldV, newV) -> {
+            if (newV) {
+                colorAdjust.setBrightness(0.25);
+                imageProduct.setEffect(colorAdjust);
             } else {
-                new FadeOutUp(icon).play();
+                imageProduct.setEffect(null);
             }
         });
 
-        icon.setOnMouseClicked(ev -> {
+        paneContainer.setOnMouseClicked(ev -> {
             final Image image = DatabaseHelper.getProductImage(id);
-            double widthImage = image.getWidth();
-            double heightImage = image.getHeight();
-
             final ImageView imageView = new ImageView(image);
-            double widthImageView = imageView.getFitWidth();
-            double heightImageView = imageView.getFitHeight();
+            imageView.setPreserveRatio(true);
+            imageView.setFitWidth(550);
+            
+            final BorderPane boderPane = new BorderPane(imageView);
+            boderPane.setStyle("-fx-background-color: white");
+            boderPane.setCenter(imageView);
+            
+            final ScrollPane root = new ScrollPane(boderPane);
+            root.setStyle("-fx-background-color: white");
+            root.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            root.getStylesheets().add(Constants.LIGHT_THEME);
+            root.getStyleClass().add("scroll-bar");
+            
+            root.setFitToHeight(true);
+            root.setFitToWidth(true);
 
-            if (widthImage > 1000 || heightImage > 600) {
-                imageView.setFitHeight(heightImage / 2);
-                imageView.setFitWidth(widthImage / 2);
-
-                final BorderPane borderPane = new BorderPane();
-                borderPane.setPrefSize(widthImageView, heightImageView);
-                borderPane.setCenter(imageView);
-
-                final ScrollPane scrollPane = new ScrollPane();
-                scrollPane.setFitToWidth(true);
-                scrollPane.setFitToHeight(true);
-                scrollPane.setContent(borderPane);
-                scrollPane.setStyle("-fx-background-color: white");
-                scrollPane.getStylesheets().add(Constants.LIGHT_THEME);
-                scrollPane.getStyleClass().add("scroll-bar");
-
-                stage.setScene(new Scene(scrollPane, 1000, 600));
-            } else {
-                imageView.setFitHeight(heightImage);
-                imageView.setFitWidth(widthImage);
-
-                final BorderPane borderPane = new BorderPane();
-                borderPane.setCenter(imageView);
-                borderPane.setStyle("-fx-background-color: white");
-                borderPane.setPrefSize(widthImage, heightImage);
-
-                stage.setScene(new Scene(borderPane, widthImage, heightImage));
-            }
+            stage.setScene(new Scene(root, 550, 555));
             stage.setTitle(title);
             stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.show();

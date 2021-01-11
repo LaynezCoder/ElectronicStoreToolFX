@@ -6,6 +6,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
@@ -14,7 +15,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -146,20 +146,22 @@
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
                   </JFXButton>
-                  <BorderPane fx:id="imageContainer" layoutX="40.0" layoutY="215.0" onMouseClicked="#showFileChooser" prefHeight="146.0" prefWidth="195.0" style="-fx-border-color: #bebec2;">
-                     <center>
-                        <ImageView fx:id="imageProduct" fitHeight="146.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                  <HBox fx:id="imageContainer" alignment="CENTER" layoutX="40.0" layoutY="216.0" maxWidth="200.0" onMouseClicked="#showFileChooser" prefHeight="146.0" prefWidth="197.0">
+                     <children>
+                        <ImageView fx:id="imageProduct" fitHeight="146.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../media/empty-image.jpg" />
                            </image>
                         </ImageView>
-                     </center>
-                  </BorderPane>
-                  <Pane fx:id="paneContainer" layoutX="40.0" layoutY="215.0" prefHeight="146.0" prefWidth="197.0">
-                     <children>
-                        <MaterialDesignIconView fx:id="icon" fill="#bebec2" glyphName="ARROW_EXPAND" layoutX="160.0" layoutY="133.0" size="25" />
                      </children>
-                  </Pane>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <Pane fx:id="paneContainer" layoutX="40.0" layoutY="216.0" prefHeight="146.0" prefWidth="197.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Pane>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="containerDeleteProducts" layoutX="289.0" layoutY="216.0" prefHeight="246.0" prefWidth="392.0" visible="false">
