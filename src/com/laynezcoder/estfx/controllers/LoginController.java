@@ -39,7 +39,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
- 
+
     private final String INCORRECT_CREDENTIALS = "Incorrect user or password";
 
     @FXML
@@ -116,44 +116,52 @@ public class LoginController implements Initializable {
             Animations.shake(pfPassword);
             Animations.shake(paneIcon);
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
-        } else if (user.isEmpty()) {
+            return;
+        }
+        
+        if (user.isEmpty()) {
             txtUser.requestFocus();
             Animations.shake(txtUser);
-        } else if (pass.isEmpty()) {
+            return;
+        }
+        
+        if (pass.isEmpty()) {
             pfPassword.requestFocus();
             Animations.shake(pfPassword);
             Animations.shake(paneIcon);
-        } else {
-            try {
-                String sql = "SELECT id, nameUser FROM Users WHERE email = BINARY ? AND pass = BINARY ?";
-                PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-                preparedStatement.setString(1, user);
-                preparedStatement.setString(2, pass);
-
-                ResultSet rs = preparedStatement.executeQuery();
-                if (rs.next()) {
-                    int id = rs.getInt("id");
-                    String nameUser = rs.getString("nameUser");
-
-                    boolean result = DatabaseHelper.insertUserSession(id);
-                    if (result) {
-                        loadMain();
-                        NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + nameUser + "!");
-                    } else {
-                        NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
-                    }
-                } else {
-                    NotificationsBuilder.create(NotificationType.ERROR, INCORRECT_CREDENTIALS);
-                    Animations.shake(txtUser);
-                    Animations.shake(pfPassword);
-                    Animations.shake(txtPassword);
-                    Animations.shake(paneIcon);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
-            }
+            return;
         }
+
+        try {
+            String sql = "SELECT id, nameUser FROM Users WHERE email = BINARY ? AND pass = BINARY ?";
+            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, user);
+            preparedStatement.setString(2, pass);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String nameUser = rs.getString("nameUser");
+
+                boolean result = DatabaseHelper.insertUserSession(id);
+                if (result) {
+                    loadMain();
+                    NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + nameUser + "!");
+                } else {
+                    NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+                }
+            } else {
+                NotificationsBuilder.create(NotificationType.ERROR, INCORRECT_CREDENTIALS);
+                Animations.shake(txtUser);
+                Animations.shake(pfPassword);
+                Animations.shake(txtPassword);
+                Animations.shake(paneIcon);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+        }
+
     }
 
     private void loadMain() {
