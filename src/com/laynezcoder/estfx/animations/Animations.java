@@ -18,18 +18,18 @@ public class Animations {
         new FadeInUp(node).play();
     }
 
-    public static void fadeOutWithDuration(Node node) {
-        FadeOut fadeOut = new FadeOut(node);
-        fadeOut.setSpeed(10);
-        fadeOut.play();
-    }
-    
     public static void fadeOut(Node node) {
         new FadeOut(node).play();
     }
 
     public static void shake(Node node) {
         new Shake(node).play();
+    }
+
+    public static void fadeOutWithDuration(Node node) {
+        FadeOut fadeOut = new FadeOut(node);
+        fadeOut.setSpeed(10);
+        fadeOut.play();
     }
 
     public static void tooltip(Node node, Node tooltip) {
