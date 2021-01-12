@@ -179,8 +179,8 @@ public class StartController implements Initializable {
     }
 
     private void startConfig() {
-        textProgressBar.setText("1 of 3");
         progressBar.setProgress(0.00);
+        textProgressBar.setText("1 of 3");
 
         Animations.fadeInUp(title);
         Animations.fadeInUp(textProgressBar);
@@ -193,8 +193,7 @@ public class StartController implements Initializable {
         paneStep2.setVisible(false);
 
         textProgressBar.setText("1 of 3");
-        progressBar.setProgress(0.00);
-
+        Animations.progressAnimation(progressBar, 0.00);
         Animations.fadeInUp(paneStep1);
         Animations.fadeInUp(paneControlsStep1);
         Animations.fadeInUp(textStep1);
@@ -267,8 +266,7 @@ public class StartController implements Initializable {
         paneStep3.setVisible(false);
 
         textProgressBar.setText("2 of 3");
-        progressBar.setProgress(0.33);
-
+        Animations.progressAnimation(progressBar, 0.33);
         Animations.fadeInUp(paneStep2);
         Animations.fadeInUp(textStep2);
         Animations.fadeInUp(txtBio);
@@ -278,6 +276,7 @@ public class StartController implements Initializable {
     @FXML
     private void stepTwoToStepThree() {
         bio = txtBio.getText().trim();
+
         if (bio.isEmpty()) {
             Animations.shake(txtBio);
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
@@ -292,8 +291,7 @@ public class StartController implements Initializable {
         paneStep3.setVisible(true);
 
         textProgressBar.setText("3 of 3");
-        progressBar.setProgress(0.66);
-
+        Animations.progressAnimation(progressBar, 0.66);
         Animations.fadeInUp(paneStep3);
         Animations.fadeInUp(textStep3);
         Animations.fadeInUp(cmbDialogTransition);
@@ -307,29 +305,21 @@ public class StartController implements Initializable {
 
         paneStep3.setVisible(false);
         paneFinish.setVisible(true);
+
         textProgressBar.setText("Finalized");
-        progressBar.setProgress(1);
-
-        textProgressBar.setLayoutX(599);
-        textProgressBar.setLayoutY(553);
-
+        Animations.progressAnimation(progressBar, 1);
         Animations.fadeInUp(paneFinish);
         Animations.fadeInUp(spinner);
+        Animations.fadeOutWithDuration(btnStart);
+        Animations.fadeOutWithDuration(finishText);
 
-        FadeOut fadeOut1 = new FadeOut(btnStart);
-        fadeOut1.setSpeed(10);
-        fadeOut1.play();
-
-        FadeOut fadeOut2 = new FadeOut(finishText);
-        fadeOut2.setSpeed(10);
-        fadeOut2.play();
-
-        PauseTransition pt = new PauseTransition(Duration.seconds(5));
+        PauseTransition pt = new PauseTransition(Duration.seconds(3));
         pt.setOnFinished(ev -> {
-            new FadeOut(spinner).play();
+            Animations.fadeOut(spinner);
             Animations.fadeInUp(btnStart);
             Animations.fadeInUp(finishText);
         });
+
         pt.play();
     }
 
@@ -382,14 +372,13 @@ public class StartController implements Initializable {
     @FXML
     private void mainWindow() {
         try {
-            Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource(Constants.MAIN_VIEW));
-            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle(Constants.TITLE);
             stage.initStyle(StageStyle.DECORATED);
-            stage.setScene(scene);
             stage.setMinHeight(Constants.MIN_HEIGHT);
             stage.setMinWidth(Constants.MIN_WIDTH);
-            stage.setTitle(Constants.TITLE);
             stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.show();
             closeStage();
@@ -399,7 +388,7 @@ public class StartController implements Initializable {
                     stage.setFullScreen(!stage.isFullScreen());
                 }
             });
-            
+
             NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + name + "!");
         } catch (IOException ex) {
             Logger.getLogger(StartController.class.getName()).log(Level.SEVERE, null, ex);

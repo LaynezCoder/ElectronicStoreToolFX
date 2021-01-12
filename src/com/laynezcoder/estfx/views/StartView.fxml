@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -159,16 +160,21 @@
                   <ImageView fitHeight="600.0" fitWidth="250.0" onMouseDragged="#dragged" onMousePressed="#pressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../media/welcome.png" />
-                     </image></ImageView>
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
-            <JFXProgressBar fx:id="progressBar" layoutX="504.0" layoutY="564.0" prefHeight="8.0" prefWidth="243.0" progress="0.43" styleClass="jfx-progress-bar" />
-            <Text fx:id="textProgressBar" fill="#bebec2" layoutX="607.0" layoutY="553.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 of 3" />
             <JFXButton contentDisplay="CENTER" layoutX="964.0" onMouseClicked="#closeWindow" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
                <graphic>
                   <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                </graphic>
             </JFXButton>
+            <VBox alignment="CENTER" layoutX="250.0" layoutY="540.0" prefHeight="60.0" prefWidth="750.0" spacing="10.0">
+               <children>
+                  <Text fx:id="textProgressBar" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="1 of 3" />
+                  <JFXProgressBar fx:id="progressBar" prefHeight="8.0" prefWidth="243.0" progress="0.43" styleClass="jfx-progress-bar" />
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </children>
