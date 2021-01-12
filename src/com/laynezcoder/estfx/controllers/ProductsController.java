@@ -206,7 +206,7 @@ public class ProductsController implements Initializable {
         characterLimiter();
         closeDialogWithEscapeKey();
         closeDialogWithTextFields();
-        setTextIfFieldIsEmpty();
+        setTextIfFieldIsEmpty();    
     }
 
     private void initializeImage() {
@@ -421,6 +421,7 @@ public class ProductsController implements Initializable {
         }
         listProducts = FXCollections.observableArrayList(list);
         tblProducts.setItems(listProducts);
+        tblProducts.setFixedCellSize(30);
     }
 
     private void selectedRecord() {

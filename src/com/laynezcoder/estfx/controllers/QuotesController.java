@@ -426,6 +426,7 @@ public class QuotesController implements Initializable {
         }
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);
+        tblQuotes.setFixedCellSize(30);
     }
 
     private void loadComboBox() {
