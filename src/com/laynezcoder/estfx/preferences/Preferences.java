@@ -50,7 +50,7 @@ public class Preferences {
             preferences= gson.fromJson(new FileReader(CONFIG_FILE), Preferences.class);
         } catch (FileNotFoundException ex) {
             initConfig();
-            Logger.getLogger(Preferences.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Preferences.class.getName()).log(Level.SEVERE, WARNING_MESSAGE, ex);
             NotificationsBuilder.create(NotificationType.INFORMATION, WARNING_MESSAGE);
         }
         return preferences;
