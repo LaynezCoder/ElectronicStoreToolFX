@@ -539,7 +539,7 @@ public class ProductsController implements Initializable {
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_IMAGE_NOT_FOUND);
+            NotificationsBuilder.create(NotificationType.INFORMATION, Constants.MESSAGE_IMAGE_NOT_FOUND);
             is = ProductsController.class.getResourceAsStream(Constants.NO_IMAGE_AVAILABLE);
         }
         return is;
