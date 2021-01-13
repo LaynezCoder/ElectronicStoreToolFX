@@ -38,6 +38,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -80,7 +81,10 @@ public class SettingsController implements Initializable {
     private JFXButton btnSave;
 
     @FXML
-    private Group imageProfileContainer;
+    private Pane imageProfileContainer;
+    
+    @FXML
+    private Group parentImage;
 
     @FXML
     private HBox headerContainer;
@@ -113,17 +117,7 @@ public class SettingsController implements Initializable {
     }
 
     private void effectEditImageProfile() {
-        imageProfileContainer.hoverProperty().addListener((o, oldV, newV) -> {
-            if (!oldV) {
-                Animations.fadeInUp(icon);
-                colorAdjust.setBrightness(-0.5);
-                imageViewProfile.setEffect(colorAdjust);
-                icon.setVisible(true);
-            } else {
-                imageViewProfile.setEffect(null);
-                icon.setVisible(false);
-            }
-        });
+        Animations.fade(parentImage, imageProfileContainer, icon);
     }
 
     private void initializeProfileImage() {
@@ -132,6 +126,11 @@ public class SettingsController implements Initializable {
         circle.setCenterX(imageViewProfile.getFitWidth() / 2);
         circle.setCenterY(imageViewProfile.getFitHeight() / 2);
         imageViewProfile.setClip(circle);
+        
+        Circle clip = new Circle(45);
+        clip.setCenterX(imageViewProfile.getFitWidth() / 2);
+        clip.setCenterY(imageViewProfile.getFitHeight() / 2);
+        imageProfileContainer.setClip(clip);
     }
 
     private void loadProfileImage() {
@@ -367,7 +366,7 @@ public class SettingsController implements Initializable {
                     Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+                NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_IMAGE_LARGE);
             }
         }
     }
