@@ -8,7 +8,6 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Products;
@@ -197,7 +196,6 @@ public class ProductsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
         setMask();
-        setFonts();
         animateNodes();
         validateUser();
         selectText();
@@ -223,20 +221,6 @@ public class ProductsController implements Initializable {
         filterProducts = FXCollections.observableArrayList();
         imageProduct.setFitHeight(imageContainer.getPrefHeight() - 10);
         imageProduct.setFitWidth(imageContainer.getPrefWidth() - 10);
-    }
-
-    private void setFonts() {
-        Fonts.toButton(btnDelete, 15);
-        Fonts.toButton(btnCancelDelete, 15);
-        Fonts.toButton(btnSaveProduct, 15);
-        Fonts.toButton(btnNewProduct, 12);
-        Fonts.toButton(btnCancelAddProduct, 15);
-        Fonts.toButton(btnUpdateProduct, 15);
-        Fonts.toText(textAddProduct, 20);
-        Fonts.toText(textPorcentage, 13);
-        Fonts.toText(textPurchase, 13);
-        Fonts.toText(titleWindowDeleteProducts, 15);
-        Fonts.toText(descriptionWindowDeleteProduct, 12);
     }
 
     private void animateNodes() {

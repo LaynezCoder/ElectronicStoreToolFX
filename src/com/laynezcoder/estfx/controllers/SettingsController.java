@@ -10,7 +10,6 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Users;
@@ -107,7 +106,6 @@ public class SettingsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         animationNodes();
         selectText();
-        setFonts();
         loadData();
         validations();
         setMask();
@@ -304,12 +302,6 @@ public class SettingsController implements Initializable {
 
     private void setOptionsToComboBox() {
         cmbDialogTransition.getItems().addAll("Left", "Right", "Top", "Bottom", "Center");
-    }
-
-    private void setFonts() {
-        Fonts.toButton(btnSave, 14);
-        Fonts.toText(textName, 16);
-        Fonts.toText(textUserType, 12);
     }
 
     private void animationNodes() {

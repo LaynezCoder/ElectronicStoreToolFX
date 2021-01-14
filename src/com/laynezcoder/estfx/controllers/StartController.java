@@ -1,6 +1,5 @@
 package com.laynezcoder.estfx.controllers;
 
-import animatefx.animation.FadeOut;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
@@ -13,7 +12,6 @@ import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Users;
@@ -148,7 +146,6 @@ public class StartController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         startConfig();
-        setFonts();
         selectText();
         setMask();
         validations();
@@ -159,23 +156,6 @@ public class StartController implements Initializable {
     private void setOptionsToComboBox() {
         cmbDialogTransition.getItems().addAll("Left", "Right", "Top", "Bottom", "Center");
         cmbDialogTransition.setValue("Center");
-    }
-
-    private void setFonts() {
-        Fonts.toText(title, 20);
-        Fonts.toText(textStep1, 14);
-        Fonts.toText(textStep2, 14);
-        Fonts.toText(textProgressBar, 12);
-        Fonts.toText(textStep3, 12);
-        Fonts.toText(finish, 12);
-        Fonts.toText(finishText, 15);
-        Fonts.toButton(btnStep1, 12);
-        Fonts.toButton(btnBackStep2, 12);
-        Fonts.toButton(btnStep3, 12);
-        Fonts.toButton(btnDialogStep3, 12);
-        Fonts.toButton(btnBackStep2, 12);
-        Fonts.toButton(btnBackStep3, 12);
-        Fonts.toButton(btnStart, 12);
     }
 
     private void startConfig() {
@@ -416,7 +396,7 @@ public class StartController implements Initializable {
 
         JFXButton button = new JFXButton("¡ok!");
         button.getStylesheets().add(Constants.LIGHT_THEME);
-        button.getStyleClass().add("button-start-dialog");
+        button.getStyleClass().add("button-start");
 
         String body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         JFXDialog dialog = new JFXDialog(stckStart, dialogLayout, JFXDialog.DialogTransition.valueOf(getDialogTransition()));

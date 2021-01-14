@@ -7,7 +7,6 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Customers;
@@ -137,24 +136,11 @@ public class CustomersController implements Initializable {
         setValidations();
         selectText();
         loadData();
-        setFonts();
         setMask();
         animateNodes();
         deleteUserDeleteKey();
         closeDialogWithTextFields();
         closeDialogWithEscapeKey();
-    }
-
-    private void setFonts() {
-        Fonts.toButton(btnUpdateCustomer, 15);
-        Fonts.toButton(btnSaveCustomer, 15);
-        Fonts.toButton(btnCancelDelete, 15);
-        Fonts.toButton(btnAddCustomer, 12);
-        Fonts.toButton(btnCancel, 15);
-        Fonts.toButton(btnDelete, 15);
-        Fonts.toText(titleAddCustomer, 20);
-        Fonts.toText(textConfirmation, 15);
-        Fonts.toText(description, 12);
     }
 
     private void animateNodes() {

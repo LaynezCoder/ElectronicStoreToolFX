@@ -19,11 +19,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="stckCustomers" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.CustomersController">
+<StackPane fx:id="stckCustomers" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../../../../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.CustomersController">
    <children>
       <AnchorPane fx:id="rootCustomers" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <TableView fx:id="tblCustomers" layoutX="11.0" layoutY="76.0" prefHeight="478.0" prefWidth="909.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0">
+            <TableView fx:id="tblCustomers" layoutX="11.0" layoutY="76.0" prefHeight="478.0" prefWidth="909.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0">
                <columns>
                   <TableColumn fx:id="colCodigoCliente" maxWidth="1200.0" prefWidth="75.0" text="Id" />
                   <TableColumn fx:id="colNombreCliente" prefWidth="75.0" text="Customer name" />
@@ -57,7 +57,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <JFXButton fx:id="btnAddCustomer" layoutX="797.0" layoutY="23.0" onMouseClicked="#showDialogddCustomer" prefHeight="39.0" prefWidth="131.0" styleClass="login-jfx-button" text="New customer" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="23.0">
+            <JFXButton fx:id="btnAddCustomer" layoutX="797.0" layoutY="23.0" onMouseClicked="#showDialogddCustomer" prefHeight="39.0" prefWidth="131.0" styleClass="action-button" text="New customer" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="23.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -71,19 +71,19 @@
                </padding>
                <children>
                   <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="20" translateY="10.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="txtSearchCustomer" onKeyReleased="#filterNameCustomer" prefHeight="25.0" prefWidth="335.0" promptText="Search Customer" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="txtSearchCustomer" onKeyReleased="#filterNameCustomer" prefHeight="25.0" prefWidth="335.0" promptText="Search Customer" styleClass="text-field-search" translateY="10.0" HBox.hgrow="ALWAYS" />
                   <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="20" translateY="10.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="txtSearchNumber" layoutX="233.0" layoutY="10.0" onKeyReleased="#filterNumberCustomer" prefHeight="25.0" prefWidth="329.0" promptText="Search number" style="-fx-background-color: white};" styleClass="jfx-text-field-login" translateY="10.0" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="txtSearchNumber" layoutX="233.0" layoutY="10.0" onKeyReleased="#filterNumberCustomer" prefHeight="25.0" prefWidth="329.0" promptText="Search number" styleClass="text-field-search" translateY="10.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <AnchorPane fx:id="containerDeleteCustomer" layoutX="269.0" layoutY="196.0" prefHeight="246.0" prefWidth="392.0" visible="false">
                <children>
-                  <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="209.0" layoutY="201.0" onMouseClicked="#deleteCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="delete-jfx-button" text="Delete" textFill="WHITE">
+                  <JFXButton fx:id="btnDelete" layoutX="209.0" layoutY="201.0" onMouseClicked="#deleteCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="button-delete" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancelDelete" buttonType="RAISED" layoutX="58.0" layoutY="201.0" onAction="#closeDialogDeleteCustomer" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel" textFill="GREY">
+                  <JFXButton fx:id="btnCancelDelete" layoutX="58.0" layoutY="201.0" onAction="#closeDialogDeleteCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="button-cancel" text="Cancel" textFill="GREY">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -95,11 +95,11 @@
                               <Image url="@../media/delete-person.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="textConfirmation" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete this client permanently?" textAlignment="CENTER" wrappingWidth="269.90625" />
-                        <Text fx:id="description" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" text="All related quotes will be removed" />
+                        <Text fx:id="textConfirmation" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure you want to delete this client permanently?" textAlignment="CENTER" wrappingWidth="269.90625" />
+                        <Text fx:id="description" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h5" text="All related quotes will be removed" />
                      </children>
                   </VBox>
-                  <JFXButton contentDisplay="CENTER" layoutX="360.0" onAction="#closeDialogDeleteCustomer" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                  <JFXButton contentDisplay="CENTER" layoutX="360.0" onAction="#closeDialogDeleteCustomer" prefHeight="28.0" prefWidth="20.0" styleClass="button-close" text=" ">
                      <graphic>
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
@@ -108,47 +108,47 @@
             </AnchorPane>
             <AnchorPane fx:id="containerAddCustomer" layoutX="166.0" layoutY="153.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="259.0" prefWidth="600.0" style="-fx-background-radius: 10;" visible="false">
                <children>
-                  <JFXTextField fx:id="txtCustomerName" focusColor="#2ab56f" labelFloat="true" layoutX="42.0" layoutY="77.0" prefHeight="25.0" prefWidth="239.0" promptText="Name" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
+                  <JFXTextField fx:id="txtCustomerName" focusColor="#2ab56f" labelFloat="true" layoutX="42.0" layoutY="77.0" prefHeight="25.0" prefWidth="239.0" promptText="Name" styleClass="jfx-text-field" unFocusColor="#bebec2">
                      <font>
                         <Font size="14.0" />
                      </font></JFXTextField>
-                  <JFXTextField fx:id="txtCustomerNumber" focusColor="#2ab56f" labelFloat="true" layoutX="303.0" layoutY="77.0" prefHeight="25.0" prefWidth="239.0" promptText="Phone number" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
+                  <JFXTextField fx:id="txtCustomerNumber" focusColor="#2ab56f" labelFloat="true" layoutX="303.0" layoutY="77.0" prefHeight="25.0" prefWidth="239.0" promptText="Phone number" styleClass="jfx-text-field" unFocusColor="#bebec2">
                      <font>
                         <Font size="14.0" />
                      </font></JFXTextField>
-                  <JFXTextField fx:id="txtEmail" focusColor="#2ab56f" labelFloat="true" layoutX="42.0" layoutY="152.0" prefHeight="25.0" prefWidth="239.0" promptText="Email" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
+                  <JFXTextField fx:id="txtEmail" focusColor="#2ab56f" labelFloat="true" layoutX="42.0" layoutY="152.0" prefHeight="25.0" prefWidth="239.0" promptText="Email" styleClass="jfx-text-field" unFocusColor="#bebec2">
                      <font>
                         <Font size="14.0" />
                      </font></JFXTextField>
-                  <JFXTextField fx:id="txtIt" focusColor="#2ab56f" labelFloat="true" layoutX="306.0" layoutY="152.0" prefHeight="25.0" prefWidth="239.0" promptText="It" styleClass="jfx-text-field-login" unFocusColor="#bebec2">
+                  <JFXTextField fx:id="txtIt" focusColor="#2ab56f" labelFloat="true" layoutX="306.0" layoutY="152.0" prefHeight="25.0" prefWidth="239.0" promptText="It" styleClass="jfx-text-field" unFocusColor="#bebec2">
                      <font>
                         <Font size="14.0" />
                      </font></JFXTextField>
-                  <JFXButton fx:id="btnUpdateCustomer" buttonType="RAISED" layoutX="312.0" layoutY="219.0" onMouseClicked="#updateCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="login-jfx-button" text="Uptade" textFill="WHITE">
+                  <JFXButton fx:id="btnUpdateCustomer" buttonType="RAISED" layoutX="312.0" layoutY="219.0" onMouseClicked="#updateCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="action-button" text="Uptade" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnSaveCustomer" buttonType="RAISED" layoutX="312.0" layoutY="219.0" onMouseClicked="#newCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="login-jfx-button" text="Save" textFill="WHITE">
+                  <JFXButton fx:id="btnSaveCustomer" layoutX="312.0" layoutY="219.0" onMouseClicked="#newCustomer" prefHeight="25.0" prefWidth="131.0" ripplerFill="#ff1212" styleClass="action-button" text="Save" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="166.0" layoutY="219.0" onAction="#closeDialogAddCustomer" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: white;" styleClass="cancel-delete" text="Cancel">
+                  <JFXButton fx:id="btnCancel" layoutX="166.0" layoutY="219.0" onAction="#closeDialogAddCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="button-cancel" text="Cancel">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
                   <HBox alignment="CENTER" layoutY="-2.0" prefHeight="68.0" prefWidth="600.0">
                      <children>
-                        <Text fx:id="titleAddCustomer" strokeType="OUTSIDE" strokeWidth="0.0" text="Add customer">
+                        <Text fx:id="titleAddCustomer" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Add customer">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Text>
                      </children>
                   </HBox>
-                  <JFXButton contentDisplay="CENTER" layoutX="564.0" onAction="#closeDialogAddCustomer" prefHeight="28.0" prefWidth="20.0" styleClass="close-jfx-button-customers" text=" ">
+                  <JFXButton contentDisplay="CENTER" layoutX="564.0" onAction="#closeDialogAddCustomer" prefHeight="28.0" prefWidth="20.0" styleClass="button-close" text=" ">
                      <graphic>
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>

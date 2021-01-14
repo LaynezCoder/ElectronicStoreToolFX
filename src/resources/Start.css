@@ -1,0 +1,61 @@
+/* 
+    Created on : 13-ene-2021, 23:55:39
+    Author     : LaynezCoder
+*/
+
+.button-start {
+    -fx-background-color: #2d3037;
+    -fx-text-fill: white;
+}
+
+.button-start .jfx-rippler {
+    -jfx-rippler-fill: none;
+}
+
+.button-start-back {
+    -fx-background-color: white;
+    -fx-border-color: #2d3037;
+    -fx-border-width: 1.5;
+    -fx-text-fill: black;
+}
+
+.button-start-back .jfx-rippler {
+    -jfx-rippler-fill: none;
+}
+
+.jfx-text-field-start {
+    -fx-font-size: 14;
+    -fx-accent:  #2d3037;
+    -jfx-focus-color: #2d3037;
+    -jfx-unfocus-color: #2d3037;
+}
+
+.combo-box-start {  
+    -fx-font-size: 14;
+    -jfx-focus-color: #2d3037;
+    -jfx-unfocus-color: #2d3037;
+    -fx-background-color: transparent;
+}
+
+.combo-box-start .jfx-rippler {
+    -jfx-rippler-fill: none;
+}
+
+.combo-box-popup-start .list-cell {    
+    -fx-background-color: white;    
+    -fx-text-fill: black;
+}
+
+.combo-box-popup-start .list-view .list-cell:filled:hover {
+    -fx-background-color: #2d3037;
+    -fx-text-fill: white;
+}
+
+.jfx-progress-bar > .track, .jfx-progress-bar > .bar {
+    -fx-background-radius: 30;
+}
+
+.jfx-progress-bar > .bar {
+    -fx-background-color:  #2d3037;
+}
+

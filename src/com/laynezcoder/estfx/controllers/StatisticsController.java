@@ -4,7 +4,6 @@ import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXPopup;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,7 +55,6 @@ public class StatisticsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setFont();
         setGraphics();
         setDatePicker();
         setPopup();
@@ -119,10 +117,6 @@ public class StatisticsController implements Initializable {
                 popup.setAnchorY(ev.getScreenY());
             }
         });
-    }
-
-    private void setFont() {
-        Fonts.toText(title, 35);
     }
 
     @FXML

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="stckMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="glyph-icon-main" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.MainController">
+<StackPane fx:id="stckMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="glyph-icon-main" stylesheets="@../../../../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.MainController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="930.0" style="-fx-background-color: f5f5f7;">
          <children>
@@ -141,7 +141,7 @@
             </AnchorPane>
             <AnchorPane fx:id="rootSideMenu" prefHeight="600.0" prefWidth="0.0" style="-fx-background-color: #2d3037;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" text=" " textFill="WHITE">
+                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff00" styleClass="main-view-button" text=" " textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -152,7 +152,7 @@
                         <MaterialDesignIconView fill="WHITE" glyphName="XING" size="25" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnHome" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="60.0" onMouseClicked="#homeWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="WHITE" styleClass="jfx-button-main" text=" " textFill="WHITE">
+                  <JFXButton fx:id="btnHome" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="60.0" onMouseClicked="#homeWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="WHITE" styleClass="main-view-button" text=" " textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -163,7 +163,7 @@
                         <Insets />
                      </opaqueInsets>
                   </JFXButton>
-                  <JFXButton fx:id="btnCustomers" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="120.0" onMouseClicked="#customersWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="jfx-button-main" text=" " textFill="WHITE">
+                  <JFXButton fx:id="btnCustomers" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="120.0" onMouseClicked="#customersWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="main-view-button" text=" " textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -174,7 +174,7 @@
                         <Insets />
                      </opaqueInsets>
                   </JFXButton>
-                  <JFXButton fx:id="btnQuotes" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="180.0" onMouseClicked="#quotesWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="jfx-button-main" text="  " textFill="WHITE">
+                  <JFXButton fx:id="btnQuotes" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="180.0" onMouseClicked="#quotesWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="main-view-button" text="  " textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -185,7 +185,7 @@
                         <Insets />
                      </opaqueInsets>
                   </JFXButton>
-                  <JFXButton fx:id="btnProducts" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="240.0" onMouseClicked="#productsWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="jfx-button-main" text="  " textFill="WHITE">
+                  <JFXButton fx:id="btnProducts" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="240.0" onMouseClicked="#productsWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="main-view-button" text="  " textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -196,7 +196,7 @@
                         <MaterialDesignIconView fill="#76787c" glyphName="PRINTER" size="25" textOrigin="TOP" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnAddUser" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="300.0" onMouseClicked="#addUserWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="jfx-button-main" text=" " textFill="WHITE" AnchorPane.bottomAnchor="240.0">
+                  <JFXButton fx:id="btnAddUser" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="300.0" onMouseClicked="#addUserWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="main-view-button" text=" " textFill="WHITE" AnchorPane.bottomAnchor="240.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -207,7 +207,7 @@
                         <Insets />
                      </opaqueInsets>
                   </JFXButton>
-                  <JFXButton fx:id="btnStatistics" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="360.0" onMouseClicked="#statisticsWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="jfx-button-main" text=" " textFill="WHITE" AnchorPane.bottomAnchor="180.0">
+                  <JFXButton fx:id="btnStatistics" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="360.0" onMouseClicked="#statisticsWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="main-view-button" text=" " textFill="WHITE" AnchorPane.bottomAnchor="180.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -218,7 +218,7 @@
                         <Insets />
                      </opaqueInsets>
                   </JFXButton>
-                  <JFXButton fx:id="btnAbout" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="420.0" onMouseClicked="#aboutWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="jfx-button-main" text=" " textFill="WHITE" AnchorPane.bottomAnchor="120.0">
+                  <JFXButton fx:id="btnAbout" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="420.0" onMouseClicked="#aboutWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="main-view-button" text=" " textFill="WHITE" AnchorPane.bottomAnchor="120.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -229,7 +229,7 @@
                         <Insets />
                      </opaqueInsets>
                   </JFXButton>
-                  <JFXButton fx:id="btnSettings" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="480.0" onMouseClicked="#settingsWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="jfx-button-main" text=" " textFill="WHITE" AnchorPane.bottomAnchor="60.0">
+                  <JFXButton fx:id="btnSettings" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="480.0" onMouseClicked="#settingsWindows" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="main-view-button" text=" " textFill="WHITE" AnchorPane.bottomAnchor="60.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -240,7 +240,7 @@
                         <Insets />
                      </opaqueInsets>
                   </JFXButton>
-                  <JFXButton fx:id="btnExit" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="540.0" onMouseClicked="#loginWindow" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="jfx-button-main" text=" " textFill="WHITE" AnchorPane.bottomAnchor="0.0">
+                  <JFXButton fx:id="btnExit" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" ellipsisString="" layoutY="540.0" onMouseClicked="#loginWindow" prefHeight="60.0" prefWidth="70.0" ripplerFill="#ffffff16" styleClass="main-view-button" text=" " textFill="WHITE" AnchorPane.bottomAnchor="0.0">
                      <font>
                         <Font size="15.0" />
                      </font>

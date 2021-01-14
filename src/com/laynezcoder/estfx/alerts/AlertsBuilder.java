@@ -3,7 +3,6 @@ package com.laynezcoder.estfx.alerts;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.resources.Constants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,7 +31,6 @@ public class AlertsBuilder {
 
         JFXButton button = new JFXButton("Okey");
         button.getStyleClass().add(buttonStyle);
-        Fonts.toButton(button, 15);
 
         HBox buttonContainer = new HBox();
         buttonContainer.setLayoutY(115);
@@ -42,11 +40,9 @@ public class AlertsBuilder {
 
         Text textTitle = new Text(title);
         textTitle.getStyleClass().add(titleStyle);
-        Fonts.toText(textTitle, 30);
 
         Text textBody = new Text(body);
         textBody.getStyleClass().add(bodyStyle);
-        Fonts.toText(textBody, 15);
 
         VBox textContainer = new VBox();
         textContainer.setSpacing(5);
@@ -97,15 +93,15 @@ public class AlertsBuilder {
         switch (type) {
             case SUCCES:
                 title = "Succes!";
-                buttonStyle = "button-alert-success";
-                titleStyle = "title-alert-success";
-                bodyStyle = "body-alert-success";
+                buttonStyle = "alert-success-button";
+                titleStyle = "alert-success-title";
+                bodyStyle = "alert-success-body";
                 break;
             case ERROR:
                 title = "Oops!";
-                buttonStyle = "button-alert-error";
-                titleStyle = "title-alert-error";
-                bodyStyle = "body-alert-error";
+                buttonStyle = "alert-error-button";
+                titleStyle = "alert-error-title";
+                bodyStyle = "alert-error-body";
                 break;
         }
     }

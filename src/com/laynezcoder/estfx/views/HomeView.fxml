@@ -15,13 +15,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="stckHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.HomeController">
+<StackPane fx:id="stckHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../../../../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.HomeController">
    <children>
       <AnchorPane fx:id="rootHome" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f5f7;">
          <children>
             <AnchorPane fx:id="rootSearchMain" layoutX="16.0" layoutY="14.0" prefHeight="39.0" prefWidth="900.0" style="-fx-background-color: white; -fx-background-radius: 5;" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                <children>
-                  <TextField fx:id="txtSearchRecentCustomer" layoutX="44.0" onKeyReleased="#filterQuotes" prefHeight="39.0" prefWidth="356.0" promptText="Search recent" style="-fx-background-color: white;" styleClass="jfx-text-field-login" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="0.0">
+                  <TextField fx:id="txtSearchRecentCustomer" layoutX="44.0" onKeyReleased="#filterQuotes" prefHeight="39.0" prefWidth="356.0" promptText="Search recent" styleClass="text-field-search" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="0.0">
                      <font>
                         <Font size="13.0" />
                      </font></TextField>
@@ -37,12 +37,12 @@
                   </ImageView>
                   <VBox alignment="CENTER_LEFT" prefHeight="131.0" prefWidth="900.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Text fx:id="textWelcome" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back">
+                        <Text fx:id="textWelcome" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="Welcome back">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Text>
-                        <Text fx:id="textDescriptionWelcome" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="¿What do you think if you start adding a new client?">
+                        <Text fx:id="textDescriptionWelcome" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="¿What do you think if you start adding a new client?">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -54,7 +54,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <TableView fx:id="tblQuotes" layoutX="17.0" layoutY="388.0" prefHeight="163.0" prefWidth="900.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="388.0">
+            <TableView fx:id="tblQuotes" layoutX="17.0" layoutY="388.0" prefHeight="163.0" prefWidth="900.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="388.0">
                <columns>
                   <TableColumn fx:id="colId" maxWidth="1500.0" prefWidth="75.0" text="Id" />
                   <TableColumn fx:id="colDescription" prefWidth="75.0" text="Description" />
@@ -80,7 +80,7 @@
                                     <Font name="System Bold" size="50.0" />
                                  </font>
                               </Label>
-                              <Text fx:id="textCustomers" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="Total customers">
+                              <Text fx:id="textCustomers" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total customers">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -98,7 +98,7 @@
                                     <Font name="System Bold" size="50.0" />
                                  </font>
                               </Label>
-                              <Text fx:id="texQuotes" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Quotes">
+                              <Text fx:id="texQuotes" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total Quotes">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -116,7 +116,7 @@
                                     <Font name="System Bold" size="50.0" />
                                  </font>
                               </Label>
-                              <Text fx:id="textProducts" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="Total products">
+                              <Text fx:id="textProducts" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total products">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -134,7 +134,7 @@
                                     <Font name="System Bold" size="50.0" />
                                  </font>
                               </Label>
-                              <Text fx:id="textRecentQuotes" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent quotes">
+                              <Text fx:id="textRecentQuotes" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Recent quotes">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

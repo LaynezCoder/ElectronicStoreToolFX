@@ -9,7 +9,6 @@ import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.alerts.AlertType;
 import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.models.Users;
@@ -154,25 +153,12 @@ public class UsersController implements Initializable {
         setValidations();
         loadData();
         setMask();
-        setFonts();
         deleteUserDeleteKey();
         closeDialogWithEscapeKey();
         initalizeComboBox();
         selectTextFromTextField();
         closeDialogWithTextFields();
         filterUsers = FXCollections.observableArrayList();
-    }
-
-    private void setFonts() {
-        Fonts.toButton(btnUpdateUser, 15);
-        Fonts.toButton(btnNewUser, 12);
-        Fonts.toButton(btnDelete, 15);
-        Fonts.toButton(btnCancel, 15);
-        Fonts.toButton(btnSaveUser, 15);
-        Fonts.toButton(btnCancelDelete, 15);
-        Fonts.toText(description, 12);
-        Fonts.toText(titleAddUser, 20);
-        Fonts.toText(textConfirmation, 15);
     }
 
     private void setValidations() {
@@ -684,9 +670,9 @@ public class UsersController implements Initializable {
             button.getStylesheets().add(Constants.LIGHT_THEME);
 
             if (item.getUserType().equals("Administrator")) {
-                button.getStyleClass().addAll("cell-button-administrador", "table-row-cell");
+                button.getStyleClass().addAll("button-administrador");
             } else {
-                button.getStyleClass().addAll("cell-button-user", "table-row-cell");
+                button.getStyleClass().addAll("button-user");
             }
             return new SimpleObjectProperty<>(button);
         }

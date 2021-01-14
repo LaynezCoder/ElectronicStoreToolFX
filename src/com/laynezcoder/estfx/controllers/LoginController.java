@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.notifications.NotificationType;
@@ -70,7 +69,6 @@ public class LoginController implements Initializable {
         showPassword();
         setValidations();
         selectText();
-        setFonts();
         setMask();
         animations();
     }
@@ -81,11 +79,6 @@ public class LoginController implements Initializable {
         Animations.fadeInUp(txtPassword);
         Animations.fadeInUp(pfPassword);
         Animations.fadeInUp(btnLogin);
-    }
-
-    private void setFonts() {
-        Fonts.toText(title, 25);
-        Fonts.toButton(btnLogin, 15);
     }
 
     private void setValidations() {

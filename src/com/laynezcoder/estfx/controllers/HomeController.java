@@ -5,7 +5,6 @@ import com.laynezcoder.estfx.alerts.AlertType;
 import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.estfx.resources.Constants;
@@ -134,22 +133,12 @@ public class HomeController implements Initializable {
         productsCounter();
         setWelcomeText();
         loadData();
-        setFonts();
         selectText();
         filterQuotes = FXCollections.observableArrayList();
     }
 
     private void selectText() {
         TextFieldMask.selectText(txtSearchRecentCustomer);
-    }
-
-    private void setFonts() {
-        Fonts.toText(textWelcome, 25);
-        Fonts.toText(textDescriptionWelcome, 15);
-        Fonts.toText(textCustomers, 15);
-        Fonts.toText(texQuotes, 15);
-        Fonts.toText(textProducts, 15);
-        Fonts.toText(textRecentQuotes, 15);
     }
 
     private void animationsNodes() {
@@ -322,10 +311,10 @@ public class HomeController implements Initializable {
 
             if (item.getExistence().equals(Constants.EXISTENT)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-yes");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-no");
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -348,10 +337,10 @@ public class HomeController implements Initializable {
 
             if (item.getReport().equals(Constants.REPORTED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-yes");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-no");
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -374,10 +363,10 @@ public class HomeController implements Initializable {
 
             if (item.getRealization().equals(Constants.REALIZED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-yes");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-no");
             }
             return new SimpleObjectProperty<>(button);
         }

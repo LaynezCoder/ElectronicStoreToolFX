@@ -12,7 +12,6 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.fonts.Fonts;
 import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Customers;
@@ -170,7 +169,6 @@ public class QuotesController implements Initializable {
         closeDialogWithEscapeKey();
         loadData();
         setMask();
-        setFonts();
         animateNodes();
         setValidations();
         selectText();
@@ -180,18 +178,6 @@ public class QuotesController implements Initializable {
     private void initializeComboBox() {
         loadComboBox();
         AutocompleteComboBox.autoCompleteComboBoxPlus(cmbIdCustomer, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
-    }
-
-    private void setFonts() {
-        Fonts.toButton(btnDelete, 15);
-        Fonts.toButton(btnCancelAdd, 15);
-        Fonts.toButton(btnSaveQuotes, 15);
-        Fonts.toButton(btnAddQuotes, 12);
-        Fonts.toButton(btnUpdateQuotes, 15);
-        Fonts.toButton(btnCancelDelete, 15);
-        Fonts.toText(titleWindowAddQuotes, 20);
-        Fonts.toText(titleWindowDeleteQuotes, 15);
-        Fonts.toText(descriptionWindowDeleteQuotes, 12);
     }
 
     private void animateNodes() {
@@ -426,7 +412,7 @@ public class QuotesController implements Initializable {
         }
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);
-        tblQuotes.setFixedCellSize(30);
+        tblQuotes.setFixedCellSize(40);
     }
 
     private void loadComboBox() {
@@ -713,10 +699,10 @@ public class QuotesController implements Initializable {
 
             if (item.getExistence().equals(Constants.EXISTENT)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-yes");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-no");
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -739,10 +725,10 @@ public class QuotesController implements Initializable {
 
             if (item.getReport().equals(Constants.REPORTED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-yes");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-no");
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -765,10 +751,10 @@ public class QuotesController implements Initializable {
 
             if (item.getRealization().equals(Constants.REALIZED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("cell-button-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-yes");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("cell-button-not-exists", "table-row-cell");
+                button.getStyleClass().addAll("button-no");
             }
             return new SimpleObjectProperty<>(button);
         }
