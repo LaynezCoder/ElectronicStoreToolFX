@@ -134,7 +134,7 @@
                   <Text fx:id="textPorcentage" fill="#bebec2" layoutX="40.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h5" text="Percentage not available" wrappingWidth="168.28710977733135" />
                   <HBox alignment="CENTER" layoutX="-308.0" layoutY="14.0" prefHeight="45.0" prefWidth="873.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Text fx:id="textAddProduct" strokeType="OUTSIDE" strokeWidth="0.0" text="Add product">
+                        <Text fx:id="textAddProduct" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Add product">
                            <font>
                               <Font size="15.0" />
                            </font>

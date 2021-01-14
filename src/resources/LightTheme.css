@@ -260,6 +260,7 @@
 }
 
 .jfx-combo-box {  
+    -fx-accent: -primary;
     -fx-font-size: 14;
     -fx-background-color: transparent;
     -jfx-focus-color: -primary;
