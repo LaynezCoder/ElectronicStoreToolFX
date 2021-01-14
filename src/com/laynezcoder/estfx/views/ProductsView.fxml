@@ -150,7 +150,7 @@
                      <children>
                         <ImageView fx:id="imageProduct" fitHeight="146.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../resources/media/empty-statistics.png" />
+                              <Image url="@../../../../resources/media/empty-image.jpg" />
                            </image>
                         </ImageView>
                      </children>
