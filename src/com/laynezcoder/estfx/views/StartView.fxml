@@ -160,7 +160,7 @@
                <children>
                   <ImageView fitHeight="600.0" fitWidth="250.0" onMouseDragged="#dragged" onMousePressed="#pressed" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../media/welcome.png" />
+                        <Image url="@../../../../resources/media/welcome.png" />
                      </image>
                   </ImageView>
                </children>

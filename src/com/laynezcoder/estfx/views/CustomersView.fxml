@@ -92,7 +92,7 @@
                      <children>
                         <ImageView fitHeight="98.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../media/delete-person.png" />
+                              <Image url="@../../../../resources/media/delete-person.png" />
                            </image>
                         </ImageView>
                         <Text fx:id="textConfirmation" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure you want to delete this client permanently?" textAlignment="CENTER" wrappingWidth="269.90625" />

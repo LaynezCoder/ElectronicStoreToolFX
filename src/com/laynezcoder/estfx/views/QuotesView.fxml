@@ -167,7 +167,7 @@
                      <children>
                         <ImageView fitHeight="100.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../media/usb.png" />
+                              <Image url="@../../../../resources/media/delete-person.png" />
                            </image>
                         </ImageView>
                         <Text fx:id="titleWindowDeleteQuotes" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure to delete this quote permanently?" textAlignment="CENTER" wrappingWidth="250.6171875" />

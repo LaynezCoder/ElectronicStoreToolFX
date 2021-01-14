@@ -23,7 +23,7 @@
                <children>
                   <ImageView fx:id="estfx" blendMode="SRC_ATOP" cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="86.0" fitWidth="416.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>
-                        <Image url="@../media/estfx-logo.png" />
+                        <Image url="@../../../../resources/media/estfx-logo.png" />
                      </image>
                   </ImageView>
                </children>
@@ -61,7 +61,7 @@
                <children>
                   <ImageView fx:id="laynezcode" blendMode="SRC_ATOP" cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="43.0" fitWidth="266.0" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="ALWAYS">
                      <image>
-                        <Image url="@../media/laynezcode-logo.png" />
+                        <Image url="@../../../../resources/media/laynezcode-logo.png" />
                      </image>
                   </ImageView>
                   <Separator fx:id="separator" orientation="VERTICAL" prefHeight="50.0" prefWidth="5.0" visible="false" />
@@ -84,7 +84,7 @@
                <children>
                   <ImageView fx:id="laynezcorporation" blendMode="SRC_ATOP" cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="32.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="ALWAYS">
                      <image>
-                        <Image url="@../media/laynezco-logo.png" />
+                        <Image url="@../../../../resources/media/laynezco-logo.png" />
                      </image>
                   </ImageView>
                </children>

@@ -150,7 +150,7 @@
                      <children>
                         <ImageView fx:id="imageProduct" fitHeight="146.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../media/empty-image.jpg" />
+                              <Image url="@../../../../resources/media/empty-statistics.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -185,7 +185,7 @@
                      <children>
                         <ImageView fitHeight="100.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../media/usb.png" />
+                              <Image url="@../../../../resources/media/usb.png" />
                            </image>
                         </ImageView>
                         <Text fx:id="titleWindowDeleteProducts" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure to remove this product permanently?" textAlignment="CENTER" wrappingWidth="250.6171875" />

@@ -23,7 +23,7 @@
                      <children>
                         <ImageView fx:id="emptyImage" fitHeight="370.0" fitWidth="467.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                            <image>
-                              <Image url="@../media/empty-statistics.png" />
+                              <Image url="@../../../../resources/media/empty-statistics.png" />
                            </image>
                         </ImageView>
                      </children>
