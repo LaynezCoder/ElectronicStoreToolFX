@@ -9,7 +9,7 @@ public class Constants {
     public static final Double MIN_HEIGHT = 640.00;
 
     public static final String SOURCE_PACKAGES = "/com/laynezcoder/estfx";
-    public static final String MEDIA_PACKAGE = SOURCE_PACKAGES + "/media/";
+    public static final String MEDIA_PACKAGE = "/resources/media/";
     public static final String VIEWS_PACKAGE = SOURCE_PACKAGES + "/views/";
     public static final String PROFILE_PICTURES_PACKAGE = MEDIA_PACKAGE + "profiles/";
     public static final String FONTS_PACKAGE = SOURCE_PACKAGES + "/fonts/";
