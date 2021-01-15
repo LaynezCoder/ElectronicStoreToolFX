@@ -412,7 +412,7 @@ public class QuotesController implements Initializable {
         }
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);
-        tblQuotes.setFixedCellSize(40);
+        tblQuotes.setFixedCellSize(30);
     }
 
     private void loadComboBox() {
@@ -699,10 +699,10 @@ public class QuotesController implements Initializable {
 
             if (item.getExistence().equals(Constants.EXISTENT)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("button-yes");
+                button.getStyleClass().addAll("button-yes", "table-row-cell");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("button-no");
+                button.getStyleClass().addAll("button-no", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -725,10 +725,10 @@ public class QuotesController implements Initializable {
 
             if (item.getReport().equals(Constants.REPORTED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("button-yes");
+                button.getStyleClass().addAll("button-yes", "table-row-cell");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("button-no");
+                button.getStyleClass().addAll("button-no", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
         }
@@ -751,10 +751,10 @@ public class QuotesController implements Initializable {
 
             if (item.getRealization().equals(Constants.REALIZED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("button-yes");
+                button.getStyleClass().addAll("button-yes", "table-row-cell");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("button-no");
+                button.getStyleClass().addAll("button-no", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
         }

@@ -670,9 +670,9 @@ public class UsersController implements Initializable {
             button.getStylesheets().add(Constants.LIGHT_THEME);
 
             if (item.getUserType().equals("Administrator")) {
-                button.getStyleClass().addAll("button-administrador");
+                button.getStyleClass().addAll("button-administrador", "table-row-cell");
             } else {
-                button.getStyleClass().addAll("button-user");
+                button.getStyleClass().addAll("button-user", "table-row-cell");
             }
             return new SimpleObjectProperty<>(button);
         }

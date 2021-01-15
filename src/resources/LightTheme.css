@@ -149,6 +149,7 @@
 .table-view {
     -fx-background-color: white;
 }
+
 .table-cell {
     -fx-border-color: transparent; 
 }
@@ -160,22 +161,20 @@
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #76787c;
-    -fx-font-weight: bold;
-    -fx-font-size: 15;
+    -fx-font-size: 16;
+    -fx-text-fill: -secondary;
     -fx-alignment: CENTER_LEFT;
 }
 
 .table-view .cell {
     -fx-cell-size: 30;
-    -fx-alignment: center-left;
     -fx-text-fill: #000000;
     -fx-font-size: 15;
     -fx-alignment: CENTER_LEFT;
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #cccdd0;
+    -fx-background-color: -secondary;
 }
 
 .table-row-cell:selected .text {
@@ -364,17 +363,17 @@
 }
 
 .table-row-cell:selected .password-field-cell {
-    -fx-background-color:  #cccdd0;
+    -fx-background-color:  -secondary;
     -fx-text-fill:  white;
 }
 
 .scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background {
-    -fx-background-color: rgb(230.0, 230.0, 230.0);
+    -fx-background-color: rgb(230.0, 230.0, 240.0);
     -fx-background-insets: 0.0;
 }
 
 .scroll-bar:vertical>.thumb, .scroll-bar:horizontal>.thumb {
-    -fx-background-color: rgb(200.0, 200.0, 200.0);
+    -fx-background-color: rgb(158, 158, 158 );
     -fx-background-insets: 0.0;
     -fx-background-radius: 4.0;
 }
