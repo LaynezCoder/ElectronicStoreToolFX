@@ -63,7 +63,7 @@ public class StatisticsController implements Initializable {
     }
 
     private void setNodeStartupConfiguration() {
-        popupContent.getStyleClass().addAll("date-picker");
+        popupContent.getStyleClass().addAll("jfx-date-picker");
         hboxImage.setVisible(true);
         hbox.setVisible(false);
         pieChart.setLegendVisible(false);
