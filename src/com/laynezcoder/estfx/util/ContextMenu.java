@@ -36,7 +36,7 @@ public class ContextMenu {
 
     public ContextMenu(Node node) {
         this.node = node;
-        
+
         popup = new JFXPopup();
         popup.setPopupContent(getContent());
     }
@@ -66,9 +66,17 @@ public class ContextMenu {
             }
         });
     }
-    
+
     public void hide() {
         popup.hide();
+    }
+
+    public JFXButton getEditButton() {
+        return edit;
+    }
+    
+    public JFXButton getDeleteButton() {
+        return delete;
     }
 
     private VBox getContent() {
