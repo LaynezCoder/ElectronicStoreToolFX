@@ -72,6 +72,3 @@ CREATE TRIGGER triggerAddDialogTransition BEFORE INSERT ON Users
     
 CREATE TRIGGER triggerAddBiography BEFORE INSERT ON Users	
     FOR EACH ROW SET NEW.biography = "Every day is a new opportunity to change your life.";
-
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'admin';
-FLUSH PRIVILEGES;
