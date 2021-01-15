@@ -92,12 +92,6 @@ public class StartController implements Initializable {
     private HBox hBoxStep2;
 
     @FXML
-    private JFXButton btnBackStep2;
-
-    @FXML
-    private JFXButton btnStep2;
-
-    @FXML
     private Pane paneStep3;
 
     @FXML
@@ -110,19 +104,7 @@ public class StartController implements Initializable {
     private HBox hBoxStep3;
 
     @FXML
-    private JFXButton btnDialogStep3;
-
-    @FXML
-    private JFXButton btnStep3;
-
-    @FXML
-    private JFXButton btnBackStep3;
-
-    @FXML
     private Pane paneFinish;
-
-    @FXML
-    private Text finish;
 
     @FXML
     private Text finishText;
@@ -394,21 +376,12 @@ public class StartController implements Initializable {
     private void alert() {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
 
-        JFXButton button = new JFXButton("¡ok!");
-        button.getStylesheets().add(Constants.LIGHT_THEME);
-        button.getStyleClass().add("button-start");
-
         String body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         JFXDialog dialog = new JFXDialog(stckStart, dialogLayout, JFXDialog.DialogTransition.valueOf(getDialogTransition()));
         dialogLayout.setBody(new Label(body));
-        dialogLayout.setActions(button);
         dialog.getStylesheets().add(Constants.LIGHT_THEME);
         dialog.getStyleClass().add("jfx-dialog-overlay-pane");
         dialog.show();
-
-        button.setOnMouseClicked(ev -> {
-            dialog.close();
-        });
     }
 
     private void selectText() {

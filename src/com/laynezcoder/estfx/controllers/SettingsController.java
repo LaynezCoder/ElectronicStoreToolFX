@@ -46,8 +46,6 @@ import javafx.stage.Stage;
 
 public class SettingsController implements Initializable {
 
-    private final ColorAdjust colorAdjust = new ColorAdjust();
-
     private final long LIMIT = 1000000;
 
     private final String MESSAGE_PROFILE_IMAGE_SAVED = "Success, profile picture saved.";

@@ -20,6 +20,7 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.estfx.util.AutocompleteComboBox;
+import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -127,25 +128,10 @@ public class QuotesController implements Initializable {
     private JFXButton btnUpdateQuotes;
 
     @FXML
-    private JFXButton btnCancelAdd;
-
-    @FXML
-    private JFXButton btnDelete;
-
-    @FXML
-    private JFXButton btnCancelDelete;
-
-    @FXML
     private JFXComboBox<Customers> cmbIdCustomer;
 
     @FXML
     private Text titleWindowAddQuotes;
-
-    @FXML
-    private Text titleWindowDeleteQuotes;
-
-    @FXML
-    private Text descriptionWindowDeleteQuotes;
 
     @FXML
     private JFXToggleButton toggleButtonExists;
@@ -169,10 +155,37 @@ public class QuotesController implements Initializable {
         closeDialogWithEscapeKey();
         loadData();
         setMask();
+        setContextMenu();
         animateNodes();
         setValidations();
         selectText();
         closeDialogWithTextFields();
+    }
+    
+    private void setContextMenu() {
+        ContextMenu contextMenu = new ContextMenu(tblQuotes);
+
+        contextMenu.setActionEdit(ev -> {
+            showDialogEditQuote();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionDelete(ev -> {
+            showDialogDeleteQuotes();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionDetails(ev -> {
+            showDialogDetailsQuote();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionRefresh(ev -> {
+            loadData();
+            contextMenu.hide();
+        });
+
+        contextMenu.show();
     }
 
     private void initializeComboBox() {

@@ -5,8 +5,6 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ContextMenu?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -31,28 +29,6 @@
                   <TableColumn fx:id="colCorreoCliente" prefWidth="75.0" text="Email" />
                   <TableColumn fx:id="colNitCliente" prefWidth="75.0" text="It" />
                </columns>
-               <contextMenu>
-                  <ContextMenu fx:id="contextMenu" styleClass="colored-context-menu">
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#showDialogEditCustomer" text="Edit">
-                           <graphic>
-                              <MaterialDesignIconView fill="GREY" glyphName="TABLE_EDIT" size="20" />
-                           </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#showDialogDeleteCustomer" text="Delete">
-                           <graphic>
-                              <MaterialDesignIconView fill="GREY" glyphName="DELETE_VARIANT" size="20" />
-                           </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#showDialogDetailsCustomer" text="Details">
-                           <graphic>
-                              <MaterialDesignIconView fill="GREY" glyphName="INFORMATION_OUTLINE" size="20" />
-                           </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#loadData" text="Refresh">
-                           <graphic>
-                              <MaterialDesignIconView fill="GREY" glyphName="REFRESH" size="20" />
-                           </graphic></MenuItem>
-                    </items>
-                  </ContextMenu>
-               </contextMenu>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
@@ -78,12 +54,12 @@
             </HBox>
             <AnchorPane fx:id="containerDeleteCustomer" layoutX="269.0" layoutY="196.0" prefHeight="246.0" prefWidth="392.0" visible="false">
                <children>
-                  <JFXButton fx:id="btnDelete" layoutX="209.0" layoutY="201.0" onMouseClicked="#deleteCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="button-delete" text="Delete" textFill="WHITE">
+                  <JFXButton layoutX="209.0" layoutY="201.0" onMouseClicked="#deleteCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="button-delete" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancelDelete" layoutX="58.0" layoutY="201.0" onAction="#closeDialogDeleteCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="button-cancel" text="Cancel" textFill="GREY">
+                  <JFXButton layoutX="58.0" layoutY="201.0" onAction="#closeDialogDeleteCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="button-cancel" text="Cancel" textFill="GREY">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -95,8 +71,8 @@
                               <Image url="@../../../../resources/media/delete-person.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="textConfirmation" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure you want to delete this client permanently?" textAlignment="CENTER" wrappingWidth="269.90625" />
-                        <Text fx:id="description" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h5" text="All related quotes will be removed" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure you want to delete this client permanently?" textAlignment="CENTER" wrappingWidth="269.90625" />
+                        <Text fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h5" text="All related quotes will be removed" />
                      </children>
                   </VBox>
                   <JFXButton contentDisplay="CENTER" layoutX="360.0" onAction="#closeDialogDeleteCustomer" prefHeight="28.0" prefWidth="20.0" styleClass="button-close" text=" ">
@@ -134,7 +110,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancel" layoutX="166.0" layoutY="219.0" onAction="#closeDialogAddCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="button-cancel" text="Cancel">
+                  <JFXButton layoutX="166.0" layoutY="219.0" onAction="#closeDialogAddCustomer" prefHeight="25.0" prefWidth="131.0" styleClass="button-cancel" text="Cancel">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

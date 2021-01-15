@@ -42,6 +42,7 @@ import javafx.util.Callback;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
 import com.laynezcoder.estfx.mask.TextFieldMask;
+import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.DefaultProfileImage;
 import java.io.FileNotFoundException;
 import javafx.scene.input.KeyCode;
@@ -112,28 +113,13 @@ public class UsersController implements Initializable {
     private AnchorPane deleteUserContainer;
 
     @FXML
-    private JFXButton btnDelete;
-
-    @FXML
-    private JFXButton btnCancelDelete;
-
-    @FXML
     private JFXButton btnSaveUser;
 
     @FXML
     private JFXButton btnUpdateUser;
 
     @FXML
-    private JFXButton btnCancel;
-
-    @FXML
-    private Text textConfirmation;
-
-    @FXML
     private Text titleAddUser;
-
-    @FXML
-    private Text description;
 
     @FXML
     private FontAwesomeIconView icon;
@@ -153,12 +139,39 @@ public class UsersController implements Initializable {
         setValidations();
         loadData();
         setMask();
+        setContextMenu();
         deleteUserDeleteKey();
         closeDialogWithEscapeKey();
         initalizeComboBox();
         selectTextFromTextField();
         closeDialogWithTextFields();
         filterUsers = FXCollections.observableArrayList();
+    }
+    
+     private void setContextMenu() {
+        ContextMenu contextMenu = new ContextMenu(tblUsers);
+
+        contextMenu.setActionEdit(ev -> {
+            showDialogEditUser();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionDelete(ev -> {
+            showDialogDeleteUser();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionDetails(ev -> {
+            showDialogDetailsUser();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionRefresh(ev -> {
+            loadData();
+            contextMenu.hide();
+        });
+
+        contextMenu.show();
     }
 
     private void setValidations() {

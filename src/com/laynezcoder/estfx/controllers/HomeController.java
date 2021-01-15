@@ -64,18 +64,6 @@ public class HomeController implements Initializable {
     private Text textWelcome;
 
     @FXML
-    private Text textCustomers;
-
-    @FXML
-    private Text texQuotes;
-
-    @FXML
-    private Text textProducts;
-
-    @FXML
-    private Text textRecentQuotes;
-
-    @FXML
     private Label labelTotalCustomers;
 
     @FXML

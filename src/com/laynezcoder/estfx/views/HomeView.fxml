@@ -80,7 +80,7 @@
                                     <Font name="System Bold" size="50.0" />
                                  </font>
                               </Label>
-                              <Text fx:id="textCustomers" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total customers">
+                              <Text fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total customers">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -98,7 +98,7 @@
                                     <Font name="System Bold" size="50.0" />
                                  </font>
                               </Label>
-                              <Text fx:id="texQuotes" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total Quotes">
+                              <Text fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total Quotes">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -116,7 +116,7 @@
                                     <Font name="System Bold" size="50.0" />
                                  </font>
                               </Label>
-                              <Text fx:id="textProducts" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total products">
+                              <Text fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total products">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -134,7 +134,7 @@
                                     <Font name="System Bold" size="50.0" />
                                  </font>
                               </Label>
-                              <Text fx:id="textRecentQuotes" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Recent quotes">
+                              <Text fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Recent quotes">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

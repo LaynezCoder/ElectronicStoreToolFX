@@ -118,8 +118,7 @@ public class StatisticsController implements Initializable {
             }
         });
     }
-
-    @FXML
+    
     private void setGraphics() {
         datepicker.setOnAction(ev -> {
 

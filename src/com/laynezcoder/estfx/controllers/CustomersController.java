@@ -13,6 +13,7 @@ import com.laynezcoder.estfx.models.Customers;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -87,15 +88,6 @@ public class CustomersController implements Initializable {
     private JFXButton btnAddCustomer;
 
     @FXML
-    private JFXButton btnCancel;
-
-    @FXML
-    private JFXButton btnDelete;
-
-    @FXML
-    private JFXButton btnCancelDelete;
-
-    @FXML
     private HBox rootSearchCustomers;
 
     @FXML
@@ -119,12 +111,6 @@ public class CustomersController implements Initializable {
     @FXML
     private Text titleAddCustomer;
 
-    @FXML
-    private Text textConfirmation;
-
-    @FXML
-    private Text description;
-
     private JFXDialogTool dialogAddCustomer;
 
     private JFXDialogTool dialogDeleteCustomer;
@@ -141,6 +127,33 @@ public class CustomersController implements Initializable {
         deleteUserDeleteKey();
         closeDialogWithTextFields();
         closeDialogWithEscapeKey();
+        setContextMenu();
+    }
+    
+    private void setContextMenu() {
+        ContextMenu contextMenu = new ContextMenu(tblCustomers);
+
+        contextMenu.setActionEdit(ev -> {
+            showDialogEditCustomer();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionDelete(ev -> {
+            showDialogDeleteCustomer();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionDetails(ev -> {
+            showDialogDetailsCustomer();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionRefresh(ev -> {
+            loadData();
+            contextMenu.hide();
+        });
+
+        contextMenu.show();
     }
 
     private void animateNodes() {

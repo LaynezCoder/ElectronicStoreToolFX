@@ -9,9 +9,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -42,28 +40,6 @@
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
-               <contextMenu>
-                  <ContextMenu styleClass="colored-context-menu">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showDialogEditQuote" text="Edit">
-                           <graphic>
-                              <MaterialDesignIconView fill="GREY" glyphName="TABLE_EDIT" size="20" />
-                           </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#showDialogDeleteQuotes" text="Delete">
-                           <graphic>
-                              <MaterialDesignIconView fill="GREY" glyphName="DELETE_VARIANT" size="20" />
-                           </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#showDialogDetailsQuote" text="Details">
-                           <graphic>
-                              <MaterialDesignIconView fill="GREY" glyphName="INFORMATION_OUTLINE" size="20" />
-                           </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#loadData" text="Refresh">
-                           <graphic>
-                              <MaterialDesignIconView fill="GREY" glyphName="REFRESH" size="20" />
-                           </graphic></MenuItem>
-                     </items>
-                  </ContextMenu>
-               </contextMenu>
             </TableView>
             <AnchorPane fx:id="containerAddQuotes" layoutX="66.0" layoutY="115.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="800.0" visible="false">
                <children>
@@ -87,7 +63,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancelAdd" layoutX="261.0" layoutY="348.0" onMouseClicked="#closeDialogAddQuotes" prefHeight="25.0" prefWidth="131.0" ripplerFill="WHITE" styleClass="button-cancel" text="Cancel">
+                  <JFXButton layoutX="261.0" layoutY="348.0" onMouseClicked="#closeDialogAddQuotes" prefHeight="25.0" prefWidth="131.0" ripplerFill="WHITE" styleClass="button-cancel" text="Cancel">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -111,7 +87,7 @@
                         <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
                      </graphic>
                   </JFXButton>
-                  <HBox alignment="CENTER" layoutX="83.0" layoutY="279.0" prefHeight="60.0" prefWidth="618.0">
+                  <HBox alignment="CENTER" layoutX="89.0" layoutY="279.0" prefHeight="60.0" prefWidth="618.0">
                      <children>
                         <JFXToggleButton fx:id="toggleButtonExists" onAction="#setActionToggleButton" prefHeight="60.0" prefWidth="155.0" text="Existent" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
                            <font>
@@ -123,7 +99,7 @@
                               <Font size="14.0" />
                            </font>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="toggleButtonReport" onAction="#setActionToggleButton" prefHeight="60.0" prefWidth="155.0" text="Reported" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
+                        <JFXToggleButton fx:id="toggleButtonReport" onAction="#setActionToggleButton" prefHeight="60.0" prefWidth="166.0" text="Reported" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -153,12 +129,12 @@
             </JFXButton>
             <AnchorPane fx:id="containerDeleteQuotes" layoutX="279.0" layoutY="206.0" prefHeight="246.0" prefWidth="392.0" visible="false">
                <children>
-                  <JFXButton fx:id="btnDelete" layoutX="208.0" layoutY="201.0" onMouseClicked="#deleteQuotes" prefHeight="25.0" prefWidth="131.0" styleClass="button-delete" text="Delete" textFill="WHITE">
+                  <JFXButton layoutX="208.0" layoutY="201.0" onMouseClicked="#deleteQuotes" prefHeight="25.0" prefWidth="131.0" styleClass="button-delete" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnCancelDelete" layoutX="57.0" layoutY="201.0" onMouseClicked="#closeDialogDeleteQuote" prefHeight="25.0" prefWidth="131.0" styleClass="button-cancel" text="Cancel">
+                  <JFXButton layoutX="57.0" layoutY="201.0" onMouseClicked="#closeDialogDeleteQuote" prefHeight="25.0" prefWidth="131.0" styleClass="button-cancel" text="Cancel">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -170,8 +146,8 @@
                               <Image url="@../../../../resources/media/delete-person.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="titleWindowDeleteQuotes" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure to delete this quote permanently?" textAlignment="CENTER" wrappingWidth="250.6171875" />
-                        <Text fx:id="descriptionWindowDeleteQuotes" fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h5" text="Information cannot be retrieved" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure to delete this quote permanently?" textAlignment="CENTER" wrappingWidth="250.6171875" />
+                        <Text fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h5" text="Information cannot be retrieved" />
                      </children>
                   </VBox>
                   <JFXButton contentDisplay="CENTER" layoutX="360.0" onMouseClicked="#closeDialogDeleteQuote" prefHeight="28.0" prefWidth="20.0" styleClass="button-close" text=" ">

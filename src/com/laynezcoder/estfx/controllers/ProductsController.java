@@ -15,6 +15,7 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.io.File;
 import java.io.FileInputStream;
@@ -131,12 +132,6 @@ public class ProductsController implements Initializable {
     private Text textAddProduct;
 
     @FXML
-    private Text titleWindowDeleteProducts;
-
-    @FXML
-    private Text descriptionWindowDeleteProduct;
-
-    @FXML
     private Text textPurchase;
 
     @FXML
@@ -155,12 +150,6 @@ public class ProductsController implements Initializable {
     private JFXButton btnSaveProduct;
 
     @FXML
-    private JFXButton btnCancelDelete;
-
-    @FXML
-    private JFXButton btnDelete;
-
-    @FXML
     private JFXButton btnCancelAddProduct;
 
     @FXML
@@ -168,12 +157,6 @@ public class ProductsController implements Initializable {
 
     @FXML
     private JFXTextField txtMinPrice;
-
-    @FXML
-    private MenuItem menuEdit;
-
-    @FXML
-    private MenuItem menuDelete;
 
     @FXML
     private ImageView imageProduct;
@@ -192,6 +175,8 @@ public class ProductsController implements Initializable {
 
     private File imageFile;
 
+    private ContextMenu contextMenu;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
@@ -204,7 +189,33 @@ public class ProductsController implements Initializable {
         characterLimiter();
         closeDialogWithEscapeKey();
         closeDialogWithTextFields();
-        setTextIfFieldIsEmpty();    
+        setTextIfFieldIsEmpty();
+    }
+
+    private void setContextMenu() {
+        contextMenu = new ContextMenu(tblProducts);
+
+        contextMenu.setActionEdit(ev -> {
+            showDialogEditProduct();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionDelete(ev -> {
+            showDialogDeleteProduct();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionDetails(ev -> {
+            showDialogDetailsProduct();
+            contextMenu.hide();
+        });
+
+        contextMenu.setActionRefresh(ev -> {
+            loadData();
+            contextMenu.hide();
+        });
+
+        contextMenu.show();
     }
 
     private void initializeImage() {
@@ -718,8 +729,10 @@ public class ProductsController implements Initializable {
     }
 
     private void validateUser() {
-        deleteUserDeleteKey();
+        setContextMenu();
         if (DatabaseHelper.getUserType().equals("Administrator")) {
+            deleteUserDeleteKey();
+            
             colPorcentage.setVisible(true);
             colPurchasePrice.setVisible(true);
             btnNewProduct.setDisable(false);
@@ -741,13 +754,13 @@ public class ProductsController implements Initializable {
     }
 
     private void setDisableMenuItem() {
-        menuEdit.setDisable(true);
-        menuDelete.setDisable(true);
+        contextMenu.getEditButton().setDisable(true);
+        contextMenu.getDeleteButton().setDisable(true);
     }
 
     private void setEnableMenuItem() {
-        menuEdit.setDisable(false);
-        menuDelete.setDisable(false);
+        contextMenu.getEditButton().setDisable(false);
+        contextMenu.getDeleteButton().setDisable(false);
     }
 
     private void closeDialogWithEscapeKey() {
@@ -822,22 +835,20 @@ public class ProductsController implements Initializable {
     }
 
     private void deleteUserDeleteKey() {
-        if (DatabaseHelper.getUserType().equals("Administrator")) {
-            rootProducts.setOnKeyPressed(ev -> {
-                if (ev.getCode().equals(KeyCode.DELETE)) {
-                    if (tblProducts.isDisable()) {
-                        return;
-                    }
-
-                    if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-                        AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_NO_RECORD_SELECTED);
-                        return;
-                    }
-
-                    deleteProducts();
+        rootProducts.setOnKeyPressed(ev -> {
+            if (ev.getCode().equals(KeyCode.DELETE)) {
+                if (tblProducts.isDisable()) {
+                    return;
                 }
-            });
-        }
+
+                if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
+                    AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_NO_RECORD_SELECTED);
+                    return;
+                }
+
+                deleteProducts();
+            }
+        });
     }
 
     @FXML
@@ -969,17 +980,17 @@ public class ProductsController implements Initializable {
             final ImageView imageView = new ImageView(image);
             imageView.setPreserveRatio(true);
             imageView.setFitWidth(550);
-            
+
             final BorderPane boderPane = new BorderPane(imageView);
             boderPane.setStyle("-fx-background-color: white");
             boderPane.setCenter(imageView);
-            
+
             final ScrollPane root = new ScrollPane(boderPane);
             root.setStyle("-fx-background-color: white");
             root.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             root.getStylesheets().add(Constants.LIGHT_THEME);
             root.getStyleClass().add("scroll-bar");
-            
+
             root.setFitToHeight(true);
             root.setFitToWidth(true);
 
