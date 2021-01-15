@@ -389,3 +389,34 @@
 .scroll-bar>.track-background {
     -fx-background-color: transparent;
 }
+
+.button-context-menu {
+    -fx-background-color: white;
+    -fx-text-fill: -secondary;
+    -fx-font-size: 15;
+    -fx-pref-height: 32.5px;
+    -fx-pref-width: 100px;
+}
+
+.button-context-menu  .glyph-icon {
+    -glyph-size: 20;
+    -fx-fill: -secondary;
+}
+
+.button-context-menu:hover,
+.button-context-menu:pressed {
+    -fx-background-color: -primary;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-pref-height: 32.5px;
+    -fx-pref-width: 100px;
+}
+
+.button-context-menu:hover .glyph-icon, 
+.button-context-menu:pressed .glyph-icon {
+    -fx-fill: white;
+}
+
+.button-context-menu .jfx-rippler {
+    -jfx-rippler-fill: none;
+}
