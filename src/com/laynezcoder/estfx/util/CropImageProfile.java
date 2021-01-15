@@ -39,7 +39,7 @@ public class CropImageProfile {
 
     private InputStream inputStream;
 
-    private Rectangle rect = new Rectangle();
+    private Rectangle rect;
 
     private Group group;
 
