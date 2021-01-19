@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 public class Preferences {
 
     private static final String CONFIG_FILE = "config.txt";
+    
     private static final String WARNING_MESSAGE = "The configuration file was not found. A new file will be created.";
 
     private String initialPathFileChooserProductsController;
@@ -77,15 +78,15 @@ public class Preferences {
         return initialPathFileChooserProductsController;
     }
 
-    public void setInitialPathFileChooserProductsController(String initialPathFileChooserProductsController) {
-        this.initialPathFileChooserProductsController = initialPathFileChooserProductsController;
+    public void setInitialPathFileChooserProductsController(String path) {
+        this.initialPathFileChooserProductsController = path;
     }
 
     public String getInitialPathFileChooserSettingsController() {
         return initialPathFileChooserSettingsController;
     }
 
-    public void setInitialPathFileChooserSettingsController(String initialPathFileChooserSettingsController) {
-        this.initialPathFileChooserSettingsController = initialPathFileChooserSettingsController;
+    public void setInitialPathFileChooserSettingsController(String path) {
+        this.initialPathFileChooserSettingsController = path;
     }
 }
