@@ -17,9 +17,13 @@ import javafx.scene.text.Text;
 public class AlertsBuilder {
 
     private static String title;
+    
     private static String buttonStyle;
+    
     private static String titleStyle;
+    
     private static String bodyStyle;
+    
     private static JFXDialog dialog;
 
     public static void create(AlertType type, StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String body) {
