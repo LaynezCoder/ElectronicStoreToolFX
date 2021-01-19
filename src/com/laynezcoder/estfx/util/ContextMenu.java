@@ -80,31 +80,26 @@ public class ContextMenu {
     }
 
     private VBox getContent() {
-        MaterialDesignIconView iconEdit = new MaterialDesignIconView(ICON_EDIT);
-        MaterialDesignIconView iconDelete = new MaterialDesignIconView(ICON_DELETE);
-        MaterialDesignIconView iconDetails = new MaterialDesignIconView(ICON_DETAILS);
-        MaterialDesignIconView iconRefresh = new MaterialDesignIconView(ICON_REFRESH);
-
         edit = new JFXButton("Edit");
-        edit.setGraphic(iconEdit);
+        edit.setGraphic(new MaterialDesignIconView(ICON_EDIT));
         edit.setAlignment(Pos.BASELINE_LEFT);
         edit.setContentDisplay(ContentDisplay.LEFT);
         style(edit);
 
         delete = new JFXButton("Delete");
-        delete.setGraphic(iconDelete);
+        delete.setGraphic(new MaterialDesignIconView(ICON_DELETE));
         delete.setAlignment(Pos.BASELINE_LEFT);
         delete.setContentDisplay(ContentDisplay.LEFT);
         style(delete);
 
         details = new JFXButton("Details");
-        details.setGraphic(iconDetails);
+        details.setGraphic(new MaterialDesignIconView(ICON_DETAILS));
         details.setAlignment(Pos.BASELINE_LEFT);
         details.setContentDisplay(ContentDisplay.LEFT);
         style(details);
 
         refresh = new JFXButton("Refresh");
-        refresh.setGraphic(iconRefresh);
+        refresh.setGraphic(new MaterialDesignIconView(ICON_REFRESH));
         refresh.setAlignment(Pos.BASELINE_LEFT);
         refresh.setContentDisplay(ContentDisplay.LEFT);
         style(refresh);
