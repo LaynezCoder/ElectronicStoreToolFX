@@ -86,7 +86,7 @@ public class CropImageProfile {
 
     public InputStream getInputStream() throws FileNotFoundException {
         if (!group.getChildren().contains(rect)) {
-            return inputStream = new FileInputStream(file);
+            return new FileInputStream(file);
         } else {
             Bounds bounds = rect.getBoundsInParent();
             int width = (int) bounds.getWidth();
