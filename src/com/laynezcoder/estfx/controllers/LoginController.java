@@ -39,7 +39,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -155,8 +154,6 @@ public class LoginController implements Initializable {
                 if (result) {
                     loadMain();
                     NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + nameUser + "!");
-                } else {
-                    NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
                 }
             } else {
                 NotificationsBuilder.create(NotificationType.ERROR, INCORRECT_CREDENTIALS);
@@ -245,7 +242,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void dragged(MouseEvent event) {
-        Stage stg = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stg = (Stage) btnLogin.getScene().getWindow();
         stg.setX(event.getScreenX() - x);
         stg.setY(event.getScreenY() - y);
     }
