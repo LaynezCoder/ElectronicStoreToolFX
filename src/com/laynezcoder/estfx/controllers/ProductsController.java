@@ -50,7 +50,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -197,14 +196,14 @@ public class ProductsController implements Initializable {
         loadData();
         setMask();
         animateNodes();
-        validateUser();
         selectText();
         setValidations();
-        initializeImage();
+        validateUser();
         characterLimiter();
-        closeDialogWithEscapeKey();
-        closeDialogWithTextFields();
+        initializeImage();
         setTextIfFieldIsEmpty();
+        closeDialogWithTextFields();
+        closeDialogWithEscapeKey();
     }
 
     private void setContextMenu() {
@@ -699,12 +698,12 @@ public class ProductsController implements Initializable {
 
     private void cleanControls() {
         imageFile = null;
+        txtPurchasePrice.clear();
         txtMinPrice.clear();
         txtBarCode.clear();
-        txtSalePrice.clear();
         txtNameProduct.clear();
-        txtPurchasePrice.clear();
         txtPorcentage.clear();
+        txtSalePrice.clear();
         txtDescriptionProduct.clear();
         imageProduct.setImage(new Image(Constants.NO_IMAGE_AVAILABLE));
     }
@@ -1009,9 +1008,9 @@ public class ProductsController implements Initializable {
             root.setFitToHeight(true);
             root.setFitToWidth(true);
 
+            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.setScene(new Scene(root, 550, 555));
             stage.setTitle(title);
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.show();
         });
     }
