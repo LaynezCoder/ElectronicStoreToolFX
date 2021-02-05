@@ -28,14 +28,13 @@ public class RequieredFieldsValidators {
 
     private static final String MESSAGE = "Obligatory field";
 
+    private static final FontAwesomeIcon WARNING_ICON = FontAwesomeIcon.EXCLAMATION_TRIANGLE;
+
     public static void toJFXTextField(JFXTextField txt) {
-        RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage(MESSAGE);
+        RequiredFieldValidator validator = new RequiredFieldValidator(MESSAGE);
+        validator.setIcon(new FontAwesomeIconView(WARNING_ICON));
+
         txt.getValidators().add(validator);
-
-        FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
-        validator.setIcon(warnIcon);
-
         txt.focusedProperty().addListener((o, oldVal, newVal) -> {
             if (!newVal) {
                 txt.validate();
@@ -44,13 +43,10 @@ public class RequieredFieldsValidators {
     }
 
     public static void toJFXPasswordField(JFXPasswordField txt) {
-        RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage(MESSAGE);
+        RequiredFieldValidator validator = new RequiredFieldValidator(MESSAGE);
+        validator.setIcon(new FontAwesomeIconView(WARNING_ICON));
+
         txt.getValidators().add(validator);
-
-        FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
-        validator.setIcon(warnIcon);
-
         txt.focusedProperty().addListener((o, oldVal, newVal) -> {
             if (!newVal) {
                 txt.validate();
@@ -59,13 +55,10 @@ public class RequieredFieldsValidators {
     }
 
     public static void toJFXTextArea(JFXTextArea txt) {
-        RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage(MESSAGE);
+        RequiredFieldValidator validator = new RequiredFieldValidator(MESSAGE);
+        validator.setIcon(new FontAwesomeIconView(WARNING_ICON));
+
         txt.getValidators().add(validator);
-
-        FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
-        validator.setIcon(warnIcon);
-
         txt.focusedProperty().addListener((o, oldVal, newVal) -> {
             if (!newVal) {
                 txt.validate();
@@ -74,13 +67,10 @@ public class RequieredFieldsValidators {
     }
 
     public static void toJFXComboBox(JFXComboBox comboBox) {
-        RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage(MESSAGE);
+        RequiredFieldValidator validator = new RequiredFieldValidator(MESSAGE);
+        validator.setIcon(new FontAwesomeIconView(WARNING_ICON));
+        
         comboBox.getValidators().add(validator);
-
-        FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
-        validator.setIcon(warnIcon);
-
         comboBox.focusedProperty().addListener((o, oldVal, newVal) -> {
             if (!newVal) {
                 comboBox.validate();
@@ -89,13 +79,10 @@ public class RequieredFieldsValidators {
     }
 
     public static void toJFXDatePicker(JFXDatePicker datePicker) {
-        RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage(MESSAGE);
+        RequiredFieldValidator validator = new RequiredFieldValidator(MESSAGE);
+        validator.setIcon(new FontAwesomeIconView(WARNING_ICON));
+        
         datePicker.getValidators().add(validator);
-
-        FontAwesomeIconView warnIcon = new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION_TRIANGLE);
-        validator.setIcon(warnIcon);
-
         datePicker.focusedProperty().addListener((o, oldVal, newVal) -> {
             if (!newVal) {
                 datePicker.validate();
