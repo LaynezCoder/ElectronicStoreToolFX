@@ -44,19 +44,22 @@ public class NotificationsBuilder {
             case INFORMATION:
                 title = "¡Information!";
                 icon = new Image(Constants.INFORMATION_IMAGE);
-                break;
+            break;
+            
             case ERROR:
                 title = "¡Error!";
                 icon = new Image(Constants.ERROR_IMAGE);
-                break;
+            break;
+            
             case SUCCESS:
                 title = "¡Success!";
                 icon = new Image(Constants.SUCCESS_IMAGE);
-                break;
+            break;
+            
             case INVALID_ACTION:
                 title = "¡Invalid action!";
                 icon = new Image(Constants.ERROR_IMAGE);
-                break;
+            break;
         }
     }
 }
