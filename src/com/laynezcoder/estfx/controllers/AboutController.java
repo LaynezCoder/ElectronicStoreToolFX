@@ -39,8 +39,11 @@ import javafx.util.Duration;
 public class AboutController implements Initializable {
 
     private final String GITHUB = "https://github.com/LaynezCode";
+    
     private final String FACEBOOK = "https://www.facebook.com/LaynezCode-106644811127683";
+    
     private final String GMAIL = "https://www.google.com/";
+    
     private final String YOUTUBE = "https://www.youtube.com/c/LaynezCode/";
 
     @FXML
