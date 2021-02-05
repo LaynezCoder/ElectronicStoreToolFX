@@ -46,7 +46,6 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -300,13 +299,6 @@ public class StartController implements Initializable {
         pt.play();
     }
 
-    @FXML
-    private void dragged(MouseEvent event) {
-        Stage stg = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stg.setX(event.getScreenX() - x);
-        stg.setY(event.getScreenY() - y);
-    }
-
     private void insertUserInDB() {
         Users users = new Users();
         users.setNameUser(name);
@@ -351,17 +343,17 @@ public class StartController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(Constants.MAIN_VIEW));
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle(Constants.TITLE);
+            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.initStyle(StageStyle.DECORATED);
             stage.setMinHeight(Constants.MIN_HEIGHT);
             stage.setMinWidth(Constants.MIN_WIDTH);
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
+            stage.setTitle(Constants.TITLE);
+            stage.setScene(new Scene(root));
             stage.show();
             closeStage();
 
             root.setOnKeyPressed((KeyEvent e) -> {
-                if (e.getCode() == KeyCode.F11) {
+                if (e.getCode().equals(KeyCode.F11)) {
                     stage.setFullScreen(!stage.isFullScreen());
                 }
             });
@@ -386,6 +378,13 @@ public class StartController implements Initializable {
         x = event.getSceneX();
         y = event.getSceneY();
     }
+    
+    @FXML
+    private void dragged(MouseEvent event) {
+        Stage stg = (Stage) btnStart.getScene().getWindow();
+        stg.setX(event.getScreenX() - x);
+        stg.setY(event.getScreenY() - y);
+    }
 
     @FXML
     private void alert() {
@@ -394,7 +393,6 @@ public class StartController implements Initializable {
         String body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         JFXDialog dialog = new JFXDialog(stckStart, dialogLayout, JFXDialog.DialogTransition.valueOf(getDialogTransition()));
         dialogLayout.setBody(new Label(body));
-        dialog.getStylesheets().add(Constants.LIGHT_THEME);
         dialog.getStyleClass().add("jfx-dialog-overlay-pane");
         dialog.show();
     }
