@@ -32,14 +32,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class MainController implements Initializable {
-
-    @FXML
-    private StackPane stckMain;
 
     @FXML
     private JFXButton btnHome;
@@ -70,9 +66,6 @@ public class MainController implements Initializable {
 
     @FXML
     private AnchorPane rootContainer;
-
-    @FXML
-    private AnchorPane rootSideMenu;
 
     @FXML
     private AnchorPane tooltipCustomers;
@@ -177,11 +170,11 @@ public class MainController implements Initializable {
     @FXML
     private void loginWindow() {
         try {
-            Stage stage = new Stage(StageStyle.UNDECORATED);
             Parent root = FXMLLoader.load(getClass().getResource(Constants.LOGIN_VIEW));
+            Stage stage = new Stage(StageStyle.UNDECORATED);
+            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.show();
             closeStage();
             DatabaseHelper.logout();
