@@ -607,7 +607,6 @@ public class QuotesController implements Initializable {
                 rootQuotes.setEffect(null);
                 AlertsBuilder.close();
             }
-
         });
     }
 
@@ -722,7 +721,6 @@ public class QuotesController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getExistence());
-            button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colExistence.getWidth() / 0.5);
 
             if (item.getExistence().equals(Constants.EXISTENT)) {
@@ -748,7 +746,6 @@ public class QuotesController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getReport());
-            button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colReport.getWidth() / 0.5);
 
             if (item.getReport().equals(Constants.REPORTED)) {
@@ -774,7 +771,6 @@ public class QuotesController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getRealization());
-            button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
             if (item.getRealization().equals(Constants.REALIZED)) {
