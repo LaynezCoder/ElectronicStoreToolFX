@@ -165,10 +165,10 @@ public class StatisticsController implements Initializable {
                 pieChart.setData(data);
                 Animations.hover(two.getNode(), 50, 1.1);
 
-                PieChart.Data Three = new PieChart.Data("Total products: " + count3, count3);
-                data.add(Three);
+                PieChart.Data three = new PieChart.Data("Total products: " + count3, count3);
+                data.add(three);
                 pieChart.setData(data);
-                Animations.hover(Three.getNode(), 50, 1.1);
+                Animations.hover(three.getNode(), 50, 1.1);
             }
             pieChart.setData(data);
         });
