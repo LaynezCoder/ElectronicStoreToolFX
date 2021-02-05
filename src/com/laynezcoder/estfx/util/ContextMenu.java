@@ -17,7 +17,6 @@ package com.laynezcoder.estfx.util;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
-import com.laynezcoder.estfx.resources.Constants;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.event.EventHandler;
@@ -127,7 +126,6 @@ public class ContextMenu {
     }
 
     private void style(JFXButton button) {
-        button.getStylesheets().add(Constants.CSS_LIGHT_THEME);
         button.getStyleClass().add("button-context-menu");
     }
 }
