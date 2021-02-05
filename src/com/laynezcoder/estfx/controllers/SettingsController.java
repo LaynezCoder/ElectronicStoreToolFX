@@ -47,7 +47,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -94,7 +93,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     private Pane imageProfileContainer;
-    
+
     @FXML
     private Group parentImage;
 
@@ -133,11 +132,12 @@ public class SettingsController implements Initializable {
 
     private void initializeProfileImage() {
         loadProfileImage();
+
         Circle circle = new Circle(45);
         circle.setCenterX(imageViewProfile.getFitWidth() / 2);
         circle.setCenterY(imageViewProfile.getFitHeight() / 2);
         imageViewProfile.setClip(circle);
-        
+
         Circle clip = new Circle(45);
         clip.setCenterX(imageViewProfile.getFitWidth() / 2);
         clip.setCenterY(imageViewProfile.getFitHeight() / 2);
@@ -169,15 +169,16 @@ public class SettingsController implements Initializable {
                     + "FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
+
             while (rs.next()) {
-                textName.setText(rs.getString("nameUser"));
-                textUserType.setText(rs.getString("userType"));
-                txtName.setText(rs.getString("nameUser"));
-                txtUser.setText(rs.getString("email"));
-                txtPassword.setText(rs.getString("pass"));
-                txtConfirmPassword.setText(rs.getString("pass"));
-                txtBio.setText(rs.getString("biography"));
-                initializeJFXComboBox(rs);
+                txtName.setText(rs.getString(1));
+                textName.setText(rs.getString(1));
+                txtUser.setText(rs.getString(2));
+                txtPassword.setText(rs.getString(3));
+                txtConfirmPassword.setText(rs.getString(3));
+                txtBio.setText(rs.getString(4));
+                initializeJFXComboBox(rs.getString(5));
+                textUserType.setText(rs.getString(6));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -288,28 +289,27 @@ public class SettingsController implements Initializable {
         return cmbDialogTransition.getSelectionModel().getSelectedItem().toUpperCase();
     }
 
-    private void initializeJFXComboBox(ResultSet rs) {
-        try {
-            String value = rs.getString("dialogTransition");
-            switch (value) {
-                case "LEFT":
-                    cmbDialogTransition.setValue("Left");
-                    break;
-                case "RIGHT":
-                    cmbDialogTransition.setValue("Right");
-                    break;
-                case "TOP":
-                    cmbDialogTransition.setValue("Top");
-                    break;
-                case "BOTTOM":
-                    cmbDialogTransition.setValue("Bottom");
-                    break;
-                case "CENTER":
-                    cmbDialogTransition.setValue("Center");
-                    break;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
+    private void initializeJFXComboBox(String dialogTransition) {
+        switch (dialogTransition) {
+            case "LEFT":
+                cmbDialogTransition.setValue("Left");
+            break;
+                
+            case "RIGHT":
+                cmbDialogTransition.setValue("Right");
+            break;
+                
+            case "TOP":
+                cmbDialogTransition.setValue("Top");
+            break;
+                
+            case "BOTTOM":
+                cmbDialogTransition.setValue("Bottom");
+            break;
+                
+            case "CENTER":
+                cmbDialogTransition.setValue("Center");
+            break;
         }
     }
 
