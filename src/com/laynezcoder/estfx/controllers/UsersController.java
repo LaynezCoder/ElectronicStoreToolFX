@@ -679,7 +679,6 @@ public class UsersController implements Initializable {
             password.setEditable(false);
             password.setPrefWidth(colPassword.getWidth() / 0.5);
             password.setText(item.getPass());
-            password.getStylesheets().add(Constants.LIGHT_THEME);
             password.getStyleClass().addAll("password-field-cell", "table-row-cell");
 
             return new SimpleObjectProperty<>(password);
@@ -695,7 +694,6 @@ public class UsersController implements Initializable {
             JFXButton button = new JFXButton();
             button.setPrefWidth(colTypeUser.getWidth() / 0.5);
             button.setText(item.getUserType());
-            button.getStylesheets().add(Constants.LIGHT_THEME);
 
             if (item.getUserType().equals("Administrator")) {
                 button.getStyleClass().addAll("button-administrador", "table-row-cell");
