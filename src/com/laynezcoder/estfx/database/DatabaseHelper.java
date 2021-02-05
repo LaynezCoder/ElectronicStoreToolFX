@@ -513,9 +513,9 @@ public class DatabaseHelper {
         int count = 0;
         try {
             String sql = "SELECT COUNT(*) FROM Quotes WHERE requestDate = ?";
-            PreparedStatement preparedStatementCustomers = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatementCustomers.setDate(1, new java.sql.Date(date.getTime()));
-            ResultSet rs = preparedStatementCustomers.executeQuery();
+            PreparedStatement preparedStatementQuotes = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatementQuotes.setDate(1, new java.sql.Date(date.getTime()));
+            ResultSet rs = preparedStatementQuotes.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -531,9 +531,9 @@ public class DatabaseHelper {
         int count = 0;
         try {
             String sql = "SELECT COUNT(*) FROM Products WHERE insertionDate = ?";
-            PreparedStatement preparedStatementCustomers = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatementCustomers.setDate(1, new java.sql.Date(date.getTime()));
-            ResultSet rs = preparedStatementCustomers.executeQuery();
+            PreparedStatement preparedStetementProducts = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStetementProducts.setDate(1, new java.sql.Date(date.getTime()));
+            ResultSet rs = preparedStetementProducts.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
             }
