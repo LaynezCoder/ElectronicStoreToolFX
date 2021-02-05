@@ -20,7 +20,6 @@ import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import com.laynezcoder.estfx.resources.Constants;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import javafx.event.EventHandler;
 
@@ -33,15 +32,9 @@ public class JFXDialogTool {
         dialog.setContent(region);
         dialog.setBackground(Background.EMPTY);
         dialog.setDialogContainer(container);
-        dialog.setTransitionType(DatabaseHelper.dialogTransition());
-        setStyle();
-    }
-
-    private void setStyle() {
-        dialog.getStylesheets().add(Constants.LIGHT_THEME);
         dialog.getStyleClass().add("jfx-dialog-overlay-pane");
+        dialog.setTransitionType(DatabaseHelper.dialogTransition()); 
     }
-
     public void setOnDialogOpened(EventHandler<JFXDialogEvent> action) {
         dialog.setOnDialogOpened(action);
     }
