@@ -46,7 +46,6 @@ public class AlertsBuilder {
 
         AnchorPane root = new AnchorPane();
         root.setPrefSize(390, 230);
-        root.getStylesheets().add(Constants.LIGHT_THEME);
 
         JFXButton button = new JFXButton("Okey");
         button.getStyleClass().add(buttonStyle);
@@ -78,8 +77,8 @@ public class AlertsBuilder {
         dialog.setContent(root);
         dialog.setDialogContainer(dialogContainer);
         dialog.setBackground(Background.EMPTY);
+        dialog.getStyleClass().add("jfx-dialog-overlay-pane");
         dialog.setTransitionType(DatabaseHelper.dialogTransition());
-        setStyle();
         dialog.show();
 
         button.setOnMouseClicked(e -> {
@@ -103,11 +102,6 @@ public class AlertsBuilder {
         }
     }
 
-    private static void setStyle() {
-        dialog.getStylesheets().add(Constants.LIGHT_THEME);
-        dialog.getStyleClass().add("jfx-dialog-overlay-pane");
-    }
-
     private static void setFunction(AlertType type) {
         switch (type) {
             case SUCCES:
@@ -115,13 +109,14 @@ public class AlertsBuilder {
                 buttonStyle = "alert-success-button";
                 titleStyle = "alert-success-title";
                 bodyStyle = "alert-success-body";
-                break;
+            break;
+            
             case ERROR:
                 title = "Oops!";
                 buttonStyle = "alert-error-button";
                 titleStyle = "alert-error-title";
                 bodyStyle = "alert-error-body";
-                break;
+            break;
         }
     }
 }
