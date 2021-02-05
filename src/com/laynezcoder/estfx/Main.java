@@ -43,9 +43,9 @@ public class Main extends Application {
         try {
             DatabaseHelper.logout();
             Parent root = FXMLLoader.load(getClass().getResource(Constants.LOGIN_VIEW));
+            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle(Constants.TITLE);
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
@@ -56,10 +56,10 @@ public class Main extends Application {
     private void startWindow(Stage stage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(Constants.START_VIEW));
+            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(new Scene(root));
             stage.setTitle(Constants.TITLE);
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
