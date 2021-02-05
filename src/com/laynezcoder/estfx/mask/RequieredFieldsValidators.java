@@ -26,9 +26,9 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 public class RequieredFieldsValidators {
 
-    private static final String MESSAGE = "Obligatory field";
-
     private static final FontAwesomeIcon WARNING_ICON = FontAwesomeIcon.EXCLAMATION_TRIANGLE;
+    
+    private static final String MESSAGE = "Obligatory field";
 
     public static void toJFXTextField(JFXTextField txt) {
         RequiredFieldValidator validator = new RequiredFieldValidator(MESSAGE);
