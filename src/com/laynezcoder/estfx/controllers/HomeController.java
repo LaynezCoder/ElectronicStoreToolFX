@@ -53,6 +53,8 @@ import javafx.util.Callback;
 
 public class HomeController implements Initializable {
 
+    private final String DEFAULT_WELCOME_TEXT = "¿What do you think if you start adding a new client?";
+
     private ObservableList<Quotes> listQuotes;
 
     private ObservableList<Quotes> filterQuotes;
@@ -132,9 +134,8 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         animationsNodes();
-        customerCounter();
-        productsCounter();
         setWelcomeText();
+        counterRecords();
         loadData();
         selectText();
         filterQuotes = FXCollections.observableArrayList();
@@ -154,52 +155,45 @@ public class HomeController implements Initializable {
         Animations.fadeInUp(rootProducts);
     }
 
-    private void customerCounter() {
+    private void counterRecords() {
         try {
-            String sql = "SELECT COUNT(*) FROM Customers";
+            String sql = "SELECT (SELECT COUNT(*) FROM Customers) AS Customers, (SELECT COUNT(*) FROM Products) AS Products";
             PreparedStatement preparedStatetent = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatetent.executeQuery();
+            ResultSet rs = preparedStatetent.executeQuery();
 
-            int total = 0;
-            while (resultSet.next()) {
-                total = resultSet.getInt(1);
+            while (rs.next()) {
+                labelTotalCustomers.setText(String.valueOf(rs.getInt(1)));
+                labelTotalProduct.setText(String.valueOf(rs.getInt(2)));
             }
-            labelTotalCustomers.setText(String.valueOf(total));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void productsCounter() {
+    private int getTotalQuotes() {
+        int count = 0;
         try {
-            String sql = "SELECT COUNT(*) FROM Products";
+            String sql = "SELECT COUNT(*) FROM Quotes";
             PreparedStatement preparedStatetent = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatetent.executeQuery();
+            ResultSet rs = preparedStatetent.executeQuery();
 
-            int total = 0;
-            while (resultSet.next()) {
-                total = resultSet.getInt(1);
+            while (rs.next()) {
+                count = rs.getInt(1);
             }
-            labelTotalProduct.setText(String.valueOf(total));
+            labelTotalCustomers.setText(String.valueOf(count));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return count;
     }
 
     private void setWelcomeText() {
         try {
-            String sql = "SELECT COUNT(*) FROM Quotes";
-            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
             String sql2 = "SELECT Users.nameUser FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
             PreparedStatement preparedStatementTwo = DatabaseConnection.getInstance().getConnection().prepareStatement(sql2);
             ResultSet resultSetTwo = preparedStatementTwo.executeQuery();
 
-            int total = 0;
-            while (resultSet.next()) {
-                total = resultSet.getInt(1);
-            }
+            int total = getTotalQuotes();
             labelTotalQuotes.setText(String.valueOf(total));
 
             while (resultSetTwo.next()) {
@@ -207,26 +201,32 @@ public class HomeController implements Initializable {
                 switch (total) {
                     case 10:
                         setText(name, 10);
-                        break;
+                    break;
+
                     case 20:
                         setText(name, 20);
-                        break;
+                    break;
+
                     case 30:
                         setText(name, 30);
-                        break;
+                    break;
+
                     case 50:
                         setText(name, 50);
-                        break;
+                    break;
+
                     case 100:
                         setText(name, 100);
-                        break;
+                    break;
+
                     case 500:
                         setText(name, 500);
-                        break;
+                    break;
+
                     default:
                         textWelcome.setText("¡Welcome back, " + name + "!");
-                        textDescriptionWelcome.setText("¿What do you think if you start adding a new client?");
-                        break;
+                        textDescriptionWelcome.setText(DEFAULT_WELCOME_TEXT);
+                    break;
                 }
             }
         } catch (SQLException ex) {
@@ -309,7 +309,6 @@ public class HomeController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getExistence());
-            button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colExistence.getWidth() / 0.5);
 
             if (item.getExistence().equals(Constants.EXISTENT)) {
@@ -335,7 +334,6 @@ public class HomeController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getReport());
-            button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colReport.getWidth() / 0.5);
 
             if (item.getReport().equals(Constants.REPORTED)) {
@@ -361,7 +359,6 @@ public class HomeController implements Initializable {
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getRealization());
-            button.getStylesheets().add(Constants.LIGHT_THEME);
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
             if (item.getRealization().equals(Constants.REALIZED)) {
