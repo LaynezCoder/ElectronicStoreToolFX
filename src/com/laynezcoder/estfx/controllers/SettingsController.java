@@ -25,7 +25,7 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
+import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.notifications.NotificationType;
@@ -337,12 +337,12 @@ public class SettingsController implements Initializable {
     }
 
     private void validations() {
-        RequieredFieldsValidators.toJFXTextArea(txtBio);
-        RequieredFieldsValidators.toJFXComboBox(cmbDialogTransition);
-        RequieredFieldsValidators.toJFXTextField(txtName);
-        RequieredFieldsValidators.toJFXTextField(txtUser);
-        RequieredFieldsValidators.toJFXPasswordField(txtPassword);
-        RequieredFieldsValidators.toJFXPasswordField(txtConfirmPassword);
+        ValidatorsBuilder.toTextArea(txtBio);
+        ValidatorsBuilder.toComboBox(cmbDialogTransition);
+        ValidatorsBuilder.toTextField(txtName);
+        ValidatorsBuilder.toTextField(txtUser);
+        ValidatorsBuilder.toPasswordField(txtPassword);
+        ValidatorsBuilder.toPasswordField(txtConfirmPassword);
     }
 
     private void setMask() {

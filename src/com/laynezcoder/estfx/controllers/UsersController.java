@@ -55,7 +55,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import com.laynezcoder.estfx.util.JFXDialogTool;
-import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
+import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.DefaultProfileImage;
@@ -190,11 +190,11 @@ public class UsersController implements Initializable {
     }
 
     private void setValidations() {
-        RequieredFieldsValidators.toJFXTextField(txtName);
-        RequieredFieldsValidators.toJFXTextField(txtUser);
-        RequieredFieldsValidators.toJFXTextField(txtPassword);
-        RequieredFieldsValidators.toJFXPasswordField(pfPassword);
-        RequieredFieldsValidators.toJFXComboBox(cmbTypeUser);
+        ValidatorsBuilder.toTextField(txtName);
+        ValidatorsBuilder.toTextField(txtUser);
+        ValidatorsBuilder.toTextField(txtPassword);
+        ValidatorsBuilder.toPasswordField(pfPassword);
+        ValidatorsBuilder.toComboBox(cmbTypeUser);
     }
 
     private void setMask() {

@@ -22,7 +22,7 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
+import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Customers;
 import com.laynezcoder.estfx.notifications.NotificationType;
@@ -187,8 +187,8 @@ public class CustomersController implements Initializable {
     }
 
     private void setValidations() {
-        RequieredFieldsValidators.toJFXTextField(txtCustomerNumber);
-        RequieredFieldsValidators.toJFXTextField(txtCustomerName);
+        ValidatorsBuilder.toTextField(txtCustomerNumber);
+        ValidatorsBuilder.toTextField(txtCustomerName);
     }
 
     private void characterLimiter() {

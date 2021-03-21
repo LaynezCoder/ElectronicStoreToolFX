@@ -15,13 +15,10 @@
  */
 package com.laynezcoder.estfx.controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.mask.RequieredFieldsValidators;
+import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
@@ -41,6 +38,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
@@ -56,19 +56,15 @@ public class LoginController implements Initializable {
     private final String INCORRECT_CREDENTIALS = "Incorrect user or password";
 
     @FXML
-    private JFXButton btnLogin;
+    private Button btnLogin;
+    @FXML
+    private TextField txtUser;
 
     @FXML
-    private Pane paneIcon;
+    private TextField txtPassword;
 
     @FXML
-    private JFXTextField txtUser;
-
-    @FXML
-    private JFXTextField txtPassword;
-
-    @FXML
-    private JFXPasswordField pfPassword;
+    private PasswordField pfPassword;
 
     @FXML
     private FontAwesomeIconView icon;
@@ -96,9 +92,9 @@ public class LoginController implements Initializable {
     }
 
     private void setValidations() {
-        RequieredFieldsValidators.toJFXPasswordField(pfPassword);
-        RequieredFieldsValidators.toJFXTextField(txtUser);
-        RequieredFieldsValidators.toJFXTextField(txtPassword);
+        ValidatorsBuilder.toPasswordField(pfPassword);
+        ValidatorsBuilder.toTextField(txtUser);
+        ValidatorsBuilder.toTextField(txtPassword);
     }
 
     private void setMask() {
@@ -121,7 +117,7 @@ public class LoginController implements Initializable {
         if (user.isEmpty() && pass.isEmpty()) {
             Animations.shake(txtUser);
             Animations.shake(pfPassword);
-            Animations.shake(paneIcon);
+            Animations.shake(icon);
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
             return;
         }
@@ -135,7 +131,7 @@ public class LoginController implements Initializable {
         if (pass.isEmpty()) {
             pfPassword.requestFocus();
             Animations.shake(pfPassword);
-            Animations.shake(paneIcon);
+            Animations.shake(icon);
             return;
         }
 
@@ -160,7 +156,7 @@ public class LoginController implements Initializable {
                 Animations.shake(txtUser);
                 Animations.shake(pfPassword);
                 Animations.shake(txtPassword);
-                Animations.shake(paneIcon);
+                Animations.shake(icon);
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -211,7 +207,6 @@ public class LoginController implements Initializable {
         }
     }
 
-    @FXML
     private void showPassword() {
         txtPassword.managedProperty().bind(icon.pressedProperty());
         txtPassword.visibleProperty().bind(icon.pressedProperty());
