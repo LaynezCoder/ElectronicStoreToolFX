@@ -23,23 +23,23 @@ public class Constants {
     public static final Double MIN_WIDTH = 1040.00;
     public static final Double MIN_HEIGHT = 640.00;
 
-    public static final String SOURCE_PACKAGES = "/com/laynezcoder/estfx";
-    public static final String MEDIA_PACKAGE = "/resources/media/";
-    public static final String VIEWS_PACKAGE = SOURCE_PACKAGES + "/views/";
-    public static final String PROFILE_PICTURES_PACKAGE = MEDIA_PACKAGE + "profiles/";
-    public static final String FONTS_PACKAGE = SOURCE_PACKAGES + "/fonts/";
+    public static final String SOURCE_PACKAGE = "/com/laynezcoder/estfx";
+    public static final String IMAGE_PACKAGE = "/resources/com/laynezcoder/images/";
+    public static final String FXML_PACKAGE = SOURCE_PACKAGE + "/views/";
+    public static final String PROFILE_PICTURES_PACKAGE = IMAGE_PACKAGE + "profiles/";
+    public static final String FONTS_PACKAGE = SOURCE_PACKAGE + "/fonts/";
 
-    public static final String LOGIN_VIEW = VIEWS_PACKAGE + "LoginView.fxml";
-    public static final String START_VIEW = VIEWS_PACKAGE + "StartView.fxml";
-    public static final String MAIN_VIEW = VIEWS_PACKAGE + "MainView.fxml";
+    public static final String LOGIN_VIEW = FXML_PACKAGE + "LoginView.fxml";
+    public static final String START_VIEW = FXML_PACKAGE + "StartView.fxml";
+    public static final String MAIN_VIEW = FXML_PACKAGE + "MainView.fxml";
 
-    public static final String STAGE_ICON = MEDIA_PACKAGE + "icon.png";
-    public static final String NO_IMAGE_AVAILABLE = MEDIA_PACKAGE + "empty-image.jpg";
-    public static final String INFORMATION_IMAGE = MEDIA_PACKAGE + "information.png";
-    public static final String ERROR_IMAGE = MEDIA_PACKAGE + "error.png";
-    public static final String SUCCESS_IMAGE = MEDIA_PACKAGE + "success.png";
+    public static final String STAGE_ICON = IMAGE_PACKAGE + "icon.png";
+    public static final String NO_IMAGE_AVAILABLE = IMAGE_PACKAGE + "empty-image.jpg";
+    public static final String INFORMATION_IMAGE = IMAGE_PACKAGE + "information.png";
+    public static final String ERROR_IMAGE = IMAGE_PACKAGE + "error.png";
+    public static final String SUCCESS_IMAGE = IMAGE_PACKAGE + "success.png";
 
-    public static final String CSS_LIGHT_THEME = "/resources/LightTheme.css";
+    public static final String CSS_LIGHT_THEME = "/resources/com/laynezcoder/light-theme.css";
     public static final String LIGHT_THEME = Constants.class.getResource(CSS_LIGHT_THEME).toExternalForm();
     
     public static final String MESSAGE_ERROR_CONNECTION_MYSQL = "An error occurred when connecting to MySQL.\nCheck your connection to MySQL";
