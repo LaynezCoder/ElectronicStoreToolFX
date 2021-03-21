@@ -15,7 +15,7 @@
  */
 
 @font-face {
-    src: url("rimouski.ttf");
+    src: url("../../../resources/com/laynezcoder/fonts/Manrope-Medium.ttf");
 }
  
 * {
@@ -24,6 +24,8 @@
     -secondary: #bebec2;
     -delete: #f35f56;
     -hover: #2BA266; 
+    -fx-font-smoothing-type: gray;
+    -fx-font-family: "Manrope Medium";
 }
 
 .root {
@@ -32,27 +34,22 @@
 
 .h1 {
     -fx-font-size: 25;
-    -fx-font-family: "Rimouski Sb";
 }
 
 .h2 {
     -fx-font-size: 20;
-    -fx-font-family: "Rimouski Sb";
 }
 
 .h3 {
     -fx-font-size: 15;
-    -fx-font-family: "Rimouski Sb";
 }
 
 .h4 {
     -fx-font-size: 14;
-    -fx-font-family: "Rimouski Sb";
 }
 
 .h5 {
     -fx-font-size: 12;
-    -fx-font-family: "Rimouski Sb";
 }
 
 .jfx-text-field {
@@ -81,7 +78,6 @@
 
 .button-general {
     -fx-background-color: -primary;
-    -fx-font-family: "Rimouski Sb";
     -fx-font-size: 16;
 }
 
@@ -192,7 +188,6 @@
 
 .action-button {
     -fx-font-size: 12;
-    -fx-font-family: "Rimouski Sb";
     -fx-background-color: -primary;
     -fx-text-fill: white;
 }
@@ -202,7 +197,6 @@
 }
 
 .button-cancel {  
-    -fx-font-family: "Rimouski Sb";
     -fx-font-size: 12;
     -fx-background-color: white;
     -fx-border-color: -secondary;
@@ -214,7 +208,6 @@
 }
 
 .button-delete {
-    -fx-font-family: "Rimouski Sb";
     -fx-background-color: -delete;
     -fx-text-fill: white;
 }
@@ -313,7 +306,6 @@
 }
 
 .alert-error-button {
-    -fx-font-family: "Rimouski Sb";
     -fx-background-color: -delete;
     -fx-background-radius: 5;
     -fx-text-fill: white;
@@ -327,19 +319,16 @@
 }
 
 .alert-error-title {
-    -fx-font-family: "Rimouski Sb";
     -fx-fill: -delete;
     -fx-font-size: 30;
 }
 
 .alert-error-body {
-    -fx-font-family: "Rimouski Sb";
     -fx-fill: -delete;
     -fx-font-size: 15;
 }
 
 .alert-success-button {
-    -fx-font-family: "Rimouski Sb";
     -fx-background-color: -primary;
     -fx-background-radius: 5;
     -fx-text-fill: white;
@@ -353,13 +342,11 @@
 }
 
 .alert-success-title {
-    -fx-font-family: "Rimouski Sb";
     -fx-fill: -primary;
     -fx-font-size: 30;
 }
 
 .alert-success-body {
-    -fx-font-family: "Rimouski Sb";
     -fx-fill: -primary;
     -fx-font-size: 15;
 }
