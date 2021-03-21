@@ -27,7 +27,6 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Customers;
 import com.laynezcoder.estfx.models.Quotes;
@@ -172,7 +171,6 @@ public class QuotesController implements Initializable {
         setMask();
         setContextMenu();
         animateNodes();
-        setValidations();
         selectText();
         closeDialogWithTextFields();
     }
@@ -212,12 +210,6 @@ public class QuotesController implements Initializable {
         Animations.fadeInUp(rootSearchQuotes);
         Animations.fadeInUp(btnAddQuotes);
         Animations.fadeInUp(tblQuotes);
-    }
-
-    private void setValidations() {
-        ValidatorsBuilder.toTextArea(txtDescription);
-        ValidatorsBuilder.toComboBox(cmbIdCustomer);
-        ValidatorsBuilder.toDatePicker(dtpDate);
     }
 
     private void selectText() {

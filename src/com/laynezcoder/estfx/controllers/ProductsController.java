@@ -23,7 +23,6 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Products;
 import com.laynezcoder.estfx.notifications.NotificationType;
@@ -197,7 +196,6 @@ public class ProductsController implements Initializable {
         setMask();
         animateNodes();
         selectText();
-        setValidations();
         validateUser();
         characterLimiter();
         initializeImage();
@@ -252,16 +250,6 @@ public class ProductsController implements Initializable {
         Animations.fadeInUp(btnNewProduct);
         Animations.fadeInUp(tblProducts);
         Animations.fadeInUp(hBoxSearch);
-    }
-
-    private void setValidations() {
-        ValidatorsBuilder.toTextField(txtSalePrice);
-        ValidatorsBuilder.toTextField(txtMinPrice);
-        ValidatorsBuilder.toTextField(txtPorcentage);
-        ValidatorsBuilder.toTextField(txtBarCode);
-        ValidatorsBuilder.toTextField(txtNameProduct);
-        ValidatorsBuilder.toTextArea(txtDescriptionProduct);
-        ValidatorsBuilder.toTextField(txtPurchasePrice);
     }
 
     private void setMask() {

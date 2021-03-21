@@ -55,7 +55,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import com.laynezcoder.estfx.util.JFXDialogTool;
-import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.DefaultProfileImage;
@@ -151,7 +150,6 @@ public class UsersController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         showPassword();
         animateNodes();
-        setValidations();
         loadData();
         setMask();
         setContextMenu();
@@ -188,15 +186,7 @@ public class UsersController implements Initializable {
 
         contextMenu.show();
     }
-
-    private void setValidations() {
-        ValidatorsBuilder.toTextField(txtName);
-        ValidatorsBuilder.toTextField(txtUser);
-        ValidatorsBuilder.toTextField(txtPassword);
-        ValidatorsBuilder.toPasswordField(pfPassword);
-        ValidatorsBuilder.toComboBox(cmbTypeUser);
-    }
-
+     
     private void setMask() {
         TextFieldMask.onlyLetters(txtName, 40);
         TextFieldMask.onlyNumbersAndLettersNotSpaces(txtUser, 40);

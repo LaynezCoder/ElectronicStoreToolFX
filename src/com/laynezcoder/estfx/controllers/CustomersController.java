@@ -22,7 +22,6 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Customers;
 import com.laynezcoder.estfx.notifications.NotificationType;
@@ -134,7 +133,6 @@ public class CustomersController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         filterCustomers = FXCollections.observableArrayList();
         characterLimiter();
-        setValidations();
         selectText();
         loadData();
         setMask();
@@ -184,11 +182,6 @@ public class CustomersController implements Initializable {
         TextFieldMask.selectText(txtIt);
         TextFieldMask.selectText(txtSearchCustomer);
         TextFieldMask.selectText(txtSearchNumber);
-    }
-
-    private void setValidations() {
-        ValidatorsBuilder.toTextField(txtCustomerNumber);
-        ValidatorsBuilder.toTextField(txtCustomerName);
     }
 
     private void characterLimiter() {

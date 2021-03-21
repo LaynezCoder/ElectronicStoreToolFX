@@ -25,7 +25,6 @@ import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.notifications.NotificationType;
@@ -119,7 +118,6 @@ public class SettingsController implements Initializable {
         animationNodes();
         selectText();
         loadData();
-        validations();
         setMask();
         setOptionsToComboBox();
         initializeProfileImage();
@@ -334,15 +332,6 @@ public class SettingsController implements Initializable {
         TextFieldMask.selectText(txtPassword);
         TextFieldMask.selectText(txtConfirmPassword);
         TextFieldMask.selectTextToJFXTextArea(txtBio);
-    }
-
-    private void validations() {
-        ValidatorsBuilder.toTextArea(txtBio);
-        ValidatorsBuilder.toComboBox(cmbDialogTransition);
-        ValidatorsBuilder.toTextField(txtName);
-        ValidatorsBuilder.toTextField(txtUser);
-        ValidatorsBuilder.toPasswordField(txtPassword);
-        ValidatorsBuilder.toPasswordField(txtConfirmPassword);
     }
 
     private void setMask() {

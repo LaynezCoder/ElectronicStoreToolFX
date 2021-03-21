@@ -18,7 +18,6 @@ package com.laynezcoder.estfx.controllers;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.mask.ValidatorsBuilder;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
@@ -46,7 +45,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -77,7 +75,6 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showPassword();
-        setValidations();
         selectText();
         setMask();
         animations();
@@ -89,12 +86,6 @@ public class LoginController implements Initializable {
         Animations.fadeInUp(txtPassword);
         Animations.fadeInUp(pfPassword);
         Animations.fadeInUp(btnLogin);
-    }
-
-    private void setValidations() {
-        ValidatorsBuilder.toPasswordField(pfPassword);
-        ValidatorsBuilder.toTextField(txtUser);
-        ValidatorsBuilder.toTextField(txtPassword);
     }
 
     private void setMask() {
