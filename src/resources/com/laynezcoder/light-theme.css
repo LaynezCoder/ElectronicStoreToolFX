@@ -15,25 +15,24 @@
  */
 
 @font-face {
-    src: url("../../../resources/com/laynezcoder/fonts/Manrope-Medium.ttf");
-}
- 
-* {
-    -root: #f5f5f7;
-    -primary: #2ab56f;
-    -secondary: #bebec2;
-    -delete: #f35f56;
-    -hover: #2BA266; 
-    -fx-font-smoothing-type: gray;
-    -fx-font-family: "Manrope Medium";
+    src: url("../../../resources/com/laynezcoder/fonts/Montserrat/Montserrat-bold.ttf");
 }
 
-.root {
-    -fx-background-color: -root;
+@font-face {
+    src: url("../../../resources/com/laynezcoder/fonts/Roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+    src: url("../../../resources/com/laynezcoder/fonts/Roboto/Roboto-Medium.ttf");
+}
+
+.h1, .h2, .h3, .h4, .h5 {
+    -fx-font-family: "Montserrat Bold";
+    -fx-fill: -text;
 }
 
 .h1 {
-    -fx-font-size: 25;
+    -fx-font-size: 30;
 }
 
 .h2 {
@@ -52,15 +51,63 @@
     -fx-font-size: 12;
 }
 
-.jfx-text-field {
-    -fx-font-size: 14;
-    -fx-accent: -primary;
-    -jfx-focus-color: -primary;
-    -jfx-unfocus-color: -secondary;
+* {
+    -root: #FAFDFF;
+    -primary: #2ab56f;
+    -primary-alt: #2BA266; 
+    -secondary: #DFE0E0;
+    -tertiary: #FF3C32;
+    -tertiary-alt: #FF2419;
+    -border: #DFE0E0;
+    -text: #53575A;
+    -fx-font-smoothing-type: gray;
+    -fx-font-family: "Roboto";
 }
 
-.jfx-text-field-login {
+.icon-close {
+    -fx-fill: -secondary;
+    -fx-font-size: 20px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
+.btn-close {
+    -fx-pref-height: 30px;
+    -fx-pref-width: 30px;
+    -fx-background-color: none;
+    -fx-content-display: graphic-only;
+}
+
+.icon-btn-eye {
+    -fx-fill: -secondary;
+    -fx-font-size: 15px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
+.txt {
+    -fx-border-radius: 5px;
+    -fx-border-color: -border;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: -text;
     -fx-font-size: 16;
+    -fx-highlight-fill: -primary;
+}
+
+.txt:focused {
+    -fx-border-color: -primary;
+}
+
+.btn {
+    -fx-font-size: 16;
+    -fx-background-color: -primary;
+    -fx-text-fill: #ffffff;
+}
+
+.btn:hover, .btn:pressed {
+    -fx-background-color: -primary-alt;
+}
+
+.jfx-text-field {
+    -fx-font-size: 14;
     -fx-accent: -primary;
     -jfx-focus-color: -primary;
     -jfx-unfocus-color: -secondary;
@@ -85,10 +132,6 @@
     -jfx-rippler-fill: none;
 }
 
-.button-close {
-    -fx-background-color: none;
-    -fx-fill: -secondary;
-}
 
 .button-close .jfx-rippler {
     -jfx-rippler-fill: none;
@@ -300,7 +343,6 @@
 }
 
 .chart-pie-label {
-    -fx-font-family: "Rimouski Sb";
     -fx-font-size: 15;
     -fx-fill: black;
 }
