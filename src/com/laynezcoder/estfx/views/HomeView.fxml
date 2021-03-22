@@ -2,7 +2,6 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -15,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="stckHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../../../../resources/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.HomeController">
+<StackPane fx:id="stckHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="930.0" stylesheets="@../../../../resources/com/laynezcoder/light-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.HomeController">
    <children>
       <AnchorPane fx:id="rootHome" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f5f7;">
          <children>
@@ -25,24 +24,24 @@
                      <font>
                         <Font size="13.0" />
                      </font></TextField>
-                  <FontAwesomeIconView fill="#76787c" glyphName="SEARCH" layoutX="14.0" layoutY="27.0" size="20" />
+                  <FontAwesomeIconView fill="#76787c" glyphName="SEARCH" layoutX="14.0" layoutY="27.0" size="20" styleClass="icon-search" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="rootWelcome" layoutX="16.0" layoutY="72.0" prefHeight="0.0" prefWidth="900.0" style="-fx-background-color: #e2faff; -fx-background-radius: 5;" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="14.0">
                <children>
                   <ImageView fitHeight="134.0" fitWidth="892.0" layoutX="38.0" layoutY="-3.0" opacity="0.76" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.5714111328125">
                      <image>
-                        <Image url="@../../../../resources/media/home-background.png" />
+                        <Image url="@../../../../resources/com/laynezcoder/images/home-background.png" />
                      </image>
                   </ImageView>
                   <VBox alignment="CENTER_LEFT" prefHeight="131.0" prefWidth="900.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Text fx:id="textWelcome" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="Welcome back">
+                        <Text fx:id="textWelcome" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Welcome back">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Text>
-                        <Text fx:id="textDescriptionWelcome" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="¿What do you think if you start adding a new client?">
+                        <Text fx:id="textDescriptionWelcome" fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="¿What do you think if you start adding a new client?">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -73,13 +72,9 @@
                <children>
                   <AnchorPane fx:id="rootTotalCustomers" layoutX="230.0" layoutY="10.0" prefHeight="0.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 5;" translateY="10.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <VBox alignment="CENTER" prefHeight="134.0" prefWidth="294.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Label fx:id="labelTotalCustomers" text="5000" textFill="#76787c">
-                                 <font>
-                                    <Font name="System Bold" size="50.0" />
-                                 </font>
-                              </Label>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="500" />
                               <Text fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total customers">
                                  <font>
                                     <Font size="15.0" />
@@ -93,11 +88,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Label fx:id="labelTotalQuotes" text="5000" textFill="#76787c">
-                                 <font>
-                                    <Font name="System Bold" size="50.0" />
-                                 </font>
-                              </Label>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="500" />
                               <Text fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total Quotes">
                                  <font>
                                     <Font size="15.0" />
@@ -111,11 +102,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Label fx:id="labelTotalProduct" text="5000" textFill="#76787c">
-                                 <font>
-                                    <Font name="System Bold" size="50.0" />
-                                 </font>
-                              </Label>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="500" />
                               <Text fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Total products">
                                  <font>
                                     <Font size="15.0" />
@@ -129,11 +116,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Label fx:id="labelNowQuotes" text="5000" textFill="#76787c">
-                                 <font>
-                                    <Font name="System Bold" size="50.0" />
-                                 </font>
-                              </Label>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="500" />
                               <Text fill="#76787c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Recent quotes">
                                  <font>
                                     <Font size="15.0" />
