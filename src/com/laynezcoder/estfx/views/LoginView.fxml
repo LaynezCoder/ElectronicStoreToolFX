@@ -17,7 +17,7 @@
          <children>
             <VBox alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="430.0">
                <children>
-                  <Button mnemonicParsing="false" onMouseClicked="#closeStage" prefHeight="30.0" prefWidth="30.0" styleClass="btn-close" text="Button">
+                  <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#closeStage" prefHeight="30.0" prefWidth="30.0" styleClass="btn-close" text="Button">
                      <graphic>
                         <MaterialDesignIconView glyphName="CLOSE" styleClass="icon-close" />
                      </graphic>
