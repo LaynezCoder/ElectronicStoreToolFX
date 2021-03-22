@@ -83,17 +83,6 @@ public class Animations {
         });
     }
 
-    public static void tooltip(Node node, Node tooltip) {
-        node.setOnMouseEntered(ev -> {
-            FadeIn fadeIn = new FadeIn(tooltip);
-            fadeIn.setSpeed(3);
-            fadeIn.play();
-            tooltip.setVisible(true);
-        });
-
-        node.setOnMouseExited(ev -> tooltip.setVisible(false));
-    }
-
     public static void hover(Node node, int duration, double setXAndY) {
         ScaleTransition scaleTrans = new ScaleTransition(Duration.millis(duration), node);
         scaleTrans.setFromX(1.0);

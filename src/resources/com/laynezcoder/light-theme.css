@@ -31,7 +31,7 @@
 }
 
 * {
-    -root: #FAFDFF;
+    -root: #ffffff;
     -primary: #2ab56f;
     -primary-alt: #1cb066; 
     -secondary: #DFE0E0;
@@ -114,6 +114,38 @@
     -fx-background-color: -primary-alt;
 }
 
+.side-bar {
+    -fx-background-color: #2d3037;
+}
+
+.main-icon {
+    -fx-fill: #76787c;
+    -fx-font-size: 25px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
+.main-icon:disabled {
+    -fx-opacity: 1;
+    -fx-fill: #ffffff;
+}
+
+.side-bar-button {
+    -fx-pref-height: 60px;
+    -fx-pref-width: 70px;
+    -fx-background-color: #2d3037;
+    -fx-content-display: graphic-only;
+}
+
+.side-bar-button:disabled {
+    -fx-opacity: 1;
+}
+
+.side-bar-button:hover .main-icon,
+.side-bar-button:pressed .main-icon {
+    -fx-background-color: #ffffff;
+    -fx-fill: #ffffff;
+}
+
 .jfx-text-field {
     -fx-font-size: 14;
     -fx-accent: -primary;
@@ -147,21 +179,6 @@
 
 .button-close:hover .glyph-icon {
     -fx-fill: black;
-}
-
-.main-view-button {
-    -fx-background-color: #2d3037;
-    -fx-text-fill: white;
-}
-
-.main-view-button .jfx-rippler {
-    -jfx-rippler-fill: none;
-}
-
-.main-view-button:hover .glyph-icon,
-.main-view-button:pressed .glyph-icon {
-    -fx-background-color: #76787c;
-    -fx-fill: white;
 }
 
 .button-administrador {

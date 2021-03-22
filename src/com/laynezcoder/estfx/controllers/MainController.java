@@ -15,8 +15,6 @@
  */
 package com.laynezcoder.estfx.controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.resources.Constants;
 import java.io.IOException;
@@ -29,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -38,66 +37,38 @@ import javafx.stage.StageStyle;
 public class MainController implements Initializable {
 
     @FXML
-    private JFXButton btnHome;
+    private Button btnHome;
 
     @FXML
-    private JFXButton btnCustomers;
+    private Button btnCustomers;
 
     @FXML
-    private JFXButton btnQuotes;
+    private Button btnQuotes;
 
     @FXML
-    private JFXButton btnExit;
+    private Button btnExit;
 
     @FXML
-    private JFXButton btnAbout;
+    private Button btnAbout;
 
     @FXML
-    private JFXButton btnStatistics;
+    private Button btnStatistics;
 
     @FXML
-    private JFXButton btnAddUser;
+    private Button btnAddUser;
 
     @FXML
-    private JFXButton btnSettings;
+    private Button btnSettings;
 
     @FXML
-    private JFXButton btnProducts;
+    private Button btnProducts;
 
     @FXML
-    private AnchorPane rootContainer;
-
-    @FXML
-    private AnchorPane tooltipCustomers;
-
-    @FXML
-    private AnchorPane tooltipHome;
-
-    @FXML
-    private AnchorPane tooltipQuotes;
-
-    @FXML
-    private AnchorPane tooltipSettings;
-
-    @FXML
-    private AnchorPane tooltipExit;
-
-    @FXML
-    private AnchorPane tooltipProducts;
-
-    @FXML
-    private AnchorPane tooltipAbout;
-
-    @FXML
-    private AnchorPane tooltipStatistics;
-
-    @FXML
-    private AnchorPane tooltipAddUser;
+    private AnchorPane container;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         homeWindowsInitialize();
-        tooltips();
     }
 
     @FXML
@@ -136,34 +107,34 @@ public class MainController implements Initializable {
         showFXMLWindows("QuotesView");
         setDisableButtons(event);
     }
-
-    @FXML
-    private void settingsWindows(MouseEvent event) {
-        showFXMLWindows("SettingsView");
-        setDisableButtons(event);
-    }
-
-    @FXML
-    private void statisticsWindows(MouseEvent event) {
-        showFXMLWindows("StatisticsView");
-        setDisableButtons(event);
-    }
-
-    @FXML
-    private void aboutWindows(MouseEvent event) {
-        showFXMLWindows("AboutView");
-        setDisableButtons(event);
-    }
-
+    
     @FXML
     private void productsWindows(MouseEvent event) { 
         showFXMLWindows("ProductsView");
         setDisableButtons(event);
     }
-
+    
     @FXML
-    private void addUserWindows(MouseEvent event) {
+    private void usersWindows(MouseEvent event) {
         showFXMLWindows("UsersView");
+        setDisableButtons(event);
+    }
+    
+    @FXML
+    private void statisticsWindows(MouseEvent event) {
+        showFXMLWindows("StatisticsView");
+        setDisableButtons(event);
+    }
+    
+    @FXML
+    private void aboutWindows(MouseEvent event) {
+        showFXMLWindows("AboutView");
+        setDisableButtons(event);
+    }
+    
+    @FXML
+    private void settingsWindows(MouseEvent event) {
+        showFXMLWindows("SettingsView");
         setDisableButtons(event);
     }
 
@@ -187,50 +158,37 @@ public class MainController implements Initializable {
         ((Stage) btnHome.getScene().getWindow()).close();
     }
 
-    private void setDisableButtons(MouseEvent event, JFXButton button) {
+    private void setDisableButtons(MouseEvent event, Button button) {
         if (event.getSource().equals(button)) {
             button.setDisable(true);
         } else {
             button.setDisable(false);
         }
     }
-
-    private void tooltips() {
-        Animations.tooltip(btnHome, tooltipHome);
-        Animations.tooltip(btnHome, tooltipHome);
-        Animations.tooltip(btnCustomers, tooltipCustomers);
-        Animations.tooltip(btnQuotes, tooltipQuotes);
-        Animations.tooltip(btnSettings, tooltipSettings);
-        Animations.tooltip(btnExit, tooltipExit);
-        Animations.tooltip(btnProducts, tooltipProducts);
-        Animations.tooltip(btnStatistics, tooltipStatistics);
-        Animations.tooltip(btnAbout, tooltipAbout);
-        Animations.tooltip(btnAddUser, tooltipAddUser);
-    }
-
+    
     private void showFXMLWindows(String FXMLName) {
-        rootContainer.getChildren().clear();
+        container.getChildren().clear();
         try {
             Parent root = FXMLLoader.load(getClass().getResource(Constants.FXML_PACKAGE + FXMLName + ".fxml"));
             AnchorPane.setBottomAnchor(root, 0.0);
             AnchorPane.setTopAnchor(root, 0.0);
             AnchorPane.setLeftAnchor(root, 0.0);
             AnchorPane.setRightAnchor(root, 0.0);
-            rootContainer.getChildren().setAll(root);
+            container.getChildren().setAll(root);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public JFXButton getBtnStatistics() {
+    public Button getBtnStatistics() {
         return btnStatistics;
     }
 
-    public JFXButton getBtnAddUser() {
+    public Button getBtnAddUser() {
         return btnAddUser;
     }
 
-    public JFXButton getBtnAbout() {
+    public Button getBtnAbout() {
         return btnAbout;
     }
 }

@@ -163,7 +163,7 @@ public class LoginController implements Initializable {
             Parent root = loader.load();
             MainController main = loader.getController();
 
-            if (DatabaseHelper.getUserType().equals("Administrator")) {
+            if (DatabaseHelper.getUserType().equals("Administrador")) {
                 main.getBtnStatistics().setVisible(true);
                 main.getBtnAddUser().setVisible(true);
                 main.getBtnAbout().setVisible(true);
