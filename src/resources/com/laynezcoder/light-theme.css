@@ -14,46 +14,39 @@
  * limitations under the License.
  */
 
-/*
- -fx-font-family: "Material Design Icons"; 
-*/
-
 @font-face {
-    src: url("../../../resources/com/laynezcoder/fonts/Montserrat/Montserrat-Bold.ttf");
+    src: url("../../../resources/com/laynezcoder/fonts/poppins/Poppins-Regular.ttf");
 }
 
 @font-face {
-    src: url("../../../resources/com/laynezcoder/fonts/Montserrat/Montserrat-Semibold.ttf");
+    src: url("../../../resources/com/laynezcoder/fonts/poppins/Poppins-Medium.ttf");
 }
 
 @font-face {
-    src: url("../../../resources/com/laynezcoder/fonts/Roboto/Roboto-Regular.ttf");
-}
-
-@font-face {
-    src: url("../../../resources/com/laynezcoder/fonts/Roboto/Roboto-Medium.ttf");
+    src: url("../../../resources/com/laynezcoder/fonts/poppins/Poppins-Bold.ttf");
 }
 
 * {
-    -root: #ffffff;
-    -primary: #2ab56f;
-    -primary-alt: #1cb066; 
-    -secondary: #DFE0E0;
-    -tertiary: #FF3C32;
-    -tertiary-alt: #FF2419;
+    -fx-color-root: #FCFCFC;
+    -fx-color-primary: #5581f9;
+    -fx-color-primary-alt: #4275ff; 
+    -fx-color-primary-light: #EEF2FA;
+    -fx-color-secondary: #8B8B8B;
+    -fx-color-tertiary: #FF3C32;
+    -fx-color-tertiary-alt: #FF2419;
     -border: #DFE0E0;
-    -text: #53575A;
+    -fx-color-text: #53575A;
     -fx-font-smoothing-type: gray;
-    -fx-font-family: "Roboto";
+    -fx-font-family: "Poppins";
 }
 
 .root {
-    -fx-background-color: -root;
+    -fx-background-color: -fx-color-root;
 }
 
 .h1, .h2, .h3, .h4, .h5 {
-    -fx-font-family: "Montserrat Bold";
-    -fx-fill: -text;
+    -fx-font-family: "Poppins Bold";
+    -fx-fill: -fx-color-text;
 }
 
 .h1 {
@@ -76,14 +69,20 @@
     -fx-font-size: 12;
 }
 
+.estfx {
+   -fx-font-family: "Poppins Bold";
+   -fx-font-size: 15;
+   -fx-fill: -fx-color-secondary;
+}
+
 .sub-title {
-   -fx-font-family: "Montserrat Semibold";
-   -fx-font-size: 18;
-   -fx-fill: #76787c;
+   -fx-font-family: "Poppins Medium";
+   -fx-font-size: 14;
+   -fx-fill: -fx-color-secondary;
 }
 
 .icon-close {
-    -fx-fill: -secondary;
+    -fx-fill: -fx-color-secondary;
     -fx-font-size: 20px;
     -fx-font-family: "Material Design Icons"; 
 }
@@ -96,7 +95,7 @@
 }
 
 .icon-eye {
-    -fx-fill: -secondary;
+    -fx-fill: -fx-color-secondary;
     -fx-font-size: 15px;
     -fx-font-family: "FontAwesome"; 
 }
@@ -105,51 +104,65 @@
     -fx-border-radius: 5px;
     -fx-border-color: -border;
     -fx-background-color: #ffffff;
-    -fx-text-fill: -text;
+    -fx-text-fill: -fx-color-text;
     -fx-font-size: 16;
-    -fx-highlight-fill: -primary;
+    -fx-highlight-fill: -fx-color-primary-light;
 }
 
 .btn {
     -fx-font-size: 16;
-    -fx-background-color: -primary;
     -fx-text-fill: #ffffff;
+    -fx-background-radius: 5px;
+    -fx-background-color: -fx-color-primary;
 }
 
 .btn:hover, .btn:pressed {
-    -fx-background-color: -primary-alt;
+    -fx-background-color: -fx-color-primary-alt;
 }
 
 .side-bar {
     -fx-background-color: #2d3037;
 }
 
-.main-icon {
-    -fx-fill: #76787c;
-    -fx-font-size: 25px;
+.side-bar-icon {
+    -fx-fill: -fx-color-secondary;
+    -fx-font-size: 20px;
     -fx-font-family: "Material Design Icons"; 
 }
 
-.main-icon:disabled {
+.side-bar-icon:disabled {
     -fx-opacity: 1;
     -fx-fill: #ffffff;
 }
 
 .side-bar-button {
-    -fx-pref-height: 60px;
-    -fx-pref-width: 70px;
-    -fx-background-color: #2d3037;
+    -fx-pref-height: 45px;
+    -fx-pref-width: 60px;
+    -fx-background-color: transparent;
     -fx-content-display: graphic-only;
 }
 
 .side-bar-button:disabled {
     -fx-opacity: 1;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-color: -fx-color-primary;
 }
 
-.side-bar-button:hover .main-icon,
-.side-bar-button:pressed .main-icon {
-    -fx-background-color: #ffffff;
+.side-bar-button:hover .side-bar-icon,
+.side-bar-button:pressed .side-bar-icon {
     -fx-fill: #ffffff;
+}
+
+.side-top-icon {
+    -fx-fill: -fx-color-secondary;
+    -fx-font-size: 30px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
+.side-top-arrow-icon {
+    -fx-fill: -fx-color-secondary;
+    -fx-font-size: 18px;
+    -fx-font-family: "Material Design Icons"; 
 }
 
 .icon-search {
