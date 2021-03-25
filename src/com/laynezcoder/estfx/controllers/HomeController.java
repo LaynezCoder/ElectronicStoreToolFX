@@ -16,6 +16,7 @@
 package com.laynezcoder.estfx.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXProgressBar;
 import com.laynezcoder.estfx.alerts.AlertType;
 import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
@@ -40,205 +41,223 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 public class HomeController implements Initializable {
-
+    
+    private final String IMAGE = Constants.IMAGE_PACKAGE + "character.png";
+    
     private final String DEFAULT_WELCOME_TEXT = "¿What do you think if you start adding a new client?";
-
+    
     private ObservableList<Quotes> listQuotes;
-
+    
     private ObservableList<Quotes> filterQuotes;
-
+    
     @FXML
     private StackPane stckHome;
-
+    
     @FXML
-    private AnchorPane rootSearchMain;
-
+    private HBox searchContainer;
+    
     @FXML
     private AnchorPane rootHome;
-
+    
     @FXML
-    private TextField txtSearchRecentCustomer;
-
+    private TextField txtSearchRecentQuotes;
+    
     @FXML
-    private AnchorPane rootWelcome;
-
+    private HBox welcomeContainer;
+    
     @FXML
     private Text textDescriptionWelcome;
-
+    
     @FXML
     private Text textWelcome;
-
+    
     @FXML
-    private Label labelTotalCustomers;
-
+    private Text totalCustomers;
+    
     @FXML
-    private Label labelTotalQuotes;
-
+    private Text totalQuotes;
+    
     @FXML
-    private Label labelNowQuotes;
-
+    private Text totalProducts;
+    
     @FXML
-    private Label labelTotalProduct;
-
+    private Text nowQuotes;
+    
+    @FXML
+    private ImageView image;
+    
+    @FXML
+    private JFXProgressBar progressBarCustomers;
+    
+    @FXML
+    private JFXProgressBar progressBarQuotes;
+    
+    @FXML
+    private JFXProgressBar progressBarProducts;
+    
+    @FXML
+    private JFXProgressBar progressBarRecentQuotes;
+    
+    @FXML
+    private HBox statisticsContainer;
+    
     @FXML
     private TableView<Quotes> tblQuotes;
 
     @FXML
-    private AnchorPane rootTotalCustomers;
-
-    @FXML
-    private AnchorPane rootTotalQuotes;
-
-    @FXML
-    private AnchorPane rootRecentQuotes;
-
-    @FXML
-    private AnchorPane rootProducts;
-
-    @FXML
     private TableColumn<Quotes, Integer> colId;
-
+    
     @FXML
     private TableColumn<Quotes, String> colDescription;
-
+    
     @FXML
     private TableColumn<Quotes, String> colPrice;
-
+    
     @FXML
     private TableColumn<Quotes, String> colDate;
-
+    
     @FXML
     private TableColumn<Quotes, String> colCustomerName;
-
+    
     @FXML
     private TableColumn<Quotes, JFXButton> colExistence;
-
+    
     @FXML
     private TableColumn<Quotes, JFXButton> colRealization;
-
+    
     @FXML
     private TableColumn<Quotes, JFXButton> colReport;
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         animationsNodes();
         setWelcomeText();
         counterRecords();
+        loadImage();
         loadData();
         selectText();
+        animateProgressBar();
         filterQuotes = FXCollections.observableArrayList();
     }
-
+    
+    private void loadImage() {
+        image.setImage(new Image(IMAGE, 170, 130, true, true));
+    }
+    
     private void selectText() {
-        TextFieldMask.selectText(txtSearchRecentCustomer);
+        TextFieldMask.selectText(txtSearchRecentQuotes);
     }
-
+    
+    private void animateProgressBar() {
+        Animations.progressAnimation(progressBarCustomers, 0.5);
+        Animations.progressAnimation(progressBarQuotes, 0.7);
+        Animations.progressAnimation(progressBarProducts, 0.3);
+        Animations.progressAnimation(progressBarRecentQuotes, 0.8);
+    }
+    
     private void animationsNodes() {
-        Animations.fadeInUp(rootSearchMain);
-        Animations.fadeInUp(rootWelcome);
+        Animations.fadeInUp(searchContainer);
+        Animations.fadeInUp(welcomeContainer);
         Animations.fadeInUp(tblQuotes);
-        Animations.fadeInUp(rootTotalCustomers);
-        Animations.fadeInUp(rootTotalQuotes);
-        Animations.fadeInUp(rootRecentQuotes);
-        Animations.fadeInUp(rootProducts);
+        Animations.fadeInUp(statisticsContainer);
     }
-
+    
     private void counterRecords() {
         try {
             String sql = "SELECT (SELECT COUNT(*) FROM Customers) AS Customers, (SELECT COUNT(*) FROM Products) AS Products";
             PreparedStatement preparedStatetent = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet rs = preparedStatetent.executeQuery();
-
             while (rs.next()) {
-                labelTotalCustomers.setText(String.valueOf(rs.getInt(1)));
-                labelTotalProduct.setText(String.valueOf(rs.getInt(2)));
+                totalCustomers.setText(String.valueOf(rs.getInt(1)));
+                totalProducts.setText(String.valueOf(rs.getInt(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private int getTotalQuotes() {
         int count = 0;
         try {
             String sql = "SELECT COUNT(*) FROM Quotes";
             PreparedStatement preparedStatetent = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet rs = preparedStatetent.executeQuery();
-
             while (rs.next()) {
                 count = rs.getInt(1);
             }
-            labelTotalCustomers.setText(String.valueOf(count));
+            totalCustomers.setText(String.valueOf(count));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }
-
+    
     private void setWelcomeText() {
         try {
             String sql2 = "SELECT Users.nameUser FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
             PreparedStatement preparedStatementTwo = DatabaseConnection.getInstance().getConnection().prepareStatement(sql2);
             ResultSet resultSetTwo = preparedStatementTwo.executeQuery();
-
+            
             int total = getTotalQuotes();
-            labelTotalQuotes.setText(String.valueOf(total));
-
+            totalQuotes.setText(String.valueOf(total));
+            
             while (resultSetTwo.next()) {
                 String name = resultSetTwo.getString("nameUser");
                 switch (total) {
                     case 10:
                         setText(name, 10);
-                    break;
-
+                        break;
+                    
                     case 20:
                         setText(name, 20);
-                    break;
-
+                        break;
+                    
                     case 30:
                         setText(name, 30);
-                    break;
-
+                        break;
+                    
                     case 50:
                         setText(name, 50);
-                    break;
-
+                        break;
+                    
                     case 100:
                         setText(name, 100);
-                    break;
-
+                        break;
+                    
                     case 500:
                         setText(name, 500);
-                    break;
-
+                        break;
+                    
                     default:
                         textWelcome.setText("¡Welcome back, " + name + "!");
                         textDescriptionWelcome.setText(DEFAULT_WELCOME_TEXT);
-                    break;
+                        break;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void setText(String name, int total) {
         textWelcome.setText("¡Congratulations " + name + ", " + total + " new quotes have been registered!");
         textDescriptionWelcome.setText("!Nice job!");
     }
-
+    
     private void loadData() {
         loadTable();
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -250,7 +269,7 @@ public class HomeController implements Initializable {
         colRealization.setCellValueFactory(new JFXButtonRealizedCellValueFactory());
         colReport.setCellValueFactory(new JFXButtonReportCellValueFactory());
     }
-
+    
     private void loadTable() {
         ArrayList<Quotes> list = new ArrayList<>();
         try {
@@ -259,7 +278,7 @@ public class HomeController implements Initializable {
                     + "INNER JOIN Customers AS c ON q.customerId = c.id WHERE requestDate = DATE(NOW())";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String descriptionQuote = resultSet.getString("descriptionQuote");
@@ -272,7 +291,7 @@ public class HomeController implements Initializable {
                 list.add(new Quotes(id, descriptionQuote, requestDate, price, existence, realization, report, customerName));
                 total++;
             }
-            labelNowQuotes.setText(String.valueOf(total));
+            nowQuotes.setText(String.valueOf(total));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
             AlertsBuilder.create(AlertType.ERROR, stckHome, rootHome, rootHome, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
@@ -280,10 +299,11 @@ public class HomeController implements Initializable {
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);
     }
-
+    
     @FXML
     private void filterQuotes() {
-        String filter = txtSearchRecentCustomer.getText().trim();
+        String filter = txtSearchRecentQuotes.getText().trim();
+        
         if (filter.isEmpty()) {
             tblQuotes.setItems(listQuotes);
         } else {
@@ -296,21 +316,21 @@ public class HomeController implements Initializable {
             tblQuotes.setItems(filterQuotes);
         }
     }
-
+    
     private class JFXButtonExistsCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, JFXButton>, ObservableValue<JFXButton>> {
-
+        
         @Override
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
-
+            
             FontAwesomeIconView icon = new FontAwesomeIconView();
             icon.setFill(Color.WHITE);
-
+            
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getExistence());
             button.setPrefWidth(colExistence.getWidth() / 0.5);
-
+            
             if (item.getExistence().equals(Constants.EXISTENT)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("button-yes", "table-row-cell");
@@ -321,21 +341,21 @@ public class HomeController implements Initializable {
             return new SimpleObjectProperty<>(button);
         }
     }
-
+    
     private class JFXButtonReportCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, JFXButton>, ObservableValue<JFXButton>> {
-
+        
         @Override
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
-
+            
             FontAwesomeIconView icon = new FontAwesomeIconView();
             icon.setFill(Color.WHITE);
-
+            
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getReport());
             button.setPrefWidth(colReport.getWidth() / 0.5);
-
+            
             if (item.getReport().equals(Constants.REPORTED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("button-yes", "table-row-cell");
@@ -346,21 +366,21 @@ public class HomeController implements Initializable {
             return new SimpleObjectProperty<>(button);
         }
     }
-
+    
     private class JFXButtonRealizedCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, JFXButton>, ObservableValue<JFXButton>> {
-
+        
         @Override
         public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
             Quotes item = param.getValue();
-
+            
             FontAwesomeIconView icon = new FontAwesomeIconView();
             icon.setFill(Color.WHITE);
-
+            
             JFXButton button = new JFXButton();
             button.setGraphic(icon);
             button.setText(item.getRealization());
             button.setPrefWidth(colRealization.getWidth() / 0.5);
-
+            
             if (item.getRealization().equals(Constants.REALIZED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("button-yes", "table-row-cell");
