@@ -171,10 +171,40 @@
     -fx-font-family: "FontAwesome"; 
 }
 
-.text-field-search {
-    -fx-background-color: white;
+.txt-search {
+    -fx-background-radius: 10px;
+    -fx-background-color: #ffffff;
     -fx-font-size: 14;
     -fx-accent: -primary;
+}
+
+.container-text-field-search {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+}
+
+.card {
+    -fx-background-radius: 10px;
+    -fx-background-color: #ffffff;
+}
+
+.card, statistics {
+    -fx-background-color: #ffffff;
+}
+
+.home-icons {
+    -fx-fill: -fx-color-secondary;
+    -fx-font-size: 30px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
+.jfx-progress-bar {
+    -fx-pref-width: 100px;
+    -fx-pref-height: 2px;
+}
+
+.jfx-progress-bar > .bar {
+    -fx-background-color: -fx-color-primary;
 }
 
 .error-label {
