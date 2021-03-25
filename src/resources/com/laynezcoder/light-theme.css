@@ -27,10 +27,10 @@
 }
 
 * {
-    -fx-color-root: #FCFCFC;
+    -fx-color-root: #EFF1F7;
     -fx-color-primary: #5581f9;
     -fx-color-primary-alt: #4275ff; 
-    -fx-color-primary-light: #EEF2FA;
+    -fx-color-primary-light: #edf0ff;
     -fx-color-secondary: #8B8B8B;
     -fx-color-tertiary: #FF3C32;
     -fx-color-tertiary-alt: #FF2419;
@@ -144,8 +144,6 @@
 
 .side-bar-button:disabled {
     -fx-opacity: 1;
-    -fx-border-width: 0 0 0 2;
-    -fx-border-color: -fx-color-primary;
 }
 
 .side-bar-button:hover .side-bar-icon,
@@ -153,20 +151,8 @@
     -fx-fill: #ffffff;
 }
 
-.side-top-icon {
-    -fx-fill: -fx-color-secondary;
-    -fx-font-size: 30px;
-    -fx-font-family: "Material Design Icons"; 
-}
-
-.side-top-arrow-icon {
-    -fx-fill: -fx-color-secondary;
-    -fx-font-size: 18px;
-    -fx-font-family: "Material Design Icons"; 
-}
-
 .icon-search {
-    -fx-fill: -secondary;
+    -fx-fill: -fx-color-secondary;
     -fx-font-size: 20px;
     -fx-font-family: "FontAwesome"; 
 }
@@ -175,7 +161,8 @@
     -fx-background-radius: 10px;
     -fx-background-color: #ffffff;
     -fx-font-size: 14;
-    -fx-accent: -primary;
+    -fx-padding: 0 40 0 40;
+    -fx-highlight-fill: -fx-color-primary-light;
 }
 
 .container-text-field-search {
