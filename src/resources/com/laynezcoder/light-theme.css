@@ -200,14 +200,14 @@
     -fx-background-radius: 18 18 18 18;
 }
 
-.table-view {
-  -fx-background-color: #ffffff;
+.table-view { 
+  -fx-background-color: transparent;
+  -fx-padding: 5 5 5 5;
 }
 
 .table-cell {     
     -fx-border-color: transparent;  
     -fx-font-size: 14px;    
-    -fx-border-insets: 0;
 }
 
 .table-view:row-selection .table-row-cell:filled:hover { 
@@ -224,11 +224,35 @@
 
 .table-view .column-header .label {
     -fx-text-fill: -fx-color-text;
+    -fx-font-size: 14px;
     -fx-alignment: CENTER_LEFT;
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-background-color: #ffffff;    
+    -fx-background-color: #ffffff; 
+}
+
+.table-view *.increment-button,
+.table-view *.decrement-button,
+.table-view *.increment-arrow,
+.table-view *.decrement-arrow {
+    -fx-padding: 0;
+    -fx-shape: "";
+}
+
+.table-view .virtual-flow .scroll-bar:vertical .thumb {
+    -fx-background-color:  transparent;
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  transparent;
+}
+
+.left-column-header {
+    -fx-background-radius: 5 0 0 0;
+}
+
+.right-column-header {
+    -fx-background-radius: 0 5 0 0;
 }
 
 .button-general {
