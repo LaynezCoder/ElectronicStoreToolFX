@@ -25,6 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -44,9 +45,13 @@ public class Main extends Application {
             DatabaseHelper.logout();
             Parent root = FXMLLoader.load(getClass().getResource(Constants.LOGIN_VIEW));
             stage.getIcons().add(new Image(Constants.STAGE_ICON));
-            stage.initStyle(StageStyle.UNDECORATED);
+            
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT); 
+            
+            stage.initStyle(StageStyle.TRANSPARENT);
             stage.setTitle(Constants.TITLE);
-            stage.setScene(new Scene(root));
+            stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
