@@ -192,10 +192,43 @@
 
 .jfx-progress-bar > .bar {
     -fx-background-color: -fx-color-primary;
+    -fx-background-radius: 15;
 }
 
-.error-label {
-    -fx-font-size: 10pt;
+.login {
+    -fx-background-color: #ffffff;  
+    -fx-background-radius: 18 18 18 18;
+}
+
+.table-view {
+  -fx-background-color: #ffffff;
+}
+
+.table-cell {     
+    -fx-border-color: transparent;  
+    -fx-font-size: 14px;    
+    -fx-border-insets: 0;
+}
+
+.table-view:row-selection .table-row-cell:filled:hover { 
+    -fx-background-color: -fx-color-primary-light;
+}
+
+.table-view:row-selection .table-row-cell:filled:selected:hover { 
+    -fx-background-color: -fx-color-primary;
+}
+
+.table-view:row-selection .table-row-cell:filled:selected { 
+    -fx-background-color: -fx-color-primary;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -fx-color-text;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: #ffffff;    
 }
 
 .button-general {
