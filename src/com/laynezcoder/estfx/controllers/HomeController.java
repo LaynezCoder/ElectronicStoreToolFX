@@ -208,44 +208,38 @@ public class HomeController implements Initializable {
 
     private void setWelcomeText() {
         try {
-            String sql2 = "SELECT Users.nameUser FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
-            PreparedStatement preparedStatementTwo = DatabaseConnection.getInstance().getConnection().prepareStatement(sql2);
-            ResultSet resultSetTwo = preparedStatementTwo.executeQuery();
+            String sql = "SELECT Users.nameUser FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
+            PreparedStatement preparedStatementTwo = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            ResultSet rs = preparedStatementTwo.executeQuery();
 
             int total = getTotalQuotes();
             totalQuotes.setText(String.valueOf(total));
 
-            while (resultSetTwo.next()) {
-                String name = resultSetTwo.getString("nameUser");
+            while (rs.next()) {
+                String name = LoginController.setName(rs.getString("nameUser"));
                 switch (total) {
                     case 10:
                         setText(name, 10);
                         break;
-
                     case 20:
                         setText(name, 20);
                         break;
-
                     case 30:
                         setText(name, 30);
                         break;
-
                     case 50:
                         setText(name, 50);
                         break;
-
                     case 100:
                         setText(name, 100);
                         break;
-
                     case 500:
                         setText(name, 500);
                         break;
-
                     default:
                         textWelcome.setText("¡Welcome back, " + name + "!");
                         textDescriptionWelcome.setText(DEFAULT_WELCOME_TEXT);
-                        break;
+                    break;
                 }
             }
         } catch (SQLException ex) {

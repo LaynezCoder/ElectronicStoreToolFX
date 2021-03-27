@@ -41,6 +41,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -51,10 +52,18 @@ import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
 
+    private final String IMAGE = Constants.IMAGE_PACKAGE + "login.png";
+    
+    private static final char SPACE = ' ';
+    
     private final String INCORRECT_CREDENTIALS = "Incorrect user or password";
+    
+    @FXML
+    private ImageView image;
 
     @FXML
     private Button btnLogin;
+    
     @FXML
     private TextField txtUser;
 
@@ -78,6 +87,11 @@ public class LoginController implements Initializable {
         selectText();
         setMask();
         animations();
+        loadImage();
+    }
+    
+    private void loadImage() {
+        image.setImage(new Image(IMAGE, 350, 290, true, true));
     }
 
     private void animations() {
@@ -99,6 +113,15 @@ public class LoginController implements Initializable {
         TextFieldMask.selectText(txtPassword);
         TextFieldMask.selectText(pfPassword);
     }
+    
+    public static String setName(String name) {
+        for (int i = 0; i < name.length(); i++) {
+            if (name.charAt(i) == SPACE) {
+                return name.substring(0, i);
+            }
+        }
+        return name;
+    }
 
     @FXML
     private void login() {
@@ -112,13 +135,13 @@ public class LoginController implements Initializable {
             NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
             return;
         }
-        
+
         if (user.isEmpty()) {
             txtUser.requestFocus();
             Animations.shake(txtUser);
             return;
         }
-        
+
         if (pass.isEmpty()) {
             pfPassword.requestFocus();
             Animations.shake(pfPassword);
@@ -135,7 +158,7 @@ public class LoginController implements Initializable {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 int id = rs.getInt("id");
-                String nameUser = rs.getString("nameUser");
+                String nameUser = setName(rs.getString("nameUser"));
 
                 boolean result = DatabaseHelper.insertUserSession(id);
                 if (result) {
@@ -163,14 +186,10 @@ public class LoginController implements Initializable {
             Parent root = loader.load();
             MainController main = loader.getController();
 
-            if (DatabaseHelper.getUserType().equals("Administrador")) {
-                main.getBtnStatistics().setVisible(true);
-                main.getBtnAddUser().setVisible(true);
-                main.getBtnAbout().setVisible(true);
+            if (DatabaseHelper.getUserType().equals("Administrator")) {
+                main.addButtons();
             } else {
-                main.getBtnStatistics().setVisible(false);
-                main.getBtnAddUser().setVisible(false);
-                main.getBtnAbout().setVisible(false);
+                main.removeButtons();
             }
 
             Stage stage = new Stage(StageStyle.DECORATED);
