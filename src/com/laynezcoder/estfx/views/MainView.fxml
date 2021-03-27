@@ -13,7 +13,7 @@
       <AnchorPane prefHeight="50.0" prefWidth="1000.0">
          <children>
             <AnchorPane fx:id="container" layoutX="60.0" prefHeight="600.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
-            <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="60.0" styleClass="side-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox fx:id="sideBar" alignment="TOP_CENTER" prefHeight="600.0" prefWidth="60.0" styleClass="side-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button mnemonicParsing="false" onMouseClicked="#setDisableButtons" prefHeight="0.0" prefWidth="70.0" styleClass="side-bar-button" text="Button">
                      <graphic>
@@ -50,7 +50,7 @@
                         <MaterialDesignIconView fill="WHITE" glyphName="CHART_LINE" size="25" styleClass="side-bar-icon" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btnExit" mnemonicParsing="false" onMouseClicked="#setDisableButtons" prefHeight="60.0" prefWidth="70.0" styleClass="side-bar-button" text="Button">
+                  <Button fx:id="btnExit" mnemonicParsing="false" onAction="#loginWindow" onMouseClicked="#setDisableButtons" prefHeight="60.0" prefWidth="70.0" styleClass="side-bar-button" text="Button">
                      <graphic>
                         <MaterialDesignIconView fill="WHITE" glyphName="POWER" size="25" styleClass="side-bar-icon" />
                      </graphic>
