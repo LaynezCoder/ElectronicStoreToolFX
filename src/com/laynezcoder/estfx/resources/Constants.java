@@ -17,7 +17,11 @@ package com.laynezcoder.estfx.resources;
 
 import javafx.scene.effect.BoxBlur;
 
-public class Constants {
+public final class Constants {
+    
+    private Constants() {
+        
+    }
 
     public static final String TITLE = "Electronic Store Tool FX";
     public static final Double MIN_WIDTH = 1040.00;
