@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane onMouseDragged="#dragged" onMousePressed="#pressed" styleClass="login-container" stylesheets="@../../../../resources/com/laynezcoder/light-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.LoginController">
    <children>
       <HBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0">
@@ -55,7 +54,7 @@
                               </AnchorPane>
                            </children>
                         </HBox>
-                        <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="551.0" styleClass="btn" text="Sign in" />
+                        <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="551.0" styleClass="btn-login" text="Sign in" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />

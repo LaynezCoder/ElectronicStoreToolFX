@@ -34,8 +34,9 @@
     -fx-color-secondary: #8B8B8B;
     -fx-color-tertiary: #FF3C32;
     -fx-color-tertiary-alt: #FF2419;
-    -border: #DFE0E0;
     -fx-color-text: #53575A;
+    -fx-start-color-primary: #2d3037; 
+    -border: #DFE0E0;
     -fx-font-smoothing-type: gray;
     -fx-font-family: "Poppins";
 }
@@ -109,19 +110,37 @@
     -fx-highlight-fill: -fx-color-primary-light;
 }
 
-.btn {
+.btn-login { 
     -fx-font-size: 16;
     -fx-text-fill: #ffffff;
     -fx-background-radius: 5px;
     -fx-background-color: -fx-color-primary;
 }
 
-.btn:hover, .btn:pressed {
+.btn-login:hover, .btn-login:pressed {
     -fx-background-color: -fx-color-primary-alt;
 }
 
+.btn-add {  
+    -fx-font-size: 13;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 5px;
+    -fx-background-color: -fx-color-primary;
+    -fx-font-family: "Poppins Medium";
+}
+
+.btn-add:hover, .btn-add:pressed {
+    -fx-background-color: -fx-color-primary-alt;
+}
+
+.icon-add {
+    -fx-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
 .side-bar {
-    -fx-background-color: #2d3037;
+    -fx-background-color: -fx-start-color-primary;
 }
 
 .side-bar-icon {
@@ -158,16 +177,16 @@
 }
 
 .txt-search {
-    -fx-background-radius: 10px;
     -fx-background-color: #ffffff;
     -fx-font-size: 14;
-    -fx-padding: 0 40 0 40;
     -fx-highlight-fill: -fx-color-primary-light;
 }
 
-.container-text-field-search {
+.container-txt-search {
     -fx-background-color: #ffffff;
     -fx-background-radius: 10px;
+    -fx-padding: 0 10 0 10;
+    -fx-spacing: 5;
 }
 
 .card {
@@ -185,12 +204,12 @@
     -fx-font-family: "Material Design Icons"; 
 }
 
-.jfx-progress-bar {
+.jfx-progress-bar-home {
     -fx-pref-width: 100px;
     -fx-pref-height: 2px;
 }
 
-.jfx-progress-bar > .bar {
+.jfx-progress-bar-home > .bar {
     -fx-background-color: -fx-color-primary;
     -fx-background-radius: 15;
 }
@@ -207,25 +226,27 @@
 
 .table-cell {     
     -fx-border-color: transparent;  
-    -fx-font-size: 14px;    
+    -fx-font-size: 14px;  
+    -fx-alignment: CENTER;
 }
 
 .table-view:row-selection .table-row-cell:filled:hover { 
     -fx-background-color: -fx-color-primary-light;
 }
 
-.table-view:row-selection .table-row-cell:filled:selected:hover { 
-    -fx-background-color: -fx-color-primary;
-}
-
 .table-view:row-selection .table-row-cell:filled:selected { 
     -fx-background-color: -fx-color-primary;
+    -fx-fill: #ffffff;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: #ffffff;
 }
 
 .table-view .column-header .label {
     -fx-text-fill: -fx-color-text;
     -fx-font-size: 14px;
-    -fx-alignment: CENTER_LEFT;
+    -fx-alignment: CENTER;
 }
 
 .table-view .column-header, .table-view .filler {
@@ -540,4 +561,61 @@ scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background 
 
 .button-context-menu .jfx-rippler {
     -jfx-rippler-fill: none;
+}
+
+/*Start CSS*/
+.button-start {
+    -fx-background-color: #2d3037;
+    -fx-text-fill: white;
+}
+
+.button-start .jfx-rippler {
+    -jfx-rippler-fill: none;
+}
+
+.button-start-back {
+    -fx-background-color: white;
+    -fx-border-color: #2d3037;
+    -fx-border-width: 1.5;
+    -fx-text-fill: black;
+}
+
+.button-start-back .jfx-rippler {
+    -jfx-rippler-fill: none;
+}
+
+.jfx-text-field-start {
+    -fx-font-size: 14;
+    -fx-accent:  #2d3037;
+    -jfx-focus-color: #2d3037;
+    -jfx-unfocus-color: #2d3037;
+}
+
+.combo-box-start {  
+    -fx-font-size: 14;
+    -jfx-focus-color: #2d3037;
+    -jfx-unfocus-color: #2d3037;
+    -fx-background-color: transparent;
+}
+
+.combo-box-start .jfx-rippler {
+    -jfx-rippler-fill: none;
+}
+
+.combo-box-popup-start .list-cell {    
+    -fx-background-color: white;    
+    -fx-text-fill: black;
+}
+
+.combo-box-popup-start .list-view .list-cell:filled:hover {
+    -fx-background-color: #2d3037;
+    -fx-text-fill: white;
+}
+
+.jfx-progress-bar > .track, .jfx-progress-bar > .bar {
+    -fx-background-radius: 30;
+}
+
+.jfx-progress-bar > .bar {
+    -fx-background-color:  #2d3037;
 }
