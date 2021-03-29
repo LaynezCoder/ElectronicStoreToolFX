@@ -30,31 +30,21 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.login.subtitle" />
                            </children>
                         </VBox>
-                        <HBox prefHeight="26.0" prefWidth="941.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.login.username" />
-                           </children>
-                        </HBox>
-                        <TextField fx:id="txtUser" onAction="#login" prefHeight="40.0" prefWidth="330.0" styleClass="txt">
+                        <TextField fx:id="txtUser" onAction="#login" prefHeight="40.0" prefWidth="330.0" promptText="%prompt.login.username" styleClass="txt">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
                         </TextField>
-                        <HBox prefHeight="26.0" prefWidth="941.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.login.password" />
-                           </children>
-                        </HBox>
                         <HBox prefHeight="30.0" prefWidth="522.0">
                            <children>
                               <AnchorPane prefHeight="23.0" prefWidth="330.0">
                                  <children>
-                                    <TextField fx:id="txtPassword" onAction="#login" prefHeight="40.0" prefWidth="330.0" styleClass="txt" visible="false">
+                                    <TextField fx:id="txtPassword" onAction="#login" prefHeight="40.0" prefWidth="330.0" promptText="%prompt.login.password" styleClass="txt" visible="false">
                                        <padding>
                                           <Insets left="10.0" right="40.0" />
                                        </padding>
                                     </TextField>
-                                    <PasswordField fx:id="pfPassword" onAction="#login" prefHeight="40.0" prefWidth="330.0" styleClass="txt">
+                                    <PasswordField fx:id="pfPassword" onAction="#login" prefHeight="40.0" prefWidth="330.0" promptText="%prompt.login.password" styleClass="txt">
                                        <padding>
                                           <Insets left="10.0" right="40.0" />
                                        </padding>
@@ -67,7 +57,7 @@
                         <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="551.0" styleClass="btn-login" text="%btn.login" />
                      </children>
                      <padding>
-                        <Insets left="50.0" right="50.0" />
+                        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
                      </padding>
                   </VBox>
                </children>

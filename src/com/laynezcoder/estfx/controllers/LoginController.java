@@ -23,6 +23,8 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.constants.ResourcesPackages;
+import com.laynezcoder.estfx.constants.Views;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
@@ -53,18 +55,18 @@ import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
 
-    private final String IMAGE = Constants.IMAGE_PACKAGE + "login.png";
-    
+    private final String IMAGE = ResourcesPackages.UI_IMAGES_PACKAGE + "login.png";
+
     private static final char SPACE = ' ';
-    
+
     private final String INCORRECT_CREDENTIALS = "Incorrect user or password";
-    
+
     @FXML
     private ImageView image;
 
     @FXML
     private Button btnLogin;
-    
+
     @FXML
     private TextField txtUser;
 
@@ -90,9 +92,9 @@ public class LoginController implements Initializable {
         animations();
         loadImage();
     }
-    
+
     private void loadImage() {
-        //image.setImage(new Image(IMAGE, 350, 290, true, true));
+        image.setImage(new Image(IMAGE, 350, 290, true, true));
     }
 
     private void animations() {
@@ -114,11 +116,11 @@ public class LoginController implements Initializable {
         TextFieldMask.selectText(txtPassword);
         TextFieldMask.selectText(pfPassword);
     }
-    
+
     public static String setName(String name) {
         for (int i = 0; i < name.length(); i++) {
             if (name.charAt(i) == SPACE) {
-                return name.substring(0, i); 
+                return name.substring(0, i);
             }
         }
         return name;
@@ -183,7 +185,7 @@ public class LoginController implements Initializable {
     private void loadMain() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(Constants.MAIN_VIEW));
+            loader.setLocation(getClass().getResource(ResourcesPackages.FXML_PACKAGE + Views.MAIN.getValueWithExtension()));
             Parent root = loader.load();
             MainController main = loader.getController();
 
@@ -194,7 +196,7 @@ public class LoginController implements Initializable {
             }
 
             Stage stage = new Stage(StageStyle.DECORATED);
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
+            stage.getIcons().add(Constants.ICON);
             stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             stage.setMinHeight(Constants.MIN_HEIGHT);
             stage.setMinWidth(Constants.MIN_WIDTH);
