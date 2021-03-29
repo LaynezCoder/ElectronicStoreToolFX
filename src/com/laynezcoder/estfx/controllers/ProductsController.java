@@ -30,6 +30,7 @@ import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.io.File;
@@ -533,12 +534,12 @@ public class ProductsController implements Initializable {
             if (imageFile != null) {
                 is = new FileInputStream(imageFile);
             } else {
-                is = ProductsController.class.getResourceAsStream(Constants.NO_IMAGE_AVAILABLE);
+                is = ProductsController.class.getResourceAsStream(ResourcesPackages.NO_IMAGE_AVAILABLE);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
             NotificationsBuilder.create(NotificationType.INFORMATION, Messages.IMAGE_NOT_FOUND);
-            is = ProductsController.class.getResourceAsStream(Constants.NO_IMAGE_AVAILABLE);
+            is = ProductsController.class.getResourceAsStream(ResourcesPackages.NO_IMAGE_AVAILABLE);
         }
         return is;
     }
@@ -556,7 +557,7 @@ public class ProductsController implements Initializable {
                 if (img != null) {
                     image = new Image(img, 200, 200, true, true);
                 } else {
-                    image = new Image(Constants.NO_IMAGE_AVAILABLE, 200, 200, true, true);
+                    image = new Image(ResourcesPackages.NO_IMAGE_AVAILABLE, 200, 200, true, true);
                 }
             }
         } catch (SQLException ex) {
@@ -694,7 +695,7 @@ public class ProductsController implements Initializable {
         txtPorcentage.clear();
         txtSalePrice.clear();
         txtDescriptionProduct.clear();
-        imageProduct.setImage(new Image(Constants.NO_IMAGE_AVAILABLE));
+        imageProduct.setImage(new Image(ResourcesPackages.NO_IMAGE_AVAILABLE));
     }
 
     private void disableEditControls() {
@@ -997,7 +998,7 @@ public class ProductsController implements Initializable {
             root.setFitToHeight(true);
             root.setFitToWidth(true);
 
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
+            stage.getIcons().add(Constants.ICON);
             stage.setScene(new Scene(root, 550, 555));
             stage.setTitle(title);
             stage.show();

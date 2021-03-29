@@ -23,9 +23,9 @@ import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Quotes;
-import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.QuotationStatus;
+import com.laynezcoder.estfx.constants.ResourcesPackages;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -47,6 +47,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -57,7 +58,7 @@ import javafx.util.Callback;
 
 public class HomeController implements Initializable {
 
-    private final String IMAGE = Constants.IMAGE_PACKAGE + "character.png";
+    private final String IMAGE = ResourcesPackages.UI_IMAGES_PACKAGE + "character.png";
 
     private final String DEFAULT_WELCOME_TEXT = "¿What do you think if you start adding a new client?";
 
@@ -156,7 +157,7 @@ public class HomeController implements Initializable {
     }
 
     private void loadImage() {
-        //image.setImage(new Image(IMAGE, 170, 130, true, true));
+        image.setImage(new Image(IMAGE, 170, 130, true, true));
     }
 
     private void selectText() {

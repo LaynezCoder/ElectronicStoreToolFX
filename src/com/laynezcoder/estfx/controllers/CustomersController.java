@@ -27,6 +27,7 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.net.URL;
@@ -47,7 +48,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -146,12 +146,12 @@ public class CustomersController implements Initializable {
         closeDialogWithTextFields();
         closeDialogWithEscapeKey();
         setContextMenu();
-        init();
+        setImages();
         filterCustomers = FXCollections.observableArrayList();
     }
     
-    private void init() {
-        imageDelete.setImage(new Image(Constants.IMAGE_PACKAGE + "login.png", 100, 100, true, true));
+    private void setImages() {
+        imageDelete.setImage(ResourcesPackages.DELETE_IMAGE);
     }
     
     private void setContextMenu() {
