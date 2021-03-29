@@ -16,7 +16,6 @@
 package com.laynezcoder.estfx.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.alerts.AlertType;
 import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
@@ -42,10 +41,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -69,16 +71,19 @@ public class CustomersController implements Initializable {
     private AnchorPane rootCustomers;
 
     @FXML
-    private AnchorPane containerDeleteCustomer;
+    private AnchorPane containerDelete;
 
     @FXML
-    private AnchorPane containerAddCustomer;
+    private AnchorPane containerAdd;
 
     @FXML
-    private JFXButton btnUpdateCustomer;
+    private JFXButton btnNewCustomer;
+    
+    @FXML
+    private Button btnUpdate;
 
     @FXML
-    private JFXButton btnSaveCustomer;
+    private Button btnSave;
 
     @FXML
     private TableView<Customers> tblCustomers;
@@ -99,39 +104,38 @@ public class CustomersController implements Initializable {
     private TableColumn<Customers, String> colNitCliente;
 
     @FXML
-    private JFXButton btnAddCustomer;
+    private HBox searchContainer;
 
     @FXML
-    private HBox rootSearchCustomers;
-
-    @FXML
-    private TextField txtSearchNumber;
+    private TextField txtSearchPhone;
 
     @FXML
     private TextField txtSearchCustomer;
+    
+    @FXML
+    private ImageView imageDelete;
 
     @FXML
-    private JFXTextField txtCustomerName;
+    private TextField txtName;
 
     @FXML
-    private JFXTextField txtCustomerNumber;
+    private TextField txtPhone;
 
     @FXML
-    private JFXTextField txtEmail;
+    private TextField txtEmail;
 
     @FXML
-    private JFXTextField txtIt;
+    private TextField txtIt;
 
     @FXML
-    private Text titleAddCustomer;
+    private Text title;
 
-    private JFXDialogTool dialogAddCustomer;
+    private JFXDialogTool dialogAdd;
 
-    private JFXDialogTool dialogDeleteCustomer;
+    private JFXDialogTool dialogDelete;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        filterCustomers = FXCollections.observableArrayList();
         characterLimiter();
         selectText();
         loadData();
@@ -141,6 +145,12 @@ public class CustomersController implements Initializable {
         closeDialogWithTextFields();
         closeDialogWithEscapeKey();
         setContextMenu();
+        init();
+        filterCustomers = FXCollections.observableArrayList();
+    }
+    
+    private void init() {
+        imageDelete.setImage(new Image(Constants.IMAGE_PACKAGE + "login.png", 100, 100, true, true));
     }
     
     private void setContextMenu() {
@@ -170,55 +180,54 @@ public class CustomersController implements Initializable {
     }
 
     private void animateNodes() {
-        Animations.fadeInUp(rootSearchCustomers);
-        Animations.fadeInUp(btnAddCustomer);
+        Animations.fadeInUp(searchContainer);
+        Animations.fadeInUp(btnNewCustomer);
         Animations.fadeInUp(tblCustomers);
     }
 
     private void selectText() {
-        TextFieldMask.selectText(txtCustomerNumber);
-        TextFieldMask.selectText(txtCustomerName);
+        TextFieldMask.selectText(txtPhone);
+        TextFieldMask.selectText(txtName);
         TextFieldMask.selectText(txtEmail);
         TextFieldMask.selectText(txtIt);
         TextFieldMask.selectText(txtSearchCustomer);
-        TextFieldMask.selectText(txtSearchNumber);
+        TextFieldMask.selectText(txtSearchPhone);
     }
 
     private void characterLimiter() {
-        TextFieldMask.characterLimit(txtCustomerNumber, 25);
+        TextFieldMask.characterLimit(txtPhone, 25);
         TextFieldMask.characterLimit(txtEmail, 150);
         TextFieldMask.characterLimit(txtIt, 50);
     }
 
     private void setMask() {
-        TextFieldMask.onlyNumbers(txtSearchNumber);
-        TextFieldMask.onlyNumbers(txtCustomerNumber);
-        TextFieldMask.onlyLetters(txtCustomerName, 150);
+        TextFieldMask.onlyNumbers(txtSearchPhone);
+        TextFieldMask.onlyNumbers(txtPhone);
+        TextFieldMask.onlyLetters(txtName, 150);
         TextFieldMask.onlyLetters(txtSearchCustomer, 150);
     }
 
     @FXML
     private void showDialogddCustomer() {
-        resetValidation();
         disableTable();
         enableEditControls();
         rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
 
-        titleAddCustomer.setText("Add customer");
-        btnUpdateCustomer.setVisible(true);
-        btnSaveCustomer.setDisable(false);
-        containerAddCustomer.setVisible(true);
-        btnSaveCustomer.toFront();
+        title.setText("Add customer");
+        btnUpdate.setVisible(true);
+        btnSave.setDisable(false);
+        containerAdd.setVisible(true);
+        btnSave.toFront();
 
-        dialogAddCustomer = new JFXDialogTool(containerAddCustomer, stckCustomers);
-        dialogAddCustomer.show();
+        dialogAdd = new JFXDialogTool(containerAdd, stckCustomers);
+        dialogAdd.show();
 
-        dialogAddCustomer.setOnDialogOpened(ev -> {
-            txtCustomerName.requestFocus();
+        dialogAdd.setOnDialogOpened(ev -> {
+            txtName.requestFocus();
         });
 
-        dialogAddCustomer.setOnDialogClosed(ev -> {
-            containerAddCustomer.setVisible(false);
+        dialogAdd.setOnDialogClosed(ev -> {
+            containerAdd.setVisible(false);
             tblCustomers.setDisable(false);
             rootCustomers.setEffect(null);
             cleanControls();
@@ -227,8 +236,8 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void closeDialogAddCustomer() {
-        if (dialogAddCustomer != null) {
-            dialogAddCustomer.close();
+        if (dialogAdd != null) {
+            dialogAdd.close();
         }
     }
 
@@ -240,14 +249,14 @@ public class CustomersController implements Initializable {
         }
 
         disableTable();
-        containerDeleteCustomer.setVisible(true);
+        containerDelete.setVisible(true);
         rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
 
-        dialogDeleteCustomer = new JFXDialogTool(containerDeleteCustomer, stckCustomers);
-        dialogDeleteCustomer.show();
+        dialogDelete = new JFXDialogTool(containerDelete, stckCustomers);
+        dialogDelete.show();
 
-        dialogDeleteCustomer.setOnDialogClosed(ev -> {
-            containerDeleteCustomer.setVisible(false);
+        dialogDelete.setOnDialogClosed(ev -> {
+            containerDelete.setVisible(false);
             tblCustomers.setDisable(false);
             rootCustomers.setEffect(null);
             cleanControls();
@@ -257,8 +266,8 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void closeDialogDeleteCustomer() {
-        if (dialogDeleteCustomer != null) {
-            dialogDeleteCustomer.close();
+        if (dialogDelete != null) {
+            dialogDelete.close();
         }
     }
 
@@ -270,8 +279,8 @@ public class CustomersController implements Initializable {
         }
 
         showDialogddCustomer();
-        titleAddCustomer.setText("Update customer");
-        btnUpdateCustomer.toFront();
+        title.setText("Update customer");
+        btnUpdate.toFront();
         selectedRecord();
     }
 
@@ -283,10 +292,10 @@ public class CustomersController implements Initializable {
         }
 
         showDialogddCustomer();
-        titleAddCustomer.setText("Customer details");
-        btnUpdateCustomer.setVisible(false);
-        btnSaveCustomer.setDisable(true);
-        btnSaveCustomer.toFront();
+        title.setText("Customer details");
+        btnUpdate.setVisible(false);
+        btnSave.setDisable(true);
+        btnSave.toFront();
         disableEditControls();
         selectedRecord();
 
@@ -294,8 +303,8 @@ public class CustomersController implements Initializable {
 
     private void selectedRecord() {
         Customers customers = tblCustomers.getSelectionModel().getSelectedItem();
-        txtCustomerName.setText(customers.getCustomerName());
-        txtCustomerNumber.setText(customers.getCustomerNumber());
+        txtName.setText(customers.getCustomerName());
+        txtPhone.setText(customers.getCustomerNumber());
         txtEmail.setText(customers.getCustomerEmail());
         txtIt.setText(customers.getIt());
     }
@@ -334,20 +343,20 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void newCustomer() {
-        String name = txtCustomerName.getText().trim();
-        String phoneNumber = txtCustomerNumber.getText().trim();
+        String name = txtName.getText().trim();
+        String phoneNumber = txtPhone.getText().trim();
         String email = txtEmail.getText().trim();
         String it = txtIt.getText().trim();
 
         if (name.isEmpty()) {
-            txtCustomerName.requestFocus();
-            Animations.shake(txtCustomerName);
+            txtName.requestFocus();
+            Animations.shake(txtName);
             return;
         }
 
         if (phoneNumber.isEmpty()) {
-            txtCustomerNumber.requestFocus();
-            Animations.shake(txtCustomerNumber);
+            txtPhone.requestFocus();
+            Animations.shake(txtPhone);
             return;
         }
 
@@ -401,20 +410,20 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void updateCustomer() {
-        String name = txtCustomerName.getText().trim();
-        String phoneNumber = txtCustomerNumber.getText().trim();
+        String name = txtName.getText().trim();
+        String phoneNumber = txtPhone.getText().trim();
         String email = txtEmail.getText().trim();
         String it = txtIt.getText().trim();
 
         if (name.isEmpty()) {
-            txtCustomerName.requestFocus();
-            Animations.shake(txtCustomerName);
+            txtName.requestFocus();
+            Animations.shake(txtName);
             return;
         }
 
         if (phoneNumber.isEmpty()) {
-            txtCustomerNumber.requestFocus();
-            Animations.shake(txtCustomerNumber);
+            txtPhone.requestFocus();
+            Animations.shake(txtPhone);
             return;
         }
 
@@ -456,29 +465,22 @@ public class CustomersController implements Initializable {
     private void cleanControls() {
         txtEmail.clear();
         txtIt.clear();
-        txtCustomerName.clear();
-        txtCustomerNumber.clear();
+        txtName.clear();
+        txtPhone.clear();
     }
 
     private void disableEditControls() {
         txtEmail.setEditable(false);
         txtIt.setEditable(false);
-        txtCustomerName.setEditable(false);
-        txtCustomerNumber.setEditable(false);
+        txtName.setEditable(false);
+        txtPhone.setEditable(false);
     }
 
     private void enableEditControls() {
         txtEmail.setEditable(true);
         txtIt.setEditable(true);
-        txtCustomerName.setEditable(true);
-        txtCustomerNumber.setEditable(true);
-    }
-
-    private void resetValidation() {
-        txtCustomerNumber.resetValidation();
-        txtCustomerName.resetValidation();
-        txtEmail.resetValidation();
-        txtIt.resetValidation();
+        txtName.setEditable(true);
+        txtPhone.setEditable(true);
     }
 
     private void disableTable() {
@@ -512,13 +514,13 @@ public class CustomersController implements Initializable {
     }
 
     private void closeDialogWithTextFields() {
-        txtCustomerName.setOnKeyReleased(ev -> {
+        txtName.setOnKeyReleased(ev -> {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddCustomer();
             }
         });
 
-        txtCustomerNumber.setOnKeyReleased(ev -> {
+        txtPhone.setOnKeyReleased(ev -> {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 closeDialogAddCustomer();
             }
@@ -571,7 +573,7 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void filterNumberCustomer() {
-        String filterNumber = txtSearchNumber.getText().trim();
+        String filterNumber = txtSearchPhone.getText().trim();
         if (filterNumber.isEmpty()) {
             tblCustomers.setItems(listCustomers);
         } else {

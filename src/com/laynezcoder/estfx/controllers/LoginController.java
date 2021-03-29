@@ -117,7 +117,7 @@ public class LoginController implements Initializable {
     public static String setName(String name) {
         for (int i = 0; i < name.length(); i++) {
             if (name.charAt(i) == SPACE) {
-                return name.substring(0, i);
+                return name.substring(0, i); 
             }
         }
         return name;
@@ -186,7 +186,7 @@ public class LoginController implements Initializable {
             Parent root = loader.load();
             MainController main = loader.getController();
 
-            if (DatabaseHelper.getUserType().equals("Administrator")) {
+            if (DatabaseHelper.getUserType().equals("Administrador")) {
                 main.addButtons();
             } else {
                 main.removeButtons();

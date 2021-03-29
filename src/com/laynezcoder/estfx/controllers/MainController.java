@@ -44,7 +44,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class MainController implements Initializable {
-    
+
     @FXML
     private Button btnHome;
 
@@ -129,12 +129,12 @@ public class MainController implements Initializable {
 
     @FXML
     private void homeWindows(MouseEvent event) {
-        
+
     }
 
     @FXML
-    private void customersWindows(MouseEvent event) {
-
+    private void customersWindows(ActionEvent event) {
+        showFXMLWindows("CustomersView");
     }
 
     @FXML
@@ -217,7 +217,7 @@ public class MainController implements Initializable {
         if (sideBar.getChildren().contains(btnExit) || sideBar.getChildren().contains(btnStatistics)) {
             return;
         }
-        
+
         int size = sideBar.getChildren().size();
         sideBar.getChildren().add(size - 1, btnExit);
         sideBar.getChildren().add(size - 2, btnStatistics);

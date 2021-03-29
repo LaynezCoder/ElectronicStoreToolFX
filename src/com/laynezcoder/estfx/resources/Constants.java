@@ -31,7 +31,6 @@ public final class Constants {
     public static final String IMAGE_PACKAGE = "/resources/com/laynezcoder/images/";
     public static final String FXML_PACKAGE = SOURCE_PACKAGE + "/views/";
     public static final String PROFILE_PICTURES_PACKAGE = IMAGE_PACKAGE + "profiles/";
-    public static final String FONTS_PACKAGE = SOURCE_PACKAGE + "/fonts/";
 
     public static final String LOGIN_VIEW = FXML_PACKAGE + "LoginView.fxml";
     public static final String START_VIEW = FXML_PACKAGE + "StartView.fxml";

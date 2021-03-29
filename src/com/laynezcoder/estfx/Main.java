@@ -42,13 +42,13 @@ public class Main extends Application {
 
     private void loginWindow(Stage stage) {
         try {
-            DatabaseHelper.logout();
+            DatabaseHelper.logout();    
             Parent root = FXMLLoader.load(getClass().getResource(Constants.LOGIN_VIEW));
             stage.getIcons().add(new Image(Constants.STAGE_ICON));
             
             Scene scene = new Scene(root);
-            scene.setFill(Color.TRANSPARENT); 
-            
+            scene.setFill(Color.TRANSPARENT);
+
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.setTitle(Constants.TITLE);
             stage.setScene(scene);
