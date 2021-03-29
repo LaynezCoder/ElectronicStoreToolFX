@@ -5,7 +5,7 @@
  */
 package com.laynezcoder.estfx.constants;
 
-public enum View {
+public enum Views {
     
     START("StartView"),
     LOGIN("LoginView"),
@@ -23,7 +23,7 @@ public enum View {
 
     private final String FXML_EXTENSION = ".fxml";
 
-    View(String name) {
+    Views(String name) {
         this.name = name;
     }
     

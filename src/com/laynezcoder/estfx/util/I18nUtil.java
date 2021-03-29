@@ -15,7 +15,7 @@
  */
 package com.laynezcoder.estfx.util;
 
-import com.laynezcoder.estfx.constants.View;
+import com.laynezcoder.estfx.constants.Views;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -30,7 +30,7 @@ public class I18nUtil {
     
     private final String ES = "";
     
-    private Parent loadView(View nameView) {
+    private Parent loadView(Views nameView) {
         Parent root = null;
         try {
             root = FXMLLoader.load(I18nUtil.class.getResource(nameView.getValueWithExtension()), ResourceBundle.getBundle("i18n/mensajes", Locale.getDefault()));

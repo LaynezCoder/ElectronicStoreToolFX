@@ -15,14 +15,14 @@
  */
 package com.laynezcoder.estfx.constants;
 
-public enum ResourcesPackage {
-    A("");
+public enum ResourcesPackages {
+    FXML_PACKAGE("");
     
     private static final String RESOURCES = "/resources/com/laynezcoder/estfx";
 
     private final String path;
     
-    private ResourcesPackage(String path) {
+    private ResourcesPackages(String path) {
         this.path = path;
     }
     
