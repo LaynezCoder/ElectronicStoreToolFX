@@ -16,13 +16,13 @@
 package com.laynezcoder.estfx.util;
 
 import com.laynezcoder.estfx.controllers.UsersController;
-import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.ResourcesPackages;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class DefaultProfileImage {
 
-    private static final String ABC = "abcdefghijklmnopqrstwxyz";
+    private static final String ABC = "abcdefghijklmnopqrstvwxyz";
 
     public static InputStream getImage(String name) throws FileNotFoundException {
         InputStream inputStream = null;
@@ -38,6 +38,6 @@ public class DefaultProfileImage {
     }
 
     private static InputStream getProfilePictureFromPackage(String imageName) throws FileNotFoundException {
-        return UsersController.class.getResourceAsStream(Constants.PROFILE_PICTURES_PACKAGE + imageName + ".png");
+        return UsersController.class.getResourceAsStream(ResourcesPackages.PROFILE_PICTURES_PACKAGE + imageName + ".png");
     }
 }

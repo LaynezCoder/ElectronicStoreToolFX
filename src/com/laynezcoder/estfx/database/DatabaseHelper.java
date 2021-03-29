@@ -22,8 +22,8 @@ import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
-import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.constants.ResourcesPackages;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -265,12 +265,12 @@ public class DatabaseHelper {
                 if (img != null) {
                     image = new Image(img);
                 } else {
-                    image = new Image(Constants.NO_IMAGE_AVAILABLE);
+                    image = new Image(ResourcesPackages.NO_IMAGE_AVAILABLE);
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-            image = new Image(Constants.NO_IMAGE_AVAILABLE);
+            image = new Image(ResourcesPackages.NO_IMAGE_AVAILABLE);
         }
         return image;
     }
