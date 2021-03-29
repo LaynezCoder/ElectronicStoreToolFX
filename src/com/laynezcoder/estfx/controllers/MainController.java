@@ -31,7 +31,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,6 +40,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -166,10 +166,15 @@ public class MainController implements Initializable {
     @FXML
     private void loginWindow() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(Constants.LOGIN_VIEW));
-            Stage stage = new Stage(StageStyle.UNDECORATED);
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
-            stage.setScene(new Scene(root));
+            Parent root = I18NUtil.loadView(Views.LOGIN);
+            
+            
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            
+            Stage stage = new Stage(StageStyle.TRANSPARENT);
+            stage.getIcons().add(Constants.ICON);
+            stage.setScene(scene);
             stage.show();
             closeStage();
             DatabaseHelper.logout();
