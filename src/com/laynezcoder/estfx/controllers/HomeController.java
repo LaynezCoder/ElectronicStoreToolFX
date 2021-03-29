@@ -25,6 +25,7 @@ import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.constants.QuotationStatus;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -325,7 +326,7 @@ public class HomeController implements Initializable {
             button.setText(item.getExistence());
             button.setPrefWidth(colExistence.getWidth() / 0.5);
 
-            if (item.getExistence().equals(Constants.EXISTENT)) {
+            if (item.getExistence().equals(QuotationStatus.EXISTENT.getStatus())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("button-yes", "table-row-cell");
             } else {
@@ -350,7 +351,7 @@ public class HomeController implements Initializable {
             button.setText(item.getReport());
             button.setPrefWidth(colReport.getWidth() / 0.5);
 
-            if (item.getReport().equals(Constants.REPORTED)) {
+            if (item.getReport().equals(QuotationStatus.REPORTED.getStatus())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("button-yes", "table-row-cell");
             } else {
@@ -375,7 +376,7 @@ public class HomeController implements Initializable {
             button.setText(item.getRealization());
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
-            if (item.getRealization().equals(Constants.REALIZED)) {
+            if (item.getRealization().equals(QuotationStatus.REALIZED.getStatus())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("button-yes", "table-row-cell");
             } else {

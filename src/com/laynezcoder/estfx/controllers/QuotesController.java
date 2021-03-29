@@ -34,6 +34,7 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.constants.QuotationStatus;
 import com.laynezcoder.estfx.util.AutocompleteComboBox;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
@@ -69,7 +70,7 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 public class QuotesController implements Initializable {
-
+    
     private ObservableList<Quotes> listQuotes;
 
     private ObservableList<Customers> listCustomers;
@@ -355,19 +356,19 @@ public class QuotesController implements Initializable {
         toggleButtonRealized.setText(quotes.getRealization());
         toggleButtonReport.setText(quotes.getReport());
 
-        if (quotes.getExistence().equals(Constants.EXISTENT)) {
+        if (quotes.getExistence().equals(QuotationStatus.EXISTENT.getStatus())) {
             toggleButtonExists.selectedProperty().set(true);
         } else {
             toggleButtonExists.selectedProperty().set(false);
         }
 
-        if (quotes.getRealization().equals(Constants.REALIZED)) {
+        if (quotes.getRealization().equals(QuotationStatus.REALIZED.getStatus())) {
             toggleButtonRealized.selectedProperty().set(true);
         } else {
             toggleButtonRealized.selectedProperty().set(false);
         }
 
-        if (quotes.getReport().equals(Constants.REPORTED)) {
+        if (quotes.getReport().equals(QuotationStatus.REPORTED.getStatus())) {
             toggleButtonReport.selectedProperty().set(true);
         } else {
             toggleButtonReport.selectedProperty().set(false);
@@ -377,21 +378,21 @@ public class QuotesController implements Initializable {
     @FXML
     private void setActionToggleButton() {
         if (toggleButtonExists.isSelected()) {
-            toggleButtonExists.setText(Constants.EXISTENT);
+            toggleButtonExists.setText(QuotationStatus.EXISTENT.getStatus());
         } else {
-            toggleButtonExists.setText(Constants.NOT_EXISTENT);
+            toggleButtonExists.setText(QuotationStatus.NOT_EXISTENT.getStatus());
         }
 
         if (toggleButtonRealized.isSelected()) {
-            toggleButtonRealized.setText(Constants.REALIZED);
+            toggleButtonRealized.setText(QuotationStatus.REALIZED.getStatus());
         } else {
-            toggleButtonRealized.setText(Constants.NOT_REALIZED);
+            toggleButtonRealized.setText(QuotationStatus.NOT_REALIZED.getStatus());
         }
 
         if (toggleButtonReport.isSelected()) {
-            toggleButtonReport.setText(Constants.REPORTED);
+            toggleButtonReport.setText(QuotationStatus.REPORTED.getStatus());
         } else {
-            toggleButtonReport.setText(Constants.NOT_REPORTED);
+            toggleButtonReport.setText(QuotationStatus.NOT_REPORTED.getStatus());
         }
     }
 
@@ -484,21 +485,21 @@ public class QuotesController implements Initializable {
         }
 
         if (toggleButtonExists.isSelected()) {
-            quotes.setExistence(Constants.EXISTENT);
+            quotes.setExistence(QuotationStatus.EXISTENT.getStatus());
         } else {
-            quotes.setExistence(Constants.NOT_EXISTENT);
+            quotes.setExistence(QuotationStatus.NOT_EXISTENT.getStatus());
         }
 
         if (toggleButtonRealized.isSelected()) {
-            quotes.setRealization(Constants.REALIZED);
+            quotes.setRealization(QuotationStatus.REALIZED.getStatus());
         } else {
-            quotes.setRealization(Constants.NOT_REALIZED);
+            quotes.setRealization(QuotationStatus.NOT_REALIZED.getStatus());
         }
 
         if (toggleButtonReport.isSelected()) {
-            quotes.setReport(Constants.REPORTED);
+            quotes.setReport(QuotationStatus.REPORTED.getStatus());
         } else {
-            quotes.setReport(Constants.NOT_REPORTED);
+            quotes.setReport(QuotationStatus.NOT_REPORTED.getStatus());
         }
 
         quotes.setDescriptionQuote(description);
@@ -553,21 +554,21 @@ public class QuotesController implements Initializable {
         }
 
         if (toggleButtonExists.isSelected()) {
-            quotes.setExistence(Constants.EXISTENT);
+            quotes.setExistence(QuotationStatus.EXISTENT.getStatus());
         } else {
-            quotes.setExistence(Constants.NOT_EXISTENT);
+            quotes.setExistence(QuotationStatus.NOT_EXISTENT.getStatus());
         }
 
         if (toggleButtonRealized.isSelected()) {
-            quotes.setRealization(Constants.REALIZED);
+            quotes.setRealization(QuotationStatus.REALIZED.getStatus());
         } else {
-            quotes.setRealization(Constants.NOT_REALIZED);
+            quotes.setRealization(QuotationStatus.NOT_REALIZED.getStatus());
         }
 
         if (toggleButtonReport.isSelected()) {
-            quotes.setReport(Constants.REPORTED);
+            quotes.setReport(QuotationStatus.REPORTED.getStatus());
         } else {
-            quotes.setReport(Constants.NOT_REPORTED);
+            quotes.setReport(QuotationStatus.NOT_REPORTED.getStatus());
         }
 
         quotes.setDescriptionQuote(description);
@@ -716,7 +717,7 @@ public class QuotesController implements Initializable {
             button.setText(item.getExistence());
             button.setPrefWidth(colExistence.getWidth() / 0.5);
 
-            if (item.getExistence().equals(Constants.EXISTENT)) {
+            if (item.getExistence().equals(QuotationStatus.EXISTENT)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("button-yes", "table-row-cell");
             } else {
@@ -741,7 +742,7 @@ public class QuotesController implements Initializable {
             button.setText(item.getReport());
             button.setPrefWidth(colReport.getWidth() / 0.5);
 
-            if (item.getReport().equals(Constants.REPORTED)) {
+            if (item.getReport().equals(QuotationStatus.REPORTED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("button-yes", "table-row-cell");
             } else {
@@ -766,7 +767,7 @@ public class QuotesController implements Initializable {
             button.setText(item.getRealization());
             button.setPrefWidth(colRealization.getWidth() / 0.5);
 
-            if (item.getRealization().equals(Constants.REALIZED)) {
+            if (item.getRealization().equals(QuotationStatus.REALIZED)) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 button.getStyleClass().addAll("button-yes", "table-row-cell");
             } else {

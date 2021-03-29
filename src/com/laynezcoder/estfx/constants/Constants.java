@@ -45,14 +45,5 @@ public final class Constants {
     public static final String CSS_LIGHT_THEME = "/resources/com/laynezcoder/light-theme.css";
     public static final String LIGHT_THEME = Constants.class.getResource(CSS_LIGHT_THEME).toExternalForm();
    
-    public static final String EXISTENT = "Existent";
-    public static final String NOT_EXISTENT = "Not existent";
-
-    public static final String REALIZED = "Realized";
-    public static final String NOT_REALIZED = "Not realized";
-
-    public static final String REPORTED = "Reported";
-    public static final String NOT_REPORTED = "Not reported";
-
     public static final BoxBlur BOX_BLUR_EFFECT = new BoxBlur(3, 3, 3);
 }
