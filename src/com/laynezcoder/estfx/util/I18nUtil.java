@@ -26,7 +26,7 @@ import javafx.scene.Parent;
 public class I18NUtil {
 
     private static final String BUNDLE = "resources.com.laynezcoder.i18n.gui";
-   
+    
     public static Parent loadView(Views nameView) throws IOException {
         Locale.setDefault(Locale.getDefault());
 
