@@ -22,6 +22,7 @@ import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Messages;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
@@ -132,7 +133,7 @@ public class LoginController implements Initializable {
             Animations.shake(txtUser);
             Animations.shake(pfPassword);
             Animations.shake(icon);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.INSUFFICIENT_DATA);
             return;
         }
 
@@ -174,7 +175,7 @@ public class LoginController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
 
     }

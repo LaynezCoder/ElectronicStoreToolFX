@@ -24,6 +24,7 @@ import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Messages;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -45,7 +46,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -288,7 +288,7 @@ public class HomeController implements Initializable {
             nowQuotes.setText(String.valueOf(total));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckHome, rootHome, rootHome, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            AlertsBuilder.create(AlertType.ERROR, stckHome, rootHome, rootHome, Messages.ERROR_CONNECTION_MYSQL);
         }
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);

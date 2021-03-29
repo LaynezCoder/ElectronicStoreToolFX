@@ -32,6 +32,7 @@ import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.util.DefaultProfileImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -184,49 +185,49 @@ public class StartController implements Initializable {
         if (name.isEmpty()) {
             txtName.requestFocus();
             Animations.shake(txtName);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.INSUFFICIENT_DATA);
             return;
         }
 
         if (user.isEmpty()) {
             txtUser.requestFocus();
             Animations.shake(txtUser);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.INSUFFICIENT_DATA);
             return;
         }
 
         if (user.length() < 4) {
             txtUser.requestFocus();
             Animations.shake(txtUser);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
             return;
         }
 
         if (password.isEmpty()) {
             txtPassword.requestFocus();
             Animations.shake(txtPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.INSUFFICIENT_DATA);
             return;
         }
 
         if (password.length() < 4) {
             txtPassword.requestFocus();
             Animations.shake(txtPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
             return;
         }
 
         if (confirmPassword.isEmpty()) {
             txtConfirmPassword.requestFocus();
             Animations.shake(txtConfirmPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.INSUFFICIENT_DATA);
             return;
         }
 
         if (!confirmPassword.equals(password)) {
             Animations.shake(txtConfirmPassword);
             Animations.shake(txtPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_PASSWORDS_NOT_MATCH);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.PASSWORDS_NOT_MATCH);
             return;
         }
 
@@ -253,7 +254,7 @@ public class StartController implements Initializable {
 
         if (bio.isEmpty()) {
             Animations.shake(txtBio);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.INSUFFICIENT_DATA);
             return;
         }
 
@@ -316,7 +317,7 @@ public class StartController implements Initializable {
         if (result) {
             updateUserInDB(users);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 

@@ -28,6 +28,7 @@ import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Messages;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -253,7 +254,7 @@ public class UsersController implements Initializable {
     @FXML
     private void showDialogDeleteUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -281,7 +282,7 @@ public class UsersController implements Initializable {
     @FXML
     private void showDialogEditUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -294,7 +295,7 @@ public class UsersController implements Initializable {
     @FXML
     private void showDialogDetailsUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -333,7 +334,7 @@ public class UsersController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.ERROR_CONNECTION_MYSQL);
         }
         listUsers = FXCollections.observableArrayList(list);
         tblUsers.setItems(listUsers);
@@ -358,7 +359,7 @@ public class UsersController implements Initializable {
         }
 
         if (user.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
             txtUser.requestFocus();
             Animations.shake(txtUser);
             return;
@@ -371,7 +372,7 @@ public class UsersController implements Initializable {
         }
 
         if (password.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
             pfPassword.requestFocus();
             Animations.shake(pfPassword);
             return;
@@ -383,7 +384,7 @@ public class UsersController implements Initializable {
         }
 
         if (DatabaseHelper.checkIfUserExists(user) != 0) {
-            NotificationsBuilder.create(NotificationType.INVALID_ACTION, Constants.MESSAGE_USER_ALREADY_EXISTS);
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, Messages.USER_ALREADY_EXISTS);
             txtUser.requestFocus();
             Animations.shake(txtUser);
             return;
@@ -401,9 +402,9 @@ public class UsersController implements Initializable {
             closeDialogAddUser();
             loadData();
             cleanControls();
-            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_ADDED);
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.ADDED_RECORD);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -429,7 +430,7 @@ public class UsersController implements Initializable {
         }
 
         if (user.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
             txtUser.requestFocus();
             Animations.shake(txtUser);
             return;
@@ -442,7 +443,7 @@ public class UsersController implements Initializable {
         }
 
         if (password.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
             pfPassword.requestFocus();
             Animations.shake(pfPassword);
             return;
@@ -460,7 +461,7 @@ public class UsersController implements Initializable {
         }
 
         if (!user.equals(userFromTable) && DatabaseHelper.checkIfUserExists(user) != 0) {
-            NotificationsBuilder.create(NotificationType.INVALID_ACTION, Constants.MESSAGE_USER_ALREADY_EXISTS);
+            NotificationsBuilder.create(NotificationType.INVALID_ACTION, Messages.USER_ALREADY_EXISTS);
             Animations.shake(txtUser);
             return;
         }
@@ -477,9 +478,9 @@ public class UsersController implements Initializable {
             closeDialogAddUser();
             loadData();
             cleanControls();
-            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_UPDATED);
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.UPDATED_RECORD);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -501,9 +502,9 @@ public class UsersController implements Initializable {
         if (result) {
             loadData();
             closeDialogDeleteUser();
-            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_DELETED);
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.DELETED_RECORD);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -618,7 +619,7 @@ public class UsersController implements Initializable {
                 }
 
                 if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Constants.MESSAGE_NO_RECORD_SELECTED);
+                    AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
                     return;
                 }
 

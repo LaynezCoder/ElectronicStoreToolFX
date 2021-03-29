@@ -31,6 +31,7 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.util.CropImageProfile;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
@@ -180,7 +181,7 @@ public class SettingsController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckSettings, rootSettings, txtBio, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            AlertsBuilder.create(AlertType.ERROR, stckSettings, rootSettings, txtBio, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -198,7 +199,7 @@ public class SettingsController implements Initializable {
             Animations.shake(txtPassword);
             Animations.shake(txtConfirmPassword);
             Animations.shake(txtBio);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_INSUFFICIENT_DATA);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.INSUFFICIENT_DATA);
             return;
         }
 
@@ -217,7 +218,7 @@ public class SettingsController implements Initializable {
         if (user.length() < 4) {
             txtUser.requestFocus();
             Animations.shake(txtUser);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
             return;
         }
 
@@ -230,7 +231,7 @@ public class SettingsController implements Initializable {
         if (password.length() < 4) {
             txtPassword.requestFocus();
             Animations.shake(txtPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
             return;
         }
 
@@ -244,7 +245,7 @@ public class SettingsController implements Initializable {
             txtConfirmPassword.requestFocus();
             Animations.shake(txtPassword);
             Animations.shake(txtConfirmPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_PASSWORDS_NOT_MATCH);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.PASSWORDS_NOT_MATCH);
             return;
         }
 
@@ -262,7 +263,7 @@ public class SettingsController implements Initializable {
         if (DatabaseHelper.checkIfUserExists(user) != 0 && !user.equals(DatabaseHelper.getSessionUsername())) {
             txtUser.requestFocus();
             Animations.shake(txtUser);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_USER_ALREADY_EXISTS);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.USER_ALREADY_EXISTS);
             return;
         }
 
@@ -277,9 +278,9 @@ public class SettingsController implements Initializable {
         boolean result = DatabaseHelper.updateUserFromSettings(users);
         if (result) {
             loadData();
-            AlertsBuilder.create(AlertType.SUCCES, stckSettings, rootSettings, rootSettings, Constants.MESSAGE_ADDED);
+            AlertsBuilder.create(AlertType.SUCCES, stckSettings, rootSettings, rootSettings, Messages.ADDED_RECORD);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -353,14 +354,14 @@ public class SettingsController implements Initializable {
                         AlertsBuilder.create(AlertType.SUCCES, stckSettings, rootSettings, rootSettings, MESSAGE_PROFILE_IMAGE_SAVED);
                         loadProfileImage();
                     } else {
-                        NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+                        NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
                     }
                     setInitialDirectory();
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_IMAGE_LARGE);
+                NotificationsBuilder.create(NotificationType.ERROR, Messages.IMAGE_LARGE);
             }
         }
     }

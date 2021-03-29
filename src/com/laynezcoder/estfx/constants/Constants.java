@@ -44,20 +44,7 @@ public final class Constants {
 
     public static final String CSS_LIGHT_THEME = "/resources/com/laynezcoder/light-theme.css";
     public static final String LIGHT_THEME = Constants.class.getResource(CSS_LIGHT_THEME).toExternalForm();
-    
-    public static final String MESSAGE_ERROR_CONNECTION_MYSQL = "An error occurred when connecting to MySQL.\nCheck your connection to MySQL";
-    public static final String MESSAGE_IMAGE_LARGE = "Please upload a picture smaller than 1 MB.";
-    public static final String MESSAGE_IMAGE_NOT_FOUND = "Image not found. The record will be saved.";
-    public static final String MESSAGE_INSUFFICIENT_DATA = "Insufficient data";
-    public static final String MESSAGE_USER_ALREADY_EXISTS = "This user already exists";
-    public static final String MESSAGE_PASSWORDS_NOT_MATCH = "Passwords do not match.";
-    public static final String MESSAGE_ENTER_AT_LEAST_4_CHARACTERES = "Please enter at least 4 characters";
-    public static final String MESSAGE_NO_RECORD_SELECTED = "Select an item from the table.";
-
-    public static final String MESSAGE_ADDED = "Record added successfully";
-    public static final String MESSAGE_UPDATED = "Record updated successfully";
-    public static final String MESSAGE_DELETED = "Record deleted successfully";
-
+   
     public static final String EXISTENT = "Existent";
     public static final String NOT_EXISTENT = "Not existent";
 

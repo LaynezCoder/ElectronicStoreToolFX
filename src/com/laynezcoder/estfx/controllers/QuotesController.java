@@ -33,6 +33,7 @@ import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.util.AutocompleteComboBox;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
@@ -279,7 +280,7 @@ public class QuotesController implements Initializable {
     @FXML
     private void showDialogDeleteQuotes() {
         if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -308,7 +309,7 @@ public class QuotesController implements Initializable {
     @FXML
     private void showDialogEditQuote() {
         if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -326,7 +327,7 @@ public class QuotesController implements Initializable {
     @FXML
     private void showDialogDetailsQuote() {
         if (tblQuotes.getSelectionModel().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -428,7 +429,7 @@ public class QuotesController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.ERROR_CONNECTION_MYSQL);
         }
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);
@@ -509,9 +510,9 @@ public class QuotesController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddQuotes();
-            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_ADDED);
+            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Messages.ADDED_RECORD);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -521,9 +522,9 @@ public class QuotesController implements Initializable {
         if (result) {
             loadData();
             closeDialogDeleteQuote();
-            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_DELETED);
+            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Messages.DELETED_RECORD);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
 
     }
@@ -578,9 +579,9 @@ public class QuotesController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddQuotes();
-            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_UPDATED);
+            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Messages.UPDATED_RECORD);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -630,7 +631,7 @@ public class QuotesController implements Initializable {
                 }
 
                 if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-                    AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Constants.MESSAGE_NO_RECORD_SELECTED);
+                    AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.NO_RECORD_SELECTED);
                     return;
                 }
                 deleteQuotes();

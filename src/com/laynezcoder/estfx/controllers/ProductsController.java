@@ -29,6 +29,7 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.io.File;
@@ -324,7 +325,7 @@ public class ProductsController implements Initializable {
     @FXML
     private void showDialogDeleteProduct() {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -354,7 +355,7 @@ public class ProductsController implements Initializable {
     @FXML
     private void showDialogEditProduct() {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -368,7 +369,7 @@ public class ProductsController implements Initializable {
     @FXML
     private void showDialogDetailsProduct() {
         if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -414,7 +415,7 @@ public class ProductsController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Messages.ERROR_CONNECTION_MYSQL);
         }
         listProducts = FXCollections.observableArrayList(list);
         tblProducts.setItems(listProducts);
@@ -501,7 +502,7 @@ public class ProductsController implements Initializable {
 
         if (imageFile != null && imageFile.length() > LIMIT) {
             Animations.shake(imageContainer);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_IMAGE_LARGE);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.IMAGE_LARGE);
             return;
         }
 
@@ -520,9 +521,9 @@ public class ProductsController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAddProduct();
-            AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_ADDED);
+            AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Messages.ADDED_RECORD);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -536,7 +537,7 @@ public class ProductsController implements Initializable {
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
-            NotificationsBuilder.create(NotificationType.INFORMATION, Constants.MESSAGE_IMAGE_NOT_FOUND);
+            NotificationsBuilder.create(NotificationType.INFORMATION, Messages.IMAGE_NOT_FOUND);
             is = ProductsController.class.getResourceAsStream(Constants.NO_IMAGE_AVAILABLE);
         }
         return is;
@@ -633,7 +634,7 @@ public class ProductsController implements Initializable {
 
         if (imageFile != null && imageFile.length() > LIMIT) {
             Animations.shake(imageContainer);
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_IMAGE_LARGE);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.IMAGE_LARGE);
             return;
         }
 
@@ -654,9 +655,9 @@ public class ProductsController implements Initializable {
                 closeDialogAddProduct();
                 loadData();
                 cleanControls();
-                AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_UPDATED);
+                AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Messages.UPDATED_RECORD);
             } else {
-                NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+                NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
             }
         } else {
             boolean result = DatabaseHelper.updateProductIfFileIsNull(products);
@@ -664,9 +665,9 @@ public class ProductsController implements Initializable {
                 closeDialogAddProduct();
                 loadData();
                 cleanControls();
-                AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_UPDATED);
+                AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Messages.UPDATED_RECORD);
             } else {
-                NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+                NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
             }
         }
     }
@@ -678,9 +679,9 @@ public class ProductsController implements Initializable {
             loadData();
             cleanControls();
             hideDialogDeleteProduct();
-            AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_DELETED);
+            AlertsBuilder.create(AlertType.SUCCES, stckProducts, rootProducts, tblProducts, Messages.DELETED_RECORD);
         } else {
-            NotificationsBuilder.create(NotificationType.ERROR, Constants.MESSAGE_ERROR_CONNECTION_MYSQL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
     }
 
@@ -844,7 +845,7 @@ public class ProductsController implements Initializable {
                 }
 
                 if (tblProducts.getSelectionModel().getSelectedItems().isEmpty()) {
-                    AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Constants.MESSAGE_NO_RECORD_SELECTED);
+                    AlertsBuilder.create(AlertType.ERROR, stckProducts, rootProducts, tblProducts, Messages.NO_RECORD_SELECTED);
                     return;
                 }
 
