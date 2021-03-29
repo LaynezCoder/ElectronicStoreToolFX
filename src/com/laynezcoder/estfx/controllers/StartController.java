@@ -33,7 +33,9 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.constants.Views;
 import com.laynezcoder.estfx.util.DefaultProfileImage;
+import com.laynezcoder.estfx.util.I18NUtil;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -44,12 +46,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -340,9 +340,9 @@ public class StartController implements Initializable {
     @FXML
     private void mainWindow() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(Constants.MAIN_VIEW));
+            Parent root = I18NUtil.loadView(Views.MAIN);
             Stage stage = new Stage();
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
+            stage.getIcons().add(Constants.ICON);
             stage.initStyle(StageStyle.DECORATED);
             stage.setMinHeight(Constants.MIN_HEIGHT);
             stage.setMinWidth(Constants.MIN_WIDTH);
