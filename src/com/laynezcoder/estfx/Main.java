@@ -17,14 +17,14 @@ package com.laynezcoder.estfx;
 
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Views;
+import com.laynezcoder.estfx.util.I18NUtil;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -42,13 +42,13 @@ public class Main extends Application {
 
     private void loginWindow(Stage stage) {
         try {
-            DatabaseHelper.logout();    
-            Parent root = FXMLLoader.load(getClass().getResource(Constants.LOGIN_VIEW));
-            //stage.getIcons().add(new Image(Constants.STAGE_ICON));
+            DatabaseHelper.logout();   
             
+            Parent root = I18NUtil.loadView(Views.LOGIN);
             Scene scene = new Scene(root);
             scene.setFill(Color.TRANSPARENT);
 
+            stage.getIcons().add(Constants.ICON);
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.setTitle(Constants.TITLE);
             stage.setScene(scene);
@@ -60,8 +60,8 @@ public class Main extends Application {
 
     private void startWindow(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(Constants.START_VIEW));
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
+            Parent root = I18NUtil.loadView(Views.START);
+            stage.getIcons().add(Constants.ICON);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(new Scene(root));
             stage.setTitle(Constants.TITLE);
