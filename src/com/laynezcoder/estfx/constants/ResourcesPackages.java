@@ -15,19 +15,19 @@
  */
 package com.laynezcoder.estfx.constants;
 
-public enum ResourcesPackages {
-    FXML_PACKAGE("");
-    
-    private static final String RESOURCES = "/resources/com/laynezcoder/estfx";
+public final class ResourcesPackages {
 
-    private final String path;
-    
-    private ResourcesPackages(String path) {
-        this.path = path;
+    private ResourcesPackages() {
+
     }
+
+    private static final String RESOURCES = "/resources/com/laynezcoder/";
     
-    public String getPath() {
-        return path;
-    }
+    public static final String IMAGES_PACKAGE = RESOURCES + "/images/";
     
+    public static final String FXML_PACKAGE = RESOURCES + "/fxml/";
+    
+    public static final String I18N_PACKAGE = RESOURCES + "/i18n/";
+    
+    public static final String PROFILE_PICTURES_PACKAGE = IMAGES_PACKAGE + "profiles/";
 }
