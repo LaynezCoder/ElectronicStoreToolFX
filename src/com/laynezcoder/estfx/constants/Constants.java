@@ -16,33 +16,18 @@
 package com.laynezcoder.estfx.constants;
 
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.image.Image;
 
 public final class Constants {
     
-    private Constants() {
-        
-    }
+    private Constants() {}
 
     public static final String TITLE = "Electronic Store Tool FX";
     public static final Double MIN_WIDTH = 1040.00;
     public static final Double MIN_HEIGHT = 640.00;
+    public static final Image ICON = new Image(ResourcesPackages.UI_IMAGES_PACKAGE + "icon.png");
 
-    public static final String SOURCE_PACKAGE = "/com/laynezcoder/estfx";
-    public static final String IMAGE_PACKAGE = "/resources/com/laynezcoder/images/";
-    public static final String FXML_PACKAGE = SOURCE_PACKAGE + "/views/";
-    public static final String PROFILE_PICTURES_PACKAGE = IMAGE_PACKAGE + "profiles/";
-
-    public static final String LOGIN_VIEW = FXML_PACKAGE + "LoginView.fxml";
-    public static final String START_VIEW = FXML_PACKAGE + "StartView.fxml";
-    public static final String MAIN_VIEW = FXML_PACKAGE + "MainView.fxml";
-
-    public static final String STAGE_ICON = IMAGE_PACKAGE + "icon.png";
-    public static final String NO_IMAGE_AVAILABLE = IMAGE_PACKAGE + "empty-image.jpg";
-    public static final String INFORMATION_IMAGE = IMAGE_PACKAGE + "information.png";
-    public static final String ERROR_IMAGE = IMAGE_PACKAGE + "error.png";
-    public static final String SUCCESS_IMAGE = IMAGE_PACKAGE + "success.png";
-
-    public static final String CSS_LIGHT_THEME = "/resources/com/laynezcoder/light-theme.css";
+    private static final String CSS_LIGHT_THEME = "/resources/com/laynezcoder/light-theme.css";
     public static final String LIGHT_THEME = Constants.class.getResource(CSS_LIGHT_THEME).toExternalForm();
    
     public static final BoxBlur BOX_BLUR_EFFECT = new BoxBlur(3, 3, 3);
