@@ -21,13 +21,11 @@ public final class ResourcesPackages {
 
     }
 
-    private static final String RESOURCES = "/resources/com/laynezcoder/";
+    private static final String RESOURCES = "/resources/com/laynezcoder";
     
     public static final String IMAGES_PACKAGE = RESOURCES + "/images/";
     
     public static final String FXML_PACKAGE = RESOURCES + "/fxml/";
-    
-    public static final String I18N_PACKAGE = RESOURCES + "/i18n/";
     
     public static final String PROFILE_PICTURES_PACKAGE = IMAGES_PACKAGE + "profiles/";
 }

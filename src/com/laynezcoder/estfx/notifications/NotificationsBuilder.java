@@ -33,7 +33,7 @@ public class NotificationsBuilder {
         Notifications notifications = Notifications.create();
         notifications.title(title);
         notifications.text(message);
-        notifications.graphic(new ImageView(icon));
+        //notifications.graphic(new ImageView(icon));
         notifications.hideAfter(Duration.seconds(6));
         notifications.position(Pos.BASELINE_RIGHT);
         notifications.show();
@@ -43,22 +43,22 @@ public class NotificationsBuilder {
         switch (type) {
             case INFORMATION:
                 title = "¡Information!";
-                icon = new Image(Constants.INFORMATION_IMAGE);
+                //icon = new Image(Constants.INFORMATION_IMAGE);
             break;
             
             case ERROR:
                 title = "¡Error!";
-                icon = new Image(Constants.ERROR_IMAGE);
+                //icon = new Image(Constants.ERROR_IMAGE);
             break;
             
             case SUCCESS:
                 title = "¡Success!";
-                icon = new Image(Constants.SUCCESS_IMAGE);
+                //icon = new Image(Constants.SUCCESS_IMAGE);
             break;
             
             case INVALID_ACTION:
                 title = "¡Invalid action!";
-                icon = new Image(Constants.ERROR_IMAGE);
+                //icon = new Image(Constants.ERROR_IMAGE);
             break;
         }
     }

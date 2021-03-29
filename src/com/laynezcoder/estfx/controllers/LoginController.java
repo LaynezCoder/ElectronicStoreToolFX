@@ -91,7 +91,7 @@ public class LoginController implements Initializable {
     }
     
     private void loadImage() {
-        image.setImage(new Image(IMAGE, 350, 290, true, true));
+        //image.setImage(new Image(IMAGE, 350, 290, true, true));
     }
 
     private void animations() {

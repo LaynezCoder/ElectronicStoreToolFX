@@ -15,28 +15,25 @@
  */
 package com.laynezcoder.estfx.util;
 
+import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.constants.Views;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-public class I18nUtil {
+public class I18NUtil {
 
-    private final String EN = "";
-    
-    private final String ES = "";
-    
-    private Parent loadView(Views nameView) {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(I18nUtil.class.getResource(nameView.getValueWithExtension()), ResourceBundle.getBundle("i18n/mensajes", Locale.getDefault()));
-        } catch (IOException ex) {
-            Logger.getLogger(I18nUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private static final String BUNDLE = "resources.com.laynezcoder.i18n.gui";
+   
+    public static Parent loadView(Views nameView) throws IOException {
+        Locale.setDefault(Locale.getDefault());
+
+        Parent root = FXMLLoader.load(
+                I18NUtil.class.getResource(ResourcesPackages.FXML_PACKAGE + nameView.getValueWithExtension()),
+                ResourceBundle.getBundle(BUNDLE));
+
         return root;
     }
 }

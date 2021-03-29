@@ -44,7 +44,7 @@ public class Main extends Application {
         try {
             DatabaseHelper.logout();    
             Parent root = FXMLLoader.load(getClass().getResource(Constants.LOGIN_VIEW));
-            stage.getIcons().add(new Image(Constants.STAGE_ICON));
+            //stage.getIcons().add(new Image(Constants.STAGE_ICON));
             
             Scene scene = new Scene(root);
             scene.setFill(Color.TRANSPARENT);

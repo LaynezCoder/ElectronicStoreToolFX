@@ -57,7 +57,7 @@
                               <TableColumn fx:id="colCustomerName" prefWidth="76.0" text="%col.home.customer" />
                               <TableColumn fx:id="colExistence" prefWidth="115.0" text="%col.home.existence" />
                               <TableColumn fx:id="colRealization" prefWidth="75.0" text="%col.home.realization" />
-                              <TableColumn fx:id="colReport" prefWidth="75.0" styleClass="right-column-header" text="col.home.report" />
+                              <TableColumn fx:id="colReport" prefWidth="75.0" styleClass="right-column-header" text="%col.home.report" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -163,7 +163,7 @@
                      <children>
                         <MaterialDesignIconView fill="WHITE" glyphName="TROPHY_OUTLINE" size="25" styleClass="home-icons" />
                         <Text fx:id="nowQuotes" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="500" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.total.recent.quotes " wrappingWidth="201.04800033569336" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.total.recent.quotes" wrappingWidth="201.04800033569336" />
                         <JFXProgressBar fx:id="progressBarRecentQuotes" prefHeight="4.0" prefWidth="81.0" progress="0.0" styleClass="jfx-progress-bar-home" />
                      </children>
                      <padding>

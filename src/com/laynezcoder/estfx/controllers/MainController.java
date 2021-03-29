@@ -18,6 +18,8 @@ package com.laynezcoder.estfx.controllers;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Views;
+import com.laynezcoder.estfx.util.I18NUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -124,7 +126,7 @@ public class MainController implements Initializable {
 
     private void homeWindowsInitialize() {
         btnHome.setDisable(true);
-        showFXMLWindows("HomeView");
+        showFXMLWindows(Views.HOME);
     }
 
     @FXML
@@ -134,37 +136,30 @@ public class MainController implements Initializable {
 
     @FXML
     private void customersWindows(ActionEvent event) {
-        showFXMLWindows("CustomersView");
     }
 
     @FXML
     private void quotesWindows(MouseEvent event) {
-        showFXMLWindows("QuotesView");
     }
 
     @FXML
     private void productsWindows(MouseEvent event) {
-        showFXMLWindows("ProductsView");
     }
 
     @FXML
     private void usersWindows(MouseEvent event) {
-        showFXMLWindows("UsersView");
     }
 
     @FXML
     private void statisticsWindows(MouseEvent event) {
-        showFXMLWindows("StatisticsView");
     }
 
     @FXML
     private void aboutWindows(MouseEvent event) {
-        showFXMLWindows("AboutView");
     }
 
     @FXML
     private void settingsWindows(ActionEvent event) {
-        showFXMLWindows("SettingsView");
         setDisableButtons(event);
     }
 
@@ -195,10 +190,11 @@ public class MainController implements Initializable {
         }
     }
 
-    private void showFXMLWindows(String FXMLName) {
+    private void showFXMLWindows(Views FXMLName) {
         container.getChildren().clear();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(Constants.FXML_PACKAGE + FXMLName + ".fxml"));
+            Parent root = I18NUtil.loadView(FXMLName);
+            
             AnchorPane.setBottomAnchor(root, 0.0);
             AnchorPane.setTopAnchor(root, 0.0);
             AnchorPane.setLeftAnchor(root, 0.0);

@@ -155,7 +155,7 @@ public class HomeController implements Initializable {
     }
 
     private void loadImage() {
-        image.setImage(new Image(IMAGE, 170, 130, true, true));
+        //image.setImage(new Image(IMAGE, 170, 130, true, true));
     }
 
     private void selectText() {
