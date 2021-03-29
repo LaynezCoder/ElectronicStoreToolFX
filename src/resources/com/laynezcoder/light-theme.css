@@ -32,8 +32,8 @@
     -fx-color-primary-alt: #4275ff; 
     -fx-color-primary-light: #edf0ff;
     -fx-color-secondary: #8B8B8B;
-    -fx-color-tertiary: #FF3C32;
-    -fx-color-tertiary-alt: #FF2419;
+    -fx-color-tertiary: #FF0000;
+    -fx-color-tertiary-alt: #F00000;
     -fx-color-text: #53575A;
     -fx-start-color-primary: #2d3037; 
     -border: #DFE0E0;
@@ -274,6 +274,24 @@
 
 .right-column-header {
     -fx-background-radius: 0 5 0 0;
+}
+
+.btn-delete {
+    -fx-font-size: 16;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 5px;
+    -fx-background-color: -fx-color-primary;
+}
+
+.btn-delete:hover, .btn-delete:pressed {
+    -fx-background-color: -fx-color-primary-alt;
+}
+
+.btn-cancel {
+    -fx-font-size: 16;
+    -fx-text-fill: -fx-color-text;
+    -fx-background-radius: 5px;
+    -fx-background-color: -fx-color-primary-light;
 }
 
 .button-general {
