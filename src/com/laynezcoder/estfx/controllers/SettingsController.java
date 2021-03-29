@@ -30,7 +30,7 @@ import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.preferences.Preferences;
-import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.util.CropImageProfile;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;

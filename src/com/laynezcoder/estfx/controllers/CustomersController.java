@@ -25,7 +25,7 @@ import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.Customers;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
-import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.net.URL;

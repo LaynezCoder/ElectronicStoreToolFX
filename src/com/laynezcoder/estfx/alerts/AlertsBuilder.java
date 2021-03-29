@@ -18,7 +18,7 @@ package com.laynezcoder.estfx.alerts;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.constants.Constants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

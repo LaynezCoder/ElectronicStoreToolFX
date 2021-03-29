@@ -15,7 +15,7 @@
  */
 package com.laynezcoder.estfx.database;
 
-import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.constants.Constants;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;

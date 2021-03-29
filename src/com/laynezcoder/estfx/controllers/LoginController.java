@@ -21,7 +21,7 @@ import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
-import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.constants.Constants;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;

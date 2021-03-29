@@ -16,7 +16,7 @@
 package com.laynezcoder.estfx.util;
 
 import com.laynezcoder.estfx.controllers.UsersController;
-import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.constants.Constants;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 

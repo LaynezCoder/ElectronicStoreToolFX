@@ -22,7 +22,7 @@ import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
-import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.constants.Constants;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laynezcoder.estfx.resources;
+package com.laynezcoder.estfx.constants;
 
 import javafx.scene.effect.BoxBlur;
 

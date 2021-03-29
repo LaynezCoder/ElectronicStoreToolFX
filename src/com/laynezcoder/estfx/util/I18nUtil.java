@@ -15,7 +15,7 @@
  */
 package com.laynezcoder.estfx.util;
 
-import com.laynezcoder.estfx.resources.View;
+import com.laynezcoder.estfx.constants.View;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;

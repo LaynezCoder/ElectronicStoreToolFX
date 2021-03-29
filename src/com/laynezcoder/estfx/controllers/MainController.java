@@ -17,7 +17,7 @@ package com.laynezcoder.estfx.controllers;
 
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.constants.Constants;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

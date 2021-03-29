@@ -1,4 +1,4 @@
-package com.laynezcoder.estfx.resources;
+package com.laynezcoder.estfx.constants;
 
 public enum QuotationStatus {
 

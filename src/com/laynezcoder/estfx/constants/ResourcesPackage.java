@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laynezcoder.estfx.resources;
+package com.laynezcoder.estfx.constants;
 
 public enum ResourcesPackage {
     A("");
     
-    private static final String SRC = "/com/laynezcoder/estfx";
-    
     private static final String RESOURCES = "/resources/com/laynezcoder/estfx";
 
-    private final String value;
+    private final String path;
     
-    private ResourcesPackage(String value) {
-        this.value = value;
+    private ResourcesPackage(String path) {
+        this.path = path;
     }
     
-    public String getValue() {
-        return value;
+    public String getPath() {
+        return path;
     }
     
 }

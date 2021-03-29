@@ -16,7 +16,7 @@
 package com.laynezcoder.estfx;
 
 import com.laynezcoder.estfx.database.DatabaseHelper;
-import com.laynezcoder.estfx.resources.Constants;
+import com.laynezcoder.estfx.constants.Constants;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

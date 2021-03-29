@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.laynezcoder.estfx.resources;
+package com.laynezcoder.estfx.constants;
 
 public enum View {
     
