@@ -107,7 +107,7 @@
     -fx-background-color: #ffffff;
     -fx-text-fill: -fx-color-text;
     -fx-font-size: 16;
-    -fx-highlight-fill: -fx-color-primary-light;
+    -fx-highlight-fill: -fx-color-primary;
 }
 
 .btn-login { 
@@ -179,7 +179,7 @@
 .txt-search {
     -fx-background-color: #ffffff;
     -fx-font-size: 14;
-    -fx-highlight-fill: -fx-color-primary-light;
+    -fx-highlight-fill: -fx-color-primary;
 }
 
 .container-txt-search {
@@ -292,6 +292,12 @@
     -fx-text-fill: -fx-color-text;
     -fx-background-radius: 5px;
     -fx-background-color: -fx-color-primary-light;
+}
+
+.jfx-dialog-overlay-pane > StackPane {
+    -fx-effect: dropshadow(two-pass-box, -fx-color-primary-light, 10, 0, 2, 2);
+    -fx-background-radius: 10;
+    -fx-background-color: white;
 }
 
 .button-general {
@@ -444,11 +450,6 @@
 .combo-box-popup .list-view .list-cell:filled:hover {
     -fx-background-color: -primary;
     -fx-text-fill: white;
-}
-
-.jfx-dialog-overlay-pane > StackPane {
-    -fx-background-radius: 10;
-    -fx-background-color: white;
 }
 
 .data0.chart-pie {
