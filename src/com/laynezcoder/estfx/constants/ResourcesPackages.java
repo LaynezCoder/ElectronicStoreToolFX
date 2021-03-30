@@ -27,10 +27,11 @@ public final class ResourcesPackages {
     public static final String UI_ALERTS_IMAGES_PACKAGE = UI_IMAGES_PACKAGE + "alerts/";
     public static final String FLATICON_IMAGES_PACKAGE = IMAGES_PACKAGE + "flaticon/";
     public static final String KITTY_IMAGES_PACKAGE = FLATICON_IMAGES_PACKAGE + "kitty/";
+    public static final String DINOSAUR_IMAGES_PACKAGE = FLATICON_IMAGES_PACKAGE + "dinosaur/";
     public static final String PROFILE_PICTURES_PACKAGE = IMAGES_PACKAGE + "profiles/";
     public static final String FXML_PACKAGE = RESOURCES + "/fxml/";
 
-    public static final Image DELETE_IMAGE = new Image(KITTY_IMAGES_PACKAGE + "005.png", 100, 100, true, true);
+    public static final Image DELETE_IMAGE = new Image(DINOSAUR_IMAGES_PACKAGE + "035-crying.png", 100, 100, true, true);
     
     public static final String NO_IMAGE_AVAILABLE = UI_IMAGES_PACKAGE + "empty-image.jpg";
     public static final String INFORMATION_IMAGE = UI_ALERTS_IMAGES_PACKAGE + "information.png";
