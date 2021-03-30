@@ -317,9 +317,9 @@ public class CustomersController implements Initializable {
     private void loadData() {
         loadTable();
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        colPhone.setCellValueFactory(new PropertyValueFactory<>("customerNumber"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("customerEmail"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colIt.setCellValueFactory(new PropertyValueFactory<>("it"));
     }
 

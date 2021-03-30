@@ -148,6 +148,9 @@
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.phone" />
                                        </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
                                     </HBox>
                                  </children>
                               </HBox>
@@ -168,6 +171,9 @@
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.it" />
                                        </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
                                     </HBox>
                                  </children>
                               </HBox>

@@ -37,7 +37,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -141,23 +140,23 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void quotesWindows(MouseEvent event) {
+    private void quotesWindows(ActionEvent event) {
     }
 
     @FXML
-    private void productsWindows(MouseEvent event) {
+    private void productsWindows(ActionEvent event) {
     }
 
     @FXML
-    private void usersWindows(MouseEvent event) {
+    private void usersWindows(ActionEvent event) {
     }
 
     @FXML
-    private void statisticsWindows(MouseEvent event) {
+    private void statisticsWindows(ActionEvent event) {
     }
 
     @FXML
-    private void aboutWindows(MouseEvent event) {
+    private void aboutWindows(ActionEvent event) {
     }
 
     @FXML
@@ -169,7 +168,6 @@ public class MainController implements Initializable {
     private void loginWindow() {
         try {
             Parent root = I18NUtil.loadView(Views.LOGIN);
-            
             
             Scene scene = new Scene(root);
             scene.setFill(Color.TRANSPARENT);
@@ -201,7 +199,6 @@ public class MainController implements Initializable {
         container.getChildren().clear();
         try {
             Parent root = I18NUtil.loadView(FXMLName);
-            
             AnchorPane.setBottomAnchor(root, 0.0);
             AnchorPane.setTopAnchor(root, 0.0);
             AnchorPane.setLeftAnchor(root, 0.0);
