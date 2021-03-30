@@ -22,9 +22,10 @@ import javafx.scene.layout.StackPane;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 
 public class JFXDialogTool extends JFXDialog {
-
-    public JFXDialogTool(Region region, StackPane container) {
+       
+    public JFXDialogTool(Region region, StackPane container) {        
         setContent(region);
+        region.setVisible(true);
         setBackground(Background.EMPTY);
         setDialogContainer(container);
         getStyleClass().add("jfx-dialog-overlay-pane");
