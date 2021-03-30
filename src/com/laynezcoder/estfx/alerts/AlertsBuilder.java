@@ -15,108 +15,116 @@
  */
 package com.laynezcoder.estfx.alerts;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.laynezcoder.estfx.database.DatabaseHelper;
+import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.ResourcesPackages;
+import com.laynezcoder.estfx.util.JFXDialogTool;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 
 public class AlertsBuilder {
 
-    private static String title;
-    
-    private static String buttonStyle;
-    
-    private static String titleStyle;
-    
-    private static String bodyStyle;
-    
-    private static JFXDialog dialog;
+    private static Image image;
+    private static String titleAlert;
+    private static JFXDialogTool dialog;
 
     public static void create(AlertType type, StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String body) {
-        setFunction(type);
+        function(type);
 
-        AnchorPane root = new AnchorPane();
-        root.setPrefSize(390, 230);
+        MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
+        icon.getStyleClass().add("icon-close");
 
-        JFXButton button = new JFXButton("Okey");
-        button.getStyleClass().add(buttonStyle);
+        Button close = new Button();
+        close.setGraphic(icon);
+        close.getStyleClass().add("btn-close");
 
-        HBox buttonContainer = new HBox();
-        buttonContainer.setLayoutY(115);
-        buttonContainer.setPrefSize(390, 115);
-        buttonContainer.setAlignment(Pos.CENTER);
-        buttonContainer.getChildren().addAll(button);
+        HBox closeContainer = new HBox(close);
+        closeContainer.setAlignment(Pos.TOP_RIGHT);
 
-        Text textTitle = new Text(title);
-        textTitle.getStyleClass().add(titleStyle);
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(110);
+        
+        Circle shadow = new Circle(15);
+        shadow.setLayoutX(55);
+        shadow.setLayoutY(120);
+        shadow.getStyleClass().add("shadow-dinosaur-image");
+         
+        VBox imageContainer = new VBox(imageView, shadow);
+        imageContainer.setAlignment(Pos.CENTER);
 
-        Text textBody = new Text(body);
-        textBody.getStyleClass().add(bodyStyle);
+        Text title = new Text(titleAlert);
+        title.getStyleClass().add("h1");
 
-        VBox textContainer = new VBox();
-        textContainer.setSpacing(5);
-        textContainer.setPrefSize(390, 115);
-        textContainer.setAlignment(Pos.CENTER_LEFT);
-        textContainer.setPadding(new Insets(0, 0, 0, 30));
-        textContainer.getChildren().addAll(textTitle, textBody);
-        root.getChildren().addAll(buttonContainer, textContainer);
+        Text subtitle = new Text(body);
+        subtitle.getStyleClass().add("sub-title");
+
+        TextFlow subtitleContainer = new TextFlow(subtitle);
+        subtitleContainer.setTextAlignment(TextAlignment.CENTER);
+
+        VBox root = new VBox();
+        root.getChildren().addAll(closeContainer, imageContainer, title, subtitleContainer);
+        root.setPadding(new Insets(10, 10, 10, 10));
+        root.setAlignment(Pos.TOP_CENTER);
+        root.getStyleClass().add("card");
+        root.setPrefSize(350, 260);
 
         nodeToDisable.setDisable(true);
         nodeToBlur.setEffect(Constants.BOX_BLUR_EFFECT);
 
-        dialog = new JFXDialog();
-        dialog.setContent(root);
-        dialog.setDialogContainer(dialogContainer);
-        dialog.setBackground(Background.EMPTY);
-        dialog.getStyleClass().add("jfx-dialog-overlay-pane");
-        dialog.setTransitionType(DatabaseHelper.dialogTransition());
+        dialog = new JFXDialogTool(root, dialogContainer);
         dialog.show();
 
-        button.setOnMouseClicked(e -> {
+        close.setOnMouseClicked(e -> {
             dialog.close();
         });
-
+        
+        TranslateTransition transition = Animations.imageTransition(imageView);
+        
         dialog.setOnDialogOpened(e -> {
+            transition.play();
             nodeToDisable.setDisable(true);
             nodeToBlur.setEffect(Constants.BOX_BLUR_EFFECT);
         });
 
         dialog.setOnDialogClosed(e -> {
+            transition.pause();
             nodeToDisable.setDisable(false);
             nodeToBlur.setEffect(null);
         });
     }
-    
+
     public static void close() {
         if (dialog != null) {
             dialog.close();
         }
     }
 
-    private static void setFunction(AlertType type) {
+    private static void function(AlertType type) {
         switch (type) {
             case SUCCES:
-                title = "Succes!";
-                buttonStyle = "alert-success-button";
-                titleStyle = "alert-success-title";
-                bodyStyle = "alert-success-body";
-            break;
-            
+                titleAlert = "Buen trabajo";
+                image = ResourcesPackages.getRandomSuccesImage();
+                break;
             case ERROR:
-                title = "Oops!";
-                buttonStyle = "alert-error-button";
-                titleStyle = "alert-error-title";
-                bodyStyle = "alert-error-body";
-            break;
+                titleAlert = "Ooops";
+                image = ResourcesPackages.getRandomErrorImage();
+                break;
         }
     }
 }
