@@ -15,44 +15,46 @@
  */
 package com.laynezcoder.estfx.util;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 
 public class ContextMenu {
 
-    MaterialDesignIcon ICON_EDIT = MaterialDesignIcon.TABLE_EDIT;
+    MaterialDesignIconView ICON_EDIT = new MaterialDesignIconView(MaterialDesignIcon.PENCIL);
 
-    MaterialDesignIcon ICON_DELETE = MaterialDesignIcon.DELETE_VARIANT;
+    MaterialDesignIconView ICON_DELETE = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
 
-    MaterialDesignIcon ICON_DETAILS = MaterialDesignIcon.INFORMATION_OUTLINE;
+    MaterialDesignIconView ICON_DETAILS = new MaterialDesignIconView(MaterialDesignIcon.CLIPBOARD_OUTLINE);
 
-    MaterialDesignIcon ICON_REFRESH = MaterialDesignIcon.REFRESH;
+    MaterialDesignIconView ICON_REFRESH = new MaterialDesignIconView(MaterialDesignIcon.REFRESH);
 
     private final JFXPopup popup;
 
     private final Node node;
 
-    private JFXButton edit;
+    private Button edit;
 
-    private JFXButton delete;
+    private Button delete;
 
-    private JFXButton details;
+    private Button details;
 
-    private JFXButton refresh;
+    private Button refresh;
 
     public ContextMenu(Node node) {
         this.node = node;
 
         popup = new JFXPopup();
         popup.setPopupContent(getContent());
+        popup.getStyleClass().add("jfx-popup");
     }
 
     public void setActionEdit(EventHandler action) {
@@ -85,47 +87,57 @@ public class ContextMenu {
         popup.hide();
     }
 
-    public JFXButton getEditButton() {
+    public Button getEditButton() {
         return edit;
     }
     
-    public JFXButton getDeleteButton() {
+    public Button getDeleteButton() {
         return delete;
     }
 
     private VBox getContent() {
-        edit = new JFXButton("Edit");
-        edit.setGraphic(new MaterialDesignIconView(ICON_EDIT));
-        edit.setAlignment(Pos.BASELINE_LEFT);
+        setStyleToIcons();
+        
+        edit = new Button("Edit");
+        edit.setGraphic(ICON_EDIT);
+        edit.setAlignment(Pos.CENTER_LEFT);
         edit.setContentDisplay(ContentDisplay.LEFT);
-        style(edit);
+        setStyleToButton(edit);
 
-        delete = new JFXButton("Delete");
-        delete.setGraphic(new MaterialDesignIconView(ICON_DELETE));
-        delete.setAlignment(Pos.BASELINE_LEFT);
+        delete = new Button("Delete");
+        delete.setGraphic(ICON_DELETE);
+        delete.setAlignment(Pos.CENTER_LEFT);
         delete.setContentDisplay(ContentDisplay.LEFT);
-        style(delete);
+        setStyleToButton(delete);
 
-        details = new JFXButton("Details");
-        details.setGraphic(new MaterialDesignIconView(ICON_DETAILS));
-        details.setAlignment(Pos.BASELINE_LEFT);
+        details = new Button("Details");
+        details.setGraphic(ICON_DETAILS);
+        details.setAlignment(Pos.CENTER_LEFT);
         details.setContentDisplay(ContentDisplay.LEFT);
-        style(details);
+        setStyleToButton(details);
 
-        refresh = new JFXButton("Refresh");
-        refresh.setGraphic(new MaterialDesignIconView(ICON_REFRESH));
-        refresh.setAlignment(Pos.BASELINE_LEFT);
+        refresh = new Button("Refresh");
+        refresh.setGraphic(ICON_REFRESH);
+        refresh.setAlignment(Pos.CENTER_LEFT);
         refresh.setContentDisplay(ContentDisplay.LEFT);
-        style(refresh);
-
+        setStyleToButton(refresh);
+       
         VBox contextMenu = new VBox();
-        contextMenu.setPrefSize(100, 130);
+        contextMenu.setPadding(new Insets(5));
+        contextMenu.getStyleClass().add("card");
         contextMenu.getChildren().addAll(edit, delete, details, refresh);
 
         return contextMenu;
     }
 
-    private void style(JFXButton button) {
+    private void setStyleToButton(Button button) {
         button.getStyleClass().add("button-context-menu");
+    }
+    
+    private void setStyleToIcons() {
+        ICON_DELETE.getStyleClass().add("icon-context-menu");
+        ICON_EDIT.getStyleClass().add("icon-context-menu");
+        ICON_DETAILS.getStyleClass().add("icon-context-menu");
+        ICON_REFRESH.getStyleClass().add("icon-context-menu");
     }
 }

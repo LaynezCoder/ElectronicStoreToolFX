@@ -71,15 +71,15 @@
 }
 
 .estfx {
-   -fx-font-family: "Poppins Bold";
-   -fx-font-size: 15;
-   -fx-fill: -fx-color-secondary;
+    -fx-font-family: "Poppins Bold";
+    -fx-font-size: 15;
+    -fx-fill: -fx-color-secondary;
 }
 
 .sub-title {
-   -fx-font-family: "Poppins Medium";
-   -fx-font-size: 14;
-   -fx-fill: -fx-color-secondary;
+    -fx-font-family: "Poppins Medium";
+    -fx-font-size: 14;
+    -fx-fill: -fx-color-secondary;
 }
 
 .icon-close {
@@ -220,8 +220,13 @@
 }
 
 .table-view { 
-  -fx-background-color: transparent;
-  -fx-padding: 5 5 5 5;
+    -fx-background-color: transparent;
+    -fx-padding: 5 5 5 5;
+}
+
+.table-view:focused .table-row-cell:focused {
+    -fx-background-color: -fx-table-cell-border-color, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
 }
 
 .table-cell {     
@@ -298,6 +303,46 @@
     -fx-effect: dropshadow(two-pass-box, -fx-color-primary-light, 10, 0, 2, 2);
     -fx-background-radius: 10;
     -fx-background-color: white;
+}
+
+.shadow-dinosaur-image {
+    -fx-fill: -border;
+    -fx-stroke: -border;
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 0.3;
+    -fx-scale-z: 1;
+}
+
+.icon-context-menu {
+    -fx-fill: -fx-color-text;
+    -fx-font-size: 22px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
+.button-context-menu {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: -fx-color-text;
+    -fx-background-radius: 5px;
+    -fx-font-size: 16;
+    -fx-pref-height: 32.5px;
+    -fx-pref-width: 120px;
+}
+
+.button-context-menu:hover,
+.button-context-menu:pressed {
+    -fx-background-color: -fx-color-primary;
+    -fx-text-fill: #ffffff;
+}
+
+.button-context-menu:hover .icon-context-menu, 
+.button-context-menu:pressed .icon-context-menu {
+    -fx-fill: #ffffff;
+}
+
+.jfx-popup,
+.jfx-popup .jfx-popup-container,
+.jfx-popup .jfx-list-view {
+    -fx-background-color: transparent;
 }
 
 .button-general {
@@ -387,7 +432,7 @@
 }
 
 .menu-item .label {
-    -fx-text-fill: grey;
+    -fx-text-fill: -fx-color-text;
     -fx-fill: black;
     -fx-font-size: 15;
 }
@@ -395,16 +440,9 @@
 .menu-item:hover, 
 .menu-item:focused, 
 .menu-item:focused .label {
-    -fx-background-color: -primary;  
-    -fx-text-fill: white;
+    -fx-background-color: -fx-color-primary;  
+    -fx-text-fill: #ffffff;
     -fx-fill: black;
-}
-
-.menu-item:hover .glyph-icon, 
-.menu-item:focused .glyph-icon {
-    -fx-background-color: -primary;  
-    -fx-text-fill: white;
-    -fx-fill: white;
 }
 
 .jfx-date-picker {
@@ -549,37 +587,6 @@ scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background 
 
 .scroll-bar>.track-background {
     -fx-background-color: transparent;
-}
-
-.button-context-menu {
-    -fx-background-color: white;
-    -fx-text-fill: -secondary;
-    -fx-font-size: 15;
-    -fx-pref-height: 32.5px;
-    -fx-pref-width: 100px;
-}
-
-.button-context-menu  .glyph-icon {
-    -glyph-size: 20;
-    -fx-fill: -secondary;
-}
-
-.button-context-menu:hover,
-.button-context-menu:pressed {
-    -fx-background-color: -primary;
-    -fx-text-fill: white;
-    -fx-font-size: 15;
-    -fx-pref-height: 32.5px;
-    -fx-pref-width: 100px;
-}
-
-.button-context-menu:hover .glyph-icon, 
-.button-context-menu:pressed .glyph-icon {
-    -fx-fill: white;
-}
-
-.button-context-menu .jfx-rippler {
-    -jfx-rippler-fill: none;
 }
 
 /*Start CSS*/
