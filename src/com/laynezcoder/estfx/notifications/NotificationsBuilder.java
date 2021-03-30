@@ -15,7 +15,7 @@
  */
 package com.laynezcoder.estfx.notifications;
 
-import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.ResourcesPackages;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,7 +33,7 @@ public class NotificationsBuilder {
         Notifications notifications = Notifications.create();
         notifications.title(title);
         notifications.text(message);
-        //notifications.graphic(new ImageView(icon));
+        notifications.graphic(new ImageView(icon));
         notifications.hideAfter(Duration.seconds(6));
         notifications.position(Pos.BASELINE_RIGHT);
         notifications.show();
@@ -42,23 +42,23 @@ public class NotificationsBuilder {
     private static void setFunction(NotificationType type) {
         switch (type) {
             case INFORMATION:
-                title = "¡Information!";
-                //icon = new Image(Constants.INFORMATION_IMAGE);
+                title = "Information!";
+                icon = new Image(ResourcesPackages.INFORMATION_ICON);
             break;
             
             case ERROR:
-                title = "¡Error!";
-                //icon = new Image(Constants.ERROR_IMAGE);
+                title = "Error!";
+                icon = new Image(ResourcesPackages.ERROR_ICON);
             break;
             
             case SUCCESS:
-                title = "¡Success!";
-                //icon = new Image(Constants.SUCCESS_IMAGE);
+                title = "God Job!";
+                icon = new Image(ResourcesPackages.SUCCESS_ICON);
             break;
             
             case INVALID_ACTION:
-                title = "¡Invalid action!";
-                //icon = new Image(Constants.ERROR_IMAGE);
+                title = "Invalid action!";
+                icon = new Image(ResourcesPackages.ERROR_ICON);
             break;
         }
     }
