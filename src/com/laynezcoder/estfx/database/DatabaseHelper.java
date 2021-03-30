@@ -40,9 +40,9 @@ public class DatabaseHelper {
         try {
             String sql = "INSERT INTO Customers (customerName, customerNumber, customerEmail, it) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, customers.getCustomerName());
-            preparedStatement.setString(2, customers.getCustomerNumber());
-            preparedStatement.setString(3, customers.getCustomerEmail());
+            preparedStatement.setString(1, customers.getName());
+            preparedStatement.setString(2, customers.getPhone());
+            preparedStatement.setString(3, customers.getEmail());
             preparedStatement.setString(4, customers.getIt());
             preparedStatement.execute();
             listCustomers.add(customers);
@@ -71,9 +71,9 @@ public class DatabaseHelper {
         try {
             String sql = "UPDATE Customers SET customerName = ?, customerNumber = ?, customerEmail = ?, it = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, customers.getCustomerName());
-            preparedStatement.setString(2, customers.getCustomerNumber());
-            preparedStatement.setString(3, customers.getCustomerEmail());
+            preparedStatement.setString(1, customers.getName());
+            preparedStatement.setString(2, customers.getPhone());
+            preparedStatement.setString(3, customers.getEmail());
             preparedStatement.setString(4, customers.getIt());
             preparedStatement.setInt(5, customers.getId());
             preparedStatement.execute();
@@ -106,7 +106,7 @@ public class DatabaseHelper {
         try {
             String sql = "INSERT INTO Quotes (descriptionQuote, requestDate, price, existence, realization, report, customerId) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, quotes.getDescriptionQuote());
+            preparedStatement.setString(1, quotes.getDescription());
             preparedStatement.setDate(2, new java.sql.Date(quotes.getRequestDate().getTime()));
             preparedStatement.setDouble(3, quotes.getPrice());
             preparedStatement.setString(4, quotes.getExistence());
@@ -140,7 +140,7 @@ public class DatabaseHelper {
         try {
             String sql = "UPDATE Quotes SET descriptionQuote = ?, requestDate = ?, price = ?, existence = ?, realization = ?, report = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, quotes.getDescriptionQuote());
+            preparedStatement.setString(1, quotes.getDescription());
             preparedStatement.setDate(2, new java.sql.Date(quotes.getRequestDate().getTime()));
             preparedStatement.setDouble(3, quotes.getPrice());
             preparedStatement.setString(4, quotes.getExistence());
@@ -279,9 +279,9 @@ public class DatabaseHelper {
         try {
             String sql = "INSERT INTO Users (nameUser, email, pass, userType, profileImage) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, users.getNameUser());
-            preparedStatement.setString(2, users.getEmail());
-            preparedStatement.setString(3, users.getPass());
+            preparedStatement.setString(1, users.getName());
+            preparedStatement.setString(2, users.getUsername());
+            preparedStatement.setString(3, users.getPassword());
             preparedStatement.setString(4, users.getUserType());
             preparedStatement.setBlob(5, users.getProfileImage());
             preparedStatement.execute();
@@ -297,9 +297,9 @@ public class DatabaseHelper {
         try {
             String sql = "INSERT INTO Users (nameUser, email, pass, userType, profileImage) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, users.getNameUser());
-            preparedStatement.setString(2, users.getEmail());
-            preparedStatement.setString(3, users.getPass());
+            preparedStatement.setString(1, users.getName());
+            preparedStatement.setString(2, users.getUsername());
+            preparedStatement.setString(3, users.getPassword());
             preparedStatement.setString(4, users.getUserType());
             preparedStatement.setBlob(5, users.getProfileImage());
             preparedStatement.execute(); 
@@ -328,9 +328,9 @@ public class DatabaseHelper {
         try {
             String sql = "UPDATE Users SET nameUser = ?, email = ?, pass = ?, userType = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, users.getNameUser());
-            preparedStatement.setString(2, users.getEmail());
-            preparedStatement.setString(3, users.getPass());
+            preparedStatement.setString(1, users.getName());
+            preparedStatement.setString(2, users.getUsername());
+            preparedStatement.setString(3, users.getPassword());
             preparedStatement.setString(4, users.getUserType());
             preparedStatement.setInt(5, users.getId());
             preparedStatement.execute();
@@ -345,9 +345,9 @@ public class DatabaseHelper {
         try {
             String sql = "UPDATE Users SET nameUser = ?, email = ?, pass = ?, biography = ?, dialogTransition = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, users.getNameUser());
-            preparedStatement.setString(2, users.getEmail());
-            preparedStatement.setString(3, users.getPass());
+            preparedStatement.setString(1, users.getName());
+            preparedStatement.setString(2, users.getUsername());
+            preparedStatement.setString(3, users.getPassword());
             preparedStatement.setString(4, users.getBiography());
             preparedStatement.setString(5, users.getDialogTransition());
             preparedStatement.setInt(6, users.getId());

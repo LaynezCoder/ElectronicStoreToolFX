@@ -19,10 +19,10 @@ import java.io.InputStream;
 
 public class Users {
 
-    private Integer id;
-    private String nameUser;
-    private String email;
-    private String pass;
+    private int id;
+    private String name;
+    private String username;
+    private String password;
     private String biography;
     private String dialogTransition;
     private String userType;
@@ -31,61 +31,61 @@ public class Users {
     public Users() {
     }
 
-    public Users(String nameUser, String email, String pass, String userType) {
-        this.nameUser = nameUser;
-        this.email = email;
-        this.pass = pass;
+    public Users(String name, String username, String password, String userType) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
         this.userType = userType;
     }
 
-    public Users(Integer id, String nameUser, String email, String pass, String biography, String dialogTransition, String userType) {
+    public Users(int id, String name, String username, String password, String biography, String dialogTransition, String userType) {
         this.id = id;
-        this.nameUser = nameUser;
-        this.email = email;
-        this.pass = pass;
+        this.name = name;
+        this.username = username;
+        this.password = password;
         this.biography = biography;
         this.dialogTransition = dialogTransition;
         this.userType = userType;
     }
 
-    public Users(Integer id, String nameUser, String email, String pass, String userType) {
+    public Users(int id, String name, String username, String password, String userType) {
         this.id = id;
-        this.nameUser = nameUser;
-        this.email = email;
-        this.pass = pass;
+        this.name = name;
+        this.username = username;
+        this.password = password;
         this.userType = userType;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getNameUser() {
-        return nameUser;
+    public String getName() {
+        return name;
     }
 
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
+    public void setName(String nameUser) {
+        this.name = nameUser;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String pass) {
+        this.password = pass;
     }
 
     public String getBiography() {

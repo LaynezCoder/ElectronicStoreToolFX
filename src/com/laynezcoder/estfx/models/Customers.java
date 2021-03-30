@@ -18,68 +18,68 @@ package com.laynezcoder.estfx.models;
 import java.sql.Date;
 
 public class Customers {
-    private Integer id;
-    private String customerName;
-    private String customerNumber;
-    private String customerEmail;
+    private int id;
+    private String name;
+    private String phone;
+    private String email;
     private String it;
     private Date insertionDate;
 
     public Customers() {
     }
 
-    public Customers(Integer id, String customerName) {
+    public Customers(int id, String name) {
         this.id = id;
-        this.customerName = customerName;
+        this.name = name;
     }
     
-    public Customers(Integer id, String customerName, String customerNumber, String customerEmail, String it) {
+    public Customers(int id, String name, String phone, String email, String it) {
         this.id = id;
-        this.customerName = customerName;
-        this.customerNumber = customerNumber;
-        this.customerEmail = customerEmail;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
         this.it = it;
     }
     
-    public Customers(Integer id, String customerName, String customerNumber, String customerEmail, String it, Date insertionDate) {
+    public Customers(int id, String name, String phone, String email, String it, Date insertionDate) {
         this.id = id;
-        this.customerName = customerName;
-        this.customerNumber = customerNumber;
-        this.customerEmail = customerEmail;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
         this.it = it;
         this.insertionDate = insertionDate;
     }
     
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setName(String customerName) {
+        this.name = customerName;
     }
 
-    public String getCustomerNumber() {
-        return customerNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCustomerNumber(String customerNumber) {
-        this.customerNumber = customerNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getIt() {
@@ -100,6 +100,6 @@ public class Customers {
 
     @Override
     public String toString (){
-        return getId()+  " | " + getCustomerName();
+        return id +  " | " + name;
     }
 }

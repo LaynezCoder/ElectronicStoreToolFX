@@ -300,9 +300,9 @@ public class StartController implements Initializable {
 
     private void insertUserInDB() {
         Users users = new Users();
-        users.setNameUser(name);
-        users.setEmail(user);
-        users.setPass(password);
+        users.setName(name);
+        users.setUsername(user);
+        users.setPassword(password);
         users.setBiography(bio);
         users.setDialogTransition(getDialogTransition());
         users.setUserType("Administrator");

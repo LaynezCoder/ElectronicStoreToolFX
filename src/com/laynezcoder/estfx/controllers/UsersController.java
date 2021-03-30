@@ -414,7 +414,7 @@ public class UsersController implements Initializable {
         String user = txtUser.getText().trim();
         String password = txtPassword.getText().trim();
         int id = tblUsers.getSelectionModel().getSelectedItem().getId();
-        String userFromTable = tblUsers.getSelectionModel().getSelectedItem().getEmail();
+        String userFromTable = tblUsers.getSelectionModel().getSelectedItem().getUsername();
         String userType = tblUsers.getSelectionModel().getSelectedItem().getUserType();
 
         if (name.isEmpty()) {
@@ -527,9 +527,9 @@ public class UsersController implements Initializable {
 
     private void selectedRecord() {
         Users users = tblUsers.getSelectionModel().getSelectedItem();
-        txtName.setText(users.getNameUser());
-        txtUser.setText(users.getEmail());
-        pfPassword.setText(users.getPass());
+        txtName.setText(users.getName());
+        txtUser.setText(users.getUsername());
+        pfPassword.setText(users.getPassword());
         cmbTypeUser.setValue(users.getUserType());
     }
 
@@ -636,7 +636,7 @@ public class UsersController implements Initializable {
         } else {
             filterUsers.clear();
             for (Users u : listUsers) {
-                if (u.getNameUser().toLowerCase().contains(name.toLowerCase())) {
+                if (u.getName().toLowerCase().contains(name.toLowerCase())) {
                     filterUsers.add(u);
                 }
             }
@@ -652,7 +652,7 @@ public class UsersController implements Initializable {
         } else {
             filterUsers.clear();
             for (Users u : listUsers) {
-                if (u.getEmail().toLowerCase().contains(user.toLowerCase())) {
+                if (u.getUsername().toLowerCase().contains(user.toLowerCase())) {
                     filterUsers.add(u);
                 }
             }
@@ -669,7 +669,7 @@ public class UsersController implements Initializable {
             PasswordField password = new PasswordField();
             password.setEditable(false);
             password.setPrefWidth(colPassword.getWidth() / 0.5);
-            password.setText(item.getPass());
+            password.setText(item.getPassword());
             password.getStyleClass().addAll("password-field-cell", "table-row-cell");
 
             return new SimpleObjectProperty<>(password);

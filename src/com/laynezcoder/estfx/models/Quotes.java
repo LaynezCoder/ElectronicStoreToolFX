@@ -19,8 +19,8 @@ import java.util.Date;
 
 public class Quotes {
 
-    private Integer id;
-    private String descriptionQuote;
+    private int id;
+    private String description;
     private Date requestDate;
     private Double price;
     private String existence;
@@ -32,9 +32,9 @@ public class Quotes {
     public Quotes() {
     }
     
-    public Quotes(Integer id, String descriptionQuote, Date requestDate, Double price, String existence, String realization, String report, String customerName) {
+    public Quotes(int id, String description, Date requestDate, Double price, String existence, String realization, String report, String customerName) {
         this.id = id;
-        this.descriptionQuote = descriptionQuote;
+        this.description = description;
         this.requestDate = requestDate;
         this.price = price;
         this.existence = existence;
@@ -43,20 +43,20 @@ public class Quotes {
         this.customerName = customerName;
     }
     
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getDescriptionQuote() {
-        return descriptionQuote;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptionQuote(String descriptionQuote) {
-        this.descriptionQuote = descriptionQuote;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getRequestDate() {

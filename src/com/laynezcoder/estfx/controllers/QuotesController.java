@@ -350,7 +350,7 @@ public class QuotesController implements Initializable {
         Quotes quotes = tblQuotes.getSelectionModel().getSelectedItem();
         txtPrice.setText(String.valueOf(quotes.getPrice()));
         dtpDate.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(quotes.getRequestDate())));
-        txtDescription.setText(quotes.getDescriptionQuote());
+        txtDescription.setText(quotes.getDescription());
         cmbIdCustomer.getSelectionModel().select(DatabaseHelper.searchCustomer(quotes.getCustomerName()));
         toggleButtonExists.setText(quotes.getExistence());
         toggleButtonRealized.setText(quotes.getRealization());
@@ -502,7 +502,7 @@ public class QuotesController implements Initializable {
             quotes.setReport(QuotationStatus.NOT_REPORTED.getStatus());
         }
 
-        quotes.setDescriptionQuote(description);
+        quotes.setDescription(description);
         quotes.setRequestDate(java.sql.Date.valueOf(dtpDate.getValue()));
         quotes.setCustomerId(AutocompleteComboBox.getComboBoxValue(cmbIdCustomer).getId());
 
@@ -571,7 +571,7 @@ public class QuotesController implements Initializable {
             quotes.setReport(QuotationStatus.NOT_REPORTED.getStatus());
         }
 
-        quotes.setDescriptionQuote(description);
+        quotes.setDescription(description);
         quotes.setRequestDate(java.sql.Date.valueOf(dtpDate.getValue()));
         quotes.setId(quotes.getId());
 
@@ -694,7 +694,7 @@ public class QuotesController implements Initializable {
         } else {
             filterQuotes.clear();
             for (Quotes q : listQuotes) {
-                if (q.getDescriptionQuote().toLowerCase().contains(filter.toLowerCase())) {
+                if (q.getDescription().toLowerCase().contains(filter.toLowerCase())) {
                     filterQuotes.add(q);
                 }
             }

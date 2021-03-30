@@ -269,9 +269,9 @@ public class SettingsController implements Initializable {
 
         Users users = new Users();
         users.setId(DatabaseHelper.getSessionId());
-        users.setNameUser(name);
-        users.setEmail(user);
-        users.setPass(password);
+        users.setName(name);
+        users.setUsername(user);
+        users.setPassword(password);
         users.setBiography(bio);
         users.setDialogTransition(getDialogTransition());
 

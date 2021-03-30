@@ -307,9 +307,9 @@ public class CustomersController implements Initializable {
 
     private void selectedRecord() {
         Customers customers = tblCustomers.getSelectionModel().getSelectedItem();
-        txtName.setText(customers.getCustomerName());
-        txtPhone.setText(customers.getCustomerNumber());
-        txtEmail.setText(customers.getCustomerEmail());
+        txtName.setText(customers.getName());
+        txtPhone.setText(customers.getPhone());
+        txtEmail.setText(customers.getEmail());
         txtIt.setText(customers.getIt());
     }
 
@@ -372,13 +372,13 @@ public class CustomersController implements Initializable {
         }
 
         Customers customers = new Customers();
-        customers.setCustomerName(name);
-        customers.setCustomerNumber(phoneNumber);
+        customers.setName(name);
+        customers.setPhone(phoneNumber);
 
         if (email.isEmpty()) {
-            customers.setCustomerEmail(NOT_AVAILABLE);
+            customers.setEmail(NOT_AVAILABLE);
         } else {
-            customers.setCustomerEmail(email);
+            customers.setEmail(email);
         }
 
         if (it.isEmpty()) {
@@ -440,13 +440,13 @@ public class CustomersController implements Initializable {
 
         Customers customers = tblCustomers.getSelectionModel().getSelectedItem();
         customers.setId(customers.getId());
-        customers.setCustomerName(name);
-        customers.setCustomerNumber(phoneNumber);
+        customers.setName(name);
+        customers.setPhone(phoneNumber);
 
         if (email.isEmpty()) {
-            customers.setCustomerEmail(NOT_AVAILABLE);
+            customers.setEmail(NOT_AVAILABLE);
         } else {
-            customers.setCustomerEmail(email);
+            customers.setEmail(email);
         }
 
         if (it.isEmpty()) {
@@ -567,7 +567,7 @@ public class CustomersController implements Initializable {
         } else {
             filterCustomers.clear();
             for (Customers c : listCustomers) {
-                if (c.getCustomerName().toLowerCase().contains(filterName.toLowerCase())) {
+                if (c.getName().toLowerCase().contains(filterName.toLowerCase())) {
                     filterCustomers.add(c);
                 }
             }
@@ -583,7 +583,7 @@ public class CustomersController implements Initializable {
         } else {
             filterCustomers.clear();
             for (Customers c : listCustomers) {
-                if (c.getCustomerNumber().toLowerCase().contains(filterNumber.toLowerCase())) {
+                if (c.getPhone().toLowerCase().contains(filterNumber.toLowerCase())) {
                     filterCustomers.add(c);
                 }
             }

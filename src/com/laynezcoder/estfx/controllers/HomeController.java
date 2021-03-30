@@ -308,7 +308,7 @@ public class HomeController implements Initializable {
         } else {
             filterQuotes.clear();
             for (Quotes q : listQuotes) {
-                if (q.getDescriptionQuote().toLowerCase().contains(filter.toLowerCase())) {
+                if (q.getDescription().toLowerCase().contains(filter.toLowerCase())) {
                     filterQuotes.add(q);
                 }
             }
