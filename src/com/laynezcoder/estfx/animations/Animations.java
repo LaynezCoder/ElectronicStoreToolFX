@@ -15,7 +15,6 @@
  */
 package com.laynezcoder.estfx.animations;
 
-import animatefx.animation.FadeIn;
 import animatefx.animation.FadeInUp;
 import animatefx.animation.FadeOut;
 import animatefx.animation.Shake;
@@ -25,6 +24,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.util.Duration;
@@ -110,4 +110,15 @@ public class Animations {
 
         timeline.play();
     }
+
+    public static TranslateTransition imageTransition(Node node) {
+        TranslateTransition transition = new TranslateTransition(Duration.millis(800), node);
+        transition.setCycleCount(TranslateTransition.INDEFINITE);
+        transition.setAutoReverse(true);
+        transition.setByY(-4);
+       
+        return transition;
+    }
+    
+    
 }
