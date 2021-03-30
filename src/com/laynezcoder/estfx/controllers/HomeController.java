@@ -143,6 +143,9 @@ public class HomeController implements Initializable {
 
     @FXML
     private TableColumn<Quotes, JFXButton> colReport;
+    
+    @FXML
+    private HBox tableContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -174,7 +177,7 @@ public class HomeController implements Initializable {
     private void animationsNodes() {
         Animations.fadeInUp(searchContainer);
         Animations.fadeInUp(welcomeContainer);
-        Animations.fadeInUp(tblQuotes);
+        Animations.fadeInUp(tableContainer);
         Animations.fadeInUp(statisticsContainer);
     }
 
