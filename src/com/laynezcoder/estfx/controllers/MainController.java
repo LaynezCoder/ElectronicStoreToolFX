@@ -113,7 +113,6 @@ public class MainController implements Initializable {
         imageProfile.setClip(clip);
     }
 
-    @FXML
     private void setDisableButtons(ActionEvent event) {
         setDisableButton(event, btnHome);
         setDisableButton(event, btnCustomers);
@@ -130,12 +129,15 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void homeWindows(MouseEvent event) {
-
+    private void homeWindows(ActionEvent event) {
+        showFXMLWindows(Views.HOME);
+        setDisableButtons(event);
     }
 
     @FXML
     private void customersWindows(ActionEvent event) {
+        showFXMLWindows(Views.CUSTOMERS);
+        setDisableButtons(event);   
     }
 
     @FXML

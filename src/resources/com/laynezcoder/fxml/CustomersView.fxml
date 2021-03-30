@@ -29,13 +29,13 @@
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1029.0" spacing="5.0" styleClass="container-txt-search" HBox.hgrow="ALWAYS">
                      <children>
                         <FontAwesomeIconView fill="#76787c" glyphName="SEARCH" size="20" styleClass="icon-search" HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="txtSearchCustomer" prefHeight="39.0" prefWidth="514.0" promptText="Search customer" styleClass="txt-search" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="txtSearchName" onKeyReleased="#filterName" prefHeight="39.0" prefWidth="514.0" promptText="%prompt.txt.search.customer" styleClass="txt-search" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </TextField>
                         <FontAwesomeIconView fill="#76787c" glyphName="SEARCH" size="20" styleClass="icon-search" HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="txtSearchPhone" prefHeight="39.0" prefWidth="514.0" promptText="Search phone" styleClass="txt-search" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="txtSearchPhone" onKeyReleased="#filterPhone" prefHeight="39.0" prefWidth="514.0" promptText="%prompt.txt.search.phone" styleClass="txt-search" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -45,24 +45,24 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-                  <Button graphicTextGap="1.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="400.0" styleClass="btn-add" text="New customer">
+                  <Button graphicTextGap="1.0" mnemonicParsing="false" onAction="#showDialogdd" prefHeight="40.0" prefWidth="400.0" styleClass="btn-add" text="%btn.customers.add">
                      <graphic>
                         <MaterialDesignIconView fill="WHITE" glyphName="PLUS" size="20" styleClass="icon-add" />
                      </graphic>
                   </Button>
                </children>
             </HBox>
-            <HBox layoutY="60.0" prefHeight="540.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+            <HBox fx:id="tableConainer" layoutY="60.0" prefHeight="540.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                <children>
                   <HBox prefHeight="540.0" prefWidth="940.0" styleClass="card" HBox.hgrow="ALWAYS">
                      <children>
                         <TableView fx:id="tblCustomers" prefHeight="478.0" prefWidth="909.0" HBox.hgrow="ALWAYS">
                            <columns>
-                              <TableColumn fx:id="colCodigoCliente" maxWidth="1200.0" prefWidth="75.0" styleClass="left-column-header" text="Id" />
-                              <TableColumn fx:id="colNombreCliente" prefWidth="75.0" text="Name" />
-                              <TableColumn fx:id="colTelefonoCliente" prefWidth="75.0" text="Phone" />
-                              <TableColumn fx:id="colCorreoCliente" prefWidth="75.0" text="Email" />
-                              <TableColumn fx:id="colNitCliente" prefWidth="75.0" styleClass="right-column-header" text="It" />
+                              <TableColumn fx:id="colId" maxWidth="1200.0" prefWidth="75.0" styleClass="left-column-header" text="%col.customers.id" />
+                              <TableColumn fx:id="colName" prefWidth="75.0" text="%col.customers.name" />
+                              <TableColumn fx:id="colPhone" prefWidth="75.0" text="%col.customers.phone" />
+                              <TableColumn fx:id="colEmail" prefWidth="75.0" text="%col.customers.email" />
+                              <TableColumn fx:id="colIt" prefWidth="75.0" styleClass="right-column-header" text="%col.customers.it" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -75,11 +75,11 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </padding>
             </HBox>
-            <VBox fx:id="containerDelete" alignment="CENTER" layoutX="270.0" layoutY="175.0" prefHeight="250.0" prefWidth="400.0" styleClass="card" visible="false">
+            <VBox fx:id="containerDelete" alignment="CENTER" layoutX="270.0" layoutY="175.0" prefHeight="270.0" prefWidth="400.0" styleClass="card" visible="false">
                <children>
                   <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="400.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="btn-close">
+                        <Button mnemonicParsing="false" onAction="#closeDialogDelete" styleClass="btn-close">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" styleClass="icon-close" />
                            </graphic>
@@ -88,28 +88,34 @@
                   </HBox>
                   <ImageView fx:id="imageDelete" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../resources/com/laynezcoder/images/flaticon/kitty/005.png" />
+                        <Image url="@../images/flaticon/dinosaur/038-think.png" />
                      </image>
                   </ImageView>
                   <TextFlow prefHeight="0.0" prefWidth="400.0" textAlignment="CENTER">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure you want to permanently delete this record?" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="%text.customers.title.delete" />
                      </children>
                   </TextFlow>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="All related records are deleted" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.subtitle.delete">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></Text>
                   <HBox alignment="CENTER" prefHeight="132.0" prefWidth="400.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="btn-cancel" text="Cancel" />
-                        <Button mnemonicParsing="false" styleClass="btn-delete" text="Delete" />
+                        <Button mnemonicParsing="false" onAction="#closeDialogDelete" prefWidth="100.0" styleClass="btn-cancel" text="%btn.customers.cancel" />
+                        <Button mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="35.0" prefWidth="100.0" styleClass="btn-delete" text="%btn.customers.delete" />
                      </children>
                   </HBox>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
             </VBox>
             <VBox fx:id="containerAdd" layoutX="170.0" layoutY="139.0" styleClass="card" visible="false">
                <children>
                   <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="400.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="btn-close">
+                        <Button mnemonicParsing="false" onAction="#closeDialogAdd" styleClass="btn-close">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" styleClass="icon-close" />
                            </graphic>
@@ -135,19 +141,13 @@
                                  <children>
                                     <HBox prefHeight="26.0" prefWidth="941.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Name" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.name" />
                                        </children>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
                                     </HBox>
                                     <HBox prefHeight="26.0" prefWidth="941.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Phone" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.phone" />
                                        </children>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
                                     </HBox>
                                  </children>
                               </HBox>
@@ -161,19 +161,13 @@
                                  <children>
                                     <HBox prefHeight="26.0" prefWidth="941.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Email" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.email" />
                                        </children>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
                                     </HBox>
                                     <HBox prefHeight="26.0" prefWidth="941.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="It" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.it" />
                                        </children>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
                                     </HBox>
                                  </children>
                               </HBox>
@@ -183,11 +177,11 @@
                                     <TextField fx:id="txtIt" styleClass="txt" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="0.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                              <HBox fx:id="buttonsContainer" alignment="CENTER" prefHeight="0.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="btn-cancel" text="Cancel" HBox.hgrow="ALWAYS" />
-                                    <Button fx:id="btnSave" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="btn-delete" text="Save" HBox.hgrow="ALWAYS" />
-                                    <Button fx:id="btnUpdate" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="btn-delete" text="Update" />
+                                    <Button mnemonicParsing="false" onAction="#closeDialogAdd" prefHeight="35.0" prefWidth="150.0" styleClass="btn-cancel" text="%btn.customers.cancel" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#updateCustomer" prefHeight="35.0" prefWidth="150.0" styleClass="btn-delete" text="%btn.customers.update" />
+                                    <Button fx:id="btnSave" mnemonicParsing="false" onAction="#newCustomer" prefHeight="35.0" prefWidth="150.0" styleClass="btn-delete" text="%btn.customers.save" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
