@@ -15,7 +15,6 @@
  */
 package com.laynezcoder.estfx.controllers;
 
-import com.jfoenix.controls.JFXButton;
 import com.laynezcoder.estfx.alerts.AlertType;
 import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
@@ -53,6 +52,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class CustomersController implements Initializable {
@@ -72,14 +72,11 @@ public class CustomersController implements Initializable {
     private AnchorPane rootCustomers;
 
     @FXML
-    private AnchorPane containerDelete;
+    private VBox containerDelete;
 
     @FXML
-    private AnchorPane containerAdd;
+    private VBox containerAdd;
 
-    @FXML
-    private JFXButton btnNewCustomer;
-    
     @FXML
     private Button btnUpdate;
 
@@ -90,29 +87,35 @@ public class CustomersController implements Initializable {
     private TableView<Customers> tblCustomers;
 
     @FXML
-    private TableColumn<Customers, Integer> colCodigoCliente;
+    private TableColumn<Customers, Integer> colId;
 
     @FXML
-    private TableColumn<Customers, String> colNombreCliente;
+    private TableColumn<Customers, String> colName;
 
     @FXML
-    private TableColumn<Customers, String> colTelefonoCliente;
+    private TableColumn<Customers, String> colPhone;
 
     @FXML
-    private TableColumn<Customers, String> colCorreoCliente;
+    private TableColumn<Customers, String> colEmail;
 
     @FXML
-    private TableColumn<Customers, String> colNitCliente;
+    private TableColumn<Customers, String> colIt;
 
     @FXML
     private HBox searchContainer;
 
     @FXML
+    private HBox tableConainer;
+
+    @FXML
+    private HBox buttonsContainer;
+
+    @FXML
     private TextField txtSearchPhone;
 
     @FXML
-    private TextField txtSearchCustomer;
-    
+    private TextField txtSearchName;
+
     @FXML
     private ImageView imageDelete;
 
@@ -149,26 +152,26 @@ public class CustomersController implements Initializable {
         setImages();
         filterCustomers = FXCollections.observableArrayList();
     }
-    
+
     private void setImages() {
         imageDelete.setImage(ResourcesPackages.DELETE_IMAGE);
     }
-    
+
     private void setContextMenu() {
         ContextMenu contextMenu = new ContextMenu(tblCustomers);
 
         contextMenu.setActionEdit(ev -> {
-            showDialogEditCustomer();
+            showDialogEdit();
             contextMenu.hide();
         });
 
         contextMenu.setActionDelete(ev -> {
-            showDialogDeleteCustomer();
+            showDialogDelete();
             contextMenu.hide();
         });
 
         contextMenu.setActionDetails(ev -> {
-            showDialogDetailsCustomer();
+            showDialogDetails();
             contextMenu.hide();
         });
 
@@ -182,8 +185,7 @@ public class CustomersController implements Initializable {
 
     private void animateNodes() {
         Animations.fadeInUp(searchContainer);
-        Animations.fadeInUp(btnNewCustomer);
-        Animations.fadeInUp(tblCustomers);
+        Animations.fadeInUp(tableConainer);
     }
 
     private void selectText() {
@@ -191,7 +193,7 @@ public class CustomersController implements Initializable {
         TextFieldMask.selectText(txtName);
         TextFieldMask.selectText(txtEmail);
         TextFieldMask.selectText(txtIt);
-        TextFieldMask.selectText(txtSearchCustomer);
+        TextFieldMask.selectText(txtSearchName);
         TextFieldMask.selectText(txtSearchPhone);
     }
 
@@ -205,21 +207,23 @@ public class CustomersController implements Initializable {
         TextFieldMask.onlyNumbers(txtSearchPhone);
         TextFieldMask.onlyNumbers(txtPhone);
         TextFieldMask.onlyLetters(txtName, 150);
-        TextFieldMask.onlyLetters(txtSearchCustomer, 150);
+        TextFieldMask.onlyLetters(txtSearchName, 150);
     }
 
     @FXML
-    private void showDialogddCustomer() {
+    private void showDialogdd() {
         disableTable();
         enableEditControls();
+
+        if (!buttonsContainer.getChildren().contains(btnSave)) {
+            buttonsContainer.getChildren().add(btnSave);
+        }
+        btnSave.setDisable(false);
+        buttonsContainer.getChildren().remove(btnUpdate);
+
         rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
 
         title.setText("Add customer");
-        btnUpdate.setVisible(true);
-        btnSave.setDisable(false);
-        containerAdd.setVisible(true);
-        btnSave.toFront();
-
         dialogAdd = new JFXDialogTool(containerAdd, stckCustomers);
         dialogAdd.show();
 
@@ -228,7 +232,6 @@ public class CustomersController implements Initializable {
         });
 
         dialogAdd.setOnDialogClosed(ev -> {
-            containerAdd.setVisible(false);
             tblCustomers.setDisable(false);
             rootCustomers.setEffect(null);
             cleanControls();
@@ -236,28 +239,26 @@ public class CustomersController implements Initializable {
     }
 
     @FXML
-    private void closeDialogAddCustomer() {
+    private void closeDialogAdd() {
         if (dialogAdd != null) {
             dialogAdd.close();
         }
     }
 
     @FXML
-    private void showDialogDeleteCustomer() {
+    private void showDialogDelete() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
         disableTable();
-        containerDelete.setVisible(true);
         rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
 
         dialogDelete = new JFXDialogTool(containerDelete, stckCustomers);
         dialogDelete.show();
 
         dialogDelete.setOnDialogClosed(ev -> {
-            containerDelete.setVisible(false);
             tblCustomers.setDisable(false);
             rootCustomers.setEffect(null);
             cleanControls();
@@ -266,37 +267,39 @@ public class CustomersController implements Initializable {
     }
 
     @FXML
-    private void closeDialogDeleteCustomer() {
+    private void closeDialogDelete() {
         if (dialogDelete != null) {
             dialogDelete.close();
         }
     }
 
     @FXML
-    private void showDialogEditCustomer() {
+    private void showDialogEdit() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
-
-        showDialogddCustomer();
+        
+        showDialogdd();
         title.setText("Update customer");
-        btnUpdate.toFront();
         selectedRecord();
+        
+        if (!buttonsContainer.getChildren().contains(btnUpdate)) {
+            buttonsContainer.getChildren().add(btnUpdate);
+        }
+        buttonsContainer.getChildren().remove(btnSave); 
     }
 
     @FXML
-    private void showDialogDetailsCustomer() {
+    private void showDialogDetails() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
-        showDialogddCustomer();
+        showDialogdd();
         title.setText("Customer details");
-        btnUpdate.setVisible(false);
         btnSave.setDisable(true);
-        btnSave.toFront();
         disableEditControls();
         selectedRecord();
 
@@ -313,11 +316,11 @@ public class CustomersController implements Initializable {
     @FXML
     private void loadData() {
         loadTable();
-        colCodigoCliente.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNombreCliente.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        colTelefonoCliente.setCellValueFactory(new PropertyValueFactory<>("customerNumber"));
-        colCorreoCliente.setCellValueFactory(new PropertyValueFactory<>("customerEmail"));
-        colNitCliente.setCellValueFactory(new PropertyValueFactory<>("it"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("customerNumber"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("customerEmail"));
+        colIt.setCellValueFactory(new PropertyValueFactory<>("it"));
     }
 
     private void loadTable() {
@@ -388,7 +391,7 @@ public class CustomersController implements Initializable {
         if (result) {
             loadData();
             cleanControls();
-            closeDialogAddCustomer();
+            closeDialogAdd();
             AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, tblCustomers, Messages.ADDED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
@@ -402,7 +405,7 @@ public class CustomersController implements Initializable {
         if (result) {
             loadData();
             cleanControls();
-            closeDialogDeleteCustomer();
+            closeDialogDelete();
             AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, tblCustomers, Messages.DELETED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
@@ -456,7 +459,7 @@ public class CustomersController implements Initializable {
         if (result) {
             loadData();
             cleanControls();
-            closeDialogAddCustomer();
+            closeDialogAdd();
             AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, tblCustomers, Messages.UPDATED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
@@ -498,11 +501,11 @@ public class CustomersController implements Initializable {
     private void closeDialogWithEscapeKey() {
         rootCustomers.setOnKeyReleased(ev -> {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogDeleteCustomer();
+                closeDialogDelete();
             }
 
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddCustomer();
+                closeDialogAdd();
             }
 
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
@@ -517,25 +520,25 @@ public class CustomersController implements Initializable {
     private void closeDialogWithTextFields() {
         txtName.setOnKeyReleased(ev -> {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddCustomer();
+                closeDialogAdd();
             }
         });
 
         txtPhone.setOnKeyReleased(ev -> {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddCustomer();
+                closeDialogAdd();
             }
         });
 
         txtEmail.setOnKeyReleased(ev -> {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddCustomer();
+                closeDialogAdd();
             }
         });
 
         txtIt.setOnKeyReleased(ev -> {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddCustomer();
+                closeDialogAdd();
             }
         });
     }
@@ -557,8 +560,8 @@ public class CustomersController implements Initializable {
     }
 
     @FXML
-    private void filterNameCustomer() {
-        String filterName = txtSearchCustomer.getText().trim();
+    private void filterName() {
+        String filterName = txtSearchName.getText().trim();
         if (filterName.isEmpty()) {
             tblCustomers.setItems(listCustomers);
         } else {
@@ -573,7 +576,7 @@ public class CustomersController implements Initializable {
     }
 
     @FXML
-    private void filterNumberCustomer() {
+    private void filterPhone() {
         String filterNumber = txtSearchPhone.getText().trim();
         if (filterNumber.isEmpty()) {
             tblCustomers.setItems(listCustomers);
