@@ -556,7 +556,7 @@
                   <HBox prefHeight="40.0" prefWidth="380.0" spacing="10.0">
                      <children>
                         <TextField prefHeight="40.0" prefWidth="185.0" styleClass="txt" HBox.hgrow="ALWAYS" />
-                        <DatePicker prefHeight="40.0" prefWidth="185.0" HBox.hgrow="ALWAYS" />
+                        <DatePicker id="date-picker" prefHeight="40.0" prefWidth="185.0" styleClass="date-picker" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox>
@@ -564,7 +564,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.name" />
                      </children>
                   </HBox>
-                  <ComboBox prefHeight="40.0" prefWidth="380.0" stylesheets="@../combo-box.css" />
+                  <ComboBox prefHeight="40.0" prefWidth="380.0" />
                   <HBox>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.name" />
