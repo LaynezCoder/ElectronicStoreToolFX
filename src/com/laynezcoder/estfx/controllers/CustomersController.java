@@ -146,8 +146,6 @@ public class CustomersController implements Initializable {
         setMask();
         animateNodes();
         deleteUserDeleteKey();
-        closeDialogWithTextFields();
-        closeDialogWithEscapeKey();
         setContextMenu();
         setImages();
         filterCustomers = FXCollections.observableArrayList();
@@ -212,8 +210,10 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void showDialogdd() {
-        disableTable();
         enableEditControls();
+        tblCustomers.setDisable(true);
+        title.setText("Add customer");
+        rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
 
         if (!buttonsContainer.getChildren().contains(btnSave)) {
             buttonsContainer.getChildren().add(btnSave);
@@ -221,9 +221,6 @@ public class CustomersController implements Initializable {
         btnSave.setDisable(false);
         buttonsContainer.getChildren().remove(btnUpdate);
 
-        rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
-
-        title.setText("Add customer");
         dialogAdd = new JFXDialogTool(containerAdd, stckCustomers);
         dialogAdd.show();
 
@@ -252,7 +249,7 @@ public class CustomersController implements Initializable {
             return;
         }
 
-        disableTable();
+        tblCustomers.setDisable(true);
         rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
 
         dialogDelete = new JFXDialogTool(containerDelete, stckCustomers);
@@ -263,7 +260,6 @@ public class CustomersController implements Initializable {
             rootCustomers.setEffect(null);
             cleanControls();
         });
-
     }
 
     @FXML
@@ -279,15 +275,15 @@ public class CustomersController implements Initializable {
             AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
-        
+
         showDialogdd();
-        title.setText("Update customer");
         selectedRecord();
-        
+        title.setText("Update customer");
+
         if (!buttonsContainer.getChildren().contains(btnUpdate)) {
             buttonsContainer.getChildren().add(btnUpdate);
         }
-        buttonsContainer.getChildren().remove(btnSave); 
+        buttonsContainer.getChildren().remove(btnSave);
     }
 
     @FXML
@@ -302,7 +298,6 @@ public class CustomersController implements Initializable {
         btnSave.setDisable(true);
         disableEditControls();
         selectedRecord();
-
     }
 
     private void selectedRecord() {
@@ -396,7 +391,6 @@ public class CustomersController implements Initializable {
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
-
     }
 
     @FXML
@@ -487,60 +481,11 @@ public class CustomersController implements Initializable {
         txtPhone.setEditable(true);
     }
 
-    private void disableTable() {
-        tblCustomers.setDisable(true);
-    }
-
     private boolean validateEmailAddress(String email) {
         String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(email).matches();
-    }
-
-    private void closeDialogWithEscapeKey() {
-        rootCustomers.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogDelete();
-            }
-
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAdd();
-            }
-
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                tblCustomers.setDisable(false);
-                rootCustomers.setEffect(null);
-                AlertsBuilder.close();
-            }
-
-        });
-    }
-
-    private void closeDialogWithTextFields() {
-        txtName.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAdd();
-            }
-        });
-
-        txtPhone.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAdd();
-            }
-        });
-
-        txtEmail.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAdd();
-            }
-        });
-
-        txtIt.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAdd();
-            }
-        });
     }
 
     private void deleteUserDeleteKey() {
@@ -554,6 +499,7 @@ public class CustomersController implements Initializable {
                     AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
                     return;
                 }
+                
                 deleteCustomer();
             }
         });
