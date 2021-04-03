@@ -264,7 +264,7 @@
 .table-view *.increment-arrow,
 .table-view *.decrement-arrow {
     -fx-padding: 0;
-    -fx-shape: "";
+    -fx-shape: " ";
 }
 
 .table-view .virtual-flow .scroll-bar:vertical .thumb {
@@ -358,6 +358,7 @@
 .date-picker .text-field {
     -fx-font-size: 16;
     -fx-background-color: #ffffff;
+    -fx-highlight-fill: -fx-color-primary;
 }
 
 .date-picker > .arrow-button {
@@ -366,7 +367,7 @@
 
 .date-picker > .arrow-button > .arrow {
     -fx-shape: "M328.139,32.267h-2.941v-2.11C325.197,13.527,311.668,0,295.041,0c-16.627,0-30.156,13.527-30.156,30.157v2.11h-34.73   v-2.11C230.154,13.527,216.625,0,200,0c-16.627,0-30.156,13.527-30.156,30.157v2.11h-34.73v-2.11   C135.113,13.527,121.584,0,104.957,0C88.332,0,74.803,13.527,74.803,30.157v2.11h-2.943c-24.789,0-44.887,20.096-44.887,44.886   v277.962c0,24.79,20.098,44.886,44.887,44.886h256.279c24.789,0,44.889-20.096,44.889-44.886V77.152   C373.027,52.362,352.93,32.267,328.139,32.267z M286.816,30.157c0-4.536,3.689-8.224,8.225-8.224c4.535,0,8.223,3.688,8.223,8.224   v40.127c0,4.534-3.688,8.223-8.223,8.223c-4.535,0-8.225-3.689-8.225-8.223V30.157z M191.777,30.157   c0-4.536,3.688-8.224,8.223-8.224s8.223,3.688,8.223,8.224v40.127c0,4.534-3.688,8.223-8.223,8.223s-8.223-3.689-8.223-8.223   V30.157z M96.736,30.157c0-4.536,3.686-8.224,8.221-8.224c4.535,0,8.227,3.688,8.227,8.224v40.127c0,4.534-3.691,8.223-8.227,8.223   c-4.535,0-8.221-3.689-8.221-8.223V30.157z M337.117,353.453c0,5.867-4.029,10.639-8.978,10.639H71.859   c-4.949,0-8.977-4.771-8.977-10.639V118.955h274.234V353.453z M156.098,312.935H243.9c7.338,0,13.307-5.97,13.307-13.307v-3.852c0-7.337-5.969-13.307-13.307-13.307h-54.115   l30.73-34.225c16.955-17.682,26.682-36.571,26.682-51.824c0-13.639-5.184-25.133-14.984-33.239   c-9.063-7.492-21.598-11.453-36.256-11.453c-17.789,0-36.199,8.069-49.242,21.587c-5.006,5.189-4.932,13.555,0.168,18.65   l2.693,2.697c2.477,2.477,5.916,3.897,9.541,3.897h0.002c3.551-0.036,6.996-1.522,9.453-4.08   c7.297-7.579,17.787-12.288,27.385-12.288c13.785,0,20.773,4.789,20.773,14.228c0,5.695-5.709,17.772-18.301,30.896l-52.223,58.017   c-2.203,2.449-3.414,5.61-3.414,8.903v5.392C142.793,306.965,148.76,312.935,156.098,312.935z";
-    -fx-background-color: -fx-color-text;
+    -fx-background-color: -border;
     -fx-pref-width: 18px;
     -fx-pref-height: 20px;
     -fx-scale-shape: true;
@@ -417,10 +418,19 @@ date-picker-popup > * > .date-cell {
     -fx-text-fill: #ffffff;
 }
 
-.date-picker-popup > * > .day-cell:hover,
 .date-picker-popup > * > .selected,
 .date-picker-popup > * > .previous-month.selected,
 .date-picker-popup > * > .next-month.selected {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: -fx-color-primary;
+}
+
+.date-picker-popup > * > .day-cell:selected {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: -fx-color-primary;
+}
+
+.date-picker-popup > * > .day-cell:hover {
     -fx-text-fill: -fx-color-text;
     -fx-background-color: -fx-color-primary-light;
 }
@@ -440,6 +450,110 @@ date-picker-popup > * > .date-cell {
 .date-picker-popup > * > .previous-month,
 .date-picker-popup > * > .next-month {
     -fx-background: -fx-color-primary-light;
+}
+
+.combo-box {
+    -fx-font-size: 16px;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: -border;
+}
+
+.combo-box-base > .arrow-button > .arrow {
+    -fx-shape: "M31.836,43.006c0.282-0.281,0.518-0.59,0.725-0.912L54.17,20.485c2.107-2.109,2.109-5.528,0-7.638   c-2.109-2.107-5.527-2.109-7.638,0l-18.608,18.61L9.217,12.753c-2.109-2.108-5.527-2.109-7.637,0   C0.527,13.809-0.002,15.19,0,16.571c-0.002,1.382,0.527,2.764,1.582,3.816l21.703,21.706c0.207,0.323,0.445,0.631,0.729,0.913   c1.078,1.078,2.496,1.597,3.91,1.572C29.336,44.604,30.758,44.084,31.836,43.006z";
+    -fx-background-color: -border;
+}
+
+.combo-box > .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-color-text;
+}
+
+.combo-box-popup {
+    -fx-background-color: black;
+}
+
+.combo-box-popup > .list-view {
+    -fx-background-color: -fx-color-primary;
+    -fx-border-color: tranparent;
+}
+
+.toggle-button {
+    -fx-font-size: 14;
+    -fx-text-fill: -fx-color-text;
+    -jfx-toggle-color: #ffffff;
+    -jfx-toggle-line-color: -fx-color-primary;
+    -jfx-untoggle-color: #ffffff;
+    -jfx-untoggle-line-color: -fx-color-primary-light;
+}
+
+.text-area {
+    -fx-font-size: 14;
+    -fx-text-fill: -fx-color-text;
+    -fx-focus-color: transparent;
+    -fx-background-color: #ffffff;
+    -fx-border-color: -border;
+    -fx-border-radius: 5px;
+    -fx-faint-focus-color: transparent;
+    -fx-highlight-fill: -fx-color-primary;
+}
+
+.text-area .content {
+    -fx-background-color:  white;
+}
+
+.text-area:focused .content {
+    -fx-background-color:  white;
+}
+
+.text-area > .scroll-pane {
+    -fx-background-color: -fx-color-root;
+}
+
+.text-area > .scroll-pane > .scroll-bar:horizontal {
+    -fx-pref-height: 10;
+}
+
+.text-area > .scroll-pane > .scroll-bar:vertical {
+    -fx-pref-width: 10;
+}
+
+.text-area > .scroll-pane > .scroll-bar:horizontal > .track,
+.text-area > .scroll-pane > .scroll-bar:vertical > .track,
+.text-area > .scroll-pane > .corner {
+    -fx-background-color: -fx-color-root;
+}
+
+.text-area > .scroll-pane >.scroll-bar:horizontal .thumb,
+.text-area > .scroll-pane > .scroll-bar:vertical .thumb {
+    -fx-background-color: -border;
+}
+
+.text-area > .scroll-pane > .scroll-bar:horizontal .increment-button ,
+.text-area > .scroll-pane > .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0.0em;
+    -fx-padding: 0.0 0.0 10.0 0.0;
+}
+
+.text-area > .scroll-pane > .scroll-bar:vertical .increment-button ,
+.text-area > .scroll-pane > .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0.0em;
+    -fx-padding: 0.0 10.0 0.0 0.0;
+}
+
+.text-area > .scroll-pane > .scroll-bar .increment-arrow,
+.text-area > .scroll-pane > .scroll-bar .decrement-arrow{
+    -fx-shape: " ";    
+    -fx-padding: 0.15em 0.0;
+}
+
+.text-area > .scroll-pane > .scroll-bar:vertical .increment-arrow,
+.text-area > .scroll-pane > .scroll-bar:vertical .decrement-arrow{
+    -fx-shape: " ";    
+    -fx-padding: 0.0 0.15em;
 }
 
 .button-general {
