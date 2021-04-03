@@ -119,7 +119,7 @@
                         <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_OUTLINE" size="25" styleClass="home-icons" />
                         <Text fx:id="totalCustomers" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="500" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.total.customers" wrappingWidth="194.04800033569336" />
-                        <JFXProgressBar fx:id="progressBarCustomers" prefHeight="1.0" prefWidth="100.0" progress="0.0" styleClass="jfx-progress-bar-home" />
+                        <JFXProgressBar id="jfx-progress-bar-home" fx:id="progressBarCustomers" prefHeight="1.0" prefWidth="100.0" progress="0.0" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -134,7 +134,7 @@
                         <MaterialDesignIconView fill="WHITE" glyphName="CLIPBOARD_OUTLINE" size="25" styleClass="home-icons" />
                         <Text fx:id="totalQuotes" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="500" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.total.quotes" wrappingWidth="194.04800033569336" />
-                        <JFXProgressBar fx:id="progressBarQuotes" prefHeight="4.0" prefWidth="81.0" progress="0.0" styleClass="jfx-progress-bar-home" />
+                        <JFXProgressBar id="jfx-progress-bar-home" fx:id="progressBarQuotes" prefHeight="4.0" prefWidth="81.0" progress="0.0" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -149,7 +149,7 @@
                         <MaterialDesignIconView fill="WHITE" glyphName="CART_OUTLINE" size="25" styleClass="home-icons" />
                         <Text fx:id="totalProducts" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="500" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.total.products" wrappingWidth="200.04800033569336" />
-                        <JFXProgressBar fx:id="progressBarProducts" prefHeight="4.0" prefWidth="81.0" progress="0.0" styleClass="jfx-progress-bar-home" />
+                        <JFXProgressBar id="jfx-progress-bar-home" fx:id="progressBarProducts" prefHeight="4.0" prefWidth="81.0" progress="0.0" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -164,7 +164,7 @@
                         <MaterialDesignIconView fill="WHITE" glyphName="TROPHY_OUTLINE" size="25" styleClass="home-icons" />
                         <Text fx:id="nowQuotes" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="500" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.total.recent.quotes" wrappingWidth="201.04800033569336" />
-                        <JFXProgressBar fx:id="progressBarRecentQuotes" prefHeight="4.0" prefWidth="81.0" progress="0.0" styleClass="jfx-progress-bar-home" />
+                        <JFXProgressBar id="jfx-progress-bar-home" fx:id="progressBarRecentQuotes" prefHeight="4.0" prefWidth="81.0" progress="0.0" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
