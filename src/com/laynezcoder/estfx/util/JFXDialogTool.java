@@ -20,15 +20,25 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import com.laynezcoder.estfx.database.DatabaseHelper;
+import javafx.scene.input.KeyCode;
 
 public class JFXDialogTool extends JFXDialog {
-       
-    public JFXDialogTool(Region region, StackPane container) {        
+
+    public JFXDialogTool(Region region, StackPane container) {
         setContent(region);
         region.setVisible(true);
         setBackground(Background.EMPTY);
         setDialogContainer(container);
         getStyleClass().add("jfx-dialog-overlay-pane");
-        setTransitionType(DatabaseHelper.dialogTransition()); 
+        setTransitionType(DatabaseHelper.dialogTransition());
+
+        container.requestFocus();
+        container.setOnKeyReleased(ev -> {
+            if(!isVisible()) return;
+            
+            if (ev.getCode().equals(KeyCode.ESCAPE)) {
+                close();
+            }
+        });
     }
 }
