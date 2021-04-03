@@ -40,7 +40,7 @@ public class AlertsBuilder {
 
     public static void create(AlertType type, StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String body) {
         function(type);
-        
+
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(110);
@@ -69,8 +69,11 @@ public class AlertsBuilder {
         root.getStyleClass().add("card");
         root.setPrefSize(350, 240);
 
-        nodeToDisable.setDisable(true);
-        nodeToBlur.setEffect(Constants.BOX_BLUR_EFFECT);
+        if (!nodeToDisable.isDisable()) {
+            nodeToDisable.setDisable(true);
+            nodeToBlur.setEffect(Constants.BOX_BLUR_EFFECT);
+        }
+
         TranslateTransition transition = Animations.imageTransition(imageView);
 
         dialog = new JFXDialogTool(root, dialogContainer);
@@ -87,14 +90,21 @@ public class AlertsBuilder {
         });
 
         root.setOnMouseClicked(ev -> {
-            close();
+            if (dialog != null) {
+                dialog.close();
+            }
         });
     }
 
     public static void close() {
-        if (dialog != null) {
-            dialog.close();
+
+    }
+
+    public static boolean isVisible() {
+        if (dialog == null) {
+            return false;
         }
+        return dialog.isVisible();
     }
 
     private static void function(AlertType type) {

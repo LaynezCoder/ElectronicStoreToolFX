@@ -229,17 +229,17 @@ public class CustomersController implements Initializable {
         });
 
         dialogAdd.setOnDialogClosed(ev -> {
-            tblCustomers.setDisable(false);
-            rootCustomers.setEffect(null);
-            cleanControls();
+            if (!AlertsBuilder.isVisible()) {
+                tblCustomers.setDisable(false);
+                rootCustomers.setEffect(null);
+                cleanControls();
+            }
         });
     }
 
     @FXML
     private void closeDialogAdd() {
-        if (dialogAdd != null) {
-            dialogAdd.close();
-        }
+        dialogAdd.close();
     }
 
     @FXML
@@ -256,9 +256,11 @@ public class CustomersController implements Initializable {
         dialogDelete.show();
 
         dialogDelete.setOnDialogClosed(ev -> {
-            tblCustomers.setDisable(false);
-            rootCustomers.setEffect(null);
-            cleanControls();
+            if (!AlertsBuilder.isVisible()) {
+                tblCustomers.setDisable(false);
+                rootCustomers.setEffect(null);
+                cleanControls();
+            }
         });
     }
 
@@ -499,7 +501,7 @@ public class CustomersController implements Initializable {
                     AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
                     return;
                 }
-                
+
                 deleteCustomer();
             }
         });
