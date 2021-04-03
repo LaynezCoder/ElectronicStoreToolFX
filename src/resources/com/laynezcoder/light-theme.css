@@ -205,12 +205,12 @@
     -fx-font-family: "Material Design Icons"; 
 }
 
-.jfx-progress-bar-home {
+#jfx-progress-bar-home {
     -fx-pref-width: 100px;
     -fx-pref-height: 2px;
 }
 
-.jfx-progress-bar-home > .bar {
+#jfx-progress-bar-home > .bar {
     -fx-background-color: -fx-color-primary;
     -fx-background-radius: 15;
 }
@@ -425,14 +425,16 @@ date-picker-popup > * > .date-cell {
     -fx-background-color: -fx-color-primary;
 }
 
-.date-picker-popup > * > .day-cell:selected {
-    -fx-text-fill: #ffffff;
-    -fx-background-color: -fx-color-primary;
-}
-
 .date-picker-popup > * > .day-cell:hover {
     -fx-text-fill: -fx-color-text;
     -fx-background-color: -fx-color-primary-light;
+}
+
+.date-picker-popup > * > .selected:hover,
+.date-picker-popup > * > .previous-month.selected,
+.date-picker-popup > * > .next-month.selected {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: -fx-color-primary;
 }
 
 .date-picker-popup > * > .today:hover,
