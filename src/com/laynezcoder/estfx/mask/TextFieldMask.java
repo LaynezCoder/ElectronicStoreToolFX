@@ -122,7 +122,7 @@ public class TextFieldMask {
         });
     }
 
-    public static void selectTextToJFXTextArea(TextArea txt) {
+    public static void selectTextToTextArea(TextArea txt) {
         txt.focusedProperty().addListener((o, oldVal, newVal) -> {
             Platform.runLater(() -> {
                 if (!txt.getText().isEmpty() && newVal) {

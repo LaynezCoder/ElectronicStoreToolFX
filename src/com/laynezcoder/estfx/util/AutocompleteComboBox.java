@@ -22,7 +22,7 @@ public class AutocompleteComboBox {
         comboBox.setEditable(true);
         comboBox.getEditor().focusedProperty().addListener(observable -> {
             if (comboBox.getSelectionModel().getSelectedIndex() < 0) {
-                comboBox.getEditor().setText(null);
+                comboBox.getEditor().setText("");
             }
         });
         comboBox.addEventHandler(KeyEvent.KEY_PRESSED, t -> comboBox.hide());
