@@ -455,7 +455,7 @@ date-picker-popup > * > .date-cell {
 }
 
 .toggle-button {
-    -fx-font-size: 12;
+    -fx-font-size: 14;
     -fx-text-fill: -fx-color-text;
     -fx-content-display: top;
     -jfx-toggle-color: #ffffff;
@@ -537,6 +537,26 @@ date-picker-popup > * > .date-cell {
 .text-area > .scroll-pane > .scroll-bar:vertical .decrement-arrow{
     -fx-shape: " ";    
     -fx-padding: 0.0 0.15em;
+}
+
+.icon-check {
+    -fx-fill: #2BA266;
+    -fx-font-size: 15px;
+    -fx-font-family: "FontAwesome"; 
+}
+
+.icon-error {
+    -fx-fill: #F00000;
+    -fx-font-size: 15px;
+    -fx-font-family: "FontAwesome"; 
+}
+
+.table-row-cell:selected .icon-check {
+    -fx-fill: #ffffff;
+}
+
+.table-row-cell:selected .icon-error {
+    -fx-fill: #ffffff;
 }
 
 .menu-item .label {
