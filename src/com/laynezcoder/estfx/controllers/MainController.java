@@ -136,11 +136,13 @@ public class MainController implements Initializable {
     @FXML
     private void customersWindows(ActionEvent event) {
         showFXMLWindows(Views.CUSTOMERS);
-        setDisableButtons(event);   
+        setDisableButtons(event);
     }
 
     @FXML
     private void quotesWindows(ActionEvent event) {
+        showFXMLWindows(Views.QUOTES);
+        setDisableButtons(event);
     }
 
     @FXML
@@ -168,10 +170,10 @@ public class MainController implements Initializable {
     private void loginWindow() {
         try {
             Parent root = I18NUtil.loadView(Views.LOGIN);
-            
+
             Scene scene = new Scene(root);
             scene.setFill(Color.TRANSPARENT);
-            
+
             Stage stage = new Stage(StageStyle.TRANSPARENT);
             stage.getIcons().add(Constants.ICON);
             stage.setScene(scene);

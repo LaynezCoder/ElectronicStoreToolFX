@@ -270,7 +270,7 @@ public class ProductsController implements Initializable {
         TextFieldMask.selectText(txtBarCode);
         TextFieldMask.selectText(txtPorcentage);
         TextFieldMask.selectText(txtPurchasePrice);
-        TextFieldMask.selectTextToJFXTextArea(txtDescriptionProduct);
+        TextFieldMask.selectTextToTextArea(txtDescriptionProduct);
     }
 
     private void setTextIfFieldIsEmpty() {

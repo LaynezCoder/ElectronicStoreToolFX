@@ -147,12 +147,8 @@ public class CustomersController implements Initializable {
         animateNodes();
         deleteUserDeleteKey();
         setContextMenu();
-        setImages();
-        filterCustomers = FXCollections.observableArrayList();
-    }
-
-    private void setImages() {
         imageDelete.setImage(ResourcesPackages.DELETE_IMAGE);
+        filterCustomers = FXCollections.observableArrayList();
     }
 
     private void setContextMenu() {
@@ -232,7 +228,6 @@ public class CustomersController implements Initializable {
             if (!AlertsBuilder.isVisible()) {
                 tblCustomers.setDisable(false);
                 rootCustomers.setEffect(null);
-                cleanControls();
             }
         });
     }
@@ -242,7 +237,6 @@ public class CustomersController implements Initializable {
         dialogAdd.close();
     }
 
-    @FXML
     private void showDialogDelete() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
@@ -259,7 +253,6 @@ public class CustomersController implements Initializable {
             if (!AlertsBuilder.isVisible()) {
                 tblCustomers.setDisable(false);
                 rootCustomers.setEffect(null);
-                cleanControls();
             }
         });
     }
@@ -509,13 +502,13 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void filterName() {
-        String filterName = txtSearchName.getText().trim();
-        if (filterName.isEmpty()) {
+        String name = txtSearchName.getText().trim();
+        if (name.isEmpty()) {
             tblCustomers.setItems(listCustomers);
         } else {
             filterCustomers.clear();
             for (Customers c : listCustomers) {
-                if (c.getName().toLowerCase().contains(filterName.toLowerCase())) {
+                if (c.getName().toLowerCase().contains(name.toLowerCase())) {
                     filterCustomers.add(c);
                 }
             }
@@ -525,13 +518,13 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void filterPhone() {
-        String filterNumber = txtSearchPhone.getText().trim();
-        if (filterNumber.isEmpty()) {
+        String phone = txtSearchPhone.getText().trim();
+        if (phone.isEmpty()) {
             tblCustomers.setItems(listCustomers);
         } else {
             filterCustomers.clear();
             for (Customers c : listCustomers) {
-                if (c.getPhone().toLowerCase().contains(filterNumber.toLowerCase())) {
+                if (c.getPhone().toLowerCase().contains(phone.toLowerCase())) {
                     filterCustomers.add(c);
                 }
             }

@@ -332,7 +332,7 @@ public class SettingsController implements Initializable {
         TextFieldMask.selectText(txtUser);
         TextFieldMask.selectText(txtPassword);
         TextFieldMask.selectText(txtConfirmPassword);
-        TextFieldMask.selectTextToJFXTextArea(txtBio);
+        TextFieldMask.selectTextToTextArea(txtBio);
     }
 
     private void setMask() {
