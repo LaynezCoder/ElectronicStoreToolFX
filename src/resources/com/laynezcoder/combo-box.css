@@ -1,0 +1,124 @@
+/*
+ * Copyright 2020-2021 LaynezCode
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.combo-box {
+    -fx-font-size: 16px;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: -border;
+}
+
+.combo-box-base > .arrow-button {
+    -fx-background-color: #ffffff;
+}
+
+.combo-box-base > .arrow-button > .arrow {
+    -fx-shape: "M31.836,43.006c0.282-0.281,0.518-0.59,0.725-0.912L54.17,20.485c2.107-2.109,2.109-5.528,0-7.638   c-2.109-2.107-5.527-2.109-7.638,0l-18.608,18.61L9.217,12.753c-2.109-2.108-5.527-2.109-7.637,0   C0.527,13.809-0.002,15.19,0,16.571c-0.002,1.382,0.527,2.764,1.582,3.816l21.703,21.706c0.207,0.323,0.445,0.631,0.729,0.913   c1.078,1.078,2.496,1.597,3.91,1.572C29.336,44.604,30.758,44.084,31.836,43.006z";
+    -fx-background-color: -border;
+}
+
+.combo-box-base:editable:focused,
+.date-picker:focused {
+    -fx-background-color: #ffffff;
+}
+
+.combo-box-base > .text-field {
+    -fx-text-fill: -fx-color-text;
+    -fx-highlight-fill: -fx-color-primary;
+    -fx-background-color: #ffffff;
+}
+
+.combo-box-popup > .list-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-text-fill: -fx-color-text;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:hover {
+    -fx-background-color: -fx-color-primary;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected,
+.combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected:hover {
+    -fx-background-color: -fx-color-primary-alt;
+    -fx-text-fill: #ffffff;
+}
+
+.scroll-bar:horizontal {
+    -fx-pref-height: 15;
+    -fx-background-color: -fx-color-root;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 15;
+    -fx-background-color: -fx-color-root;
+}
+
+.scroll-bar:vertical > .thumb {
+    -fx-background-radius: 10;
+    -fx-background-color: -border;
+}
+
+.scroll-bar:vertical > .thumb:hover, 
+.scroll-bar:vertical > .thumb:pressed {
+    -fx-background-radius: 10;
+    -fx-background-color: #D5D5D5;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar > .increment-button:hover ,
+.scroll-bar > .decrement-button:hover {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar > .increment-button:hover > .increment-arrow,
+.scroll-bar > .decrement-button:hover > .decrement-arrow {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar > .increment-button:pressed > .increment-arrow,
+.scroll-bar > .decrement-button:pressed > .decrement-arrow {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0.15em 0.0;
+}
+
+.scroll-bar:horizontal > .increment-button > .increment-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0.15em 0.0;
+}
+
+.scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0.15em 0.0;
+}
+
+.scroll-bar:vertical > .increment-button > .increment-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0.15em 0.0;
+}

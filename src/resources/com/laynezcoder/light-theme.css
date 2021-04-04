@@ -455,8 +455,9 @@ date-picker-popup > * > .date-cell {
 }
 
 .toggle-button {
-    -fx-font-size: 14;
+    -fx-font-size: 12;
     -fx-text-fill: -fx-color-text;
+    -fx-content-display: top;
     -jfx-toggle-color: #ffffff;
     -jfx-toggle-line-color: -fx-color-primary;
     -jfx-untoggle-color: #ffffff;
@@ -505,6 +506,13 @@ date-picker-popup > * > .date-cell {
     -fx-background-color: -border;
 }
 
+.text-area > .scroll-pane >.scroll-bar:horizontal .thumb:hover,
+.text-area > .scroll-pane >.scroll-bar:horizontal .thumb:pressed,
+.text-area > .scroll-pane > .scroll-bar:vertical .thumb:hover, 
+.text-area > .scroll-pane > .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #D5D5D5;
+}
+
 .text-area > .scroll-pane > .scroll-bar:horizontal .increment-button ,
 .text-area > .scroll-pane > .scroll-bar:horizontal .decrement-button {
     -fx-background-color: transparent;
@@ -514,13 +522,13 @@ date-picker-popup > * > .date-cell {
 
 .text-area > .scroll-pane > .scroll-bar:vertical .increment-button ,
 .text-area > .scroll-pane > .scroll-bar:vertical .decrement-button {
-    -fx-background-color:transparent;
+    -fx-background-color: transparent;
     -fx-background-radius: 0.0em;
     -fx-padding: 0.0 10.0 0.0 0.0;
 }
 
 .text-area > .scroll-pane > .scroll-bar .increment-arrow,
-.text-area > .scroll-pane > .scroll-bar .decrement-arrow{
+.text-area > .scroll-pane > .scroll-bar .decrement-arrow {
     -fx-shape: " ";    
     -fx-padding: 0.15em 0.0;
 }
