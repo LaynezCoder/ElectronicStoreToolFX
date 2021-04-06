@@ -228,6 +228,7 @@ public class CustomersController implements Initializable {
             if (!AlertsBuilder.isVisible()) {
                 tblCustomers.setDisable(false);
                 rootCustomers.setEffect(null);
+                cleanControls();
             }
         });
     }

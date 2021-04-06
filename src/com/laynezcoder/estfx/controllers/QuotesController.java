@@ -33,6 +33,7 @@ import com.laynezcoder.estfx.constants.QuotationStatus;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.util.AutocompleteComboBox;
 import com.laynezcoder.estfx.util.ContextMenu;
+import com.laynezcoder.estfx.util.ExpandTextArea;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -53,12 +54,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -69,12 +66,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -153,9 +147,6 @@ public class QuotesController implements Initializable {
     private HBox buttonsContainer;
 
     @FXML
-    private HBox expandTextPane;
-
-    @FXML
     private Button btnSave;
 
     @FXML
@@ -182,7 +173,6 @@ public class QuotesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setActionToggleButton();
         initializeComboBox();
         deleteUserDeleteKey();
         loadData();
@@ -232,7 +222,6 @@ public class QuotesController implements Initializable {
 
     private void selectText() {
         TextFieldMask.selectText(txtSearchCustomer);
-        TextFieldMask.selectTextToTextArea(txtDescription);
         TextFieldMask.selectText(txtPrice);
         TextFieldMask.selectText(cmbIdCustomer.getEditor());
     }
@@ -247,6 +236,7 @@ public class QuotesController implements Initializable {
         enableEditControls();
         tblQuotes.setDisable(true);
         titleAdd.setText("Add Quote");
+        cmbIdCustomer.setDisable(false);
         rootQuotes.setEffect(Constants.BOX_BLUR_EFFECT);
 
         if (!buttonsContainer.getChildren().contains(btnSave)) {
@@ -266,6 +256,7 @@ public class QuotesController implements Initializable {
             if (!AlertsBuilder.isVisible()) {
                 tblQuotes.setDisable(false);
                 rootQuotes.setEffect(null);
+                cleanControls();
             }
         });
 
@@ -300,11 +291,11 @@ public class QuotesController implements Initializable {
 
         dialogDelete = new JFXDialogTool(containerDelete, stckQuotes);
         dialogDelete.show();
-
+       
         dialogDelete.setOnDialogClosed(ev -> {
             if (!AlertsBuilder.isVisible()) {
                 tblQuotes.setDisable(false);
-                rootQuotes.setEffect(null);
+                rootQuotes.setEffect(null); 
             }
         });
     }
@@ -326,6 +317,7 @@ public class QuotesController implements Initializable {
         showDialogAdd();
         selectedRecord();
         titleAdd.setText("Update quote");
+        cmbIdCustomer.setDisable(true);
 
         if (!buttonsContainer.getChildren().contains(btnUpdate)) {
             buttonsContainer.getChildren().add(btnUpdate);
@@ -342,6 +334,7 @@ public class QuotesController implements Initializable {
 
         showDialogAdd();
         titleAdd.setText("Quotes details");
+        cmbIdCustomer.setDisable(true);
         btnSave.setDisable(true);
         disableEditControls();
         selectedRecord();
@@ -374,10 +367,9 @@ public class QuotesController implements Initializable {
         } else {
             toggleButtonReport.selectedProperty().set(false);
         }
-
-        expandTextArea(quotes.getDescription());
     }
 
+    @FXML
     private void setActionToggleButton() {
         if (toggleButtonExists.isSelected()) {
             toggleButtonExists.setText(QuotationStatus.EXISTENT.getStatus());
@@ -506,7 +498,7 @@ public class QuotesController implements Initializable {
 
         quotes.setDescription(description);
         quotes.setRequestDate(java.sql.Date.valueOf(dtpDate.getValue()));
-        quotes.setCustomerId(AutocompleteComboBox.getComboBoxValue(cmbIdCustomer).getId());
+        quotes.setCustomerId(AutocompleteComboBox.getValue(cmbIdCustomer).getId());
 
         boolean result = DatabaseHelper.insertNewQuote(quotes, listQuotes);
         if (result) {
@@ -529,7 +521,6 @@ public class QuotesController implements Initializable {
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
-
     }
 
     @FXML
@@ -605,51 +596,11 @@ public class QuotesController implements Initializable {
         });
     }
 
-    private void expandTextArea(String text) {
-        if (!text.isEmpty()) {
-            expandTextPane.setOnMouseClicked(click -> {
-                TextArea expandText = new TextArea(text);
-                VBox.setVgrow(expandText, Priority.ALWAYS);
-                
-                Button button = new Button("Set text");
-                button.setPrefSize(150, 25);
-                VBox.setVgrow(button, Priority.ALWAYS);
-                
-                VBox root = new VBox(expandText, button);
-                root.setSpacing(5);
-                root.setAlignment(Pos.CENTER);
-                root.setPadding(new Insets(10));
-    
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add(Constants.LIGHT_THEME);
-                button.getStyleClass().add("btn-delete");
-                expandText.getStyleClass().add("text-area");
-
-                Stage thisStage = (Stage) txtDescription.getScene().getWindow();
-                
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Description");
-                stage.getIcons().add(Constants.ICON);
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setX(thisStage.getWidth() / 2);
-                stage.setY(thisStage.getHeight()/ 2);
-                stage.initOwner(thisStage);
-                stage.show();
-                
-                root.setOnKeyReleased(ev -> {
-                    if(ev.getCode().equals(KeyCode.ESCAPE)) {
-                        stage.hide();
-                    }
-                });
-                
-                button.setOnAction(ev -> {
-                    String writtenText = expandText.getText();
-                    txtDescription.setText(writtenText);
-                    stage.hide();
-                });
-            });
-        }
+    @FXML
+    private void expandTextArea() {
+        Stage owner = (Stage) txtDescription.getScene().getWindow();
+        ExpandTextArea expand = new ExpandTextArea(owner, txtDescription);
+        expand.show();
     }
 
     private void cleanControls() {
