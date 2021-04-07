@@ -39,7 +39,7 @@
                            </font>
                         </TextField>
                         <FontAwesomeIconView fill="#76787c" glyphName="SEARCH" size="20" styleClass="icon-search" HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="txtSearchDescription" onKeyReleased="#filterDescription" prefHeight="39.0" prefWidth="514.0" promptText="%prompt.txt.search.phone" styleClass="txt-search" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="txtSearchDescription" onKeyReleased="#filterDescription" prefHeight="39.0" prefWidth="514.0" promptText="%prompt.txt.search.quote.description" styleClass="txt-search" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -49,7 +49,7 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-                  <Button graphicTextGap="1.0" mnemonicParsing="false" onAction="#showDialogAdd" prefHeight="40.0" prefWidth="400.0" styleClass="btn-add" text="%btn.customers.add">
+                  <Button graphicTextGap="1.0" mnemonicParsing="false" onAction="#showDialogAdd" prefHeight="40.0" prefWidth="400.0" styleClass="btn-add" text="%btn.quotes.add">
                      <graphic>
                         <MaterialDesignIconView fill="WHITE" glyphName="PLUS" size="20" styleClass="icon-add" />
                      </graphic>
@@ -60,16 +60,16 @@
                <children>
                   <HBox styleClass="card" HBox.hgrow="ALWAYS">
                      <children>
-                        <TableView fx:id="tblQuotes" prefHeight="0.0" prefWidth="940.0" HBox.hgrow="ALWAYS">
+                        <TableView fx:id="tblQuotes" prefHeight="150.0" prefWidth="940.0" HBox.hgrow="ALWAYS">
                            <columns>
-                              <TableColumn fx:id="colId" maxWidth="1500.0" prefWidth="75.0" text="Id" />
-                              <TableColumn fx:id="colPrice" prefWidth="75.0" text="Price" />
-                              <TableColumn fx:id="colDate" prefWidth="75.0" text="Request date" />
-                              <TableColumn fx:id="colDescription" prefWidth="75.0" text="Description" />
-                              <TableColumn fx:id="colCustomerName" prefWidth="75.0" text="Customer" />
-                              <TableColumn fx:id="colExistence" maxWidth="100.0" minWidth="100.0" prefWidth="150.0" text="Existence" />
-                              <TableColumn fx:id="colRealization" maxWidth="100.0" minWidth="100.0" prefWidth="150.0" text="Realization" />
-                              <TableColumn fx:id="colReport" maxWidth="100.0" minWidth="100.0" prefWidth="150.0" text="Report" />
+                              <TableColumn fx:id="colId" maxWidth="1500.0" prefWidth="75.0" styleClass="left-column-header" text="%col.home.id" />
+                              <TableColumn fx:id="colDescription" prefWidth="75.0" text="%col.home.description" />
+                              <TableColumn fx:id="colDate" prefWidth="75.0" text="%col.home.request.date" />
+                              <TableColumn fx:id="colPrice" prefWidth="75.0" text="%col.home.price" />
+                              <TableColumn fx:id="colCustomerName" prefWidth="76.0" text="%col.home.customer" />
+                              <TableColumn fx:id="colExistence" maxWidth="3000.0" prefWidth="115.0" text="%col.home.existence" />
+                              <TableColumn fx:id="colRealization" maxWidth="3000.0" prefWidth="75.0" text="%col.home.realization" />
+                              <TableColumn fx:id="colReport" maxWidth="3000.0" prefWidth="75.0" styleClass="right-column-header" text="%col.home.report" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -137,14 +137,14 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <HBox HBox.hgrow="ALWAYS">
+                        <HBox prefHeight="20.0" prefWidth="174.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.name" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.quotes.price" />
                            </children>
                         </HBox>
-                        <HBox HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="183.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.name" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.quotes.date" wrappingWidth="179.5659942626953" />
                            </children>
                         </HBox>
                      </children>
@@ -176,17 +176,17 @@
                         <TextArea fx:id="txtDescription" prefHeight="157.0" prefWidth="380.0" />
                         <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="380.0">
                            <children>
-                              <JFXToggleButton fx:id="toggleButtonExists" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Exists" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
+                              <JFXToggleButton fx:id="toggleButtonExists" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Not Exists" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </JFXToggleButton>
-                              <JFXToggleButton fx:id="toggleButtonRealized" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Realized" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
+                              <JFXToggleButton fx:id="toggleButtonRealized" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Not Realized" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </JFXToggleButton>
-                              <JFXToggleButton fx:id="toggleButtonReport" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Report" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
+                              <JFXToggleButton fx:id="toggleButtonReport" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Not Report" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
