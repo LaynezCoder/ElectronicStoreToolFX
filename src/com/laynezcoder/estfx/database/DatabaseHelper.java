@@ -36,7 +36,7 @@ import javafx.scene.image.Image;
 
 public class DatabaseHelper {
 
-    public static boolean insertNewCustomer(Customers customers, ObservableList<Customers> listCustomers) {
+    public static boolean insertNewCustomer(Customers customers) {
         try {
             String sql = "INSERT INTO Customers (customerName, customerNumber, customerEmail, it) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -45,7 +45,6 @@ public class DatabaseHelper {
             preparedStatement.setString(3, customers.getEmail());
             preparedStatement.setString(4, customers.getIt());
             preparedStatement.execute();
-            listCustomers.add(customers);
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,13 +52,12 @@ public class DatabaseHelper {
         return false;
     }
 
-    public static boolean deleteCustomer(TableView<Customers> tbl, ObservableList<Customers> listCustomers) {
+    public static boolean deleteCustomer(TableView<Customers> tbl) {
         try {
             String sql = "DELETE FROM Customers WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, tbl.getSelectionModel().getSelectedItem().getId());
             preparedStatement.execute();
-            listCustomers.remove(tbl.getSelectionModel().getSelectedIndex());
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +100,7 @@ public class DatabaseHelper {
         return cutomers;
     }
 
-    public static boolean insertNewQuote(Quotes quotes, ObservableList<Quotes> listQuotes) {
+    public static boolean insertNewQuote(Quotes quotes) {
         try {
             String sql = "INSERT INTO Quotes (descriptionQuote, requestDate, price, existence, realization, report, customerId) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
@@ -114,7 +112,6 @@ public class DatabaseHelper {
             preparedStatement.setString(6, quotes.getReport());
             preparedStatement.setInt(7, quotes.getCustomerId());
             preparedStatement.execute();
-            listQuotes.add(quotes);
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,13 +119,12 @@ public class DatabaseHelper {
         return false;
     }
 
-    public static boolean deeleteQuotes(TableView<Quotes> tbl, ObservableList<Quotes> listQuotes) {
+    public static boolean deeleteQuotes(TableView<Quotes> tbl) {
         try {
             String sql = "DELETE FROM Quotes WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, tbl.getSelectionModel().getSelectedItem().getId());
             preparedStatement.execute();
-            listQuotes.remove(tbl.getSelectionModel().getSelectedIndex());
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);

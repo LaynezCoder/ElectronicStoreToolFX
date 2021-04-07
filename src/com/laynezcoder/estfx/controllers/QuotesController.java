@@ -500,7 +500,7 @@ public class QuotesController implements Initializable {
         quotes.setRequestDate(java.sql.Date.valueOf(dtpDate.getValue()));
         quotes.setCustomerId(AutocompleteComboBox.getValue(cmbIdCustomer).getId());
 
-        boolean result = DatabaseHelper.insertNewQuote(quotes, listQuotes);
+        boolean result = DatabaseHelper.insertNewQuote(quotes);
         if (result) {
             loadData();
             cleanControls();
@@ -513,7 +513,7 @@ public class QuotesController implements Initializable {
 
     @FXML
     private void deleteQuotes() {
-        boolean result = DatabaseHelper.deeleteQuotes(tblQuotes, listQuotes);
+        boolean result = DatabaseHelper.deeleteQuotes(tblQuotes);
         if (result) {
             loadData();
             closeDialogDelete();

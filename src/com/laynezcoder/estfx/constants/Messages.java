@@ -17,9 +17,7 @@ package com.laynezcoder.estfx.constants;
 
 public final class Messages {
 
-    private Messages() {
-
-    }
+    private Messages() {}
 
     public static final String ERROR_CONNECTION_MYSQL = "An error occurred when connecting to MySQL.\nCheck your connection to MySQL";
     public static final String IMAGE_LARGE = "Please upload a picture smaller than 1 MB.";

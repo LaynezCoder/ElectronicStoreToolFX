@@ -189,7 +189,7 @@ public class LoginController implements Initializable {
             Parent root = loader.load();
             MainController main = loader.getController();
 
-            if (DatabaseHelper.getUserType().equals("Administrador")) {
+            if (DatabaseHelper.getUserType().equals("Administrator")) {
                 main.addButtons();
             } else {
                 main.removeButtons();

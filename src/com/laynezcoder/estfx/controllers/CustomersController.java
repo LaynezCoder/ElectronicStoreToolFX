@@ -28,6 +28,7 @@ import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.util.ContextMenu;
+import com.laynezcoder.estfx.util.EstfxUtil;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -378,7 +379,7 @@ public class CustomersController implements Initializable {
             customers.setIt(it);
         }
 
-        boolean result = DatabaseHelper.insertNewCustomer(customers, listCustomers);
+        boolean result = DatabaseHelper.insertNewCustomer(customers);
         if (result) {
             loadData();
             cleanControls();
@@ -391,7 +392,7 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void deleteCustomer() {
-        boolean result = DatabaseHelper.deleteCustomer(tblCustomers, listCustomers);
+        boolean result = DatabaseHelper.deleteCustomer(tblCustomers);
         if (result) {
             loadData();
             cleanControls();

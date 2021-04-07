@@ -19,8 +19,7 @@ import javafx.scene.image.Image;
 
 public final class ResourcesPackages {
 
-    private ResourcesPackages() {
-    }
+    private ResourcesPackages() {}
 
     private static final String RESOURCES = "/resources/com/laynezcoder";
     public static final String IMAGES_PACKAGE = RESOURCES + "/images/";
@@ -88,7 +87,6 @@ public final class ResourcesPackages {
     
     private static String getRandomErrorImage(String[] image) {
         int index = (int) (Math.random() * image.length);
-        System.out.println(index);
         return DINOSAUR_IMAGES_PACKAGE  + image[index] + ".png";
     }
 }
