@@ -163,7 +163,7 @@
                   <ComboBox fx:id="cmbIdCustomer" editable="true" prefHeight="40.0" prefWidth="380.0" styleClass="scroll-bar-combo-box" stylesheets="@../combo-box.css" />
                   <HBox alignment="CENTER_LEFT" spacing="5.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.name" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.quotes.description" />
                         <HBox onMouseClicked="#expandTextArea">
                            <children>
                               <MaterialDesignIconView glyphName="FULLSCREEN" styleClass="icon-close" />
