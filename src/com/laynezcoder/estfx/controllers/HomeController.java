@@ -15,7 +15,6 @@
  */
 package com.laynezcoder.estfx.controllers;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXProgressBar;
 import com.laynezcoder.estfx.alerts.AlertType;
 import com.laynezcoder.estfx.alerts.AlertsBuilder;
@@ -52,7 +51,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -136,14 +134,14 @@ public class HomeController implements Initializable {
     private TableColumn<Quotes, String> colCustomerName;
 
     @FXML
-    private TableColumn<Quotes, JFXButton> colExistence;
+    private TableColumn<Quotes, FontAwesomeIconView> colExistence;
 
     @FXML
-    private TableColumn<Quotes, JFXButton> colRealization;
+    private TableColumn<Quotes, FontAwesomeIconView> colRealization;
 
     @FXML
-    private TableColumn<Quotes, JFXButton> colReport;
-    
+    private TableColumn<Quotes, FontAwesomeIconView> colReport;
+
     @FXML
     private HBox tableContainer;
 
@@ -152,14 +150,10 @@ public class HomeController implements Initializable {
         animationsNodes();
         setWelcomeText();
         counterRecords();
-        loadImage();
         loadData();
         selectText();
         animateProgressBar();
         filterQuotes = FXCollections.observableArrayList();
-    }
-
-    private void loadImage() {
         image.setImage(new Image(IMAGE, 170, 130, true, true));
     }
 
@@ -244,7 +238,7 @@ public class HomeController implements Initializable {
                     default:
                         textWelcome.setText("¡Welcome back, " + name + "!");
                         textDescriptionWelcome.setText(DEFAULT_WELCOME_TEXT);
-                    break;
+                        break;
                 }
             }
         } catch (SQLException ex) {
@@ -260,13 +254,13 @@ public class HomeController implements Initializable {
     private void loadData() {
         loadTable();
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("descriptionQuote"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        colExistence.setCellValueFactory(new JFXButtonExistsCellValueFactory());
-        colRealization.setCellValueFactory(new JFXButtonRealizedCellValueFactory());
-        colReport.setCellValueFactory(new JFXButtonReportCellValueFactory());
+        colExistence.setCellValueFactory(new ButtonExistsCellValueFactory());
+        colRealization.setCellValueFactory(new ButtonRealizedCellValueFactory());
+        colReport.setCellValueFactory(new ButtonReportCellValueFactory());
     }
 
     private void loadTable() {
@@ -301,14 +295,14 @@ public class HomeController implements Initializable {
 
     @FXML
     private void filterQuotes() {
-        String filter = txtSearchRecentQuotes.getText().trim();
+        String recentQuotes = txtSearchRecentQuotes.getText().trim();
 
-        if (filter.isEmpty()) {
+        if (recentQuotes.isEmpty()) {
             tblQuotes.setItems(listQuotes);
         } else {
             filterQuotes.clear();
             for (Quotes q : listQuotes) {
-                if (q.getDescription().toLowerCase().contains(filter.toLowerCase())) {
+                if (q.getDescription().toLowerCase().contains(recentQuotes.toLowerCase())) {
                     filterQuotes.add(q);
                 }
             }
@@ -316,78 +310,57 @@ public class HomeController implements Initializable {
         }
     }
 
-    private class JFXButtonExistsCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, JFXButton>, ObservableValue<JFXButton>> {
+    private class ButtonExistsCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, FontAwesomeIconView>, ObservableValue<FontAwesomeIconView>> {
 
         @Override
-        public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
+        public ObservableValue<FontAwesomeIconView> call(TableColumn.CellDataFeatures<Quotes, FontAwesomeIconView> param) {
             Quotes item = param.getValue();
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
-            icon.setFill(Color.WHITE);
-
-            JFXButton button = new JFXButton();
-            button.setGraphic(icon);
-            button.setText(item.getExistence());
-            button.setPrefWidth(colExistence.getWidth() / 0.5);
-
             if (item.getExistence().equals(QuotationStatus.EXISTENT.getStatus())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("button-yes", "table-row-cell");
+                icon.getStyleClass().add("icon-check");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("button-no", "table-row-cell");
+                icon.getStyleClass().add("icon-error");
             }
-            return new SimpleObjectProperty<>(button);
+            return new SimpleObjectProperty<>(icon);
         }
     }
 
-    private class JFXButtonReportCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, JFXButton>, ObservableValue<JFXButton>> {
+    private class ButtonReportCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, FontAwesomeIconView>, ObservableValue<FontAwesomeIconView>> {
 
         @Override
-        public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
+        public ObservableValue<FontAwesomeIconView> call(TableColumn.CellDataFeatures<Quotes, FontAwesomeIconView> param) {
             Quotes item = param.getValue();
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
-            icon.setFill(Color.WHITE);
-
-            JFXButton button = new JFXButton();
-            button.setGraphic(icon);
-            button.setText(item.getReport());
-            button.setPrefWidth(colReport.getWidth() / 0.5);
-
             if (item.getReport().equals(QuotationStatus.REPORTED.getStatus())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("button-yes", "table-row-cell");
+                icon.getStyleClass().add("icon-check");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("button-no", "table-row-cell");
+                icon.getStyleClass().add("icon-error");
             }
-            return new SimpleObjectProperty<>(button);
+            return new SimpleObjectProperty<>(icon);
         }
     }
 
-    private class JFXButtonRealizedCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, JFXButton>, ObservableValue<JFXButton>> {
+    private class ButtonRealizedCellValueFactory implements Callback<TableColumn.CellDataFeatures<Quotes, FontAwesomeIconView>, ObservableValue<FontAwesomeIconView>> {
 
         @Override
-        public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Quotes, JFXButton> param) {
+        public ObservableValue<FontAwesomeIconView> call(TableColumn.CellDataFeatures<Quotes, FontAwesomeIconView> param) {
             Quotes item = param.getValue();
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
-            icon.setFill(Color.WHITE);
-
-            JFXButton button = new JFXButton();
-            button.setGraphic(icon);
-            button.setText(item.getRealization());
-            button.setPrefWidth(colRealization.getWidth() / 0.5);
-
             if (item.getRealization().equals(QuotationStatus.REALIZED.getStatus())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
-                button.getStyleClass().addAll("button-yes", "table-row-cell");
+                icon.getStyleClass().add("icon-check");
             } else {
                 icon.setIcon(FontAwesomeIcon.CLOSE);
-                button.getStyleClass().addAll("button-no", "table-row-cell");
+                icon.getStyleClass().add("icon-error");
             }
-            return new SimpleObjectProperty<>(button);
+            return new SimpleObjectProperty<>(icon);
         }
     }
 }
