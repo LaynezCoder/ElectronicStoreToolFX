@@ -539,6 +539,10 @@ date-picker-popup > * > .date-cell {
     -fx-padding: 0.0 0.15em;
 }
 
+.expand-text-area {
+    -fx-font-size: 20;
+}
+
 .icon-check {
     -fx-fill: #2BA266;
     -fx-font-size: 15px;
