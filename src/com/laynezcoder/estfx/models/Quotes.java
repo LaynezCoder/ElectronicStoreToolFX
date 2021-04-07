@@ -26,7 +26,7 @@ public class Quotes {
     private String existence;
     private String realization;
     private String report;
-    private Integer customerId;
+    private int customerId;
     private String customerName;
 
     public Quotes() {
@@ -99,11 +99,11 @@ public class Quotes {
         this.report = report;
     }
 
-    public Integer getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 

@@ -8,23 +8,20 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
- * @autor Mateus Viccari by Stack Overflow https://stackoverflow.com/questions/19924852/autocomplete-combobox-in-javafx
+ * @autor Mateus Viccari by Stack Overflow
+ * https://stackoverflow.com/questions/19924852/autocomplete-combobox-in-javafx
  */
 public class AutocompleteComboBox {
 
     public interface AutoCompleteComparator<T> {
+
         boolean matches(String typedText, T objectToCompare);
     }
 
-    public static<T> void autoCompleteComboBoxPlus(ComboBox<T> comboBox, AutoCompleteComparator<T> comparatorMethod) {
+    public static <T> void autoCompleteComboBoxPlus(ComboBox<T> comboBox, AutoCompleteComparator<T> comparatorMethod) {
         ObservableList<T> data = comboBox.getItems();
 
         comboBox.setEditable(true);
-        comboBox.getEditor().focusedProperty().addListener(observable -> {
-            if (comboBox.getSelectionModel().getSelectedIndex() < 0) {
-                comboBox.getEditor().setText("");
-            }
-        });
         comboBox.addEventHandler(KeyEvent.KEY_PRESSED, t -> comboBox.hide());
         comboBox.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
 
@@ -101,12 +98,11 @@ public class AutocompleteComboBox {
         });
     }
 
-    public static<T> T getComboBoxValue(ComboBox<T> comboBox){
+    public static <T> T getValue(ComboBox<T> comboBox) {
         if (comboBox.getSelectionModel().getSelectedIndex() < 0) {
             return null;
         } else {
             return comboBox.getItems().get(comboBox.getSelectionModel().getSelectedIndex());
         }
     }
-
 }
