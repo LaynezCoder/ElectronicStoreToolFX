@@ -309,7 +309,7 @@ public class HomeController implements Initializable {
             Quotes item = param.getValue();
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
-            if (item.getExistence().equals(QuotationStatus.EXISTENT.getStatus())) {
+            if (item.getExistence().equals(QuotationStatus.EXISTENT.value())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 icon.getStyleClass().add("icon-check");
             } else {
@@ -327,7 +327,7 @@ public class HomeController implements Initializable {
             Quotes item = param.getValue();
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
-            if (item.getReport().equals(QuotationStatus.REPORTED.getStatus())) {
+            if (item.getReport().equals(QuotationStatus.REPORTED.value())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 icon.getStyleClass().add("icon-check");
             } else {
@@ -345,7 +345,7 @@ public class HomeController implements Initializable {
             Quotes item = param.getValue();
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
-            if (item.getRealization().equals(QuotationStatus.REALIZED.getStatus())) {
+            if (item.getRealization().equals(QuotationStatus.REALIZED.value())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 icon.getStyleClass().add("icon-check");
             } else {

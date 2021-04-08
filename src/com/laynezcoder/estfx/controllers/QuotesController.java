@@ -350,19 +350,19 @@ public class QuotesController implements Initializable {
         toggleButtonRealized.setText(quotes.getRealization());
         toggleButtonReport.setText(quotes.getReport());
 
-        if (quotes.getExistence().equals(QuotationStatus.EXISTENT.getStatus())) {
+        if (quotes.getExistence().equals(QuotationStatus.EXISTENT.value())) {
             toggleButtonExists.selectedProperty().set(true);
         } else {
             toggleButtonExists.selectedProperty().set(false);
         }
 
-        if (quotes.getRealization().equals(QuotationStatus.REALIZED.getStatus())) {
+        if (quotes.getRealization().equals(QuotationStatus.REALIZED.value())) {
             toggleButtonRealized.selectedProperty().set(true);
         } else {
             toggleButtonRealized.selectedProperty().set(false);
         }
 
-        if (quotes.getReport().equals(QuotationStatus.REPORTED.getStatus())) {
+        if (quotes.getReport().equals(QuotationStatus.REPORTED.value())) {
             toggleButtonReport.selectedProperty().set(true);
         } else {
             toggleButtonReport.selectedProperty().set(false);
@@ -372,21 +372,21 @@ public class QuotesController implements Initializable {
     @FXML
     private void setActionToggleButton() {
         if (toggleButtonExists.isSelected()) {
-            toggleButtonExists.setText(QuotationStatus.EXISTENT.getStatus());
+            toggleButtonExists.setText(QuotationStatus.EXISTENT.value());
         } else {
-            toggleButtonExists.setText(QuotationStatus.NOT_EXISTENT.getStatus());
+            toggleButtonExists.setText(QuotationStatus.NOT_EXISTENT.value());
         }
 
         if (toggleButtonRealized.isSelected()) {
-            toggleButtonRealized.setText(QuotationStatus.REALIZED.getStatus());
+            toggleButtonRealized.setText(QuotationStatus.REALIZED.value());
         } else {
-            toggleButtonRealized.setText(QuotationStatus.NOT_REALIZED.getStatus());
+            toggleButtonRealized.setText(QuotationStatus.NOT_REALIZED.value());
         }
 
         if (toggleButtonReport.isSelected()) {
-            toggleButtonReport.setText(QuotationStatus.REPORTED.getStatus());
+            toggleButtonReport.setText(QuotationStatus.REPORTED.value());
         } else {
-            toggleButtonReport.setText(QuotationStatus.NOT_REPORTED.getStatus());
+            toggleButtonReport.setText(QuotationStatus.NOT_REPORTED.value());
         }
     }
 
@@ -479,21 +479,21 @@ public class QuotesController implements Initializable {
         }
 
         if (toggleButtonExists.isSelected()) {
-            quotes.setExistence(QuotationStatus.EXISTENT.getStatus());
+            quotes.setExistence(QuotationStatus.EXISTENT.value());
         } else {
-            quotes.setExistence(QuotationStatus.NOT_EXISTENT.getStatus());
+            quotes.setExistence(QuotationStatus.NOT_EXISTENT.value());
         }
 
         if (toggleButtonRealized.isSelected()) {
-            quotes.setRealization(QuotationStatus.REALIZED.getStatus());
+            quotes.setRealization(QuotationStatus.REALIZED.value());
         } else {
-            quotes.setRealization(QuotationStatus.NOT_REALIZED.getStatus());
+            quotes.setRealization(QuotationStatus.NOT_REALIZED.value());
         }
 
         if (toggleButtonReport.isSelected()) {
-            quotes.setReport(QuotationStatus.REPORTED.getStatus());
+            quotes.setReport(QuotationStatus.REPORTED.value());
         } else {
-            quotes.setReport(QuotationStatus.NOT_REPORTED.getStatus());
+            quotes.setReport(QuotationStatus.NOT_REPORTED.value());
         }
 
         quotes.setDescription(description);
@@ -547,21 +547,21 @@ public class QuotesController implements Initializable {
         }
 
         if (toggleButtonExists.isSelected()) {
-            quotes.setExistence(QuotationStatus.EXISTENT.getStatus());
+            quotes.setExistence(QuotationStatus.EXISTENT.value());
         } else {
-            quotes.setExistence(QuotationStatus.NOT_EXISTENT.getStatus());
+            quotes.setExistence(QuotationStatus.NOT_EXISTENT.value());
         }
 
         if (toggleButtonRealized.isSelected()) {
-            quotes.setRealization(QuotationStatus.REALIZED.getStatus());
+            quotes.setRealization(QuotationStatus.REALIZED.value());
         } else {
-            quotes.setRealization(QuotationStatus.NOT_REALIZED.getStatus());
+            quotes.setRealization(QuotationStatus.NOT_REALIZED.value());
         }
 
         if (toggleButtonReport.isSelected()) {
-            quotes.setReport(QuotationStatus.REPORTED.getStatus());
+            quotes.setReport(QuotationStatus.REPORTED.value());
         } else {
-            quotes.setReport(QuotationStatus.NOT_REPORTED.getStatus());
+            quotes.setReport(QuotationStatus.NOT_REPORTED.value());
         }
 
         quotes.setDescription(description);
@@ -672,7 +672,7 @@ public class QuotesController implements Initializable {
             Quotes item = param.getValue();
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
-            if (item.getExistence().equals(QuotationStatus.EXISTENT.getStatus())) {
+            if (item.getExistence().equals(QuotationStatus.EXISTENT.value())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 icon.getStyleClass().add("icon-check");
             } else {
@@ -690,7 +690,7 @@ public class QuotesController implements Initializable {
             Quotes item = param.getValue();
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
-            if (item.getReport().equals(QuotationStatus.REPORTED.getStatus())) {
+            if (item.getReport().equals(QuotationStatus.REPORTED.value())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 icon.getStyleClass().add("icon-check");
             } else {
@@ -708,7 +708,7 @@ public class QuotesController implements Initializable {
             Quotes item = param.getValue();
 
             FontAwesomeIconView icon = new FontAwesomeIconView();
-            if (item.getRealization().equals(QuotationStatus.REALIZED.getStatus())) {
+            if (item.getRealization().equals(QuotationStatus.REALIZED.value())) {
                 icon.setIcon(FontAwesomeIcon.CHECK);
                 icon.getStyleClass().add("icon-check");
             } else {
