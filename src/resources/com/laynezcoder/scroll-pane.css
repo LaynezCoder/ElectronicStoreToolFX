@@ -1,0 +1,65 @@
+/* 
+    Created on : 08-abr-2021, 7:45:36
+    Author     : Laynezcoder
+*/
+
+.scroll-pane {
+    -fx-background-color:  -fx-color-root;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: -fx-color-root;
+}
+
+.scroll-pane > .scroll-bar:horizontal {
+    -fx-pref-height: 10;
+}
+
+.scroll-pane > .scroll-bar:vertical {
+    -fx-pref-width: 12;
+}
+
+.scroll-pane > .scroll-bar:horizontal > .track,
+.scroll-pane > .scroll-bar:vertical > .track,
+.scroll-pane > .corner {
+    -fx-background-color: -fx-color-root;
+}
+
+.scroll-pane >.scroll-bar:horizontal .thumb,
+.scroll-pane > .scroll-bar:vertical .thumb {
+    -fx-background-color: -border;
+}
+
+.scroll-pane >.scroll-bar:horizontal .thumb:hover,
+.scroll-pane >.scroll-bar:horizontal .thumb:pressed,
+.scroll-pane > .scroll-bar:vertical .thumb:hover, 
+.scroll-pane > .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #D5D5D5;
+}
+
+.scroll-pane > .scroll-bar:horizontal .increment-button ,
+.scroll-pane > .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0.0em;
+    -fx-padding: 0.0 0.0 10.0 0.0;
+}
+
+.scroll-pane > .scroll-bar:vertical .increment-button ,
+.scroll-pane > .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0.0em;
+    -fx-padding: 0.0 10.0 0.0 0.0;
+}
+
+.scroll-pane > .scroll-bar .increment-arrow,
+.scroll-pane > .scroll-bar .decrement-arrow {
+    -fx-shape: " ";    
+    -fx-padding: 0.15em 0.0;
+}
+
+.scroll-pane > .scroll-bar:vertical .increment-arrow,
+.scroll-pane > .scroll-bar:vertical .decrement-arrow{
+    -fx-shape: " ";    
+    -fx-padding: 0.0 0.15em;
+}
+

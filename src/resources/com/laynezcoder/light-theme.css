@@ -70,6 +70,12 @@
     -fx-font-size: 12;
 }
 
+.description {
+    -fx-fill: -fx-color-secondary;
+    -fx-font-size: 13;
+    -fx-font-family: "Poppins Medium";
+}
+
 .estfx {
     -fx-font-family: "Poppins Bold";
     -fx-font-size: 15;
@@ -197,6 +203,11 @@
 
 .card, statistics {
     -fx-background-color: #ffffff;
+}
+
+.card-user {
+    -fx-border-radius: 10px;
+    -fx-border-color: -border;
 }
 
 .home-icons {
@@ -576,6 +587,20 @@ date-picker-popup > * > .date-cell {
     -fx-text-fill: #ffffff;
     -fx-fill: black;
 }
+
+.icon-verified {
+    -fx-fill: #57a4ff;
+    -fx-font-size: 18px;
+    
+    -fx-font-family: "Material Design Icons"; 
+}
+
+.icons-settings {
+    -fx-fill: -fx-color-text;
+    -fx-font-size: 15px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
 
 .data0.chart-pie {
     -fx-pie-color: -primary;
