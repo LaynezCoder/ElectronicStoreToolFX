@@ -24,6 +24,7 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
+import com.laynezcoder.estfx.models.UserSession;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -360,7 +361,7 @@ public class DatabaseHelper {
             String sql = "UPDATE Users SET profileImage = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setBlob(1, inputStream);
-            preparedStatement.setInt(2, getSessionId());
+            preparedStatement.setInt(2, UserSession.getInstace().getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -385,19 +386,6 @@ public class DatabaseHelper {
         return count;
     }
 
-    public static boolean insertUserSession(int id) {
-        try {
-            String sql = "INSERT INTO UserSession (userId) VALUES (?)";
-            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            preparedStatement.execute();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
     public static int checkIfUserExists() {
         int count = 0;
         try {
@@ -413,80 +401,8 @@ public class DatabaseHelper {
         return count;
     }
 
-    private static String getDialogTransition() {
-        String dialogTransition = null;
-        try {
-            String sql = "SELECT Users.dialogTransition FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
-            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                dialogTransition = resultSet.getString("dialogTransition");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-            dialogTransition = "CENTER";
-        }
-        return dialogTransition;
-    }
-
     public final static JFXDialog.DialogTransition dialogTransition() {
-        return JFXDialog.DialogTransition.valueOf(DatabaseHelper.getDialogTransition());
-    }
-
-    public static String getUserType() {
-        String userType = null;
-        try {
-            String sql = "SELECT Users.userType FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
-            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                userType = resultSet.getString("userType");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-            userType = "User";
-        }
-        return userType;
-    }
-
-    public static int getSessionId() {
-        int userId = 0;
-        try {
-            String sql = "SELECT userId FROM UserSession";
-            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                userId = resultSet.getInt("userId");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return userId;
-    }
-
-    public static String getSessionUsername() {
-        String user = null;
-        try {
-            String sql = "SELECT Users.email FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
-            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                user = resultSet.getString("email");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return user;
-    }
-
-    public static void logout() {
-        try {
-            String sql = "TRUNCATE TABLE UserSession";
-            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.execute();
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        return JFXDialog.DialogTransition.valueOf(UserSession.getInstace().getDialogTransition());
     }
 
     public static int getCustomers(java.sql.Date date) {
@@ -538,6 +454,6 @@ public class DatabaseHelper {
             count = 0;
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return count;
+        return count; 
     }
 }

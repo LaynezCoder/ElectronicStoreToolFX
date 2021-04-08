@@ -25,6 +25,7 @@ import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.QuotationStatus;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
+import com.laynezcoder.estfx.models.UserSession;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -206,43 +207,34 @@ public class HomeController implements Initializable {
     }
 
     private void setWelcomeText() {
-        try {
-            String sql = "SELECT Users.nameUser FROM Users INNER JOIN UserSession ON UserSession.userId = Users.id WHERE UserSession.id = 1";
-            PreparedStatement preparedStatementTwo = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ResultSet rs = preparedStatementTwo.executeQuery();
+        int total = getTotalQuotes();
+        totalQuotes.setText(String.valueOf(total));
 
-            int total = getTotalQuotes();
-            totalQuotes.setText(String.valueOf(total));
-
-            while (rs.next()) {
-                String name = LoginController.setName(rs.getString("nameUser"));
-                switch (total) {
-                    case 10:
-                        setText(name, 10);
-                        break;
-                    case 20:
-                        setText(name, 20);
-                        break;
-                    case 30:
-                        setText(name, 30);
-                        break;
-                    case 50:
-                        setText(name, 50);
-                        break;
-                    case 100:
-                        setText(name, 100);
-                        break;
-                    case 500:
-                        setText(name, 500);
-                        break;
-                    default:
-                        textWelcome.setText("¡Welcome back, " + name + "!");
-                        textDescriptionWelcome.setText(DEFAULT_WELCOME_TEXT);
-                        break;
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        UserSession session = UserSession.getInstace();
+        String name = LoginController.getNameWithoutSpaces(session.getName());
+        switch (total) {
+            case 10:
+                setText(name, 10);
+                break;
+            case 20:
+                setText(name, 20);
+                break;
+            case 30:
+                setText(name, 30);
+                break;
+            case 50:
+                setText(name, 50);
+                break;
+            case 100:
+                setText(name, 100);
+                break;
+            case 500:
+                setText(name, 500);
+                break;
+            default:
+                textWelcome.setText("¡Welcome back, " + name + "!");
+                textDescriptionWelcome.setText(DEFAULT_WELCOME_TEXT);
+                break;
         }
     }
 

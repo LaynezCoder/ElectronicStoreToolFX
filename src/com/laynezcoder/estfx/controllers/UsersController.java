@@ -57,6 +57,7 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import com.laynezcoder.estfx.mask.TextFieldMask;
+import com.laynezcoder.estfx.models.UserSession;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.DefaultProfileImage;
 import java.io.FileNotFoundException;
@@ -466,7 +467,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (DatabaseHelper.getSessionId() == id && !cmbTypeUser.getSelectionModel().getSelectedItem().equals(userType)) {
+        if (UserSession.getInstace().getId() == id && !cmbTypeUser.getSelectionModel().getSelectedItem().equals(userType)) {
             NotificationsBuilder.create(NotificationType.INVALID_ACTION, UNABLE_TO_CHANGE);
             Animations.shake(cmbTypeUser);
             return;
@@ -493,7 +494,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (id == DatabaseHelper.getSessionId()) {
+        if (id == UserSession.getInstace().getId()) {
             NotificationsBuilder.create(NotificationType.INVALID_ACTION, CANNOT_DELETED);
             return;
         }

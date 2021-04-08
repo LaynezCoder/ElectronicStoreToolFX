@@ -77,7 +77,6 @@
                                  <children>
                                     <Text fx:id="textWelcome" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="%text.home.welcome" />
                                     <Text fx:id="textWelcome2" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text=" " />
-                                    <Text fx:id="textWelcome1" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Victor Laynez" />
                                  </children>
                               </TextFlow>
                               <Text fx:id="textDescriptionWelcome" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Lorem ipsum dolor sit amet consectetur adipiscing, elit egestas congue sapien turpis." />

@@ -17,7 +17,6 @@ package com.laynezcoder.estfx.controllers;
 
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.database.DatabaseConnection;
-import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
@@ -25,6 +24,7 @@ import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.constants.Views;
+import com.laynezcoder.estfx.models.UserSession;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
@@ -117,7 +117,7 @@ public class LoginController implements Initializable {
         TextFieldMask.selectText(pfPassword);
     }
 
-    public static String setName(String name) {
+    public static String getNameWithoutSpaces(String name) {
         for (int i = 0; i < name.length(); i++) {
             if (name.charAt(i) == SPACE) {
                 return name.substring(0, i);
@@ -153,21 +153,16 @@ public class LoginController implements Initializable {
         }
 
         try {
-            String sql = "SELECT id, nameUser FROM Users WHERE email = BINARY ? AND pass = BINARY ?";
+            String sql = "SELECT id, fullname, username, pass, biography, dialogTransition, isActive, userType FROM Users WHERE username = BINARY ? AND pass = BINARY ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, user);
             preparedStatement.setString(2, pass);
 
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                int id = rs.getInt("id");
-                String nameUser = setName(rs.getString("nameUser"));
-
-                boolean result = DatabaseHelper.insertUserSession(id);
-                if (result) {
-                    loadMain();
-                    NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + nameUser + "!");
-                }
+                UserSession session = UserSession.getInstace(rs.getInt(1), getNameWithoutSpaces(rs.getString(2)), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(8));
+                loadMain();
+                NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + session.getName() + "!");
             } else {
                 NotificationsBuilder.create(NotificationType.ERROR, INCORRECT_CREDENTIALS);
                 Animations.shake(txtUser);
@@ -189,7 +184,7 @@ public class LoginController implements Initializable {
             Parent root = loader.load();
             MainController main = loader.getController();
 
-            if (DatabaseHelper.getUserType().equals("Administrator")) {
+            if (UserSession.getInstace().getUserType().equals("Administrator")) {
                 main.addButtons();
             } else {
                 main.removeButtons();
@@ -212,7 +207,6 @@ public class LoginController implements Initializable {
             });
 
             stage.setOnCloseRequest(ev -> {
-                DatabaseHelper.logout();
                 ProductsController.closeStage();
             });
         } catch (IOException ex) {

@@ -31,6 +31,7 @@ import com.laynezcoder.estfx.preferences.Preferences;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
+import com.laynezcoder.estfx.models.UserSession;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.io.File;
@@ -734,7 +735,7 @@ public class ProductsController implements Initializable {
 
     private void validateUser() {
         setContextMenu();
-        if (DatabaseHelper.getUserType().equals("Administrator")) {
+        if (UserSession.getInstace().getUserType().equals("Administrator")) {
             deleteUserDeleteKey();
             
             colPorcentage.setVisible(true);

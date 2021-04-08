@@ -30,8 +30,8 @@ import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.preferences.Preferences;
-import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.models.UserSession;
 import com.laynezcoder.estfx.util.CropImageProfile;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
@@ -148,7 +148,7 @@ public class SettingsController implements Initializable {
         try {
             String sql = "SELECT profileImage FROM Users WHERE id = ?";
             PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ps.setInt(1, DatabaseHelper.getSessionId());
+            ps.setInt(1, UserSession.getInstace().getId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 InputStream img = rs.getBinaryStream("profileImage");
@@ -260,7 +260,7 @@ public class SettingsController implements Initializable {
             return;
         }
 
-        if (DatabaseHelper.checkIfUserExists(user) != 0 && !user.equals(DatabaseHelper.getSessionUsername())) {
+        if (DatabaseHelper.checkIfUserExists(user) != 0 && !user.equals(UserSession.getInstace().getUsername())) {
             txtUser.requestFocus();
             Animations.shake(txtUser);
             NotificationsBuilder.create(NotificationType.ERROR, Messages.USER_ALREADY_EXISTS);
@@ -268,7 +268,7 @@ public class SettingsController implements Initializable {
         }
 
         Users users = new Users();
-        users.setId(DatabaseHelper.getSessionId());
+        users.setId(UserSession.getInstace().getId());
         users.setName(name);
         users.setUsername(user);
         users.setPassword(password);

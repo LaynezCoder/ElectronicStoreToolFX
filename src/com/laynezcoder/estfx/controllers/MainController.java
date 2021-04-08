@@ -16,9 +16,9 @@
 package com.laynezcoder.estfx.controllers;
 
 import com.laynezcoder.estfx.database.DatabaseConnection;
-import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Views;
+import com.laynezcoder.estfx.models.UserSession;
 import com.laynezcoder.estfx.util.I18NUtil;
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,7 +87,7 @@ public class MainController implements Initializable {
         try {
             String sql = "SELECT profileImage FROM Users WHERE id = ?";
             PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            ps.setInt(1, DatabaseHelper.getSessionId());
+            ps.setInt(1, UserSession.getInstace().getId());
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -179,7 +179,7 @@ public class MainController implements Initializable {
             stage.setScene(scene);
             stage.show();
             closeStage();
-            DatabaseHelper.logout();
+            UserSession.getInstace().logout();
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }

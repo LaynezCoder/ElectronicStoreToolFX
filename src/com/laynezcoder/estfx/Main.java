@@ -42,8 +42,6 @@ public class Main extends Application {
 
     private void loginWindow(Stage stage) {
         try {
-            DatabaseHelper.logout();   
-            
             Parent root = I18NUtil.loadView(Views.LOGIN);
             Scene scene = new Scene(root);
             scene.setFill(Color.TRANSPARENT);
