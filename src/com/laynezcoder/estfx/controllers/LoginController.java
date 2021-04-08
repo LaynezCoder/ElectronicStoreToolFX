@@ -23,6 +23,7 @@ import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
+import com.laynezcoder.estfx.constants.UserType;
 import com.laynezcoder.estfx.constants.Views;
 import com.laynezcoder.estfx.models.UserSession;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -184,7 +185,7 @@ public class LoginController implements Initializable {
             Parent root = loader.load();
             MainController main = loader.getController();
 
-            if (UserSession.getInstace().getUserType().equals("Administrator")) {
+            if (UserSession.getInstace().getUserType().equals(UserType.ADMINSTRATOR.value())) {
                 main.addButtons();
             } else {
                 main.removeButtons();
