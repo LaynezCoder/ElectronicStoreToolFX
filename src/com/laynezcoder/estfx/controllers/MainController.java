@@ -19,6 +19,7 @@ import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Views;
 import com.laynezcoder.estfx.models.UserSession;
+import com.laynezcoder.estfx.util.EstfxUtil;
 import com.laynezcoder.estfx.util.I18NUtil;
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,6 +55,9 @@ public class MainController implements Initializable {
 
     @FXML
     private Button btnQuotes;
+    
+    @FXML
+    private Button btnSale;
 
     @FXML
     private Button btnProducts;
@@ -113,13 +117,14 @@ public class MainController implements Initializable {
     }
 
     private void setDisableButtons(ActionEvent event) {
-        setDisableButton(event, btnHome);
-        setDisableButton(event, btnCustomers);
-        setDisableButton(event, btnQuotes);
-        setDisableButton(event, btnProducts);
-        setDisableButton(event, btnUsers);
-        setDisableButton(event, btnStatistics);
-        setDisableButton(event, btnExit);
+        EstfxUtil.disableButton(event, btnHome);
+        EstfxUtil.disableButton(event, btnCustomers);
+        EstfxUtil.disableButton(event, btnQuotes);
+        EstfxUtil.disableButton(event, btnSale);
+        EstfxUtil.disableButton(event, btnProducts);
+        EstfxUtil.disableButton(event, btnUsers);
+        EstfxUtil.disableButton(event, btnStatistics);
+        EstfxUtil.disableButton(event, btnExit);
     }
 
     private void homeWindowsInitialize() {
@@ -142,6 +147,12 @@ public class MainController implements Initializable {
     @FXML
     private void quotesWindows(ActionEvent event) {
         showFXMLWindows(Views.QUOTES);
+        setDisableButtons(event);
+    }
+    
+    @FXML
+    private void saleWindows(ActionEvent event) {
+        showFXMLWindows(Views.TEST);
         setDisableButtons(event);
     }
 
@@ -187,14 +198,6 @@ public class MainController implements Initializable {
 
     private void closeStage() {
         ((Stage) btnHome.getScene().getWindow()).close();
-    }
-
-    private void setDisableButton(ActionEvent event, Button button) {
-        if (event.getSource().equals(button)) {
-            button.setDisable(true);
-        } else {
-            button.setDisable(false);
-        }
     }
 
     private void showFXMLWindows(Views FXMLName) {

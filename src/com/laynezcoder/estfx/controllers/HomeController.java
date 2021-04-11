@@ -26,6 +26,7 @@ import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.QuotationStatus;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.models.UserSession;
+import com.laynezcoder.estfx.util.EstfxUtil;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -211,7 +212,7 @@ public class HomeController implements Initializable {
         totalQuotes.setText(String.valueOf(total));
 
         UserSession session = UserSession.getInstace();
-        String name = LoginController.getNameWithoutSpaces(session.getName());
+        String name = EstfxUtil.trimText(session.getName(), 20);
         switch (total) {
             case 10:
                 setText(name, 10);
