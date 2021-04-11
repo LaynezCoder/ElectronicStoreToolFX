@@ -15,6 +15,8 @@
  */
 package com.laynezcoder.estfx.animations;
 
+import animatefx.animation.BounceIn;
+import animatefx.animation.FadeIn;
 import animatefx.animation.FadeInUp;
 import animatefx.animation.FadeOut;
 import animatefx.animation.Shake;
@@ -34,6 +36,10 @@ public class Animations {
     public static void fadeInUp(Node node) {
         new FadeInUp(node).play();
     }
+    
+    public static void bounceIn(Node node) {
+        new BounceIn(node).play();
+    }
 
     public static void fadeOut(Node node) {
         new FadeOut(node).play();
@@ -47,6 +53,10 @@ public class Animations {
         FadeOut fadeOut = new FadeOut(node);
         fadeOut.setSpeed(10);
         fadeOut.play();
+    }
+    
+    public static void fadeIn(Node node) {
+        new FadeIn(node).play();
     }
 
     public static void fade(Node parent, Node node, Node icon) {
