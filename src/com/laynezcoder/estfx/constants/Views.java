@@ -27,7 +27,8 @@ public enum Views {
     USERS("UsersView"),
     STATISTICS("StatisticsView"),
     ABOUT("AboutView"),
-    SETTINGS("SettingsView");
+    SETTINGS("SettingsView"),
+    TEST("TestView");
 
     private final String name;
 
