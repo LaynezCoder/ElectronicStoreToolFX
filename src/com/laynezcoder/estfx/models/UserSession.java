@@ -1,3 +1,18 @@
+/*
+ * Copyright 2020-2021 LaynezCode
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.laynezcoder.estfx.models;
 
 public class UserSession {
@@ -11,34 +26,17 @@ public class UserSession {
     private String biography;
     private String dialogTransition;
     private boolean isActive;
+    private String linkProfile;
     private String userType;
     
     private UserSession() {}
 
-    private UserSession(int id, String name, String username, String password, String biography, String dialogTransition, boolean isActive, String userType) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.biography = biography;
-        this.dialogTransition = dialogTransition;
-        this.isActive = isActive;
-        this.userType = userType;
-    }
-   
     public static UserSession getInstace() {
         if (instance == null) {
             instance = new UserSession();
         }
         return instance;
-    }
-    
-    public static UserSession getInstace(int id, String name, String username, String password, String biography, String dialogTransition, boolean isActive, String userType) {
-        if (instance == null) {
-            instance = new UserSession(id, name, username, password, biography, dialogTransition, isActive, userType);
-        }
-        return instance;
-    }
+    } 
      
     public int getId() {
         return id;
@@ -96,6 +94,14 @@ public class UserSession {
         this.isActive = isActive;
     }
 
+    public String getLinkProfile() {
+        return linkProfile;
+    }
+
+    public void setLinkProfile(String linkProfile) {
+        this.linkProfile = linkProfile;
+    }
+    
     public String getUserType() {
         return userType;
     }
