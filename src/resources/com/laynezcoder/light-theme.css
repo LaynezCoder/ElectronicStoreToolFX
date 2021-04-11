@@ -465,7 +465,7 @@ date-picker-popup > * > .date-cell {
     -fx-background: -fx-color-primary-light;
 }
 
-.toggle-button {
+#toggle-button {
     -fx-font-size: 14;
     -fx-text-fill: -fx-color-text;
     -fx-content-display: top;
@@ -588,11 +588,13 @@ date-picker-popup > * > .date-cell {
     -fx-fill: black;
 }
 
-.icon-verified {
-    -fx-fill: #57a4ff;
-    -fx-font-size: 18px;
-    
-    -fx-font-family: "Material Design Icons"; 
+.svg-verified-icon {
+    -fx-background-color: #57a4ff;
+    -fx-shape: "m455.882812 128.003906-60.800781-27.046875-27.070312-60.824219-66.167969 6.910157-53.832031-39.039063-53.863281 39.039063-66.136719-6.910157-27.050781 60.796876-60.824219 27.074218 6.914062 66.167969-39.039062 53.832031 39.039062 53.863282-6.914062 66.136718 60.800781 27.046875 27.074219 60.824219 66.167969-6.910156 53.832031 39.039062 53.863281-39.039062 66.136719 6.910156 27.046875-60.800781 60.824218-27.070313-6.914062-66.167968 39.042969-53.832032-39.042969-53.863281zm-255.871093 216-67.921875-67.921875 22.640625-22.558593 45.28125 45.199218 135.757812-135.757812 22.640625 22.636718zm0 0";
+    -fx-max-width: 18;
+    -fx-max-height: 18;
+    -fx-min-width: 18;
+    -fx-min-height: 18;
 }
 
 .icons-settings {
@@ -601,22 +603,59 @@ date-picker-popup > * > .date-cell {
     -fx-font-family: "Material Design Icons"; 
 }
 
+.icon-treding-up {
+    -fx-fill: #2BA266;
+    -fx-font-size: 20px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
+.icon-treding-down {
+    -fx-fill: #F00000;
+    -fx-font-size: 20px;
+    -fx-font-family: "Material Design Icons"; 
+}
+
+.btn-achievements {
+    -fx-font-size: 12;
+    -fx-text-fill: -fx-color-text;
+    -fx-background-radius: 5px;
+    -fx-background-color: -fx-color-root;
+}
+
+.hyperlink {
+    -fx-cursor: hand;
+    -fx-font-size: 14;
+    -fx-border-color: transparent;
+}
 
 .data0.chart-pie {
-    -fx-pie-color: -primary;
+    -fx-pie-color: -fx-color-primary;
 }
 
 .data1.chart-pie {
-    -fx-pie-color: #2BA266;
+    -fx-pie-color: -fx-color-primary-alt;
 }
 
 .data2.chart-pie {
-    -fx-pie-color: #41C474;
+    -fx-pie-color: -fx-color-primary-light;
 }
 
 .chart-pie-label {
-    -fx-font-size: 15;
-    -fx-fill: black;
+    -fx-font-size: 14;
+    -fx-fill: -fx-color-text;
+}
+
+.chart-bar {
+    -fx-bar-fill: -fx-color-primary;
+}
+
+.chart-plot-background {
+    -fx-background-color: #ffffff;
+}
+
+.axis {
+    -fx-tick-label-font-size: 12px;
+    -fx-tick-label-fill: -fx-color-text;
 }
 
 .password-field-cell {
@@ -630,27 +669,3 @@ date-picker-popup > * > .date-cell {
     -fx-background-color:  red;
     -fx-text-fill:  white;
 }
-
-/*scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background {
-    -fx-background-color: rgb(230.0, 230.0, 240.0);
-    -fx-background-insets: 0.0;
-}
-
-.scroll-bar:vertical>.thumb, .scroll-bar:horizontal>.thumb {
-    -fx-background-color: rgb(158, 158, 158 );
-    -fx-background-insets: 0.0;
-    -fx-background-radius: 4.0;
-}
-
-.scroll-bar>.increment-button, .scroll-bar>.decrement-button,
-.scroll-bar:hover>.increment-button, .scroll-bar:hover>.decrement-button {
-    -fx-background-color: transparent;
-}
-
-.scroll-bar>.increment-button>.increment-arrow, .scroll-bar>.decrement-button>.decrement-arrow {
-    -fx-background-color: rgb(150.0, 150.0, 150.0);
-}
-
-.scroll-bar>.track-background {
-    -fx-background-color: transparent;
-}*/
