@@ -36,15 +36,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 
 public class DatabaseHelper {
+    
+    private static final UserSession session =  UserSession.getInstace();
 
     public static boolean insertNewCustomer(Customers customers) {
         try {
-            String sql = "INSERT INTO Customers (customerName, customerNumber, customerEmail, it) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Customers (customerName, customerNumber, customerEmail, it, userId) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, customers.getName());
             preparedStatement.setString(2, customers.getPhone());
             preparedStatement.setString(3, customers.getEmail());
             preparedStatement.setString(4, customers.getIt());
+            preparedStatement.setInt(5, session.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -103,7 +106,7 @@ public class DatabaseHelper {
 
     public static boolean insertNewQuote(Quotes quotes) {
         try {
-            String sql = "INSERT INTO Quotes (descriptionQuote, requestDate, price, existence, realization, report, customerId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Quotes (descriptionQuote, requestDate, price, existence, realization, report, customerId, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, quotes.getDescription());
             preparedStatement.setDate(2, new java.sql.Date(quotes.getRequestDate().getTime()));
@@ -112,6 +115,7 @@ public class DatabaseHelper {
             preparedStatement.setString(5, quotes.getRealization());
             preparedStatement.setString(6, quotes.getReport());
             preparedStatement.setInt(7, quotes.getCustomerId());
+            preparedStatement.setInt(8, session.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -361,7 +365,7 @@ public class DatabaseHelper {
             String sql = "UPDATE Users SET profileImage = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setBlob(1, inputStream);
-            preparedStatement.setInt(2, UserSession.getInstace().getId());
+            preparedStatement.setInt(2, session.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -402,7 +406,18 @@ public class DatabaseHelper {
     }
 
     public final static JFXDialog.DialogTransition dialogTransition() {
-        return JFXDialog.DialogTransition.valueOf(UserSession.getInstace().getDialogTransition());
+        return JFXDialog.DialogTransition.valueOf(session.getDialogTransition());
+    }
+    
+    public static void insertUserSession(int id) {
+        try {
+            String sql = "INSERT INTO UserSession (userId) VALUES (?)";
+            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static int getCustomers(java.sql.Date date) {
@@ -411,6 +426,7 @@ public class DatabaseHelper {
             String sql = "SELECT COUNT(*) FROM Customers WHERE insertionDate = ?";
             PreparedStatement preparedStatementCustomers = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatementCustomers.setDate(1, new java.sql.Date(date.getTime()));
+            
             ResultSet rs = preparedStatementCustomers.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
@@ -428,6 +444,7 @@ public class DatabaseHelper {
             String sql = "SELECT COUNT(*) FROM Quotes WHERE requestDate = ?";
             PreparedStatement preparedStatementQuotes = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatementQuotes.setDate(1, new java.sql.Date(date.getTime()));
+            
             ResultSet rs = preparedStatementQuotes.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
@@ -446,6 +463,59 @@ public class DatabaseHelper {
             String sql = "SELECT COUNT(*) FROM Products WHERE insertionDate = ?";
             PreparedStatement preparedStetementProducts = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStetementProducts.setDate(1, new java.sql.Date(date.getTime()));
+            
+            ResultSet rs = preparedStetementProducts.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            count = 0;
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count; 
+    }
+    
+    public static int getCustomers() {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM Customers";
+            PreparedStatement preparedStatementCustomers = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+
+            ResultSet rs = preparedStatementCustomers.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            count = 0;
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    public static int getQuotes() {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM Quotes";
+            PreparedStatement preparedStatementQuotes = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            
+            ResultSet rs = preparedStatementQuotes.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            count = 0;
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
+        }
+        return count;
+    }
+
+    public static int getProducts() {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM Products";
+            PreparedStatement preparedStetementProducts = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            
             ResultSet rs = preparedStetementProducts.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
