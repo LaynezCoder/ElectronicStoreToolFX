@@ -95,7 +95,7 @@
                   </HBox>
                   <ImageView fx:id="imageDelete" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/flaticon/dinosaur/038-think.png" />
+                        <Image url="@../images/flaticon/dinosaur/error/12.png" />
                      </image>
                   </ImageView>
                   <TextFlow prefHeight="0.0" prefWidth="400.0" textAlignment="CENTER">
@@ -176,17 +176,17 @@
                         <TextArea fx:id="txtDescription" prefHeight="157.0" prefWidth="380.0" />
                         <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="380.0">
                            <children>
-                              <JFXToggleButton fx:id="toggleButtonExists" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Not Exists" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
+                              <JFXToggleButton id="toggle-button" fx:id="toggleButtonExists" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Not Exists" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </JFXToggleButton>
-                              <JFXToggleButton fx:id="toggleButtonRealized" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Not Realized" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
+                              <JFXToggleButton id="toggle-button" fx:id="toggleButtonRealized" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Not Realized" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </JFXToggleButton>
-                              <JFXToggleButton fx:id="toggleButtonReport" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Not Report" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
+                              <JFXToggleButton id="toggle-button" fx:id="toggleButtonReport" graphicTextGap="0.0" onAction="#setActionToggleButton" prefHeight="0.0" prefWidth="150.0" size="8.0" text="Not Report" toggleColor="WHITE" toggleLineColor="#2ab56f" unToggleColor="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

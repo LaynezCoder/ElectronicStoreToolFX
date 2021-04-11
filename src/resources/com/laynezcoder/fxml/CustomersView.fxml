@@ -88,7 +88,7 @@
                   </HBox>
                   <ImageView fx:id="imageDelete" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/flaticon/dinosaur/038-think.png" />
+                        <Image url="@../images/flaticon/dinosaur/error/12.png" />
                      </image>
                   </ImageView>
                   <TextFlow prefHeight="0.0" prefWidth="400.0" textAlignment="CENTER">
