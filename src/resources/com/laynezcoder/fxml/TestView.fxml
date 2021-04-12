@@ -296,12 +296,12 @@
                         <HBox prefHeight="0.0" prefWidth="668.0" spacing="5.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="User activities" />
-                              <Button fx:id="btnCustomersHystory" mnemonicParsing="false" onAction="#setCustomersHistory" styleClass="btn-close" text="Button">
+                              <Button fx:id="btnCustomersHystory" mnemonicParsing="false" styleClass="btn-close" text="Button">
                                  <graphic>
                                     <MaterialDesignIconView glyphName="ACCOUNT_OUTLINE" styleClass="icons-settings" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnQuotesHistory" mnemonicParsing="false" onAction="#setQuotesHistory" styleClass="btn-close" text="Button">
+                              <Button fx:id="btnQuotesHistory" mnemonicParsing="false" styleClass="btn-close" text="Button">
                                  <graphic>
                                     <MaterialDesignIconView glyphName="CLIPBOARD_OUTLINE" styleClass="icons-settings" />
                                  </graphic>

@@ -15,7 +15,6 @@
  */
 package com.laynezcoder.estfx.database;
 
-import com.laynezcoder.estfx.models.UserSession;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,14 +23,12 @@ import java.util.logging.Logger;
 
 public class UserStatistics {
 
-    private static final UserSession session = UserSession.getInstace();
-
-    public static int getCustomersAdded() {
+    public static int getCustomersAdded(int id) {
         int count = 0;
         try {
             String sql = "SELECT COUNT(*) FROM Customers WHERE userId = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -43,12 +40,12 @@ public class UserStatistics {
         return count;
     }
 
-    public static int getQuotesAdded() {
+    public static int getQuotesAdded(int id) {
         int count = 0;
         try {
             String sql = "SELECT COUNT(*) FROM Quotes WHERE userId = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -60,12 +57,12 @@ public class UserStatistics {
         return count;
     }
 
-    public static int getProductsAdded() {
+    public static int getProductsAdded(int id) {
         int count = 0;
         try {
             String sql = "SELECT COUNT(*) FROM Products WHERE userId = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -76,14 +73,14 @@ public class UserStatistics {
         }
         return count;
     }
-    
-    public static int getCustomersAddedFromLastWeek() {
+
+    public static int getCustomersAddedFromLastWeek(int id) {
         int count = 0;
         try {
-            String sql = "SELECT COUNT(*) FROM Customers WHERE YEARWEEK(insertionDate) = YEARWEEK(NOW() - INTERVAL 1 WEEK) " 
+            String sql = "SELECT COUNT(*) FROM Customers WHERE YEARWEEK(insertionDate) = YEARWEEK(NOW() - INTERVAL 1 WEEK) "
                     + "AND userId = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -96,13 +93,13 @@ public class UserStatistics {
         return count;
     }
 
-    public static int getQuotesAddedFromLastWeek() {
+    public static int getQuotesAddedFromLastWeek(int id) {
         int count = 0;
         try {
-            String sql = "SELECT COUNT(*) FROM Quotes WHERE YEARWEEK(insertionDate) = YEARWEEK(NOW() - INTERVAL 1 WEEK) " 
+            String sql = "SELECT COUNT(*) FROM Quotes WHERE YEARWEEK(insertionDate) = YEARWEEK(NOW() - INTERVAL 1 WEEK) "
                     + "AND userId = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -114,13 +111,13 @@ public class UserStatistics {
         return count;
     }
 
-    public static int getProductsAddedFromLastWeek() {
+    public static int getProductsAddedFromLastWeek(int id) {
         int count = 0;
         try {
-            String sql = "SELECT COUNT(*) FROM Products WHERE YEARWEEK(insertionDate) = YEARWEEK(NOW() - INTERVAL 1 WEEK) " 
+            String sql = "SELECT COUNT(*) FROM Products WHERE YEARWEEK(insertionDate) = YEARWEEK(NOW() - INTERVAL 1 WEEK) "
                     + "AND userId = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -131,14 +128,14 @@ public class UserStatistics {
         }
         return count;
     }
-    
-    public static int getCustomersAddedFromThisWeek() {
+
+    public static int getCustomersAddedFromThisWeek(int id) {
         int count = 0;
         try {
-            String sql = "SELECT COUNT(*) FROM Customers WHERE insertionDate BETWEEN DATE_ADD(CURDATE(), INTERVAL - WEEKDAY(CURDATE()) DAY) " 
+            String sql = "SELECT COUNT(*) FROM Customers WHERE insertionDate BETWEEN DATE_ADD(CURDATE(), INTERVAL - WEEKDAY(CURDATE()) DAY) "
                     + "AND NOW() AND userId = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -151,13 +148,13 @@ public class UserStatistics {
         return count;
     }
 
-    public static int getQuotesAddedFromThisWeek() {
+    public static int getQuotesAddedFromThisWeek(int id) {
         int count = 0;
         try {
-            String sql = "SELECT COUNT(*) FROM Quotes WHERE insertionDate BETWEEN DATE_ADD(CURDATE(), INTERVAL - WEEKDAY(CURDATE()) DAY) " 
+            String sql = "SELECT COUNT(*) FROM Quotes WHERE insertionDate BETWEEN DATE_ADD(CURDATE(), INTERVAL - WEEKDAY(CURDATE()) DAY) "
                     + "AND NOW() AND userId = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -169,13 +166,13 @@ public class UserStatistics {
         return count;
     }
 
-    public static int getProductsAddedFromThisWeek() {
+    public static int getProductsAddedFromThisWeek(int id) {
         int count = 0;
         try {
-            String sql = "SELECT COUNT(*) FROM Products WHERE insertionDate BETWEEN DATE_ADD(CURDATE(), INTERVAL - WEEKDAY(CURDATE()) DAY) " 
+            String sql = "SELECT COUNT(*) FROM Products WHERE insertionDate BETWEEN DATE_ADD(CURDATE(), INTERVAL - WEEKDAY(CURDATE()) DAY) "
                     + "AND NOW() AND userId = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -187,12 +184,12 @@ public class UserStatistics {
         return count;
     }
 
-    public static String getInsertionDate() {
+    public static String getInsertionDate(int id) {
         String date = null;
         try {
             String sql = "SELECT insertionDate FROM Users WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -204,12 +201,12 @@ public class UserStatistics {
         return date;
     }
 
-    public static ResultSet getCustomerHistory() {
+    public static ResultSet getCustomerHistory(int id) {
         ResultSet result = null;
         try {
             String sql = "SELECT customerName, insertionDate FROM Customers WHERE userId = ? ORDER BY insertionDate DESC LIMIT 50";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             result = preparedStatement.executeQuery();
         } catch (SQLException ex) {
@@ -218,12 +215,12 @@ public class UserStatistics {
         return result;
     }
 
-    public static ResultSet getQuotesHistory() {
+    public static ResultSet getQuotesHistory(int id) {
         ResultSet result = null;
         try {
             String sql = "SELECT descriptionQuote, insertionDate FROM Quotes WHERE userId = ? ORDER BY insertionDate DESC LIMIT 50";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             result = preparedStatement.executeQuery();
         } catch (SQLException ex) {
@@ -232,12 +229,12 @@ public class UserStatistics {
         return result;
     }
 
-    public static int getSessionsStarted() {
+    public static int getSessionsStarted(int id) {
         int count = 0;
         try {
             String sql = "SELECT COUNT(*) FROM UserSession WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, session.getId());
+            preparedStatement.setInt(1, id);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {

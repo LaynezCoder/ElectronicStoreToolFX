@@ -150,7 +150,7 @@ public class TestController implements Initializable {
 
     @FXML
     private HBox pieChartThisWeekContainer;
-    
+
     @FXML
     private HBox pieChartLastWeekContainer;
 
@@ -183,13 +183,13 @@ public class TestController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        init();
+        init(session.getId());
         animateNodes();
     }
 
-    private void init() {
+    public void init(int id) {
         //We set the values to the graphs and progress bars
-        setStatistics();
+        setStatistics(id);
 
         //We establish values of the logged in user
         String username = EstfxUtil.trimText(session.getUsername(), 15);
@@ -201,15 +201,19 @@ public class TestController implements Initializable {
         EstfxUtil.openBrowser(linkProfile.getText(), linkProfile);
 
         //We establish the date that the user joined the database
-        String date = "¡" + username + " has joined the team on " + UserStatistics.getInsertionDate() + "!";
-        textInsertionDate.setText(date);
+        String dateOfAdmission = UserStatistics.getInsertionDate(id);
+        String message = "¡" + username + " has joined the team on " + dateOfAdmission + "!";
+        textInsertionDate.setText(message);
 
         //We set the image of the end of the history
         endImage.setImage(ResourcesPackages.getRandomSuccesImage());
 
-        setCustomersHistory(new ActionEvent());
+        //Initialize the customer history button
+        setCustomersHistory(id);
         btnCustomersHystory.setDisable(true);
-
+        
+        //Initialize all buttons
+        setHistoryActions(id);
     }
 
     private void animateNodes() {
@@ -219,22 +223,22 @@ public class TestController implements Initializable {
         Animations.imageTransition(endImage).play();
     }
 
-    private void setStatistics() {
+    private void setStatistics(int id) {
         double totalCustomers = DatabaseHelper.getCustomers();
         double totalQuotes = DatabaseHelper.getQuotes();
         double totalProducts = DatabaseHelper.getProducts();
 
-        double partialCustomers = UserStatistics.getCustomersAdded();
-        double partialQuotes = UserStatistics.getQuotesAdded();
-        double partialProducts = UserStatistics.getProductsAdded();
+        double partialCustomers = UserStatistics.getCustomersAdded(id);
+        double partialQuotes = UserStatistics.getQuotesAdded(id);
+        double partialProducts = UserStatistics.getProductsAdded(id);
 
-        double lastWeekCustomers = UserStatistics.getCustomersAddedFromLastWeek();
-        double lastWeekQuotes = UserStatistics.getQuotesAddedFromLastWeek();
-        double lastWeekProducts = UserStatistics.getProductsAddedFromLastWeek();
-        
-        double thisWeekCustomers = UserStatistics.getCustomersAddedFromThisWeek();
-        double thisWeekQuotes = UserStatistics.getQuotesAddedFromThisWeek();
-        double thisWeekProducts = UserStatistics.getProductsAddedFromThisWeek();
+        double lastWeekCustomers = UserStatistics.getCustomersAddedFromLastWeek(id);
+        double lastWeekQuotes = UserStatistics.getQuotesAddedFromLastWeek(id);
+        double lastWeekProducts = UserStatistics.getProductsAddedFromLastWeek(id);
+
+        double thisWeekCustomers = UserStatistics.getCustomersAddedFromThisWeek(id);
+        double thisWeekQuotes = UserStatistics.getQuotesAddedFromThisWeek(id);
+        double thisWeekProducts = UserStatistics.getProductsAddedFromThisWeek(id);
 
         double customersInDecimals = ((partialCustomers * 100) / totalCustomers) / 100;
         double quotesInDecimals = ((partialQuotes * 100) / totalQuotes) / 100;
@@ -244,7 +248,7 @@ public class TestController implements Initializable {
             recognitionButtonsContainer.getChildren().remove(btnStarSeller);
         }
 
-        if (UserStatistics.getSessionsStarted() < 100) {
+        if (UserStatistics.getSessionsStarted(id) < 100) {
             recognitionButtonsContainer.getChildren().remove(btnActiveUser);
         }
 
@@ -314,17 +318,11 @@ public class TestController implements Initializable {
         if (thisWeekCustomers == 0 && thisWeekQuotes == 0 && thisWeekProducts == 0) {
             pieChartThisWeekContainer.getChildren().remove(pieChartThisWeek);
             pieChartThisWeekContainer.getChildren().addAll(new ImageView(image));
-        } else {
-            pieChartThisWeekContainer.getChildren().remove(0);
-            pieChartThisWeekContainer.getChildren().add(pieChartThisWeek);
         }
-        
+
         if (lastWeekCustomers == 0 && lastWeekQuotes == 0 && lastWeekProducts == 0) {
             pieChartLastWeekContainer.getChildren().remove(pieChartLastWeek);
             pieChartLastWeekContainer.getChildren().addAll(new ImageView(image));
-        } else {
-            pieChartLastWeekContainer.getChildren().remove(0);
-            pieChartLastWeekContainer.getChildren().add(pieChartLastWeek);
         }
     }
 
@@ -338,13 +336,22 @@ public class TestController implements Initializable {
         }
     }
 
-    @FXML
-    private void setCustomersHistory(ActionEvent event) {
-        setDisableButtons(event);
+    private void setHistoryActions(int id) {
+        btnCustomersHystory.setOnAction(ev -> {
+            setDisableButtons(ev);
+            setCustomersHistory(id);
+        });
+
+        btnQuotesHistory.setOnAction(ev -> {
+            setDisableButtons(ev);
+            setQuotesHistory(id);
+        });
+    }
+
+    private void setCustomersHistory(int id) {
         historyContainer.getChildren().clear();
         try {
-            ResultSet result = UserStatistics.getCustomerHistory();
-
+            ResultSet result = UserStatistics.getCustomerHistory(id);
             while (result.next()) {
                 String value = result.getString(1);
                 String date = result.getDate(2).toString();
@@ -356,13 +363,10 @@ public class TestController implements Initializable {
         }
     }
 
-    @FXML
-    private void setQuotesHistory(ActionEvent event) {
-        setDisableButtons(event);
+    private void setQuotesHistory(int id) {
         historyContainer.getChildren().clear();
         try {
-            ResultSet result = UserStatistics.getQuotesHistory();
-
+            ResultSet result = UserStatistics.getQuotesHistory(id);
             while (result.next()) {
                 String value = result.getString(1);
                 String date = result.getDate(2).toString();
