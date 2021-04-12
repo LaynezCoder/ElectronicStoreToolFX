@@ -10,8 +10,12 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -53,28 +57,28 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="180.0" spacing="5.0">
                                        <children>
                                           <MaterialDesignIconView glyphName="ACCOUNT_OUTLINE" styleClass="icons-settings" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Customers" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.customers" />
                                           <JFXProgressBar fx:id="progressbarCustomers" progress="0.0" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="180.0" spacing="5.0">
                                        <children>
                                           <MaterialDesignIconView glyphName="CLIPBOARD_OUTLINE" styleClass="icons-settings" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Quotes" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.quotes" />
                                           <JFXProgressBar fx:id="progressbarQuotes" prefHeight="1.0" prefWidth="237.0" progress="0.0" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="180.0" spacing="5.0">
                                        <children>
                                           <MaterialDesignIconView glyphName="LAPTOP_WINDOWS" styleClass="icons-settings" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Products" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.products" />
                                           <JFXProgressBar fx:id="progressbarProducts" progress="0.0" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="180.0" spacing="5.0">
                                        <children>
                                           <MaterialDesignIconView glyphName="CART_OUTLINE" styleClass="icons-settings" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Sales" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.sales" />
                                           <JFXProgressBar fx:id="progressbarSales" progress="0.0" />
                                        </children>
                                     </HBox>
@@ -91,15 +95,15 @@
                                     <Text fx:id="biography" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="description" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." wrappingWidth="1.0" />
                                  </children>
                               </TextFlow>
-                              <Button fx:id="btnStarSeller" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" styleClass="btn-achievements" text="Star seller">
+                              <Button fx:id="btnStarSeller" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" styleClass="btn-achievements" text="%btn.settings.star.seller">
                                  <graphic>
                                     <MaterialDesignIconView glyphName="STAR_OUTLINE" styleClass="icons-settings" />
                                  </graphic></Button>
-                              <Button fx:id="btnActiveUser" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" styleClass="btn-achievements" text="Active user">
+                              <Button fx:id="btnActiveUser" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" styleClass="btn-achievements" text="%btn.settings.active.user">
                                  <graphic>
                                     <MaterialDesignIconView glyphName="COMMENT_CHECK_OUTLINE" styleClass="icons-settings" />
                                  </graphic></Button>
-                              <Button fx:id="btnValuableUser" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" styleClass="btn-achievements" text="Valuable user">
+                              <Button fx:id="btnValuableUser" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" styleClass="btn-achievements" text="%btn.settings.valuable.user">
                                  <graphic>
                                     <MaterialDesignIconView glyphName="FLAG_OUTLINE_VARIANT" styleClass="icons-settings" />
                                  </graphic>
@@ -130,7 +134,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="0.0" prefWidth="668.0" spacing="5.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Overview" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="%text.settings.overview.title" />
                               <Button mnemonicParsing="false" styleClass="btn-close" text="Button">
                                  <graphic>
                                     <MaterialDesignIconView glyphName="PENCIL" styleClass="icons-settings" />
@@ -145,15 +149,15 @@
                         </HBox>
                         <HBox alignment="CENTER" minWidth="500.0" prefHeight="120.0" prefWidth="500.0" spacing="10.0">
                            <children>
-                              <VBox alignment="CENTER_LEFT" maxHeight="120.0" minHeight="120.0" prefHeight="120.0" prefWidth="243.0" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER_LEFT" maxHeight="120.0" minHeight="120.0" minWidth="160.0" prefHeight="120.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Customers" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.customers" />
                                     <Text fx:id="textTotalCustomers" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="1500" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
                                        <children>
                                           <MaterialDesignIconView fx:id="iconCustomerImpact" glyphName="TRENDING_UP" styleClass="icon-close" />
                                           <Text fx:id="textCustomerImpact" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="50%" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Impact" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.impact" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -165,15 +169,15 @@
                                     <String fx:value="card" />
                                  </styleClass>
                               </VBox>
-                              <VBox alignment="CENTER_LEFT" maxHeight="120.0" minHeight="120.0" prefHeight="120.0" prefWidth="243.0" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER_LEFT" maxHeight="120.0" minHeight="120.0" minWidth="160.0" prefHeight="120.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Quotes" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.quotes" />
                                     <Text fx:id="textTotalQuotes" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="1500" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
                                        <children>
                                           <MaterialDesignIconView fx:id="iconQuotesImpact" glyphName="TRENDING_UP" styleClass="icon-close" />
                                           <Text fx:id="textQuotesImpact" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="50%" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Impact" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.impact" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -185,15 +189,15 @@
                                     <String fx:value="card" />
                                  </styleClass>
                               </VBox>
-                              <VBox alignment="CENTER_LEFT" maxHeight="120.0" minHeight="120.0" prefHeight="120.0" prefWidth="243.0" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER_LEFT" maxHeight="120.0" minHeight="120.0" minWidth="160.0" prefHeight="120.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Products" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.products" />
                                     <Text fx:id="textTotalProducts" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="1500" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
                                        <children>
                                           <MaterialDesignIconView fx:id="iconProductsImpact" glyphName="TRENDING_UP" styleClass="icon-close" />
                                           <Text fx:id="textProductsImpact" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="50%" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Impact" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.impact" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -211,13 +215,13 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" maxHeight="120.0" minHeight="120.0" prefHeight="120.0" prefWidth="243.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Sales" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.sales" />
                                     <Text fx:id="textTotalSales" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="1500" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
                                        <children>
                                           <MaterialDesignIconView fx:id="iconSalesImpact" glyphName="TRENDING_UP" styleClass="icon-close" />
                                           <Text fx:id="textSalesImpact" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="50%" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Impact" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.impact" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -231,7 +235,7 @@
                               </VBox>
                               <VBox alignment="CENTER_LEFT" maxHeight="120.0" minHeight="120.0" prefHeight="120.0" prefWidth="243.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Raised money" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.raised.money" />
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="\$" />
@@ -242,7 +246,7 @@
                                        <children>
                                           <MaterialDesignIconView fx:id="iconRaisedMoneyImpact" glyphName="TRENDING_UP" styleClass="icon-close" />
                                           <Text fx:id="textRaisedMoneyImpact" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="50%" />
-                                          <Text fx:id="impactRaisedMoney" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Impact" />
+                                          <Text fx:id="impactRaisedMoney" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.impact" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -258,7 +262,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="668.0" spacing="5.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Graphics statistics" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="%text.settings.statistics.title" />
                            </children>
                         </HBox>
                         <HBox maxHeight="225.0" minHeight="225.0" prefHeight="500.0" spacing="10.0">
@@ -269,7 +273,7 @@
                                     <String fx:value="card-user" />
                                  </styleClass>
                                  <children>
-                                    <PieChart fx:id="pieChartLastWeek" legendVisible="false" title="Last week" titleSide="BOTTOM">
+                                    <PieChart fx:id="pieChartLastWeek" legendVisible="false" title="%text.settings.chart.lastweek" titleSide="BOTTOM">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
@@ -285,7 +289,7 @@
                                     <String fx:value="card-user" />
                                  </styleClass>
                                  <children>
-                                    <PieChart fx:id="pieChartThisWeek" legendVisible="false" title="This week" titleSide="BOTTOM" />
+                                    <PieChart fx:id="pieChartThisWeek" legendVisible="false" title="%text.settings.chart.thisweek" titleSide="BOTTOM" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -295,7 +299,7 @@
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="668.0" spacing="5.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="User activities" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="%text.settings.history.title" />
                               <Button fx:id="btnCustomersHystory" mnemonicParsing="false" styleClass="btn-close" text="Button">
                                  <graphic>
                                     <MaterialDesignIconView glyphName="ACCOUNT_OUTLINE" styleClass="icons-settings" />
@@ -336,7 +340,7 @@
                                  </image>
                               </ImageView>
                               <Circle fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" styleClass="shadow-dinosaur-image" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="You have reached the end!" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="%text.settings.en.history.title" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -353,6 +357,71 @@
                   </VBox>
                </content>
             </ScrollPane>
+            <VBox fx:id="containerAdd" layoutX="250.0" layoutY="36.0" prefHeight="540.0" prefWidth="440.0" spacing="10.0" styleClass="card" visible="false">
+               <padding>
+                  <Insets bottom="25.0" left="20.0" right="20.0" top="25.0" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="560.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="%text.settings.title.dialog" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="375.0" spacing="10.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.name" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.username" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="364.0" spacing="10.0">
+                     <children>
+                        <TextField fx:id="txtName" styleClass="txt" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="txtUsername" styleClass="txt" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="375.0" spacing="10.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.password" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.confirm.pass" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="364.0" spacing="10.0">
+                     <children>
+                        <PasswordField fx:id="txtPassword" prefHeight="37.0" prefWidth="202.2" styleClass="txt" HBox.hgrow="ALWAYS" />
+                        <PasswordField fx:id="txtConfirmPassword" prefWidth="202.2" styleClass="txt" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.dialog.transition" />
+                  <ComboBox fx:id="cmbDialogTransition" editable="true" prefHeight="37.0" prefWidth="482.0" styleClass="scroll-bar-combo-box" stylesheets="@../combo-box.css" VBox.vgrow="ALWAYS" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.biography" />
+                  <TextArea fx:id="txtDescription" prefHeight="277.0" prefWidth="400.0" />
+                  <HBox fx:id="buttonsContainer" alignment="CENTER" prefHeight="0.0" prefWidth="600.0" spacing="20.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="btn-cancel" text="%btn.customers.cancel" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="btn-delete" text="%btn.customers.save" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </children>
