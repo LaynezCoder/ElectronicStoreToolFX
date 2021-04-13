@@ -217,14 +217,4 @@ public class MainController implements Initializable {
     public void removeButtons() {
         sideBar.getChildren().removeAll(btnUsers, btnStatistics);
     }
-
-    public void addButtons() {
-        if (sideBar.getChildren().contains(btnExit) || sideBar.getChildren().contains(btnStatistics)) {
-            return;
-        }
-
-        int size = sideBar.getChildren().size();
-        sideBar.getChildren().add(size - 1, btnExit);
-        sideBar.getChildren().add(size - 2, btnStatistics);
-    }
 }

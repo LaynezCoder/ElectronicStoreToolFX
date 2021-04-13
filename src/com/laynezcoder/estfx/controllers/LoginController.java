@@ -190,12 +190,10 @@ public class LoginController implements Initializable {
             Parent root = loader.load();
             MainController main = loader.getController();
 
-            if (UserSession.getInstace().getUserType().equals(UserType.ADMINSTRATOR.value())) {
-                main.addButtons();
-            } else {
+            if (!UserSession.getInstace().getUserType().equals(UserType.ADMINSTRATOR.value())) {
                 main.removeButtons();
             }
-
+            
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.getIcons().add(Constants.ICON);
             stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
