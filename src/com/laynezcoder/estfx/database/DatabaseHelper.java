@@ -342,16 +342,17 @@ public class DatabaseHelper {
         return false;
     }
 
-    public static boolean updateUserFromSettings(Users users) {
+    public static boolean updateUserInformation(Users users) {
         try {
-            String sql = "UPDATE Users SET nameUser = ?, email = ?, pass = ?, biography = ?, dialogTransition = ? WHERE id = ?";
+            String sql = "UPDATE Users SET fullname = ?, username = ?, pass = ?, biography = ?, dialogTransition = ?, linkProfile = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, users.getName());
             preparedStatement.setString(2, users.getUsername());
             preparedStatement.setString(3, users.getPassword());
             preparedStatement.setString(4, users.getBiography());
             preparedStatement.setString(5, users.getDialogTransition());
-            preparedStatement.setInt(6, users.getId());
+            preparedStatement.setString(6, users.getLinkProfile());
+            preparedStatement.setInt(7, users.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -377,7 +378,7 @@ public class DatabaseHelper {
     public static int checkIfUserExists(String username) {
         int count = 0;
         try {
-            String sql = "SELECT COUNT(*) FROM Users WHERE email = BINARY ?";
+            String sql = "SELECT COUNT(*) FROM Users WHERE username = BINARY ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
