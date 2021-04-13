@@ -16,13 +16,21 @@
 package com.laynezcoder.estfx.controllers;
 
 import com.jfoenix.controls.JFXProgressBar;
+import com.laynezcoder.estfx.alerts.AlertType;
+import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
+import com.laynezcoder.estfx.constants.Constants;
+import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.database.UserStatistics;
 import com.laynezcoder.estfx.models.UserSession;
+import com.laynezcoder.estfx.models.Users;
+import com.laynezcoder.estfx.notifications.NotificationType;
+import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.util.EstfxUtil;
 import com.laynezcoder.estfx.util.HistoyBox;
+import com.laynezcoder.estfx.util.JFXDialogTool;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.net.URL;
@@ -48,16 +56,26 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class TestController implements Initializable {
 
-    private final UserSession session = UserSession.getInstace();
+    private final ObservableList<String> TRANSITION_OPTIONS = FXCollections.observableArrayList();
+
+    private final UserSession SESSION = UserSession.getInstace();
 
     private final double IMPACT_AVERAGE = 0.2;
+
+    @FXML
+    private StackPane stckSettings;
+
+    @FXML
+    private AnchorPane rootSettings;
 
     @FXML
     private ScrollPane generalInformationContainer;
@@ -184,15 +202,18 @@ public class TestController implements Initializable {
 
     @FXML
     private Button btnValuableUser;
-    
-     @FXML
-    private VBox containerAdd;
+
+    @FXML
+    private VBox dialogContainer;
 
     @FXML
     private TextField txtName;
 
     @FXML
     private TextField txtUsername;
+
+    @FXML
+    private TextField txtURL;
 
     @FXML
     private PasswordField txtPassword;
@@ -206,49 +227,110 @@ public class TestController implements Initializable {
     @FXML
     private TextArea txtDescription;
 
-    @FXML
-    private HBox buttonsContainer;
+    private JFXDialogTool dialog;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        init(session.getId());
+        init(SESSION.getId());
         animateNodes();
+        initComboBox();
+    }
+
+    private void initComboBox() {
+        TRANSITION_OPTIONS.addAll("TOP", "BOTTOM", "CENTER", "LEFT", "RIGHT");
+        cmbDialogTransition.getItems().addAll(TRANSITION_OPTIONS);
+    }
+
+    private String getDialogTransition() {
+        int index = cmbDialogTransition.getSelectionModel().getSelectedIndex();
+        switch (index) {
+            case 0:
+                return TRANSITION_OPTIONS.get(0);
+            case 1:
+                return TRANSITION_OPTIONS.get(1);
+            case 2:
+                return TRANSITION_OPTIONS.get(2);
+            case 3:
+                return TRANSITION_OPTIONS.get(3);
+            case 4:
+                return TRANSITION_OPTIONS.get(4);
+        }
+        return null;
+    }
+
+    @FXML
+    private void showDialog() {
+        rootSettings.setEffect(Constants.BOX_BLUR_EFFECT);
+
+        dialog = new JFXDialogTool(dialogContainer, stckSettings);
+        dialog.show();
+        setDataToControls();
+
+        dialog.setOnDialogClosed(ev -> {
+            if (!AlertsBuilder.isVisible()) {
+                rootSettings.setEffect(null);
+            }
+        });
+    }
+
+    @FXML
+    private void closeDialog() {
+        if (dialog != null) {
+            dialog.close();
+        }
     }
 
     public void init(int id) {
         //We set the values to the graphs and progress bars
         setStatistics(id);
 
-        //We establish values of the logged in user
-        String username = EstfxUtil.trimText(session.getUsername(), 15);
-        name.setText(username);
+        //Load data
+        loadData(id);
 
-        verifiedIcon.setVisible(session.isIsActive());
-        biography.setText(session.getBiography());
-        linkProfile.setText(session.getLinkProfile());
+        //We set the image of the end of the history
+        Image randomImage = ResourcesPackages.getRandomSuccesImage();
+        endImage.setImage(randomImage);
+
+        //Initialize the customer history button
+        setCustomersHistory(id);
+        btnCustomersHystory.setDisable(true);
+
+        //Initialize all buttons
+        setHistoryActions(id);
+    }
+
+    private void setDataToControls() {
+        txtName.setText(SESSION.getName());
+        txtUsername.setText(SESSION.getUsername());
+        txtPassword.setText(SESSION.getPassword());
+        txtConfirmPassword.setText(SESSION.getPassword());
+        txtURL.setText(SESSION.getLinkProfile());
+        txtDescription.setText(SESSION.getBiography());
+        cmbDialogTransition.getSelectionModel().select(SESSION.getDialogTransition());
+    }
+
+    private void updateSession(Users user) {
+        SESSION.setName(user.getName());
+        SESSION.setUsername(user.getUsername());
+        SESSION.setPassword(user.getPassword());
+        SESSION.setBiography(user.getBiography());
+        SESSION.setDialogTransition(user.getDialogTransition());
+        SESSION.setLinkProfile(user.getLinkProfile());
+    }
+
+    private void loadData(int id) {
+        //We establish values of the logged in user
+        String username = EstfxUtil.trimText(SESSION.getUsername());
+        name.setText(username);
+        verifiedIcon.setVisible(SESSION.isIsActive());
+        biography.setText(SESSION.getBiography());
+        linkProfile.setText(SESSION.getLinkProfile());
         EstfxUtil.openBrowser(linkProfile.getText(), linkProfile);
 
         //We establish the date that the user joined the database
         String dateOfAdmission = UserStatistics.getInsertionDate(id);
         String message = "¡" + username + " has joined the team on " + dateOfAdmission + "!";
         textInsertionDate.setText(message);
-
-        //We set the image of the end of the history
-        endImage.setImage(ResourcesPackages.getRandomSuccesImage());
-
-        //Initialize the customer history button
-        setCustomersHistory(id);
-        btnCustomersHystory.setDisable(true);
-        
-        //Initialize all buttons
-        setHistoryActions(id);
-    }
-
-    private void animateNodes() {
-        Animations.bounceIn(verifiedIcon);
-        Animations.fadeInUp(generalInformationContainer);
-        Animations.fadeInUp(statisticsContainer);
-        Animations.imageTransition(endImage).play();
     }
 
     private void setStatistics(int id) {
@@ -364,14 +446,118 @@ public class TestController implements Initializable {
         }
     }
 
+    @FXML
+    private void saveUserInformation() {
+        String fullname = txtName.getText().trim();
+        String username = txtUsername.getText().trim();
+        String password = txtPassword.getText().trim();
+        String confirmPassword = txtConfirmPassword.getText().trim();
+        String url = txtURL.getText().trim();
+        String bio = txtDescription.getText().trim();
+
+        if (fullname.isEmpty()) {
+            txtName.requestFocus();
+            Animations.shake(txtName);
+            return;
+        }
+
+        if (username.isEmpty()) {
+            txtUsername.requestFocus();
+            Animations.shake(txtUsername);
+            return;
+        }
+
+        if (username.length() < 4) {
+            txtUsername.requestFocus();
+            Animations.shake(txtUsername);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+            return;
+        }
+
+        if (password.isEmpty()) {
+            txtPassword.requestFocus();
+            Animations.shake(txtPassword);
+            return;
+        }
+
+        if (password.length() < 4) {
+            txtPassword.requestFocus();
+            Animations.shake(txtPassword);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+            return;
+        }
+
+        if (confirmPassword.isEmpty()) {
+            txtConfirmPassword.requestFocus();
+            Animations.shake(txtConfirmPassword);
+            return;
+        }
+
+        if (!confirmPassword.equals(password)) {
+            txtConfirmPassword.requestFocus();
+            Animations.shake(txtPassword);
+            Animations.shake(txtConfirmPassword);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.PASSWORDS_NOT_MATCH);
+            return;
+        }
+
+        if (url.isEmpty()) {
+            Animations.shake(txtURL);
+            return;
+        }
+
+        if (!EstfxUtil.validateURL(url)) {
+            Animations.shake(txtURL);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.INVALID_URL);
+            return;
+        }
+
+        if (cmbDialogTransition.getSelectionModel().isEmpty()) {
+            Animations.shake(cmbDialogTransition);
+            return;
+        }
+
+        if (bio.isEmpty()) {
+            txtDescription.requestFocus();
+            Animations.shake(txtDescription);
+            return;
+        }
+
+        if (DatabaseHelper.checkIfUserExists(username) != 0 && !username.equals(UserSession.getInstace().getUsername())) {
+            txtUsername.requestFocus();
+            Animations.shake(txtUsername);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.USER_ALREADY_EXISTS);
+            return;
+        }
+
+        Users user = new Users();
+        user.setId(SESSION.getId());
+        user.setName(fullname);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setLinkProfile(url);
+        user.setBiography(bio);
+        user.setDialogTransition(getDialogTransition());
+
+        boolean result = DatabaseHelper.updateUserInformation(user);
+        if (result) {
+            closeDialog();
+            updateSession(user);
+            loadData(SESSION.getId());
+            AlertsBuilder.create(AlertType.SUCCES, stckSettings, rootSettings, rootSettings, Messages.ADDED_RECORD);
+        } else {
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
+        }
+    }
+
     private void setHistoryActions(int id) {
         btnCustomersHystory.setOnAction(ev -> {
-            setDisableButtons(ev);
+            disableButtons(ev);
             setCustomersHistory(id);
         });
 
         btnQuotesHistory.setOnAction(ev -> {
-            setDisableButtons(ev);
+            disableButtons(ev);
             setQuotesHistory(id);
         });
     }
@@ -406,10 +592,17 @@ public class TestController implements Initializable {
         }
     }
 
-    private void setDisableButtons(ActionEvent event) {
+    private void disableButtons(ActionEvent event) {
         EstfxUtil.disableButton(event, btnCustomersHystory);
         EstfxUtil.disableButton(event, btnQuotesHistory);
         EstfxUtil.disableButton(event, btnProductsHistory);
         EstfxUtil.disableButton(event, btnSalesHistory);
+    }
+
+    private void animateNodes() {
+        Animations.bounceIn(verifiedIcon);
+        Animations.fadeInUp(generalInformationContainer);
+        Animations.fadeInUp(statisticsContainer);
+        Animations.imageTransition(endImage).play();
     }
 }
