@@ -64,7 +64,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class TestController implements Initializable {
+public class SettingsView implements Initializable {
 
     private final ObservableList<String> TRANSITION_OPTIONS = FXCollections.observableArrayList();
 
@@ -576,7 +576,7 @@ public class TestController implements Initializable {
             }
             Animations.fadeIn(historyContainer);
         } catch (SQLException ex) {
-            Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SettingsView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -591,7 +591,7 @@ public class TestController implements Initializable {
             }
             Animations.fadeIn(historyContainer);
         } catch (SQLException ex) {
-            Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SettingsView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
