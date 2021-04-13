@@ -152,8 +152,7 @@ public class MainController implements Initializable {
     
     @FXML
     private void saleWindows(ActionEvent event) {
-        showFXMLWindows(Views.TEST);
-        setDisableButtons(event);
+        
     }
 
     @FXML
@@ -173,8 +172,8 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void settingsWindows(ActionEvent event) {
-        setDisableButtons(event);
+    private void settingsWindows() {
+        showFXMLWindows(Views.SETTINGS);
     }
 
     @FXML

@@ -62,7 +62,7 @@
                   </Button>
                   <VBox alignment="BOTTOM_CENTER" prefHeight="240.0" prefWidth="60.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ImageView fx:id="imageProfile" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imageProfile" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#settingsWindows" pickOnBounds="true" preserveRatio="true" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" />
