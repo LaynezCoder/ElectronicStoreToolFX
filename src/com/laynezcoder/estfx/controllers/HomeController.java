@@ -212,7 +212,7 @@ public class HomeController implements Initializable {
         totalQuotes.setText(String.valueOf(total));
 
         UserSession session = UserSession.getInstace();
-        String name = EstfxUtil.trimText(session.getName(), 20);
+        String name = EstfxUtil.trimText(session.getName());
         switch (total) {
             case 10:
                 setText(name, 10);

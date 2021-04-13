@@ -26,10 +26,11 @@ public class Users {
     private String biography;
     private String dialogTransition;
     private String userType;
+    private boolean active;
+    private String linkProfile;
     private InputStream profileImage;
 
-    public Users() {
-    }
+    public Users() {}
 
     public Users(String name, String username, String password, String userType) {
         this.name = name;
@@ -118,5 +119,21 @@ public class Users {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getLinkProfile() {
+        return linkProfile;
+    }
+
+    public void setLinkProfile(String linkProfile) {
+        this.linkProfile = linkProfile;
     }
 }

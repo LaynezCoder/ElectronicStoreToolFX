@@ -275,7 +275,7 @@ public class SettingsController implements Initializable {
         users.setBiography(bio);
         users.setDialogTransition(getDialogTransition());
 
-        boolean result = DatabaseHelper.updateUserFromSettings(users);
+        boolean result = DatabaseHelper.updateUserInformation(users);
         if (result) {
             loadData();
             AlertsBuilder.create(AlertType.SUCCES, stckSettings, rootSettings, rootSettings, Messages.ADDED_RECORD);

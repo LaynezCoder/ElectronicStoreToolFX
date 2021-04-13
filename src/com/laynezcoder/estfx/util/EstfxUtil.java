@@ -24,10 +24,13 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import org.apache.commons.validator.UrlValidator;
 
 public class EstfxUtil {
 
     private static final char SPACE = ' ';
+
+    private static final int MAX_LENGTH = 15;
 
     public static String getNameWithoutSpaces(String name) {
         for (int i = 0; i < name.length(); i++) {
@@ -37,10 +40,10 @@ public class EstfxUtil {
         }
         return name;
     }
-    
-    public static String trimText(String value, int trimSize) {
-        if(value.length() > trimSize) {
-            return value.substring(0, trimSize - 1) + "...";
+
+    public static String trimText(String value) {
+        if (value.length() > MAX_LENGTH) {
+            return value.substring(0, MAX_LENGTH) + "...";
         }
         return value;
     }
@@ -62,5 +65,10 @@ public class EstfxUtil {
         } else {
             button.setDisable(false);
         }
+    }
+
+    public static boolean validateURL(String URL) {
+        UrlValidator validator = new UrlValidator();
+        return validator.isValid(URL);
     }
 }
