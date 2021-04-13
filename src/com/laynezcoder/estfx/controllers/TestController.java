@@ -24,6 +24,7 @@ import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.database.UserStatistics;
+import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.UserSession;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.notifications.NotificationType;
@@ -231,9 +232,11 @@ public class TestController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        init(SESSION.getId());
+        setMask();
         animateNodes();
         initComboBox();
+        selectText();
+        init(SESSION.getId());
     }
 
     private void initComboBox() {
@@ -604,5 +607,19 @@ public class TestController implements Initializable {
         Animations.fadeInUp(generalInformationContainer);
         Animations.fadeInUp(statisticsContainer);
         Animations.imageTransition(endImage).play();
+    }
+    
+    private void selectText() {
+        TextFieldMask.selectText(txtName);
+        TextFieldMask.selectText(txtUsername);
+        TextFieldMask.selectText(txtPassword);
+        TextFieldMask.selectText(txtConfirmPassword);
+    }
+
+    private void setMask() {
+        TextFieldMask.onlyLetters(txtName, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtUsername, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtPassword, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtConfirmPassword, 40);
     }
 }
