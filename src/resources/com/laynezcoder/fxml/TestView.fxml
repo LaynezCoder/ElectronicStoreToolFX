@@ -27,9 +27,9 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="940.0" stylesheets="@../light-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.TestController">
+<StackPane fx:id="stckSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="940.0" stylesheets="@../light-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.TestController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="rootSettings" prefHeight="200.0" prefWidth="200.0">
          <children>
             <ScrollPane fx:id="generalInformationContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="600.0" prefWidth="250.0" stylesheets="@../scroll-pane.css" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
@@ -135,7 +135,7 @@
                         <HBox alignment="CENTER" prefHeight="0.0" prefWidth="668.0" spacing="5.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="%text.settings.overview.title" />
-                              <Button mnemonicParsing="false" styleClass="btn-close" text="Button">
+                              <Button mnemonicParsing="false" onAction="#showDialog" styleClass="btn-close" text="Button">
                                  <graphic>
                                     <MaterialDesignIconView glyphName="PENCIL" styleClass="icons-settings" />
                                  </graphic>
@@ -357,7 +357,7 @@
                   </VBox>
                </content>
             </ScrollPane>
-            <VBox fx:id="containerAdd" layoutX="250.0" layoutY="36.0" prefHeight="540.0" prefWidth="440.0" spacing="10.0" styleClass="card" visible="false">
+            <VBox fx:id="dialogContainer" layoutX="250.0" layoutY="36.0" prefHeight="540.0" prefWidth="440.0" spacing="10.0" styleClass="card" visible="false">
                <padding>
                   <Insets bottom="25.0" left="20.0" right="20.0" top="25.0" />
                </padding>
@@ -407,14 +407,32 @@
                         <PasswordField fx:id="txtConfirmPassword" prefWidth="202.2" styleClass="txt" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.dialog.transition" />
-                  <ComboBox fx:id="cmbDialogTransition" editable="true" prefHeight="37.0" prefWidth="482.0" styleClass="scroll-bar-combo-box" stylesheets="@../combo-box.css" VBox.vgrow="ALWAYS" />
+                  <HBox prefHeight="0.0" prefWidth="375.0" spacing="10.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="URL" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.transition" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="56.0" prefWidth="400.0" spacing="10.0">
+                     <children>
+                        <TextField fx:id="txtURL" styleClass="txt" />
+                        <ComboBox fx:id="cmbDialogTransition" prefWidth="202.2" styleClass="scroll-bar-combo-box" stylesheets="@../combo-box.css" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.biography" />
                   <TextArea fx:id="txtDescription" prefHeight="277.0" prefWidth="400.0" />
                   <HBox fx:id="buttonsContainer" alignment="CENTER" prefHeight="0.0" prefWidth="600.0" spacing="20.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="btn-cancel" text="%btn.customers.cancel" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="btn-delete" text="%btn.customers.save" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#closeDialog" prefHeight="35.0" prefWidth="150.0" styleClass="btn-cancel" text="%btn.customers.cancel" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#saveUserInformation" prefHeight="35.0" prefWidth="150.0" styleClass="btn-delete" text="%btn.customers.save" HBox.hgrow="ALWAYS" />
                      </children>
                      <padding>
                         <Insets top="10.0" />
