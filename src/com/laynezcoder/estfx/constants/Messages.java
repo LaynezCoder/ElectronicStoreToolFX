@@ -31,4 +31,5 @@ public final class Messages {
     public static final String UPDATED_RECORD = "Record updated successfully";
     public static final String DELETED_RECORD = "Record deleted successfully";
     public static final String EXCEPTION = "Something strange happend";
+    public static final String INVALID_URL = "Please enter a valid URL";
 }
