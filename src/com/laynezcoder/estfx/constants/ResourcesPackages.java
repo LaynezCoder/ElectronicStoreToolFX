@@ -18,6 +18,9 @@ package com.laynezcoder.estfx.constants;
 import javafx.scene.image.Image;
 
 public final class ResourcesPackages {
+    
+    private final static int NUMBER_OF_ERROR_IMAGES = 18;
+    private final static int NUMBER_OF_SUCCES_IMAGES = 32;
 
     private ResourcesPackages() {}
 
@@ -42,18 +45,16 @@ public final class ResourcesPackages {
     public static final String SUCCESS_ICON = UI_ALERTS_IMAGES_PACKAGE + "success.png";
 
     public static Image getRandomErrorImage() {
-        String path = DINOSAUR_ERROR_IMAGES_PACKAGE + getRandomErrorImage(18);
-        System.out.println(path);
+        String path = DINOSAUR_ERROR_IMAGES_PACKAGE + randomNumber(NUMBER_OF_ERROR_IMAGES);
         return new Image(path, 110, 170, true, true);
     }
 
     public static Image getRandomSuccesImage() {
-        String path = DINOSAUR_SUCCES_IMAGES_PACKAGE + getRandomErrorImage(32);
-        System.out.println(path);
+        String path = DINOSAUR_SUCCES_IMAGES_PACKAGE + randomNumber(NUMBER_OF_SUCCES_IMAGES);
         return new Image(path, 110, 170, true, true);
     }
 
-    private static String getRandomErrorImage(int size) {
+    private static String randomNumber(int size) {
         int index = (int) (Math.random() * size);
         return index + ".png";
     }

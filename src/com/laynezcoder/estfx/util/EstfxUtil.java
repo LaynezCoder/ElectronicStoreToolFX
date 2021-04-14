@@ -21,7 +21,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import org.apache.commons.validator.UrlValidator;
@@ -59,11 +59,11 @@ public class EstfxUtil {
         });
     }
 
-    public static void disableButton(ActionEvent event, Button button) {
-        if (event.getSource().equals(button)) {
-            button.setDisable(true);
+    public static void disableNode(Event event, Node node) {
+        if (event.getSource().equals(node)) {
+            node.setDisable(true);
         } else {
-            button.setDisable(false);
+            node.setDisable(false);
         }
     }
 

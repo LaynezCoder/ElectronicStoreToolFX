@@ -85,7 +85,6 @@ public class UserStatistics {
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
                 count = result.getInt(1);
-                System.out.println(count);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserStatistics.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,7 +139,6 @@ public class UserStatistics {
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
                 count = result.getInt(1);
-                System.out.println(count);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserStatistics.class.getName()).log(Level.SEVERE, null, ex);

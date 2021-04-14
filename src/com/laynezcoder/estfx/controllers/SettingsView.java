@@ -596,10 +596,10 @@ public class SettingsView implements Initializable {
     }
 
     private void disableButtons(ActionEvent event) {
-        EstfxUtil.disableButton(event, btnCustomersHystory);
-        EstfxUtil.disableButton(event, btnQuotesHistory);
-        EstfxUtil.disableButton(event, btnProductsHistory);
-        EstfxUtil.disableButton(event, btnSalesHistory);
+        EstfxUtil.disableNode(event, btnCustomersHystory);
+        EstfxUtil.disableNode(event, btnQuotesHistory);
+        EstfxUtil.disableNode(event, btnProductsHistory);
+        EstfxUtil.disableNode(event, btnSalesHistory);
     }
 
     private void animateNodes() {

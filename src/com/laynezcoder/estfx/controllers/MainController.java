@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -38,6 +39,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -55,7 +57,7 @@ public class MainController implements Initializable {
 
     @FXML
     private Button btnQuotes;
-    
+
     @FXML
     private Button btnSale;
 
@@ -82,7 +84,8 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        homeWindowsInitialize();
+        homeWindows(new ActionEvent());
+        btnHome.setDisable(true);
         loadUserData();
     }
 
@@ -116,22 +119,6 @@ public class MainController implements Initializable {
         imageProfile.setClip(clip);
     }
 
-    private void setDisableButtons(ActionEvent event) {
-        EstfxUtil.disableButton(event, btnHome);
-        EstfxUtil.disableButton(event, btnCustomers);
-        EstfxUtil.disableButton(event, btnQuotes);
-        EstfxUtil.disableButton(event, btnSale);
-        EstfxUtil.disableButton(event, btnProducts);
-        EstfxUtil.disableButton(event, btnUsers);
-        EstfxUtil.disableButton(event, btnStatistics);
-        EstfxUtil.disableButton(event, btnExit);
-    }
-
-    private void homeWindowsInitialize() {
-        btnHome.setDisable(true);
-        showFXMLWindows(Views.HOME);
-    }
-
     @FXML
     private void homeWindows(ActionEvent event) {
         showFXMLWindows(Views.HOME);
@@ -149,10 +136,10 @@ public class MainController implements Initializable {
         showFXMLWindows(Views.QUOTES);
         setDisableButtons(event);
     }
-    
+
     @FXML
     private void saleWindows(ActionEvent event) {
-        
+
     }
 
     @FXML
@@ -172,7 +159,8 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void settingsWindows() {
+    private void settingsWindows(MouseEvent event) {
+        setDisableButtons(event);
         showFXMLWindows(Views.SETTINGS);
     }
 
@@ -211,6 +199,18 @@ public class MainController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void setDisableButtons(Event event) {
+        EstfxUtil.disableNode(event, btnHome);
+        EstfxUtil.disableNode(event, btnCustomers);
+        EstfxUtil.disableNode(event, btnQuotes);
+        EstfxUtil.disableNode(event, btnSale);
+        EstfxUtil.disableNode(event, btnProducts);
+        EstfxUtil.disableNode(event, btnUsers);
+        EstfxUtil.disableNode(event, btnStatistics);
+        EstfxUtil.disableNode(event, btnExit);
+        EstfxUtil.disableNode(event, imageProfile);
     }
 
     public void removeButtons() {
