@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 @font-face {
     src: url("../../../resources/com/laynezcoder/fonts/poppins/Poppins-Regular.ttf");
 }
@@ -254,6 +253,10 @@
 .table-view:row-selection .table-row-cell:filled:selected { 
     -fx-background-color: -fx-color-primary;
     -fx-fill: #ffffff;
+}
+
+.table-row-cell {
+    -fx-cell-size: 30px;
 }
 
 .table-row-cell:selected .text {
@@ -658,14 +661,42 @@ date-picker-popup > * > .date-cell {
     -fx-tick-label-fill: -fx-color-text;
 }
 
-.password-field-cell {
+.btn-action {
+    -fx-font-size: 14;
+    -fx-background-radius: 5px;
+    -fx-text-fill: -fx-color-primary;
     -fx-background-color: transparent;
-    -fx-text-fill:  black;
+}
+
+.table-row-cell:selected .btn-action {
+    -fx-background-color: -fx-color-primary;
+    -fx-text-fill: #ffffff;
+}
+
+.password-field-cell {
+    -fx-font-size: 12px;
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER; 
+    -fx-text-fill: -fx-color-text;
     -fx-highlight-fill: null;
     -fx-highlight-text-fill: null;
 }
 
+.password-field-cell:disabled {
+    -fx-opacity: 1;
+}
+
 .table-row-cell:selected .password-field-cell {
-    -fx-background-color:  red;
-    -fx-text-fill:  white;
+    -fx-background-color: -fx-color-primary;
+    -fx-text-fill: #ffffff;
+}
+
+.circle-administrator {
+    -fx-fill: -fx-color-primary;
+    -fx-stroke: -fx-color-primary;
+}
+
+.circle-user {
+    -fx-fill: #2BA266;
+    -fx-stroke: #2BA266;
 }
