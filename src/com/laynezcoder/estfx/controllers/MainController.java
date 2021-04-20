@@ -86,7 +86,6 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         homeWindows(new ActionEvent());
         btnHome.setDisable(true);
-        loadUserData();
     }
 
     private void loadUserData() {
@@ -148,6 +147,8 @@ public class MainController implements Initializable {
 
     @FXML
     private void usersWindows(ActionEvent event) {
+        setDisableButtons(event);
+        showFXMLWindows(Views.USERS);
     }
 
     @FXML

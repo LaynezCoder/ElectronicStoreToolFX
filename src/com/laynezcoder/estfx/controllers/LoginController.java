@@ -27,7 +27,6 @@ import com.laynezcoder.estfx.constants.UserType;
 import com.laynezcoder.estfx.constants.Views;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.models.UserSession;
-import com.laynezcoder.estfx.util.EstfxUtil;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
@@ -58,7 +57,7 @@ import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
 
-    private final UserSession session = UserSession.getInstace();
+    private final UserSession SESSION = UserSession.getInstace();
     
     private final String IMAGE = ResourcesPackages.UI_IMAGES_PACKAGE + "login.png";
 
@@ -147,7 +146,7 @@ public class LoginController implements Initializable {
         }
 
         try {
-            String sql = "SELECT id, fullname, username, pass, biography, dialogTransition, isActive, userType, linkProfile FROM Users WHERE username = BINARY ? AND pass = BINARY ?";
+            String sql = "SELECT id, fullname, username, pass, biography, userType, linkProfile FROM Users WHERE username = BINARY ? AND pass = BINARY ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, user);
             preparedStatement.setString(2, pass);
@@ -156,8 +155,8 @@ public class LoginController implements Initializable {
             if (rs.next()) {
                 setSessionData(rs);
                 loadMain();
-                DatabaseHelper.insertUserSession(session.getId());
-                NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + session.getName() + "!");
+                DatabaseHelper.insertUserSession(SESSION.getId());
+                NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + SESSION.getName() + "!");
             } else {
                 NotificationsBuilder.create(NotificationType.ERROR, INCORRECT_CREDENTIALS);
                 Animations.shake(txtUser);
@@ -172,15 +171,13 @@ public class LoginController implements Initializable {
     }
 
     private void setSessionData(ResultSet rs) throws SQLException {
-        session.setId(rs.getInt(1));
-        session.setName(rs.getString(2));
-        session.setUsername(rs.getString(3));
-        session.setPassword(rs.getString(4));
-        session.setBiography(rs.getString(5));
-        session.setDialogTransition(rs.getString(6));
-        session.setIsActive(rs.getBoolean(7));
-        session.setUserType(rs.getString(8));
-        session.setLinkProfile(rs.getString(9));
+        SESSION.setId(rs.getInt(1));
+        SESSION.setName(rs.getString(2));
+        SESSION.setUsername(rs.getString(3));
+        SESSION.setPassword(rs.getString(4));
+        SESSION.setBiography(rs.getString(5));
+        SESSION.setUserType(rs.getString(6));
+        SESSION.setLinkProfile(rs.getString(7));
     }
 
     private void loadMain() {

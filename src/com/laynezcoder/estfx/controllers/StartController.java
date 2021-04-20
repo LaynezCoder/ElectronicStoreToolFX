@@ -34,9 +34,7 @@ import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.Views;
-import com.laynezcoder.estfx.util.DefaultProfileImage;
 import com.laynezcoder.estfx.util.I18NUtil;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -304,14 +302,13 @@ public class StartController implements Initializable {
         users.setUsername(user);
         users.setPassword(password);
         users.setBiography(bio);
-        users.setDialogTransition(getDialogTransition());
         users.setUserType("Administrator");
 
-        try {
-            users.setProfileImage(DefaultProfileImage.getImage(name));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(StartController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            users.setProfileImage(DefaultProfileImage.getImage(name));
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(StartController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         boolean result = DatabaseHelper.insertNewUser(users);
         if (result) {
@@ -326,7 +323,7 @@ public class StartController implements Initializable {
             String sql = "UPDATE Users SET biography = ?, dialogTransition = ? WHERE id = 1";
             PreparedStatement stmt = DatabaseConnection.getInstance().getConnection().prepareCall(sql);
             stmt.setString(1, users.getBiography());
-            stmt.setString(2, users.getDialogTransition());
+            //stmt.setString(2, users.getDialogTransition());
             stmt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(StartController.class.getName()).log(Level.SEVERE, null, ex);

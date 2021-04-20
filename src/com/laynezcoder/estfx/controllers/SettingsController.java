@@ -64,9 +64,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class SettingsView implements Initializable {
-
-    private final ObservableList<String> TRANSITION_OPTIONS = FXCollections.observableArrayList();
+public class SettingsController implements Initializable {
 
     private final UserSession SESSION = UserSession.getInstace();
 
@@ -223,9 +221,6 @@ public class SettingsView implements Initializable {
     private PasswordField txtConfirmPassword;
 
     @FXML
-    private ComboBox<String> cmbDialogTransition;
-
-    @FXML
     private TextArea txtDescription;
 
     private JFXDialogTool dialog;
@@ -234,31 +229,8 @@ public class SettingsView implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setMask();
         animateNodes();
-        initComboBox();
         selectText();
         init(SESSION.getId());
-    }
-
-    private void initComboBox() {
-        TRANSITION_OPTIONS.addAll("TOP", "BOTTOM", "CENTER", "LEFT", "RIGHT");
-        cmbDialogTransition.getItems().addAll(TRANSITION_OPTIONS);
-    }
-
-    private String getDialogTransition() {
-        int index = cmbDialogTransition.getSelectionModel().getSelectedIndex();
-        switch (index) {
-            case 0:
-                return TRANSITION_OPTIONS.get(0);
-            case 1:
-                return TRANSITION_OPTIONS.get(1);
-            case 2:
-                return TRANSITION_OPTIONS.get(2);
-            case 3:
-                return TRANSITION_OPTIONS.get(3);
-            case 4:
-                return TRANSITION_OPTIONS.get(4);
-        }
-        return null;
     }
 
     @FXML
@@ -309,7 +281,6 @@ public class SettingsView implements Initializable {
         txtConfirmPassword.setText(SESSION.getPassword());
         txtURL.setText(SESSION.getLinkProfile());
         txtDescription.setText(SESSION.getBiography());
-        cmbDialogTransition.getSelectionModel().select(SESSION.getDialogTransition());
     }
 
     private void updateSession(Users user) {
@@ -317,15 +288,18 @@ public class SettingsView implements Initializable {
         SESSION.setUsername(user.getUsername());
         SESSION.setPassword(user.getPassword());
         SESSION.setBiography(user.getBiography());
-        SESSION.setDialogTransition(user.getDialogTransition());
         SESSION.setLinkProfile(user.getLinkProfile());
     }
 
     private void loadData(int id) {
         //We establish values of the logged in user
-        String username = EstfxUtil.trimText(SESSION.getUsername());
+        String username = EstfxUtil.trimText(SESSION.getUsername(), 16);
         name.setText(username);
-        verifiedIcon.setVisible(SESSION.isIsActive());
+
+        if (!SESSION.getUserType().equals("Administrator")) {
+            verifiedIcon.setVisible(false);
+        }
+
         biography.setText(SESSION.getBiography());
         linkProfile.setText(SESSION.getLinkProfile());
         EstfxUtil.openBrowser(linkProfile.getText(), linkProfile);
@@ -515,11 +489,6 @@ public class SettingsView implements Initializable {
             return;
         }
 
-        if (cmbDialogTransition.getSelectionModel().isEmpty()) {
-            Animations.shake(cmbDialogTransition);
-            return;
-        }
-
         if (bio.isEmpty()) {
             txtDescription.requestFocus();
             Animations.shake(txtDescription);
@@ -540,7 +509,6 @@ public class SettingsView implements Initializable {
         user.setPassword(password);
         user.setLinkProfile(url);
         user.setBiography(bio);
-        user.setDialogTransition(getDialogTransition());
 
         boolean result = DatabaseHelper.updateUserInformation(user);
         if (result) {
@@ -570,13 +538,13 @@ public class SettingsView implements Initializable {
         try {
             ResultSet result = UserStatistics.getCustomerHistory(id);
             while (result.next()) {
-                String value = result.getString(1);
+                String value = EstfxUtil.trimText(result.getString(1), 35);
                 String date = result.getDate(2).toString();
                 historyContainer.getChildren().addAll(new HistoyBox(HistoyBox.Module.CUSTOMER, date, value));
             }
             Animations.fadeIn(historyContainer);
         } catch (SQLException ex) {
-            Logger.getLogger(SettingsView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -585,13 +553,13 @@ public class SettingsView implements Initializable {
         try {
             ResultSet result = UserStatistics.getQuotesHistory(id);
             while (result.next()) {
-                String value = result.getString(1);
+                String value = EstfxUtil.trimText(result.getString(1), 70);
                 String date = result.getDate(2).toString();
                 historyContainer.getChildren().addAll(new HistoyBox(HistoyBox.Module.QUOTE, date, value));
             }
             Animations.fadeIn(historyContainer);
         } catch (SQLException ex) {
-            Logger.getLogger(SettingsView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -608,7 +576,7 @@ public class SettingsView implements Initializable {
         Animations.fadeInUp(statisticsContainer);
         Animations.imageTransition(endImage).play();
     }
-    
+
     private void selectText() {
         TextFieldMask.selectText(txtName);
         TextFieldMask.selectText(txtUsername);
