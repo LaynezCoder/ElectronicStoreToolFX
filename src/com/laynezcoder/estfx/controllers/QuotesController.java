@@ -171,6 +171,8 @@ public class QuotesController implements Initializable {
 
     private JFXDialogTool dialogDelete;
 
+    private ContextMenu contextMenu;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeComboBox();
@@ -185,7 +187,7 @@ public class QuotesController implements Initializable {
     }
 
     private void setContextMenu() {
-        ContextMenu contextMenu = new ContextMenu(tblQuotes);
+        contextMenu = new ContextMenu(tblQuotes);
 
         contextMenu.setActionEdit(ev -> {
             showDialogEditQuote();
@@ -207,7 +209,7 @@ public class QuotesController implements Initializable {
             contextMenu.hide();
         });
 
-        contextMenu.show();
+        contextMenu.display();
     }
 
     private void initializeComboBox() {
@@ -291,11 +293,11 @@ public class QuotesController implements Initializable {
 
         dialogDelete = new JFXDialogTool(containerDelete, stckQuotes);
         dialogDelete.show();
-       
+
         dialogDelete.setOnDialogClosed(ev -> {
             if (!AlertsBuilder.isVisible()) {
                 tblQuotes.setDisable(false);
-                rootQuotes.setEffect(null); 
+                rootQuotes.setEffect(null);
             }
         });
     }
@@ -582,6 +584,10 @@ public class QuotesController implements Initializable {
     private void deleteUserDeleteKey() {
         rootQuotes.setOnKeyPressed(ev -> {
             if (ev.getCode().equals(KeyCode.DELETE)) {
+                if (contextMenu.isShowing()) {
+                    contextMenu.hide();
+                }
+
                 if (tblQuotes.isDisable()) {
                     return;
                 }

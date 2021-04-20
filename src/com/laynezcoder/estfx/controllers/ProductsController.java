@@ -231,7 +231,7 @@ public class ProductsController implements Initializable {
             contextMenu.hide();
         });
 
-        contextMenu.show();
+        contextMenu.display();
     }
 
     private void initializeImage() {
@@ -738,7 +738,7 @@ public class ProductsController implements Initializable {
         setContextMenu();
         if (UserSession.getInstace().getUserType().equals(UserType.ADMINSTRATOR.value())) {
             deleteUserDeleteKey();
-            
+
             colPorcentage.setVisible(true);
             colPurchasePrice.setVisible(true);
             btnNewProduct.setDisable(false);
@@ -843,6 +843,10 @@ public class ProductsController implements Initializable {
     private void deleteUserDeleteKey() {
         rootProducts.setOnKeyPressed(ev -> {
             if (ev.getCode().equals(KeyCode.DELETE)) {
+                if (contextMenu.isShowing()) {
+                    contextMenu.hide();
+                }
+
                 if (tblProducts.isDisable()) {
                     return;
                 }
