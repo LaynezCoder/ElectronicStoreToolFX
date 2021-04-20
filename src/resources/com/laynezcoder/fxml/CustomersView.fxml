@@ -46,7 +46,7 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-                  <Button graphicTextGap="1.0" mnemonicParsing="false" onAction="#showDialogdd" prefHeight="40.0" prefWidth="400.0" styleClass="btn-add" text="%btn.customers.add">
+                  <Button graphicTextGap="1.0" mnemonicParsing="false" onAction="#showDialogAdd" prefHeight="40.0" prefWidth="400.0" styleClass="btn-add" text="%btn.customers.add">
                      <graphic>
                         <MaterialDesignIconView fill="WHITE" glyphName="PLUS" size="20" styleClass="icon-add" />
                      </graphic>

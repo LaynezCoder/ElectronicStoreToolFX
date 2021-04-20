@@ -49,7 +49,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
@@ -301,8 +300,14 @@ public class SettingsController implements Initializable {
         }
 
         biography.setText(SESSION.getBiography());
-        linkProfile.setText(SESSION.getLinkProfile());
-        EstfxUtil.openBrowser(linkProfile.getText(), linkProfile);
+
+        if (SESSION.getLinkProfile() != null) {
+            linkProfile.setText(SESSION.getLinkProfile());
+            EstfxUtil.openBrowser(linkProfile.getText(), linkProfile);
+        } else {
+            linkProfile.setDisable(true);
+            linkProfile.setText("Not link");
+        }
 
         //We establish the date that the user joined the database
         String dateOfAdmission = UserStatistics.getInsertionDate(id);
@@ -447,7 +452,7 @@ public class SettingsController implements Initializable {
         if (username.length() < 4) {
             txtUsername.requestFocus();
             Animations.shake(txtUsername);
-            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
             return;
         }
 
@@ -460,7 +465,7 @@ public class SettingsController implements Initializable {
         if (password.length() < 4) {
             txtPassword.requestFocus();
             Animations.shake(txtPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
             return;
         }
 

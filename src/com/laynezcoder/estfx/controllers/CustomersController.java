@@ -207,7 +207,7 @@ public class CustomersController implements Initializable {
     }
 
     @FXML
-    private void showDialogdd() {
+    private void showDialogAdd() {
         enableEditControls();
         tblCustomers.setDisable(true);
         title.setText("Add customer");
@@ -274,7 +274,7 @@ public class CustomersController implements Initializable {
             return;
         }
 
-        showDialogdd();
+        showDialogAdd();
         selectedRecord();
         title.setText("Update customer");
 
@@ -291,7 +291,7 @@ public class CustomersController implements Initializable {
             return;
         }
 
-        showDialogdd();
+        showDialogAdd();
         title.setText("Customer details");
         btnSave.setDisable(true);
         disableEditControls();

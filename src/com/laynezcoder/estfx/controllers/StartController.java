@@ -197,7 +197,7 @@ public class StartController implements Initializable {
         if (user.length() < 4) {
             txtUser.requestFocus();
             Animations.shake(txtUser);
-            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
             return;
         }
 
@@ -211,7 +211,7 @@ public class StartController implements Initializable {
         if (password.length() < 4) {
             txtPassword.requestFocus();
             Animations.shake(txtPassword);
-            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
             return;
         }
 
