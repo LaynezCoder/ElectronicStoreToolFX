@@ -101,10 +101,7 @@ public class AlertsBuilder {
     }
 
     public static boolean isVisible() {
-        if (dialog == null) {
-            return false;
-        }
-        return dialog.isVisible();
+        return dialog == null ? false : dialog.isVisible();
     }
 
     private static void function(AlertType type) {

@@ -27,17 +27,15 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 
-public class ContextMenu {
+public class ContextMenu extends JFXPopup {
 
-    MaterialDesignIconView ICON_EDIT = new MaterialDesignIconView(MaterialDesignIcon.PENCIL);
+    private final MaterialDesignIconView ICON_EDIT = new MaterialDesignIconView(MaterialDesignIcon.PENCIL);
 
-    MaterialDesignIconView ICON_DELETE = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
+    private final MaterialDesignIconView ICON_DELETE = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
 
-    MaterialDesignIconView ICON_DETAILS = new MaterialDesignIconView(MaterialDesignIcon.CLIPBOARD_OUTLINE);
+    private final MaterialDesignIconView ICON_DETAILS = new MaterialDesignIconView(MaterialDesignIcon.CLIPBOARD_OUTLINE);
 
-    MaterialDesignIconView ICON_REFRESH = new MaterialDesignIconView(MaterialDesignIcon.REFRESH);
-
-    private final JFXPopup popup;
+    private final MaterialDesignIconView ICON_REFRESH = new MaterialDesignIconView(MaterialDesignIcon.REFRESH);
 
     private final Node node;
 
@@ -52,9 +50,8 @@ public class ContextMenu {
     public ContextMenu(Node node) {
         this.node = node;
 
-        popup = new JFXPopup();
-        popup.setPopupContent(getContent());
-        popup.getStyleClass().add("jfx-popup");
+        setPopupContent(get());
+        getStyleClass().add("jfx-popup");
     }
 
     public void setActionEdit(EventHandler action) {
@@ -73,31 +70,27 @@ public class ContextMenu {
         refresh.setOnAction(action);
     }
 
-    public void show() {
+    public void display() {
         node.setOnMouseClicked(ev -> {
             if (ev.getButton().equals(MouseButton.SECONDARY)) {
-                popup.show(node);
-                popup.setAnchorX(ev.getScreenX());
-                popup.setAnchorY(ev.getScreenY());
+                show(node);
+                setAnchorX(ev.getScreenX());
+                setAnchorY(ev.getScreenY());
             }
         });
     }
-
-    public void hide() {
-        popup.hide();
-    }
-
+    
     public Button getEditButton() {
         return edit;
     }
-    
+
     public Button getDeleteButton() {
         return delete;
     }
 
-    private VBox getContent() {
+    private VBox get() {
         setStyleToIcons();
-        
+
         edit = new Button("Edit");
         edit.setGraphic(ICON_EDIT);
         edit.setAlignment(Pos.CENTER_LEFT);
@@ -121,7 +114,7 @@ public class ContextMenu {
         refresh.setAlignment(Pos.CENTER_LEFT);
         refresh.setContentDisplay(ContentDisplay.LEFT);
         setStyleToButton(refresh);
-       
+
         VBox contextMenu = new VBox();
         contextMenu.setPadding(new Insets(5));
         contextMenu.getStyleClass().add("card");
@@ -133,7 +126,7 @@ public class ContextMenu {
     private void setStyleToButton(Button button) {
         button.getStyleClass().add("button-context-menu");
     }
-    
+
     private void setStyleToIcons() {
         ICON_DELETE.getStyleClass().add("icon-context-menu");
         ICON_EDIT.getStyleClass().add("icon-context-menu");

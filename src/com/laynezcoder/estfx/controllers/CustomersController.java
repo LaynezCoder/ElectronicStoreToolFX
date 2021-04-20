@@ -28,7 +28,6 @@ import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.util.ContextMenu;
-import com.laynezcoder.estfx.util.EstfxUtil;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -138,6 +137,8 @@ public class CustomersController implements Initializable {
     private JFXDialogTool dialogAdd;
 
     private JFXDialogTool dialogDelete;
+    
+    private ContextMenu contextMenu;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -153,7 +154,7 @@ public class CustomersController implements Initializable {
     }
 
     private void setContextMenu() {
-        ContextMenu contextMenu = new ContextMenu(tblCustomers);
+        contextMenu = new ContextMenu(tblCustomers);
 
         contextMenu.setActionEdit(ev -> {
             showDialogEdit();
@@ -175,7 +176,7 @@ public class CustomersController implements Initializable {
             contextMenu.hide();
         });
 
-        contextMenu.show();
+        contextMenu.display();
     }
 
     private void animateNodes() {
@@ -488,6 +489,10 @@ public class CustomersController implements Initializable {
     private void deleteUserDeleteKey() {
         rootCustomers.setOnKeyPressed(ev -> {
             if (ev.getCode().equals(KeyCode.DELETE)) {
+                if (contextMenu.isShowing()) {
+                    contextMenu.hide();
+                }
+
                 if (tblCustomers.isDisable()) {
                     return;
                 }
