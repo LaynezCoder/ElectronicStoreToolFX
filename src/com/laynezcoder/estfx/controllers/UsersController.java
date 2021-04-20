@@ -15,10 +15,6 @@
  */
 package com.laynezcoder.estfx.controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.database.DatabaseConnection;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.alerts.AlertType;
@@ -59,9 +55,13 @@ import com.laynezcoder.estfx.util.JFXDialogTool;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.UserSession;
 import com.laynezcoder.estfx.util.ContextMenu;
-import com.laynezcoder.estfx.util.DefaultProfileImage;
-import java.io.FileNotFoundException;
+import com.laynezcoder.estfx.util.EstfxUtil;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class UsersController implements Initializable {
 
@@ -78,10 +78,13 @@ public class UsersController implements Initializable {
     private AnchorPane rootUsers;
 
     @FXML
-    private AnchorPane addUserContainer;
+    private VBox containerAdd;
 
     @FXML
     private HBox hboxSearch;
+
+    @FXML
+    private HBox buttonsContainer;
 
     @FXML
     private TableView<Users> tblUsers;
@@ -90,16 +93,13 @@ public class UsersController implements Initializable {
     private TableColumn<Users, Integer> colId;
 
     @FXML
-    private TableColumn<Users, String> colName;
-
-    @FXML
-    private TableColumn<Users, String> colUser;
+    private TableColumn<Users, HBox> colUsername;
 
     @FXML
     private TableColumn<Users, PasswordField> colPassword;
 
     @FXML
-    private TableColumn<Users, JFXButton> colTypeUser;
+    private TableColumn<Users, Button> colAction;
 
     @FXML
     private TextField txtSearchName;
@@ -108,34 +108,31 @@ public class UsersController implements Initializable {
     private TextField txtSearchUser;
 
     @FXML
-    private JFXTextField txtName;
+    private TextField txtName;
 
     @FXML
-    private JFXTextField txtUser;
+    private TextField txtUser;
 
     @FXML
-    private JFXTextField txtPassword;
+    private TextField txtPassword;
 
     @FXML
-    private JFXPasswordField pfPassword;
+    private PasswordField pfPassword;
 
     @FXML
-    private JFXComboBox<String> cmbTypeUser;
-
-    @FXML
-    private JFXButton btnNewUser;
+    private ComboBox<String> cmbTypeUser;
 
     @FXML
     private AnchorPane deleteUserContainer;
 
     @FXML
-    private JFXButton btnSaveUser;
+    private Button btnSave;
 
     @FXML
-    private JFXButton btnUpdateUser;
+    private Button btnUpdate;
 
     @FXML
-    private Text titleAddUser;
+    private Text title;
 
     @FXML
     private FontAwesomeIconView icon;
@@ -143,6 +140,8 @@ public class UsersController implements Initializable {
     private JFXDialogTool dialogAddUser;
 
     private JFXDialogTool dialogDeleteUser;
+
+    private ContextMenu contextMenu;
 
     private ObservableList<Users> listUsers;
 
@@ -156,15 +155,13 @@ public class UsersController implements Initializable {
         setMask();
         setContextMenu();
         deleteUserDeleteKey();
-        closeDialogWithEscapeKey();
         initalizeComboBox();
-        selectTextFromTextField();
-        closeDialogWithTextFields();
+        selectText();
         filterUsers = FXCollections.observableArrayList();
     }
-    
-     private void setContextMenu() {
-        ContextMenu contextMenu = new ContextMenu(tblUsers);
+
+    private void setContextMenu() {
+        contextMenu = new ContextMenu(tblUsers);
 
         contextMenu.setActionEdit(ev -> {
             showDialogEditUser();
@@ -172,12 +169,12 @@ public class UsersController implements Initializable {
         });
 
         contextMenu.setActionDelete(ev -> {
-            showDialogDeleteUser();
+            showDialogDelete();
             contextMenu.hide();
         });
 
         contextMenu.setActionDetails(ev -> {
-            showDialogDetailsUser();
+            showDialogDetails();
             contextMenu.hide();
         });
 
@@ -186,16 +183,16 @@ public class UsersController implements Initializable {
             contextMenu.hide();
         });
 
-        contextMenu.show();
+        contextMenu.display();
     }
-     
+
     private void setMask() {
         TextFieldMask.onlyLetters(txtName, 40);
         TextFieldMask.onlyNumbersAndLettersNotSpaces(txtUser, 40);
         TextFieldMask.onlyNumbersAndLettersNotSpaces(pfPassword, 40);
     }
 
-    private void selectTextFromTextField() {
+    private void selectText() {
         TextFieldMask.selectText(txtName);
         TextFieldMask.selectText(txtUser);
         TextFieldMask.selectText(pfPassword);
@@ -204,33 +201,26 @@ public class UsersController implements Initializable {
     private void animateNodes() {
         Animations.fadeInUp(tblUsers);
         Animations.fadeInUp(hboxSearch);
-        Animations.fadeInUp(btnNewUser);
     }
 
     private void initalizeComboBox() {
         cmbTypeUser.getItems().addAll("Administrator", "User");
-        cmbTypeUser.focusedProperty().addListener((o, oldV, newV) -> {
-            if (!oldV) {
-                cmbTypeUser.show();
-            } else {
-                cmbTypeUser.hide();
-            }
-        });
     }
 
     @FXML
-    private void showDialogAddUser() {
-        disableTable();
-        resetValidations();
+    private void showDialogAdd() {
         enableEditControls();
+        tblUsers.setDisable(true);
+        title.setText("Add user");
         rootUsers.setEffect(Constants.BOX_BLUR_EFFECT);
-        btnSaveUser.toFront();
-        btnUpdateUser.setVisible(true);
-        btnSaveUser.setDisable(false);
-        addUserContainer.setVisible(true);
-        titleAddUser.setText("Add user");
 
-        dialogAddUser = new JFXDialogTool(addUserContainer, stckUsers);
+        if (!buttonsContainer.getChildren().contains(btnSave)) {
+            buttonsContainer.getChildren().add(btnSave);
+        }
+        btnSave.setDisable(false);
+        buttonsContainer.getChildren().remove(btnUpdate);
+
+        dialogAddUser = new JFXDialogTool(containerAdd, stckUsers);
         dialogAddUser.show();
 
         dialogAddUser.setOnDialogOpened(ev -> {
@@ -238,43 +228,41 @@ public class UsersController implements Initializable {
         });
 
         dialogAddUser.setOnDialogClosed(ev -> {
-            tblUsers.setDisable(false);
-            rootUsers.setEffect(null);
-            addUserContainer.setVisible(false);
-            cleanControls();
+            if (!AlertsBuilder.isVisible()) {
+                tblUsers.setDisable(false);
+                rootUsers.setEffect(null);
+                cleanControls();
+            }
         });
     }
 
     @FXML
-    private void closeDialogAddUser() {
-        if (dialogAddUser != null) {
-            dialogAddUser.close();
-        }
+    private void closeDialogAdd() {
+        dialogAddUser.close();
     }
 
-    @FXML
-    private void showDialogDeleteUser() {
+    private void showDialogDelete() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
-        deleteUserContainer.setVisible(true);
+        tblUsers.setDisable(true);
         rootUsers.setEffect(Constants.BOX_BLUR_EFFECT);
-        disableTable();
 
         dialogDeleteUser = new JFXDialogTool(deleteUserContainer, stckUsers);
         dialogDeleteUser.show();
 
         dialogDeleteUser.setOnDialogClosed(ev -> {
-            tblUsers.setDisable(false);
-            rootUsers.setEffect(null);
-            cleanControls();
+            if (!AlertsBuilder.isVisible()) {
+                tblUsers.setDisable(false);
+                rootUsers.setEffect(null);
+            }
         });
     }
 
     @FXML
-    private void closeDialogDeleteUser() {
+    private void closeDialogDelete() {
         if (dialogDeleteUser != null) {
             dialogDeleteUser.close();
         }
@@ -287,24 +275,26 @@ public class UsersController implements Initializable {
             return;
         }
 
-        showDialogAddUser();
+        showDialogAdd();
         selectedRecord();
-        titleAddUser.setText("Update user");
-        btnUpdateUser.toFront();
+        title.setText("Update user");
+
+        if (!buttonsContainer.getChildren().contains(btnUpdate)) {
+            buttonsContainer.getChildren().add(btnUpdate);
+        }
+        buttonsContainer.getChildren().remove(btnSave);
     }
 
     @FXML
-    private void showDialogDetailsUser() {
+    private void showDialogDetails() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
-        showDialogAddUser();
-        titleAddUser.setText("User details");
-        btnSaveUser.toFront();
-        btnSaveUser.setDisable(true);
-        btnUpdateUser.setVisible(false);
+        showDialogAdd();
+        title.setText("User details");
+        btnSave.setDisable(true);   
         disableEditControls();
         selectedRecord();
     }
@@ -313,25 +303,24 @@ public class UsersController implements Initializable {
     private void loadData() {
         laodTable();
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
-        colUser.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colPassword.setCellValueFactory(new JFXPasswordCellValueFactory());
-        colTypeUser.setCellValueFactory(new JFXButtonTypeUserCellValueFactory());
+        colUsername.setCellValueFactory(new UsernameCellValueFactory());
+        colAction.setCellValueFactory(new ActionCellValueFactory());
+        colPassword.setCellValueFactory(new PasswordCellValueFactory());
     }
 
     private void laodTable() {
         ArrayList<Users> list = new ArrayList<>();
         try {
-            String sql = "SELECT id, nameUser, email, pass, userType FROM Users";
+            String sql = "SELECT id, fullname, username, pass, userType FROM Users";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String nameUser = resultSet.getString("nameUser");
-                String email = resultSet.getString("email");
+                String fullname = resultSet.getString("fullname");
+                String username = resultSet.getString("username");
                 String pass = resultSet.getString("pass");
                 String userType = resultSet.getString("userType");
-                list.add(new Users(id, nameUser, email, pass, userType));
+                list.add(new Users(id, fullname, username, pass, userType));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
@@ -359,8 +348,8 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (user.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+        if (user.length() < 5) {
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
             txtUser.requestFocus();
             Animations.shake(txtUser);
             return;
@@ -372,8 +361,8 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (password.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+        if (password.length() < 5) {
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
             pfPassword.requestFocus();
             Animations.shake(pfPassword);
             return;
@@ -392,15 +381,9 @@ public class UsersController implements Initializable {
         }
 
         Users users = new Users(name, user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
-        try {
-            users.setProfileImage(DefaultProfileImage.getImage(name));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        boolean result = DatabaseHelper.insertNewUser(users, listUsers);
+        boolean result = DatabaseHelper.insertNewUser(users);
         if (result) {
-            closeDialogAddUser();
+            closeDialogAdd();
             loadData();
             cleanControls();
             AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.ADDED_RECORD);
@@ -416,7 +399,6 @@ public class UsersController implements Initializable {
         String password = txtPassword.getText().trim();
         int id = tblUsers.getSelectionModel().getSelectedItem().getId();
         String userFromTable = tblUsers.getSelectionModel().getSelectedItem().getUsername();
-        String userType = tblUsers.getSelectionModel().getSelectedItem().getUserType();
 
         if (name.isEmpty()) {
             txtName.requestFocus();
@@ -430,8 +412,8 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (user.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+        if (user.length() < 5) {
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
             txtUser.requestFocus();
             Animations.shake(txtUser);
             return;
@@ -443,8 +425,8 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (password.length() < 4) {
-            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_4_CHARACTERES);
+        if (password.length() < 5) {
+            NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
             pfPassword.requestFocus();
             Animations.shake(pfPassword);
             return;
@@ -455,7 +437,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (id == 1 && cmbTypeUser.getSelectionModel().getSelectedItem().equals("User")) {
+        if (id == 1 && cmbTypeUser.getSelectionModel().getSelectedIndex() == 1) {
             NotificationsBuilder.create(NotificationType.INVALID_ACTION, ADMINISTRATOR_ONLY);
             Animations.shake(cmbTypeUser);
             return;
@@ -467,7 +449,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (UserSession.getInstace().getId() == id && !cmbTypeUser.getSelectionModel().getSelectedItem().equals(userType)) {
+        if (UserSession.getInstace().getId() == id && cmbTypeUser.getSelectionModel().getSelectedIndex() == 1) {
             NotificationsBuilder.create(NotificationType.INVALID_ACTION, UNABLE_TO_CHANGE);
             Animations.shake(cmbTypeUser);
             return;
@@ -476,7 +458,7 @@ public class UsersController implements Initializable {
         Users users = new Users(id, name, user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
         boolean result = DatabaseHelper.updateUser(users);
         if (result) {
-            closeDialogAddUser();
+            closeDialogAdd();
             loadData();
             cleanControls();
             AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.UPDATED_RECORD);
@@ -502,7 +484,7 @@ public class UsersController implements Initializable {
         boolean result = DatabaseHelper.deleteUser(tblUsers, listUsers);
         if (result) {
             loadData();
-            closeDialogDeleteUser();
+            closeDialogDelete();
             AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.DELETED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
@@ -556,65 +538,13 @@ public class UsersController implements Initializable {
         cmbTypeUser.getSelectionModel().clearSelection();
     }
 
-    private void resetValidations() {
-        txtUser.resetValidation();
-        txtName.resetValidation();
-        txtPassword.resetValidation();
-        pfPassword.resetValidation();
-        cmbTypeUser.resetValidation();
-    }
-
-    private void disableTable() {
-        tblUsers.setDisable(true);
-    }
-
-    private void closeDialogWithEscapeKey() {
-        rootUsers.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogDeleteUser();
-            }
-
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddUser();
-            }
-
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                tblUsers.setDisable(false);
-                rootUsers.setEffect(null);
-                AlertsBuilder.close();
-            }
-        });
-
-        addUserContainer.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddUser();
-            }
-        });
-    }
-
-    private void closeDialogWithTextFields() {
-        txtName.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddUser();
-            }
-        });
-
-        txtPassword.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddUser();
-            }
-        });
-
-        cmbTypeUser.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddUser();
-            }
-        });
-    }
-
     private void deleteUserDeleteKey() {
         rootUsers.setOnKeyPressed(ev -> {
             if (ev.getCode().equals(KeyCode.DELETE)) {
+                if (contextMenu.isShowing()) {
+                    contextMenu.hide();
+                }
+
                 if (tblUsers.isDisable()) {
                     return;
                 }
@@ -646,7 +576,7 @@ public class UsersController implements Initializable {
     }
 
     @FXML
-    private void filterUser() {
+    private void filterUsername() {
         String user = txtSearchUser.getText().trim();
         if (user.isEmpty()) {
             tblUsers.setItems(listUsers);
@@ -661,38 +591,57 @@ public class UsersController implements Initializable {
         }
     }
 
-    private class JFXPasswordCellValueFactory implements Callback<TableColumn.CellDataFeatures<Users, PasswordField>, ObservableValue<PasswordField>> {
+    private class PasswordCellValueFactory implements Callback<TableColumn.CellDataFeatures<Users, PasswordField>, ObservableValue<PasswordField>> {
 
         @Override
         public ObservableValue<PasswordField> call(TableColumn.CellDataFeatures<Users, PasswordField> param) {
             Users item = param.getValue();
 
             PasswordField password = new PasswordField();
-            password.setEditable(false);
-            password.setPrefWidth(colPassword.getWidth() / 0.5);
+            password.setDisable(true);
             password.setText(item.getPassword());
-            password.getStyleClass().addAll("password-field-cell", "table-row-cell");
+            password.getStyleClass().add("password-field-cell");
 
             return new SimpleObjectProperty<>(password);
         }
     }
 
-    private class JFXButtonTypeUserCellValueFactory implements Callback<TableColumn.CellDataFeatures<Users, JFXButton>, ObservableValue<JFXButton>> {
+    private class UsernameCellValueFactory implements Callback<TableColumn.CellDataFeatures<Users, HBox>, ObservableValue<HBox>> {
 
         @Override
-        public ObservableValue<JFXButton> call(TableColumn.CellDataFeatures<Users, JFXButton> param) {
+        public ObservableValue<HBox> call(TableColumn.CellDataFeatures<Users, HBox> param) {
             Users item = param.getValue();
 
-            JFXButton button = new JFXButton();
-            button.setPrefWidth(colTypeUser.getWidth() / 0.5);
-            button.setText(item.getUserType());
+            Region icon = new Region();
+            icon.getStyleClass().add("svg-verified-icon");
 
-            if (item.getUserType().equals("Administrator")) {
-                button.getStyleClass().addAll("button-administrador", "table-row-cell");
-            } else {
-                button.getStyleClass().addAll("button-user", "table-row-cell");
+            String trimmedUsername = EstfxUtil.trimText(item.getUsername(), 10);
+            Text name = new Text(trimmedUsername);
+            name.getStyleClass().add("text-name");
+
+            HBox container = new HBox(name, icon);
+            container.setAlignment(Pos.CENTER);
+            container.setSpacing(5);
+
+            if (!item.getUserType().equals("Administrator")) {
+                container.getChildren().remove(icon);
             }
-            return new SimpleObjectProperty<>(button);
+            return new SimpleObjectProperty<>(container);
+        }
+    }
+
+    private class ActionCellValueFactory implements Callback<TableColumn.CellDataFeatures<Users, Button>, ObservableValue<Button>> {
+
+        @Override
+        public ObservableValue<Button> call(TableColumn.CellDataFeatures<Users, Button> param) {
+            Users item = param.getValue();
+
+            Button action = new Button("View profile");
+            action.getStyleClass().add("btn-action");
+            action.setOnAction(t -> {
+                //Action
+            });
+            return new SimpleObjectProperty<>(action);
         }
     }
 }
