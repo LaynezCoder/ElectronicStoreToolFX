@@ -691,12 +691,8 @@ date-picker-popup > * > .date-cell {
     -fx-text-fill: #ffffff;
 }
 
-.circle-administrator {
-    -fx-fill: -fx-color-primary;
-    -fx-stroke: -fx-color-primary;
-}
-
-.circle-user {
-    -fx-fill: #2BA266;
-    -fx-stroke: #2BA266;
+.table-row-cell:selected .svg-verified-icon,
+.table-row-cell:selected .text-name {
+    -fx-background-color: #ffffff;
+    -fx-fill: #ffffff;
 }

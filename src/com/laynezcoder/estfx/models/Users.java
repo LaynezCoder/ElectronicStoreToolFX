@@ -15,8 +15,6 @@
  */
 package com.laynezcoder.estfx.models;
 
-import java.io.InputStream;
-
 public class Users {
 
     private int id;
@@ -24,11 +22,8 @@ public class Users {
     private String username;
     private String password;
     private String biography;
-    private String dialogTransition;
     private String userType;
-    private boolean active;
     private String linkProfile;
-    private InputStream profileImage;
 
     public Users() {}
 
@@ -38,22 +33,28 @@ public class Users {
         this.password = password;
         this.userType = userType;
     }
-
-    public Users(int id, String name, String username, String password, String biography, String dialogTransition, String userType) {
+    
+    public Users(int id, String username, String password, String userType) {
         this.id = id;
-        this.name = name;
         this.username = username;
         this.password = password;
-        this.biography = biography;
-        this.dialogTransition = dialogTransition;
         this.userType = userType;
     }
-
+    
     public Users(int id, String name, String username, String password, String userType) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
+        this.userType = userType;
+    }
+
+    public Users(int id, String name, String username, String password, String biography, String userType) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.biography = biography;
         this.userType = userType;
     }
 
@@ -97,36 +98,12 @@ public class Users {
         this.biography = biography;
     }
 
-    public String getDialogTransition() {
-        return dialogTransition;
-    }
-
-    public void setDialogTransition(String dialogTransition) {
-        this.dialogTransition = dialogTransition;
-    }
-
-    public InputStream getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(InputStream imageProfile) {
-        this.profileImage = imageProfile;
-    }
-    
     public String getUserType() {
         return userType;
     }
 
     public void setUserType(String userType) {
         this.userType = userType;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public String getLinkProfile() {

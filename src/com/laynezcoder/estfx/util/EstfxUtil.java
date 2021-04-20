@@ -23,14 +23,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.Event;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import org.apache.commons.validator.UrlValidator;
 
 public class EstfxUtil {
 
     private static final char SPACE = ' ';
-
-    private static final int MAX_LENGTH = 15;
 
     public static String getNameWithoutSpaces(String name) {
         for (int i = 0; i < name.length(); i++) {
@@ -41,9 +38,9 @@ public class EstfxUtil {
         return name;
     }
 
-    public static String trimText(String value) {
-        if (value.length() > MAX_LENGTH) {
-            return value.substring(0, MAX_LENGTH) + "...";
+    public static String trimText(String value, int size) {
+        if (value.length() > size) {
+            return value.substring(0, size - 1) + "...";
         }
         return value;
     }

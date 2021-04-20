@@ -24,8 +24,6 @@ public class UserSession {
     private String username;
     private String password;
     private String biography;
-    private String dialogTransition;
-    private boolean isActive;
     private String linkProfile;
     private String userType;
     
@@ -78,22 +76,6 @@ public class UserSession {
         this.biography = biography;
     }
 
-    public String getDialogTransition() {
-        return dialogTransition;
-    }
-
-    public void setDialogTransition(String dialogTransition) {
-        this.dialogTransition = dialogTransition;
-    }
-
-    public boolean isIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
     public String getLinkProfile() {
         return linkProfile;
     }
@@ -117,7 +99,5 @@ public class UserSession {
         this.password = "";
         this.biography = "";
         this.userType = "";
-        this.isActive = false;
-        this.dialogTransition = "";
     }
 }

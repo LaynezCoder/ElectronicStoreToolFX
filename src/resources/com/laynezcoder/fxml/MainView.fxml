@@ -55,6 +55,11 @@
                         <MaterialDesignIconView fill="WHITE" glyphName="CHART_LINE" size="25" styleClass="side-bar-icon" />
                      </graphic>
                   </Button>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" styleClass="side-bar-button" text="Button">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="SETTINGS" size="25" styleClass="side-bar-icon" />
+                     </graphic>
+                  </Button>
                   <Button fx:id="btnExit" mnemonicParsing="false" onAction="#loginWindow" prefHeight="60.0" prefWidth="70.0" styleClass="side-bar-button" text="Button">
                      <graphic>
                         <MaterialDesignIconView fill="WHITE" glyphName="POWER" size="25" styleClass="side-bar-icon" />
