@@ -36,8 +36,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 
 public class DatabaseHelper {
-    
-    private static final UserSession session =  UserSession.getInstace();
+
+    private static final UserSession SESSION = UserSession.getInstace();
 
     public static boolean insertNewCustomer(Customers customers) {
         try {
@@ -47,7 +47,7 @@ public class DatabaseHelper {
             preparedStatement.setString(2, customers.getPhone());
             preparedStatement.setString(3, customers.getEmail());
             preparedStatement.setString(4, customers.getIt());
-            preparedStatement.setInt(5, session.getId());
+            preparedStatement.setInt(5, SESSION.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -115,7 +115,7 @@ public class DatabaseHelper {
             preparedStatement.setString(5, quotes.getRealization());
             preparedStatement.setString(6, quotes.getReport());
             preparedStatement.setInt(7, quotes.getCustomerId());
-            preparedStatement.setInt(8, session.getId());
+            preparedStatement.setInt(8, SESSION.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -276,34 +276,15 @@ public class DatabaseHelper {
         return image;
     }
 
-    public static boolean insertNewUser(Users users, ObservableList<Users> listUsers) {
-        try {
-            String sql = "INSERT INTO Users (nameUser, email, pass, userType, profileImage) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, users.getName());
-            preparedStatement.setString(2, users.getUsername());
-            preparedStatement.setString(3, users.getPassword());
-            preparedStatement.setString(4, users.getUserType());
-            preparedStatement.setBlob(5, users.getProfileImage());
-            preparedStatement.execute();
-            listUsers.add(users);
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-    
     public static boolean insertNewUser(Users users) {
         try {
-            String sql = "INSERT INTO Users (nameUser, email, pass, userType, profileImage) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Users (fullname, username, pass, userType) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, users.getName());
             preparedStatement.setString(2, users.getUsername());
             preparedStatement.setString(3, users.getPassword());
             preparedStatement.setString(4, users.getUserType());
-            preparedStatement.setBlob(5, users.getProfileImage());
-            preparedStatement.execute(); 
+            preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -311,13 +292,12 @@ public class DatabaseHelper {
         return false;
     }
 
-    public static boolean deleteUser(TableView<Users> tbl, ObservableList<Users> listUsers) {
+    public static boolean deleteUser(TableView<Users> tbl) {
         try {
             String sql = "DELETE FROM Users WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, tbl.getSelectionModel().getSelectedItem().getId());
             preparedStatement.execute();
-            listUsers.remove(tbl.getSelectionModel().getSelectedIndex());
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -327,7 +307,7 @@ public class DatabaseHelper {
 
     public static boolean updateUser(Users users) {
         try {
-            String sql = "UPDATE Users SET nameUser = ?, email = ?, pass = ?, userType = ? WHERE id = ?";
+            String sql = "UPDATE Users SET fullname = ?, username = ?, pass = ?, userType = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, users.getName());
             preparedStatement.setString(2, users.getUsername());
@@ -344,15 +324,14 @@ public class DatabaseHelper {
 
     public static boolean updateUserInformation(Users users) {
         try {
-            String sql = "UPDATE Users SET fullname = ?, username = ?, pass = ?, biography = ?, dialogTransition = ?, linkProfile = ? WHERE id = ?";
+            String sql = "UPDATE Users SET fullname = ?, username = ?, pass = ?, biography = ?, linkProfile = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setString(1, users.getName());
             preparedStatement.setString(2, users.getUsername());
             preparedStatement.setString(3, users.getPassword());
             preparedStatement.setString(4, users.getBiography());
-            preparedStatement.setString(5, users.getDialogTransition());
-            preparedStatement.setString(6, users.getLinkProfile());
-            preparedStatement.setInt(7, users.getId());
+            preparedStatement.setString(5, users.getLinkProfile());
+            preparedStatement.setInt(6, users.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -366,7 +345,7 @@ public class DatabaseHelper {
             String sql = "UPDATE Users SET profileImage = ? WHERE id = ?";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setBlob(1, inputStream);
-            preparedStatement.setInt(2, session.getId());
+            preparedStatement.setInt(2, SESSION.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -407,15 +386,15 @@ public class DatabaseHelper {
     }
 
     public final static JFXDialog.DialogTransition dialogTransition() {
-        return JFXDialog.DialogTransition.valueOf(session.getDialogTransition());
+        return JFXDialog.DialogTransition.valueOf("CENTER");
     }
-    
+
     public static void insertUserSession(int id) {
         try {
             String sql = "INSERT INTO UserSession (userId) VALUES (?)";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
-            preparedStatement.execute(); 
+            preparedStatement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -427,7 +406,7 @@ public class DatabaseHelper {
             String sql = "SELECT COUNT(*) FROM Customers WHERE insertionDate = ?";
             PreparedStatement preparedStatementCustomers = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatementCustomers.setDate(1, new java.sql.Date(date.getTime()));
-            
+
             ResultSet rs = preparedStatementCustomers.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
@@ -445,7 +424,7 @@ public class DatabaseHelper {
             String sql = "SELECT COUNT(*) FROM Quotes WHERE requestDate = ?";
             PreparedStatement preparedStatementQuotes = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStatementQuotes.setDate(1, new java.sql.Date(date.getTime()));
-            
+
             ResultSet rs = preparedStatementQuotes.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
@@ -464,7 +443,7 @@ public class DatabaseHelper {
             String sql = "SELECT COUNT(*) FROM Products WHERE insertionDate = ?";
             PreparedStatement preparedStetementProducts = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
             preparedStetementProducts.setDate(1, new java.sql.Date(date.getTime()));
-            
+
             ResultSet rs = preparedStetementProducts.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
@@ -473,9 +452,9 @@ public class DatabaseHelper {
             count = 0;
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return count; 
+        return count;
     }
-    
+
     public static int getCustomers() {
         int count = 0;
         try {
@@ -498,7 +477,7 @@ public class DatabaseHelper {
         try {
             String sql = "SELECT COUNT(*) FROM Quotes";
             PreparedStatement preparedStatementQuotes = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            
+
             ResultSet rs = preparedStatementQuotes.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
@@ -516,7 +495,7 @@ public class DatabaseHelper {
         try {
             String sql = "SELECT COUNT(*) FROM Products";
             PreparedStatement preparedStetementProducts = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            
+
             ResultSet rs = preparedStetementProducts.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
@@ -525,6 +504,6 @@ public class DatabaseHelper {
             count = 0;
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return count; 
+        return count;
     }
 }

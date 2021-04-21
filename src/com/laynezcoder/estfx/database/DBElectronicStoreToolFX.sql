@@ -23,11 +23,8 @@ CREATE TABLE Users (
 	username VARCHAR(150) NOT NULL,
 	pass VARCHAR(150) NOT NULL,
     biography LONGTEXT NOT NULL,
-    dialogTransition VARCHAR(25) NOT NULL,
-    isActive BOOLEAN NOT NULL,
     userType VARCHAR(150) NOT NULL,
-    profileImage LONGBLOB NOT NULL,
-    linkProfile VARCHAR(150) NOT NULL,
+    linkProfile LONGTEXT NULL,
     insertionDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
@@ -91,7 +88,8 @@ CREATE TABLE UserSession (
     PRIMARY KEY (id),
     CONSTRAINT FOREIGN KEY (userId)
     REFERENCES Users (id)
+    ON DELETE CASCADE
 );
 
 CREATE TRIGGER triggerUsers BEFORE INSERT ON Users	
-    FOR EACH ROW SET NEW.biography = "Every day is a new opportunity to change your life.", NEW.dialogTransition = "CENTER", NEW.isActive = true;
+    FOR EACH ROW SET NEW.biography = "Every day is a new opportunity to change your life.";
