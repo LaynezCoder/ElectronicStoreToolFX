@@ -2,7 +2,6 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -71,7 +70,7 @@
                   </Button>
                </children>
             </HBox>
-            <VBox fx:id="containerAdd" layoutX="208.0" layoutY="143.0" prefHeight="300.0" prefWidth="525.0" spacing="10.0" visible="false">
+            <VBox fx:id="containerAdd" layoutX="208.0" layoutY="143.0" prefHeight="300.0" prefWidth="525.0" spacing="10.0" styleClass="card" visible="false">
                <padding>
                   <Insets bottom="25.0" left="20.0" right="20.0" top="25.0" />
                </padding>
@@ -85,12 +84,12 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.name" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.users.name" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.phone" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.users.username" />
                            </children>
                         </HBox>
                      </children>
@@ -105,12 +104,12 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.email" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.users.password" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.it" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.users.userType" />
                            </children>
                         </HBox>
                      </children>
@@ -146,10 +145,6 @@
                      </padding>
                   </HBox>
                </children>
-               <styleClass>
-                  <String fx:value="card" />
-                  <String fx:value="jfx-dialog-overlay-pane" />
-               </styleClass>
             </VBox>
             <VBox fx:id="containerDelete" alignment="CENTER" layoutX="271.0" layoutY="158.0" prefHeight="270.0" prefWidth="400.0" styleClass="card" visible="false">
                <children>
