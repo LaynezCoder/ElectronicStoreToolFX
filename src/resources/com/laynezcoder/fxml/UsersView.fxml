@@ -84,13 +84,7 @@
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1029.0" spacing="5.0" styleClass="container-txt-search" HBox.hgrow="ALWAYS">
                      <children>
                         <FontAwesomeIconView fill="#76787c" glyphName="SEARCH" size="20" styleClass="icon-search" HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="txtSearchName" prefHeight="39.0" prefWidth="514.0" promptText="%prompt.txt.search.customer" styleClass="txt-search" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                        <FontAwesomeIconView fill="#76787c" glyphName="SEARCH" size="20" styleClass="icon-search" HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="txtSearchUser" prefHeight="39.0" prefWidth="514.0" promptText="%prompt.txt.search.phone" styleClass="txt-search" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="txtSearchUsername" onKeyReleased="#filterUsername" prefHeight="39.0" prefWidth="514.0" promptText="%prompt.txt.search.phone" styleClass="txt-search" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="13.0" />
                            </font>

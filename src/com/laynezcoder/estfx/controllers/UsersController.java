@@ -25,6 +25,7 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.constants.Views;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -56,12 +57,20 @@ import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.UserSession;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.EstfxUtil;
+import com.laynezcoder.estfx.util.I18NUtil;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class UsersController implements Initializable {
 
@@ -102,10 +111,7 @@ public class UsersController implements Initializable {
     private TableColumn<Users, Button> colAction;
 
     @FXML
-    private TextField txtSearchName;
-
-    @FXML
-    private TextField txtSearchUser;
+    private TextField txtSearchUsername;
 
     @FXML
     private TextField txtName;
@@ -189,6 +195,7 @@ public class UsersController implements Initializable {
     private void setMask() {
         TextFieldMask.onlyLetters(txtName, 40);
         TextFieldMask.onlyNumbersAndLettersNotSpaces(txtUser, 40);
+        TextFieldMask.onlyNumbersAndLettersNotSpaces(txtSearchUsername, 40);
         TextFieldMask.onlyNumbersAndLettersNotSpaces(pfPassword, 40);
     }
 
@@ -205,6 +212,11 @@ public class UsersController implements Initializable {
 
     private void initalizeComboBox() {
         cmbTypeUser.getItems().addAll("Administrator", "User");
+        cmbTypeUser.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if (newValue) {
+                cmbTypeUser.show();
+            }
+        });
     }
 
     @FXML
@@ -294,7 +306,7 @@ public class UsersController implements Initializable {
 
         showDialogAdd();
         title.setText("User details");
-        btnSave.setDisable(true);   
+        btnSave.setDisable(true);
         disableEditControls();
         selectedRecord();
     }
@@ -481,7 +493,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        boolean result = DatabaseHelper.deleteUser(tblUsers, listUsers);
+        boolean result = DatabaseHelper.deleteUser(tblUsers);
         if (result) {
             loadData();
             closeDialogDelete();
@@ -501,8 +513,10 @@ public class UsersController implements Initializable {
 
         icon.pressedProperty().addListener((o, oldVal, newVal) -> {
             if (newVal) {
+                txtPassword.requestFocus();
                 icon.setIcon(FontAwesomeIcon.EYE);
             } else {
+                pfPassword.requestFocus();
                 icon.setIcon(FontAwesomeIcon.EYE_SLASH);
             }
         });
@@ -559,25 +573,36 @@ public class UsersController implements Initializable {
         });
     }
 
-    @FXML
-    private void filterName() {
-        String name = txtSearchName.getText().trim();
-        if (name.isEmpty()) {
-            tblUsers.setItems(listUsers);
-        } else {
-            filterUsers.clear();
-            for (Users u : listUsers) {
-                if (u.getName().toLowerCase().contains(name.toLowerCase())) {
-                    filterUsers.add(u);
-                }
-            }
-            tblUsers.setItems(filterUsers);
+    private void loadProfile(int id) {
+        try {
+            FXMLLoader loader = I18NUtil.FXMLLoader(Views.SETTINGS);
+
+            Parent root = loader.load();
+            SettingsController profile = loader.getController();
+
+            profile.init(id);
+
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setMinHeight(Constants.MIN_HEIGHT);
+            stage.setMinWidth(Constants.MIN_WIDTH);
+            stage.getIcons().add(Constants.ICON);
+            stage.setTitle(Constants.TITLE);
+            stage.setScene(new Scene(root));
+            stage.initOwner(getStage());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private Stage getStage() {
+        return (Stage) txtName.getScene().getWindow();
     }
 
     @FXML
     private void filterUsername() {
-        String user = txtSearchUser.getText().trim();
+        String user = txtSearchUsername.getText().trim();
         if (user.isEmpty()) {
             tblUsers.setItems(listUsers);
         } else {
@@ -639,7 +664,7 @@ public class UsersController implements Initializable {
             Button action = new Button("View profile");
             action.getStyleClass().add("btn-action");
             action.setOnAction(t -> {
-                //Action
+                loadProfile(item.getId());
             });
             return new SimpleObjectProperty<>(action);
         }

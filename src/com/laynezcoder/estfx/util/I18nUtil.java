@@ -26,7 +26,7 @@ import javafx.scene.Parent;
 public class I18NUtil {
 
     private static final String BUNDLE = "resources.com.laynezcoder.i18n.gui";
-    
+
     public static Parent loadView(Views nameView) throws IOException {
         Locale.setDefault(Locale.getDefault());
 
@@ -35,5 +35,14 @@ public class I18NUtil {
                 ResourceBundle.getBundle(BUNDLE));
 
         return root;
+    }
+
+    public static FXMLLoader FXMLLoader(Views nameView) throws IOException {
+        Locale.setDefault(Locale.getDefault());
+
+        FXMLLoader loader = new FXMLLoader(I18NUtil.class.getResource(ResourcesPackages.FXML_PACKAGE + nameView.getValueWithExtension()),
+                ResourceBundle.getBundle(BUNDLE));
+        
+        return loader;
     }
 }
