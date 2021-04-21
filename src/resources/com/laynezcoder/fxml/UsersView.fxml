@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import java.lang.String?>
@@ -19,6 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <StackPane fx:id="stckUsers" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="940.0" stylesheets="@../light-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.laynezcoder.estfx.controllers.UsersController">
    <children>
@@ -30,10 +30,10 @@
                      <children>
                         <TableView fx:id="tblUsers" prefHeight="532.0" prefWidth="1022.0" HBox.hgrow="ALWAYS">
                            <columns>
-                              <TableColumn fx:id="colId" maxWidth="500.0" minWidth="0.0" prefWidth="62.0" text="Id" />
-                              <TableColumn fx:id="colUsername" maxWidth="2500.0" prefWidth="198.0" text="Username" />
-                              <TableColumn fx:id="colPassword" maxWidth="2500.0" prefWidth="299.0" text="Password" />
-                              <TableColumn fx:id="colAction" maxWidth="2500.0" prefWidth="96.0" text="Action" />
+                              <TableColumn fx:id="colId" maxWidth="500.0" minWidth="0.0" prefWidth="62.0" text="%col.users.id" />
+                              <TableColumn fx:id="colUsername" maxWidth="2500.0" prefWidth="198.0" text="%col.users.username" />
+                              <TableColumn fx:id="colPassword" maxWidth="2500.0" prefWidth="299.0" text="%col.users.password" />
+                              <TableColumn fx:id="colAction" maxWidth="2500.0" prefWidth="96.0" text="%col.users.action" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -46,36 +46,6 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </padding>
             </HBox>
-            <AnchorPane fx:id="deleteUserContainer" layoutX="279.0" layoutY="206.0" prefHeight="246.0" prefWidth="392.0" visible="false">
-               <children>
-                  <JFXButton layoutX="208.0" layoutY="207.0" onMouseClicked="#deleteUser" prefHeight="25.0" prefWidth="131.0" styleClass="button-delete" text="Delete" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="57.0" layoutY="207.0" onMouseClicked="#closeDialogDelete" prefHeight="25.0" prefWidth="131.0" styleClass="button-cancel" text="Cancel" textFill="GREY">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton contentDisplay="CENTER" layoutX="360.0" onMouseClicked="#closeDialogDelete" prefHeight="28.0" prefWidth="20.0" styleClass="button-close" text=" ">
-                     <graphic>
-                        <MaterialDesignIconView fill="#989cab" glyphName="CLOSE" size="20" />
-                     </graphic>
-                  </JFXButton>
-                  <VBox alignment="CENTER" layoutY="23.0" prefHeight="175.0" prefWidth="396.0" spacing="10.0">
-                     <children>
-                        <ImageView fitHeight="98.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/flaticon/dinosaur/error/12.png" />
-                           </image>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Are you sure you want to delete this user permanently?" textAlignment="CENTER" wrappingWidth="269.90625" />
-                        <Text fill="#bebec2" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h5" text="Information cannot be retrieved" />
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
             <HBox fx:id="hboxSearch" prefHeight="60.0" prefWidth="940.0" spacing="10.0" styleClass="root-txt-search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -84,7 +54,7 @@
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1029.0" spacing="5.0" styleClass="container-txt-search" HBox.hgrow="ALWAYS">
                      <children>
                         <FontAwesomeIconView fill="#76787c" glyphName="SEARCH" size="20" styleClass="icon-search" HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="txtSearchUsername" onKeyReleased="#filterUsername" prefHeight="39.0" prefWidth="514.0" promptText="%prompt.txt.search.phone" styleClass="txt-search" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="txtSearchUsername" onKeyReleased="#filterUsername" prefHeight="39.0" prefWidth="514.0" promptText="%prompt.txt.search.users.username" styleClass="txt-search" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -94,7 +64,7 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-                  <Button graphicTextGap="1.0" mnemonicParsing="false" onAction="#showDialogAdd" prefHeight="40.0" prefWidth="400.0" styleClass="btn-add" text="%btn.customers.add">
+                  <Button graphicTextGap="1.0" mnemonicParsing="false" onAction="#showDialogAdd" prefHeight="40.0" prefWidth="400.0" styleClass="btn-add" text="%btn.users.add">
                      <graphic>
                         <MaterialDesignIconView fill="WHITE" glyphName="PLUS" size="20" styleClass="icon-add" />
                      </graphic>
@@ -180,6 +150,43 @@
                   <String fx:value="card" />
                   <String fx:value="jfx-dialog-overlay-pane" />
                </styleClass>
+            </VBox>
+            <VBox fx:id="containerDelete" alignment="CENTER" layoutX="271.0" layoutY="158.0" prefHeight="270.0" prefWidth="400.0" styleClass="card" visible="false">
+               <children>
+                  <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="400.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#closeDialogDelete" styleClass="btn-close">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CLOSE" styleClass="icon-close" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <ImageView fx:id="imageDelete" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/flaticon/dinosaur/error/12.png" />
+                     </image>
+                  </ImageView>
+                  <TextFlow prefHeight="0.0" prefWidth="400.0" textAlignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="%text.customers.title.delete" />
+                     </children>
+                  </TextFlow>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.customers.subtitle.delete">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <HBox alignment="CENTER" prefHeight="132.0" prefWidth="400.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#closeDialogDelete" prefWidth="100.0" styleClass="btn-cancel" text="%btn.customers.cancel" />
+                        <Button mnemonicParsing="false" onAction="#deleteUser" prefHeight="35.0" prefWidth="100.0" styleClass="btn-delete" text="%btn.customers.delete" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
             </VBox>
          </children>
       </AnchorPane>

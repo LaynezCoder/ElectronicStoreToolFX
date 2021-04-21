@@ -25,6 +25,7 @@ import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
+import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.constants.Views;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -65,6 +66,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -129,7 +131,10 @@ public class UsersController implements Initializable {
     private ComboBox<String> cmbTypeUser;
 
     @FXML
-    private AnchorPane deleteUserContainer;
+    private VBox containerDelete;
+
+    @FXML
+    private ImageView imageDelete;
 
     @FXML
     private Button btnSave;
@@ -160,9 +165,10 @@ public class UsersController implements Initializable {
         loadData();
         setMask();
         setContextMenu();
-        deleteUserDeleteKey();
-        initalizeComboBox();
         selectText();
+        initalizeComboBox();
+        deleteUserDeleteKey();
+        imageDelete.setImage(ResourcesPackages.DELETE_IMAGE);
         filterUsers = FXCollections.observableArrayList();
     }
 
@@ -262,7 +268,7 @@ public class UsersController implements Initializable {
         tblUsers.setDisable(true);
         rootUsers.setEffect(Constants.BOX_BLUR_EFFECT);
 
-        dialogDeleteUser = new JFXDialogTool(deleteUserContainer, stckUsers);
+        dialogDeleteUser = new JFXDialogTool(containerDelete, stckUsers);
         dialogDeleteUser.show();
 
         dialogDeleteUser.setOnDialogClosed(ev -> {
@@ -573,6 +579,7 @@ public class UsersController implements Initializable {
         });
     }
 
+    //Have a bug
     private void loadProfile(int id) {
         try {
             FXMLLoader loader = I18NUtil.FXMLLoader(Views.SETTINGS);
