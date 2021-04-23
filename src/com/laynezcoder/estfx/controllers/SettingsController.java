@@ -62,6 +62,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.apache.commons.text.WordUtils;
 
 public class SettingsController implements Initializable {
 
@@ -509,7 +510,7 @@ public class SettingsController implements Initializable {
 
         Users user = new Users();
         user.setId(SESSION.getId());
-        user.setName(fullname);
+        user.setName(WordUtils.capitalize(fullname));
         user.setUsername(username);
         user.setPassword(password);
         user.setLinkProfile(url);

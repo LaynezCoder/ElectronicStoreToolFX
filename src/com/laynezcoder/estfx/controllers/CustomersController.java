@@ -54,6 +54,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.apache.commons.text.WordUtils;
 
 public class CustomersController implements Initializable {
 
@@ -365,7 +366,7 @@ public class CustomersController implements Initializable {
         }
 
         Customers customers = new Customers();
-        customers.setName(name);
+        customers.setName(WordUtils.capitalizeFully(name)); 
         customers.setPhone(phoneNumber);
 
         if (email.isEmpty()) {

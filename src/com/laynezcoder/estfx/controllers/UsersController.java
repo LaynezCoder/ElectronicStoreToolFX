@@ -73,6 +73,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.commons.text.WordUtils;
 
 public class UsersController implements Initializable {
 
@@ -473,7 +474,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        Users users = new Users(id, name, user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
+        Users users = new Users(id, WordUtils.capitalize(name), user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
         boolean result = DatabaseHelper.updateUser(users);
         if (result) {
             closeDialogAdd();
