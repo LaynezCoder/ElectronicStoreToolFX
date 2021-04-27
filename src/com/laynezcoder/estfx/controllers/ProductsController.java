@@ -16,8 +16,6 @@
 package com.laynezcoder.estfx.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import com.laynezcoder.estfx.alerts.AlertType;
 import com.laynezcoder.estfx.alerts.AlertsBuilder;
 import com.laynezcoder.estfx.animations.Animations;
@@ -52,10 +50,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
@@ -63,10 +61,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -92,10 +90,10 @@ public class ProductsController implements Initializable {
     private AnchorPane rootProducts;
 
     @FXML
-    private AnchorPane containerDeleteProducts;
+    private VBox containerDeleteProducts;
 
     @FXML
-    private HBox hBoxSearch;
+    private HBox searchContainer;
 
     @FXML
     private TextField txtSearchProduct;
@@ -104,7 +102,7 @@ public class ProductsController implements Initializable {
     private TextField txtSearchBarCode;
 
     @FXML
-    private JFXButton btnNewProduct;
+    private Button btnNewProduct;
 
     @FXML
     private TableView<Products> tblProducts;
@@ -134,31 +132,34 @@ public class ProductsController implements Initializable {
     private TableColumn<Products, Double> colMinimalPrice;
 
     @FXML
-    private AnchorPane containerAddProduct;
+    private VBox containerAdd;
 
     @FXML
-    private JFXTextField txtBarCode;
+    private TextField txtBarcode;
 
     @FXML
-    private JFXTextField txtNameProduct;
+    private TextField txtNameProduct;
 
     @FXML
-    private JFXTextField txtPurchasePrice;
+    private TextField txtPurchasePrice;
+
+    @FXML
+    private TextField txtPorcentage;
+
+    @FXML
+    private TextField txtSalePrice;
+
+    @FXML
+    private TextField txtMinPrice;
+
+    @FXML
+    private TextField txtStock;
+
+    @FXML
+    private TextArea txtDescription;
 
     @FXML
     private Text textAddProduct;
-
-    @FXML
-    private Text textPurchase;
-
-    @FXML
-    private Text textPorcentage;
-
-    @FXML
-    private JFXTextField txtSalePrice;
-
-    @FXML
-    private JFXTextArea txtDescriptionProduct;
 
     @FXML
     private JFXButton btnUpdateProduct;
@@ -168,12 +169,6 @@ public class ProductsController implements Initializable {
 
     @FXML
     private JFXButton btnCancelAddProduct;
-
-    @FXML
-    private JFXTextField txtPorcentage;
-
-    @FXML
-    private JFXTextField txtMinPrice;
 
     @FXML
     private ImageView imageProduct;
@@ -187,8 +182,6 @@ public class ProductsController implements Initializable {
     private JFXDialogTool dialogAddProduct;
 
     private JFXDialogTool dialogDeleteProduct;
-
-    private static final Stage stage = new Stage();
 
     private File imageFile;
 
@@ -204,8 +197,6 @@ public class ProductsController implements Initializable {
         characterLimiter();
         initializeImage();
         setTextIfFieldIsEmpty();
-        closeDialogWithTextFields();
-        closeDialogWithEscapeKey();
     }
 
     private void setContextMenu() {
@@ -253,14 +244,14 @@ public class ProductsController implements Initializable {
     private void animateNodes() {
         Animations.fadeInUp(btnNewProduct);
         Animations.fadeInUp(tblProducts);
-        Animations.fadeInUp(hBoxSearch);
+        Animations.fadeInUp(searchContainer);
     }
 
     private void setMask() {
         TextFieldMask.onlyDoubleNumbers10Integers(txtSalePrice);
         TextFieldMask.onlyDoubleNumbers5Integers(txtPurchasePrice);
         TextFieldMask.onlyDoubleNumbers5Integers(txtMinPrice);
-        TextFieldMask.onlyNumbers(txtBarCode);
+        TextFieldMask.onlyNumbers(txtBarcode);
         TextFieldMask.onlyNumbers(txtSearchBarCode);
         TextFieldMask.onlyNumbers(txtPorcentage);
     }
@@ -269,10 +260,10 @@ public class ProductsController implements Initializable {
         TextFieldMask.selectText(txtNameProduct);
         TextFieldMask.selectText(txtSalePrice);
         TextFieldMask.selectText(txtMinPrice);
-        TextFieldMask.selectText(txtBarCode);
+        TextFieldMask.selectText(txtBarcode);
         TextFieldMask.selectText(txtPorcentage);
         TextFieldMask.selectText(txtPurchasePrice);
-        TextFieldMask.selectTextToTextArea(txtDescriptionProduct);
+        TextFieldMask.selectTextToTextArea(txtDescription);
     }
 
     private void setTextIfFieldIsEmpty() {
@@ -283,13 +274,12 @@ public class ProductsController implements Initializable {
     }
 
     private void characterLimiter() {
-        TextFieldMask.characterLimit(txtBarCode, 20);
+        TextFieldMask.characterLimit(txtBarcode, 20);
         TextFieldMask.characterLimit(txtPorcentage, 3);
     }
 
     @FXML
     private void showDialogAddProduct() {
-        resetValidation();
         calculateSalePrice();
         enableEditControls();
         disableTable();
@@ -297,23 +287,22 @@ public class ProductsController implements Initializable {
 
         textAddProduct.setText("Add Product");
         imageContainer.toFront();
-        containerAddProduct.setVisible(true);
+        containerAdd.setVisible(true);
         btnSaveProduct.setDisable(false);
         btnUpdateProduct.setVisible(true);
         btnSaveProduct.toFront();
 
-        dialogAddProduct = new JFXDialogTool(containerAddProduct, stckProducts);
+        dialogAddProduct = new JFXDialogTool(containerAdd, stckProducts);
         dialogAddProduct.show();
 
         dialogAddProduct.setOnDialogOpened(ev -> {
-            txtBarCode.requestFocus();
+            txtBarcode.requestFocus();
         });
 
         dialogAddProduct.setOnDialogClosed(ev -> {
-            closeStage();
             tblProducts.setDisable(false);
             rootProducts.setEffect(null);
-            containerAddProduct.setVisible(false);
+            containerAdd.setVisible(false);
             cleanControls();
         });
     }
@@ -427,35 +416,34 @@ public class ProductsController implements Initializable {
 
     private void selectedRecord() {
         Products products = tblProducts.getSelectionModel().getSelectedItem();
-        txtBarCode.setText(String.valueOf(products.getBarcode()));
+        txtBarcode.setText(String.valueOf(products.getBarcode()));
         txtNameProduct.setText(products.getProductName());
         txtPurchasePrice.setText(String.valueOf(products.getPurchasePrice()));
         txtPorcentage.setText(String.valueOf(products.getPorcentage()));
         txtSalePrice.setText(String.valueOf(products.getSalePrice()));
-        txtDescriptionProduct.setText(products.getDescriptionProduct());
+        txtDescription.setText(products.getDescriptionProduct());
         txtMinPrice.setText(String.valueOf(products.getMinimalPrice()));
         imageProduct.setImage(getImage(products.getId()));
-        expandImage(products.getId(), products.getProductName());
     }
 
     @FXML
     private void newProduct() {
-        String barcode = txtBarCode.getText().trim();
+        String barcode = txtBarcode.getText().trim();
         String productName = txtNameProduct.getText().trim();
         String purchasePrice = txtPurchasePrice.getText().trim();
         String porcentage = txtPorcentage.getText().trim();
         String salePrice = txtSalePrice.getText().trim();
         String minPrice = txtMinPrice.getText().trim();
-        String description = txtDescriptionProduct.getText().trim();
+        String description = txtDescription.getText().trim();
 
         if (barcode.isEmpty()) {
-            txtBarCode.requestFocus();
-            Animations.shake(txtBarCode);
+            txtBarcode.requestFocus();
+            Animations.shake(txtBarcode);
             return;
         }
 
         if (DatabaseHelper.checkIfProductExists(barcode) != 0) {
-            txtBarCode.requestFocus();
+            txtBarcode.requestFocus();
             NotificationsBuilder.create(NotificationType.ERROR, ALREADY_EXISTS);
             return;
         }
@@ -498,8 +486,8 @@ public class ProductsController implements Initializable {
         }
 
         if (description.isEmpty()) {
-            txtDescriptionProduct.requestFocus();
-            Animations.shake(txtDescriptionProduct);
+            txtDescription.requestFocus();
+            Animations.shake(txtDescription);
             return;
         }
 
@@ -570,24 +558,24 @@ public class ProductsController implements Initializable {
 
     @FXML
     private void updateProduct() {
-        String barcode = txtBarCode.getText().trim();
+        String barcode = txtBarcode.getText().trim();
         String productName = txtNameProduct.getText().trim();
         String purchasePrice = txtPurchasePrice.getText().trim();
         String porcentage = txtPorcentage.getText().trim();
         String salePrice = txtSalePrice.getText().trim();
         String minPrice = txtMinPrice.getText().trim();
-        String description = txtDescriptionProduct.getText().trim();
+        String description = txtDescription.getText().trim();
         String barcodeFromTable = tblProducts.getSelectionModel().getSelectedItem().getBarcode();
 
         if (barcode.isEmpty()) {
-            txtBarCode.requestFocus();
-            Animations.shake(txtBarCode);
+            txtBarcode.requestFocus();
+            Animations.shake(txtBarcode);
             return;
         }
 
         if (DatabaseHelper.checkIfProductExists(barcode) != 0 && !barcodeFromTable.equals(barcode)) {
-            txtBarCode.requestFocus();
-            Animations.shake(txtBarCode);
+            txtBarcode.requestFocus();
+            Animations.shake(txtBarcode);
             NotificationsBuilder.create(NotificationType.ERROR, ALREADY_EXISTS);
             return;
         }
@@ -630,8 +618,8 @@ public class ProductsController implements Initializable {
         }
 
         if (description.isEmpty()) {
-            txtDescriptionProduct.requestFocus();
-            Animations.shake(txtDescriptionProduct);
+            txtDescription.requestFocus();
+            Animations.shake(txtDescription);
             return;
         }
 
@@ -692,17 +680,17 @@ public class ProductsController implements Initializable {
         imageFile = null;
         txtPurchasePrice.clear();
         txtMinPrice.clear();
-        txtBarCode.clear();
+        txtBarcode.clear();
         txtNameProduct.clear();
         txtPorcentage.clear();
         txtSalePrice.clear();
-        txtDescriptionProduct.clear();
+        txtDescription.clear();
         imageProduct.setImage(new Image(ResourcesPackages.NO_IMAGE_AVAILABLE));
     }
 
     private void disableEditControls() {
-        txtBarCode.setEditable(false);
-        txtDescriptionProduct.setEditable(false);
+        txtBarcode.setEditable(false);
+        txtDescription.setEditable(false);
         txtNameProduct.setEditable(false);
         txtPurchasePrice.setEditable(false);
         txtSalePrice.setEditable(false);
@@ -711,49 +699,34 @@ public class ProductsController implements Initializable {
     }
 
     private void enableEditControls() {
-        txtBarCode.setEditable(true);
+        txtBarcode.setEditable(true);
         txtNameProduct.setEditable(true);
         txtSalePrice.setEditable(true);
         txtMinPrice.setEditable(true);
         txtPorcentage.setEditable(true);
         txtPurchasePrice.setEditable(true);
-        txtDescriptionProduct.setEditable(true);
+        txtDescription.setEditable(true);
     }
 
     private void disableTable() {
         tblProducts.setDisable(true);
     }
 
-    private void resetValidation() {
-        txtBarCode.resetValidation();
-        txtPorcentage.resetValidation();
-        txtSalePrice.resetValidation();
-        txtMinPrice.resetValidation();
-        txtNameProduct.resetValidation();
-        txtPurchasePrice.resetValidation();
-        txtDescriptionProduct.resetValidation();
-    }
-
     private void validateUser() {
         setContextMenu();
         if (UserSession.getInstace().getUserType().equals(UserType.ADMINSTRATOR.value())) {
             deleteUserDeleteKey();
-
             colPorcentage.setVisible(true);
             colPurchasePrice.setVisible(true);
             btnNewProduct.setDisable(false);
             txtPurchasePrice.setVisible(true);
             txtPorcentage.setVisible(true);
-            textPurchase.setVisible(false);
-            textPorcentage.setVisible(false);
             setEnableMenuItem();
         } else {
             colPorcentage.setVisible(false);
             colPurchasePrice.setVisible(false);
             btnNewProduct.setDisable(true);
             txtPurchasePrice.setVisible(false);
-            textPurchase.setVisible(true);
-            textPorcentage.setVisible(true);
             txtPorcentage.setVisible(false);
             setDisableMenuItem();
         }
@@ -767,77 +740,6 @@ public class ProductsController implements Initializable {
     private void setEnableMenuItem() {
         contextMenu.getEditButton().setDisable(false);
         contextMenu.getDeleteButton().setDisable(false);
-    }
-
-    private void closeDialogWithEscapeKey() {
-        rootProducts.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddProduct();
-            }
-
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                hideDialogDeleteProduct();
-            }
-
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                tblProducts.setDisable(false);
-                rootProducts.setEffect(null);
-                AlertsBuilder.close();
-            }
-
-        });
-    }
-
-    private void closeDialogWithTextFields() {
-        txtBarCode.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddProduct();
-            }
-        });
-
-        txtNameProduct.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddProduct();
-            }
-        });
-
-        txtPurchasePrice.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddProduct();
-            }
-        });
-
-        txtSalePrice.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddProduct();
-            }
-        });
-
-        txtDescriptionProduct.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddProduct();
-            }
-        });
-
-        txtPorcentage.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddProduct();
-                tblProducts.setDisable(false);
-            }
-        });
-
-        txtMinPrice.setOnKeyReleased(ev -> {
-            if (ev.getCode().equals(KeyCode.ESCAPE)) {
-                closeDialogAddProduct();
-                tblProducts.setDisable(false);
-            }
-        });
-    }
-
-    public static void closeStage() {
-        if (stage != null) {
-            stage.hide();
-        }
     }
 
     private void deleteUserDeleteKey() {
@@ -973,41 +875,5 @@ public class ProductsController implements Initializable {
             initPath = new File(preferences.getInitialPathFileChooserProductsController());
         }
         return initPath;
-    }
-
-    private void expandImage(int id, String title) {
-        paneContainer.hoverProperty().addListener((o, oldV, newV) -> {
-            if (newV) {
-                colorAdjust.setBrightness(0.25);
-                imageProduct.setEffect(colorAdjust);
-            } else {
-                imageProduct.setEffect(null);
-            }
-        });
-
-        paneContainer.setOnMouseClicked(ev -> {
-            final Image image = DatabaseHelper.getProductImage(id);
-            final ImageView imageView = new ImageView(image);
-            imageView.setPreserveRatio(true);
-            imageView.setFitWidth(550);
-
-            final BorderPane boderPane = new BorderPane(imageView);
-            boderPane.setStyle("-fx-background-color: white");
-            boderPane.setCenter(imageView);
-
-            final ScrollPane root = new ScrollPane(boderPane);
-            root.setStyle("-fx-background-color: white");
-            root.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-            root.getStylesheets().add(Constants.LIGHT_THEME);
-            root.getStyleClass().add("scroll-bar");
-
-            root.setFitToHeight(true);
-            root.setFitToWidth(true);
-
-            stage.getIcons().add(Constants.ICON);
-            stage.setScene(new Scene(root, 550, 555));
-            stage.setTitle(title);
-            stage.show();
-        });
     }
 }
