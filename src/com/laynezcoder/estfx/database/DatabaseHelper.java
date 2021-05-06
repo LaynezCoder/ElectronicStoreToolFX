@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
@@ -330,7 +331,7 @@ public class DatabaseHelper {
             preparedStatement.setString(2, users.getUsername());
             preparedStatement.setString(3, users.getPassword());
             preparedStatement.setString(4, users.getBiography());
-            preparedStatement.setString(5, users.getLinkProfile());
+            preparedStatement.setObject(5, users.getLinkProfile(), Types.VARCHAR);
             preparedStatement.setInt(6, users.getId());
             preparedStatement.execute();
             return true;
