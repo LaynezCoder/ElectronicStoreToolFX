@@ -42,8 +42,7 @@ public enum Views {
     }
     
     public String getFirstNameView() {
-        int vIndex = name.length() - 4;
-        return name.substring(0, vIndex);
+        return name.substring(0, name.lastIndexOf("View"));
     }
    
     public String getValueWithExtension() {
