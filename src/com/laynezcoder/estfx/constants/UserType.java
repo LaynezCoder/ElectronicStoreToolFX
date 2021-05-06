@@ -1,6 +1,7 @@
 package com.laynezcoder.estfx.constants;
 
 public enum UserType {
+    
     ADMINSTRATOR("Administrator"), 
     USER("User");
 

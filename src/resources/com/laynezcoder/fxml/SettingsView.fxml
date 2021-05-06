@@ -47,7 +47,7 @@
                            <children>
                               <HBox fx:id="nameContainer" alignment="CENTER_LEFT" prefHeight="21.0" spacing="5.0">
                                  <children>
-                                    <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Tony Stark" />
+                                    <Text fx:id="textName" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Tony Stark" />
                                     <Region fx:id="verifiedIcon" maxHeight="10.0" maxWidth="10.0" minWidth="10.0" styleClass="svg-verified-icon" />
                                  </children>
                               </HBox>

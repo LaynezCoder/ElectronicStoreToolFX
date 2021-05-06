@@ -22,6 +22,7 @@ import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
+import com.laynezcoder.estfx.constants.UserType;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.database.UserStatistics;
 import com.laynezcoder.estfx.mask.TextFieldMask;
@@ -107,7 +108,7 @@ public class SettingsController implements Initializable {
     private Text biography;
 
     @FXML
-    private Text name;
+    private Text textName;
 
     @FXML
     private Text textTotalCustomers;
@@ -282,7 +283,7 @@ public class SettingsController implements Initializable {
         txtURL.setText(SESSION.getLinkProfile());
         txtDescription.setText(SESSION.getBiography());
     }
-
+    
     private void updateSession(Users user) {
         SESSION.setName(user.getName());
         SESSION.setUsername(user.getUsername());
@@ -294,9 +295,9 @@ public class SettingsController implements Initializable {
     private void loadData(int id) {
         //We establish values of the logged in user
         String username = EstfxUtil.trimText(SESSION.getUsername(), 16);
-        name.setText(username);
+        textName.setText(username);
 
-        if (!SESSION.getUserType().equals("Administrator")) {
+        if (!SESSION.getUserType().equals(UserType.ADMINSTRATOR.value())) {
             verifiedIcon.setVisible(false);
         }
 
@@ -431,14 +432,14 @@ public class SettingsController implements Initializable {
 
     @FXML
     private void saveUserInformation() {
-        String fullname = txtName.getText().trim();
+        String name = txtName.getText().trim();
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
         String confirmPassword = txtConfirmPassword.getText().trim();
         String url = txtURL.getText().trim();
         String bio = txtDescription.getText().trim();
 
-        if (fullname.isEmpty()) {
+        if (name.isEmpty()) {
             txtName.requestFocus();
             Animations.shake(txtName);
             return;
@@ -450,7 +451,7 @@ public class SettingsController implements Initializable {
             return;
         }
 
-        if (username.length() < 4) {
+        if (username.length() < 5) {
             txtUsername.requestFocus();
             Animations.shake(txtUsername);
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
@@ -463,7 +464,7 @@ public class SettingsController implements Initializable {
             return;
         }
 
-        if (password.length() < 4) {
+        if (password.length() < 5) {
             txtPassword.requestFocus();
             Animations.shake(txtPassword);
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ENTER_AT_LEAST_5_CHARACTERES);
@@ -484,12 +485,8 @@ public class SettingsController implements Initializable {
             return;
         }
 
-        if (url.isEmpty()) {
-            Animations.shake(txtURL);
-            return;
-        }
-
-        if (!EstfxUtil.validateURL(url)) {
+        if (!url.isEmpty() && !EstfxUtil.validateURL(url)) {
+            txtURL.requestFocus();
             Animations.shake(txtURL);
             NotificationsBuilder.create(NotificationType.ERROR, Messages.INVALID_URL);
             return;
@@ -508,14 +505,7 @@ public class SettingsController implements Initializable {
             return;
         }
 
-        Users user = new Users();
-        user.setId(SESSION.getId());
-        user.setName(WordUtils.capitalize(fullname));
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setLinkProfile(url);
-        user.setBiography(bio);
-
+        Users user = new Users(SESSION.getId(), WordUtils.capitalize(name), username, password, url, bio);
         boolean result = DatabaseHelper.updateUserInformation(user);
         if (result) {
             closeDialog();
