@@ -26,7 +26,7 @@ import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
-import com.laynezcoder.estfx.constants.Views;
+import com.laynezcoder.estfx.constants.UserType;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -58,21 +58,14 @@ import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.UserSession;
 import com.laynezcoder.estfx.util.ContextMenu;
 import com.laynezcoder.estfx.util.EstfxUtil;
-import com.laynezcoder.estfx.util.I18NUtil;
-import java.io.IOException;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.apache.commons.text.WordUtils;
 
 public class UsersController implements Initializable {
@@ -103,15 +96,15 @@ public class UsersController implements Initializable {
 
     @FXML
     private TableColumn<Users, Integer> colId;
+    
+    @FXML
+    private TableColumn<Users, String> colName;
 
     @FXML
     private TableColumn<Users, HBox> colUsername;
 
     @FXML
     private TableColumn<Users, PasswordField> colPassword;
-
-    @FXML
-    private TableColumn<Users, Button> colAction;
 
     @FXML
     private TextField txtSearchUsername;
@@ -218,7 +211,7 @@ public class UsersController implements Initializable {
     }
 
     private void initalizeComboBox() {
-        cmbTypeUser.getItems().addAll("Administrator", "User");
+        cmbTypeUser.getItems().addAll(UserType.ADMINSTRATOR.value(), UserType.USER.value());
         cmbTypeUser.focusedProperty().addListener((o, oldValue, newValue) -> {
             if (newValue) {
                 cmbTypeUser.show();
@@ -322,8 +315,8 @@ public class UsersController implements Initializable {
     private void loadData() {
         laodTable();
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colUsername.setCellValueFactory(new UsernameCellValueFactory());
-        colAction.setCellValueFactory(new ActionCellValueFactory());
         colPassword.setCellValueFactory(new PasswordCellValueFactory());
     }
 
@@ -332,14 +325,15 @@ public class UsersController implements Initializable {
         try {
             String sql = "SELECT id, fullname, username, pass, userType FROM Users";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
+            
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String fullname = resultSet.getString("fullname");
+                String name = resultSet.getString("fullname");
                 String username = resultSet.getString("username");
                 String pass = resultSet.getString("pass");
                 String userType = resultSet.getString("userType");
-                list.add(new Users(id, fullname, username, pass, userType));
+                list.add(new Users(id, name, username, pass, userType));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
@@ -580,30 +574,6 @@ public class UsersController implements Initializable {
         });
     }
 
-    //Have a bug
-    private void loadProfile(int id) {
-        try {
-            FXMLLoader loader = I18NUtil.FXMLLoader(Views.SETTINGS);
-
-            Parent root = loader.load();
-            SettingsController profile = loader.getController();
-
-            profile.init(id);
-
-            Stage stage = new Stage(StageStyle.DECORATED);
-            stage.setMinHeight(Constants.MIN_HEIGHT);
-            stage.setMinWidth(Constants.MIN_WIDTH);
-            stage.getIcons().add(Constants.ICON);
-            stage.setTitle(Constants.TITLE);
-            stage.setScene(new Scene(root));
-            stage.initOwner(getStage());
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     private Stage getStage() {
         return (Stage) txtName.getScene().getWindow();
     }
@@ -656,25 +626,10 @@ public class UsersController implements Initializable {
             container.setAlignment(Pos.CENTER);
             container.setSpacing(5);
 
-            if (!item.getUserType().equals("Administrator")) {
+            if (!item.getUserType().equals(UserType.ADMINSTRATOR.value())) {
                 container.getChildren().remove(icon);
             }
             return new SimpleObjectProperty<>(container);
-        }
-    }
-
-    private class ActionCellValueFactory implements Callback<TableColumn.CellDataFeatures<Users, Button>, ObservableValue<Button>> {
-
-        @Override
-        public ObservableValue<Button> call(TableColumn.CellDataFeatures<Users, Button> param) {
-            Users item = param.getValue();
-
-            Button action = new Button("View profile");
-            action.getStyleClass().add("btn-action");
-            action.setOnAction(t -> {
-                loadProfile(item.getId());
-            });
-            return new SimpleObjectProperty<>(action);
         }
     }
 }

@@ -27,6 +27,7 @@ import com.laynezcoder.estfx.constants.UserType;
 import com.laynezcoder.estfx.constants.Views;
 import com.laynezcoder.estfx.database.DatabaseHelper;
 import com.laynezcoder.estfx.models.UserSession;
+import com.laynezcoder.estfx.util.I18NUtil;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
@@ -153,7 +154,7 @@ public class LoginController implements Initializable {
 
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                setSessionData(rs);
+                setSession(rs);
                 loadMain();
                 DatabaseHelper.insertUserSession(SESSION.getId());
                 NotificationsBuilder.create(NotificationType.SUCCESS, "Welcome to the system " + SESSION.getName() + "!");
@@ -170,7 +171,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    private void setSessionData(ResultSet rs) throws SQLException {
+    private void setSession(ResultSet rs) throws SQLException {
         SESSION.setId(rs.getInt(1));
         SESSION.setName(rs.getString(2));
         SESSION.setUsername(rs.getString(3));
@@ -182,15 +183,14 @@ public class LoginController implements Initializable {
 
     private void loadMain() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(ResourcesPackages.FXML_PACKAGE + Views.MAIN.getValueWithExtension()));
+            FXMLLoader loader = I18NUtil.FXMLLoader(Views.MAIN);   
             Parent root = loader.load();
             MainController main = loader.getController();
 
-            if (!UserSession.getInstace().getUserType().equals(UserType.ADMINSTRATOR.value())) {
+            if (!SESSION.getUserType().equals(UserType.ADMINSTRATOR.value())) {
                 main.removeButtons();
             }
-            
+             
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.getIcons().add(Constants.ICON);
             stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
@@ -205,10 +205,6 @@ public class LoginController implements Initializable {
                 if (e.getCode().equals(KeyCode.F11)) {
                     stage.setFullScreen(!stage.isFullScreen());
                 }
-            });
-
-            stage.setOnCloseRequest(ev -> {
-                ProductsController.closeStage();
             });
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,8 +241,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private void dragged(MouseEvent event) {
-        Stage stg = (Stage) btnLogin.getScene().getWindow();
-        stg.setX(event.getScreenX() - x);
-        stg.setY(event.getScreenY() - y);
+        Stage stage = (Stage) btnLogin.getScene().getWindow();
+        stage.setX(event.getScreenX() - x);
+        stage.setY(event.getScreenY() - y);
     }
 }
