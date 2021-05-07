@@ -30,7 +30,7 @@
                         <TableView fx:id="tblUsers" prefHeight="532.0" prefWidth="1022.0" HBox.hgrow="ALWAYS">
                            <columns>
                               <TableColumn fx:id="colId" maxWidth="500.0" minWidth="0.0" prefWidth="62.0" text="%col.users.id" />
-                              <TableColumn fx:id="colName" maxWidth="2500.0" prefWidth="200.0" text="%col.users.action" />
+                              <TableColumn fx:id="colName" maxWidth="2500.0" prefWidth="200.0" text="%col.users.name" />
                               <TableColumn fx:id="colUsername" maxWidth="2500.0" prefWidth="200.0" text="%col.users.username" />
                               <TableColumn fx:id="colPassword" maxWidth="2500.0" prefWidth="200.0" text="%col.users.password" />
                            </columns>

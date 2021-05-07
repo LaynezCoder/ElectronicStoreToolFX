@@ -111,8 +111,11 @@
     -fx-background-radius: 5px;
     -fx-border-color: -border;
     -fx-background-color: #ffffff;
-    -fx-text-fill: -fx-color-text;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-pref-height: 40px;
     -fx-font-size: 16;
+    -fx-text-fill: -fx-color-text;
     -fx-highlight-fill: -fx-color-primary;
 }
 
@@ -373,6 +376,11 @@
     -fx-font-size: 16;
     -fx-background-color: #ffffff;
     -fx-highlight-fill: -fx-color-primary;
+}
+
+#date-picker:disabled,
+#date-picker .text-field:disabled {
+    -fx-opacity: 1;
 }
 
 #date-picker > .arrow-button {
@@ -695,4 +703,50 @@ date-picker-popup > * > .date-cell {
 .table-row-cell:selected .text-name {
     -fx-background-color: #ffffff;
     -fx-fill: #ffffff;
+}
+
+.currency-symbol {
+    -fx-font-family: "Poppins Medium";
+    -fx-font-size: 16;
+    -fx-fill: -fx-color-secondary;
+}
+
+.image-container {
+    -fx-border-radius: 10;
+    -fx-border-width: 1.5;
+    -fx-border-color: -border;
+    -fx-border-style: segments(5, 5, 5, 5)  line-cap round;
+}
+
+.tab { 
+    -fx-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-color: #ffffff;
+    -fx-border-width: 0px 0px 3px 0px;
+    -fx-faint-focus-color: transparent;  
+}
+
+.tab:selected {
+    -fx-border-color: -fx-color-primary;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+
+.tab-label {
+    -fx-font-size: 14;
+    -fx-text-fill: grey;
+}
+
+.tab:selected .tab-label{
+    -fx-text-fill: -fx-color-primary;
+}
+
+.tab-header-background {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10 10 0 0;
+}
+
+.tab-pane {
+    -fx-tab-min-height: 30px;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10 10 10 10;
 }
