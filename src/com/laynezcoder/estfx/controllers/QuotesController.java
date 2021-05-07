@@ -78,8 +78,6 @@ public class QuotesController implements Initializable {
 
     private ObservableList<Customers> listCustomers;
 
-    private ObservableList<Quotes> filterQuotes;
-
     @FXML
     private StackPane stckQuotes;
 
@@ -183,7 +181,6 @@ public class QuotesController implements Initializable {
         animateNodes();
         selectText();
         imageDelete.setImage(ResourcesPackages.DELETE_IMAGE);
-        filterQuotes = FXCollections.observableArrayList();
     }
 
     private void setContextMenu() {
@@ -262,6 +259,7 @@ public class QuotesController implements Initializable {
             }
         });
 
+        dtpDate.getEditor().setDisable(true);
         dtpDate.focusedProperty().addListener((o, oldV, newV) -> {
             if (dtpDate.getEditor().getText().isEmpty() && newV) {
                 dtpDate.setValue(LocalDate.now());
@@ -271,8 +269,6 @@ public class QuotesController implements Initializable {
         cmbIdCustomer.focusedProperty().addListener((o, oldV, newV) -> {
             if (newV) {
                 cmbIdCustomer.show();
-            } else {
-                cmbIdCustomer.hide();
             }
         });
     }
@@ -348,6 +344,7 @@ public class QuotesController implements Initializable {
         dtpDate.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(quotes.getRequestDate())));
         txtDescription.setText(quotes.getDescription());
         cmbIdCustomer.getSelectionModel().select(DatabaseHelper.searchCustomer(quotes.getCustomerName()));
+        
         toggleButtonExists.setText(quotes.getExistence());
         toggleButtonRealized.setText(quotes.getRealization());
         toggleButtonReport.setText(quotes.getReport());
@@ -454,10 +451,10 @@ public class QuotesController implements Initializable {
 
     @FXML
     private void newQuote() {
+        String price = txtPrice.getText().trim();
         String description = txtDescription.getText().trim();
 
         if (dtpDate.getEditor().getText().isEmpty()) {
-            dtpDate.requestFocus();
             Animations.shake(dtpDate);
             return;
         }
@@ -474,10 +471,10 @@ public class QuotesController implements Initializable {
 
         Quotes quotes = new Quotes();
 
-        if (txtPrice.getText().isEmpty()) {
-            quotes.setPrice(Double.valueOf("0"));
+        if (price.isEmpty()) {
+            quotes.setPrice(0.0);
         } else {
-            quotes.setPrice(Double.valueOf(txtPrice.getText()));
+            quotes.setPrice(Double.valueOf(price));
         }
 
         if (toggleButtonExists.isSelected()) {
@@ -500,7 +497,7 @@ public class QuotesController implements Initializable {
 
         quotes.setDescription(description);
         quotes.setRequestDate(java.sql.Date.valueOf(dtpDate.getValue()));
-        quotes.setCustomerId(AutocompleteComboBox.getValue(cmbIdCustomer).getId());
+        quotes.setCustomerId(cmbIdCustomer.getSelectionModel().getSelectedIndex());
 
         boolean result = DatabaseHelper.insertNewQuote(quotes);
         if (result) {
@@ -527,10 +524,10 @@ public class QuotesController implements Initializable {
 
     @FXML
     private void updateQuotes() {
+        String price = txtPrice.getText().trim();
         String description = txtDescription.getText().trim();
 
         if (dtpDate.getEditor().getText().isEmpty()) {
-            dtpDate.requestFocus();
             Animations.shake(dtpDate);
             return;
         }
@@ -542,10 +539,10 @@ public class QuotesController implements Initializable {
 
         Quotes quotes = tblQuotes.getSelectionModel().getSelectedItem();
 
-        if (txtPrice.getText().isEmpty()) {
-            quotes.setPrice(Double.valueOf("0"));
+        if (price.isEmpty()) {
+            quotes.setPrice(0.0);
         } else {
-            quotes.setPrice(Double.valueOf(txtPrice.getText()));
+            quotes.setPrice(Double.valueOf(price));
         }
 
         if (toggleButtonExists.isSelected()) {
@@ -640,34 +637,38 @@ public class QuotesController implements Initializable {
     }
 
     @FXML
-    private void filterCustomer() {
+    private void searchCustomer() {
+        ObservableList<Quotes> list = FXCollections.observableArrayList();
+
         String customer = txtSearchCustomer.getText().trim();
         if (customer.isEmpty()) {
             tblQuotes.setItems(listQuotes);
         } else {
-            filterQuotes.clear();
+            list.clear();
             for (Quotes q : listQuotes) {
                 if (q.getCustomerName().toLowerCase().contains(customer.toLowerCase())) {
-                    filterQuotes.add(q);
+                    list.add(q);
                 }
             }
-            tblQuotes.setItems(filterQuotes);
+            tblQuotes.setItems(list);
         }
     }
 
     @FXML
-    private void filterDescription() {
+    private void searchDescription() {
+        ObservableList<Quotes> list = FXCollections.observableArrayList();
+
         String description = txtSearchDescription.getText().trim();
         if (description.isEmpty()) {
             tblQuotes.setItems(listQuotes);
         } else {
-            filterQuotes.clear();
+            list.clear();
             for (Quotes q : listQuotes) {
                 if (q.getDescription().toLowerCase().contains(description.toLowerCase())) {
-                    filterQuotes.add(q);
+                    list.add(q);
                 }
             }
-            tblQuotes.setItems(filterQuotes);
+            tblQuotes.setItems(list);
         }
     }
 

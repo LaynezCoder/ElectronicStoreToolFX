@@ -68,8 +68,8 @@ public class ExpandTextArea {
         stage.initModality(Modality.APPLICATION_MODAL);
 
         button.setOnAction(ev -> {
-            String writtenText = expandText.getText();
-            textArea.setText(writtenText);
+            String newText = expandText.getText();
+            textArea.setText(newText);
             stage.hide();
         });
 
@@ -77,6 +77,10 @@ public class ExpandTextArea {
             if (ev.getCode().equals(KeyCode.ESCAPE)) {
                 stage.hide();
             }
+        });
+        
+        stage.setOnHidden(ev -> {
+            textArea.requestFocus();
         });
     }
 
@@ -86,8 +90,8 @@ public class ExpandTextArea {
             expandText.setEditable(false);
         }
         
-        String textAreaText = textArea.getText();
-        expandText.setText(textAreaText);
+        String oldText = textArea.getText();
+        expandText.setText(oldText);
         stage.show();
     }
 }

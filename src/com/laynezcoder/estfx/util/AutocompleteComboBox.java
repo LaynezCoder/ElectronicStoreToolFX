@@ -97,12 +97,4 @@ public class AutocompleteComboBox {
             }
         });
     }
-
-    public static <T> T getValue(ComboBox<T> comboBox) {
-        if (comboBox.getSelectionModel().getSelectedIndex() < 0) {
-            return null;
-        } else {
-            return comboBox.getItems().get(comboBox.getSelectionModel().getSelectedIndex());
-        }
-    }
 }
