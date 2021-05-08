@@ -77,6 +77,7 @@
                                  <children>
                                     <Text fx:id="textWelcome" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="%text.home.welcome" />
                                     <Text fx:id="textWelcome2" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text=" " />
+                                    <MaterialDesignIconView fx:id="icon" glyphName="WEATHER_NIGHT" styleClass="icon-weather" />
                                  </children>
                               </TextFlow>
                               <Text fx:id="textDescriptionWelcome" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="Lorem ipsum dolor sit amet consectetur adipiscing, elit egestas congue sapien turpis." />

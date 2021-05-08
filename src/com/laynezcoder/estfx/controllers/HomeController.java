@@ -25,10 +25,10 @@ import com.laynezcoder.estfx.models.Quotes;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.QuotationStatus;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
-import com.laynezcoder.estfx.models.UserSession;
-import com.laynezcoder.estfx.util.EstfxUtil;
+import com.laynezcoder.estfx.util.Weather;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -64,8 +64,6 @@ public class HomeController implements Initializable {
 
     private ObservableList<Quotes> listQuotes;
 
-    private ObservableList<Quotes> filterQuotes;
-
     @FXML
     private StackPane stckHome;
 
@@ -83,6 +81,9 @@ public class HomeController implements Initializable {
 
     @FXML
     private Text textDescriptionWelcome;
+
+    @FXML
+    private MaterialDesignIconView icon;
 
     @FXML
     private Text textWelcome;
@@ -155,7 +156,6 @@ public class HomeController implements Initializable {
         loadData();
         selectText();
         animateProgressBar();
-        filterQuotes = FXCollections.observableArrayList();
         image.setImage(new Image(IMAGE, 170, 130, true, true));
     }
 
@@ -208,40 +208,14 @@ public class HomeController implements Initializable {
     }
 
     private void setWelcomeText() {
+        
+        //Still to change
+        Weather.compare(icon, textWelcome);
+
         int total = getTotalQuotes();
         totalQuotes.setText(String.valueOf(total));
-
-        UserSession session = UserSession.getInstace();
-        String name = EstfxUtil.trimText(session.getName(), 16);
-        switch (total) {
-            case 10:
-                setText(name, 10);
-                break;
-            case 20:
-                setText(name, 20);
-                break;
-            case 30:
-                setText(name, 30);
-                break;
-            case 50:
-                setText(name, 50);
-                break;
-            case 100:
-                setText(name, 100);
-                break;
-            case 500:
-                setText(name, 500);
-                break;
-            default:
-                textWelcome.setText("¡Welcome back, " + name + "!");
-                textDescriptionWelcome.setText(DEFAULT_WELCOME_TEXT);
-                break;
-        }
-    }
-
-    private void setText(String name, int total) {
-        textWelcome.setText("¡Congratulations " + name + ", " + total + " new quotes have been registered!");
-        textDescriptionWelcome.setText("!Nice job!");
+        
+        textDescriptionWelcome.setText(DEFAULT_WELCOME_TEXT);
     }
 
     private void loadData() {
@@ -289,18 +263,19 @@ public class HomeController implements Initializable {
 
     @FXML
     private void filterQuotes() {
-        String recentQuotes = txtSearchRecentQuotes.getText().trim();
+        ObservableList<Quotes> list = FXCollections.observableArrayList();
 
+        String recentQuotes = txtSearchRecentQuotes.getText().trim();
         if (recentQuotes.isEmpty()) {
             tblQuotes.setItems(listQuotes);
         } else {
-            filterQuotes.clear();
+            list.clear();
             for (Quotes q : listQuotes) {
                 if (q.getDescription().toLowerCase().contains(recentQuotes.toLowerCase())) {
-                    filterQuotes.add(q);
+                    list.add(q);
                 }
             }
-            tblQuotes.setItems(filterQuotes);
+            tblQuotes.setItems(list);
         }
     }
 

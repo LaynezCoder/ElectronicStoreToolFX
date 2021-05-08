@@ -65,16 +65,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.apache.commons.text.WordUtils;
 
 public class UsersController implements Initializable {
 
-    private final String CANNOT_DELETED = "This user cannot be deleted";
+    private final static UserSession SESSION = UserSession.getInstace();
 
-    private final String ADMINISTRATOR_ONLY = "This user can only be administrator type";
+    private final static String CANNOT_DELETED = "This user cannot be deleted";
 
-    private final String UNABLE_TO_CHANGE = "Unable to change user type";
+    private final static String ADMINISTRATOR_ONLY = "This user can only be administrator type";
+
+    private final static String UNABLE_TO_CHANGE = "Unable to change user type";
 
     @FXML
     private StackPane stckUsers;
@@ -96,7 +97,7 @@ public class UsersController implements Initializable {
 
     @FXML
     private TableColumn<Users, Integer> colId;
-    
+
     @FXML
     private TableColumn<Users, String> colName;
 
@@ -150,8 +151,6 @@ public class UsersController implements Initializable {
 
     private ObservableList<Users> listUsers;
 
-    private ObservableList<Users> filterUsers;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showPassword();
@@ -163,7 +162,6 @@ public class UsersController implements Initializable {
         initalizeComboBox();
         deleteUserDeleteKey();
         imageDelete.setImage(ResourcesPackages.DELETE_IMAGE);
-        filterUsers = FXCollections.observableArrayList();
     }
 
     private void setContextMenu() {
@@ -325,7 +323,7 @@ public class UsersController implements Initializable {
         try {
             String sql = "SELECT id, fullname, username, pass, userType FROM Users";
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
-            
+
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -393,7 +391,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        Users users = new Users(name, user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
+        Users users = new Users(WordUtils.capitalizeFully(name), user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
         boolean result = DatabaseHelper.insertNewUser(users);
         if (result) {
             closeDialogAdd();
@@ -462,21 +460,30 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (UserSession.getInstace().getId() == id && cmbTypeUser.getSelectionModel().getSelectedIndex() == 1) {
+        if (SESSION.getId() == id && cmbTypeUser.getSelectionModel().getSelectedIndex() == 1) {
             NotificationsBuilder.create(NotificationType.INVALID_ACTION, UNABLE_TO_CHANGE);
             Animations.shake(cmbTypeUser);
             return;
         }
 
-        Users users = new Users(id, WordUtils.capitalize(name), user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
+        Users users = new Users(id, WordUtils.capitalizeFully(name), user, password, cmbTypeUser.getSelectionModel().getSelectedItem());
         boolean result = DatabaseHelper.updateUser(users);
         if (result) {
+            updateSession(users);
             closeDialogAdd();
             loadData();
             cleanControls();
             AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.UPDATED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
+        }
+    }
+
+    private void updateSession(Users user) {
+        if (user.getId() == SESSION.getId()) {
+            SESSION.setName(user.getName());
+            SESSION.setUsername(user.getUsername());
+            SESSION.setPassword(user.getPassword());
         }
     }
 
@@ -489,7 +496,7 @@ public class UsersController implements Initializable {
             return;
         }
 
-        if (id == UserSession.getInstace().getId()) {
+        if (id == SESSION.getId()) {
             NotificationsBuilder.create(NotificationType.INVALID_ACTION, CANNOT_DELETED);
             return;
         }
@@ -574,23 +581,21 @@ public class UsersController implements Initializable {
         });
     }
 
-    private Stage getStage() {
-        return (Stage) txtName.getScene().getWindow();
-    }
-
     @FXML
     private void filterUsername() {
+        ObservableList<Users> list = FXCollections.observableArrayList();
+        
         String user = txtSearchUsername.getText().trim();
         if (user.isEmpty()) {
             tblUsers.setItems(listUsers);
         } else {
-            filterUsers.clear();
+            list.clear();
             for (Users u : listUsers) {
                 if (u.getUsername().toLowerCase().contains(user.toLowerCase())) {
-                    filterUsers.add(u);
+                    list.add(u);
                 }
             }
-            tblUsers.setItems(filterUsers);
+            tblUsers.setItems(list);
         }
     }
 
@@ -618,7 +623,7 @@ public class UsersController implements Initializable {
             Region icon = new Region();
             icon.getStyleClass().add("svg-verified-icon");
 
-            String trimmedUsername = EstfxUtil.trimText(item.getUsername(), 10);
+            String trimmedUsername = EstfxUtil.trimText(item.getUsername(), 5);
             Text name = new Text(trimmedUsername);
             name.getStyleClass().add("text-name");
 

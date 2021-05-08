@@ -31,6 +31,7 @@ import com.laynezcoder.estfx.models.Users;
 import com.laynezcoder.estfx.notifications.NotificationType;
 import com.laynezcoder.estfx.notifications.NotificationsBuilder;
 import com.laynezcoder.estfx.util.EstfxUtil;
+import com.laynezcoder.estfx.util.ExpandTextArea;
 import com.laynezcoder.estfx.util.HistoyBox;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
@@ -63,6 +64,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.apache.commons.text.WordUtils;
 
 public class SettingsController implements Initializable {
@@ -256,7 +258,7 @@ public class SettingsController implements Initializable {
         }
     }
 
-    public void init(int id) {
+    private void init(int id) {
         //We set the values to the graphs and progress bars
         setStatistics(id);
 
@@ -283,7 +285,7 @@ public class SettingsController implements Initializable {
         txtURL.setText(SESSION.getLinkProfile());
         txtDescription.setText(SESSION.getBiography());
     }
-    
+
     private void updateSession(Users user) {
         SESSION.setName(user.getName());
         SESSION.setUsername(user.getUsername());
@@ -436,7 +438,7 @@ public class SettingsController implements Initializable {
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
         String confirmPassword = txtConfirmPassword.getText().trim();
-        String url = txtURL.getText().trim();
+        String url = txtURL.getText();
         String bio = txtDescription.getText().trim();
 
         if (name.isEmpty()) {
@@ -485,7 +487,7 @@ public class SettingsController implements Initializable {
             return;
         }
 
-        if (!url.isEmpty() && !EstfxUtil.validateURL(url)) {
+        if (url != null && !url.trim().isEmpty() && !EstfxUtil.validateURL(url)) {
             txtURL.requestFocus();
             Animations.shake(txtURL);
             NotificationsBuilder.create(NotificationType.ERROR, Messages.INVALID_URL);
@@ -505,7 +507,8 @@ public class SettingsController implements Initializable {
             return;
         }
 
-        Users user = new Users(SESSION.getId(), WordUtils.capitalize(name), username, password, url, bio);
+        String finalURL = url == null || url.trim().isEmpty() ? null : url.trim();
+        Users user = new Users(SESSION.getId(), WordUtils.capitalizeFully(name), username, password, finalURL, bio);
         boolean result = DatabaseHelper.updateUserInformation(user);
         if (result) {
             closeDialog();
@@ -515,6 +518,13 @@ public class SettingsController implements Initializable {
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
+    }
+
+    @FXML
+    private void expandTextArea() {
+        Stage owner = (Stage) txtDescription.getScene().getWindow();
+        ExpandTextArea expand = new ExpandTextArea(owner, txtDescription);
+        expand.show();
     }
 
     private void setHistoryActions(int id) {

@@ -497,7 +497,7 @@ public class QuotesController implements Initializable {
 
         quotes.setDescription(description);
         quotes.setRequestDate(java.sql.Date.valueOf(dtpDate.getValue()));
-        quotes.setCustomerId(cmbIdCustomer.getSelectionModel().getSelectedIndex());
+        quotes.setCustomerId(AutocompleteComboBox.getValue(cmbIdCustomer).getId());
 
         boolean result = DatabaseHelper.insertNewQuote(quotes);
         if (result) {

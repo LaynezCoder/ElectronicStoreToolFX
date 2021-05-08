@@ -433,7 +433,7 @@ public class CustomersController implements Initializable {
 
         Customers customers = tblCustomers.getSelectionModel().getSelectedItem();
         customers.setId(customers.getId());
-        customers.setName(name);
+        customers.setName(WordUtils.capitalizeFully(name));
         customers.setPhone(phoneNumber);
 
         if (email.isEmpty()) {

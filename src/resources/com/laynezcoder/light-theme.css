@@ -750,3 +750,9 @@ date-picker-popup > * > .date-cell {
     -fx-background-color: #ffffff;
     -fx-background-radius: 10 10 10 10;
 }
+
+.icon-weather {
+    -fx-fill: -fx-color-text;
+    -fx-font-size: 25px;
+    -fx-font-family: "Material Design Icons"; 
+}

@@ -75,7 +75,7 @@ public class MainController implements Initializable {
 
     @FXML
     private AnchorPane container;
-
+    
     @FXML
     private ImageView imageProfile;
 
@@ -180,7 +180,6 @@ public class MainController implements Initializable {
             stage.setScene(scene);
             stage.show();
             closeStage();
-            UserSession.getInstace().logout();
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }

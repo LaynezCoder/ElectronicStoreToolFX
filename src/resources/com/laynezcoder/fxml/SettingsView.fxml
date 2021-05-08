@@ -421,7 +421,16 @@
                         <TextField fx:id="txtURL" styleClass="txt" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.biography" />
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sub-title" text="%text.settings.biography" />
+                        <HBox onMouseClicked="#expandTextArea">
+                           <children>
+                              <MaterialDesignIconView glyphName="FULLSCREEN" styleClass="icon-close" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                   <TextArea fx:id="txtDescription" prefHeight="277.0" prefWidth="400.0" />
                   <HBox fx:id="buttonsContainer" alignment="CENTER" prefHeight="0.0" prefWidth="600.0" spacing="20.0">
                      <children>

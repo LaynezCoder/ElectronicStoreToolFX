@@ -32,7 +32,7 @@ public class UserSession {
     public static UserSession getInstace() {
         if (instance == null) {
             instance = new UserSession();
-        }
+        } 
         return instance;
     } 
      
@@ -90,14 +90,5 @@ public class UserSession {
 
     public void setUserType(String userType) {
         this.userType = userType;
-    }
-
-    public void logout() {
-        this.id = 0;
-        this.name = "";
-        this.username = "";
-        this.password = "";
-        this.biography = "";
-        this.userType = "";
     }
 }
