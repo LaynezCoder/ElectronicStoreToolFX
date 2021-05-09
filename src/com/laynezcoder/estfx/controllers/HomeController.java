@@ -254,7 +254,7 @@ public class HomeController implements Initializable {
             nowQuotes.setText(String.valueOf(total));
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckHome, rootHome, rootHome, Messages.ERROR_CONNECTION_MYSQL);
+            AlertsBuilder.create(AlertType.ERROR, stckHome, rootHome, Messages.ERROR_CONNECTION_MYSQL);
         }
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);

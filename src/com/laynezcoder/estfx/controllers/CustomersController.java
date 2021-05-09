@@ -243,7 +243,7 @@ public class CustomersController implements Initializable {
 
     private void showDialogDelete() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -271,7 +271,7 @@ public class CustomersController implements Initializable {
     @FXML
     private void showDialogEdit() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -288,7 +288,7 @@ public class CustomersController implements Initializable {
     @FXML
     private void showDialogDetails() {
         if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -333,7 +333,7 @@ public class CustomersController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.ERROR_CONNECTION_MYSQL);
+            AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, Messages.ERROR_CONNECTION_MYSQL);
         }
         listCustomers = FXCollections.observableArrayList(list);
         tblCustomers.setItems(listCustomers);
@@ -386,7 +386,7 @@ public class CustomersController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAdd();
-            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, tblCustomers, Messages.ADDED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, Messages.ADDED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
@@ -399,7 +399,7 @@ public class CustomersController implements Initializable {
             loadData();
             cleanControls();
             closeDialogDelete();
-            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, tblCustomers, Messages.DELETED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, Messages.DELETED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
@@ -453,7 +453,7 @@ public class CustomersController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAdd();
-            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, tblCustomers, Messages.UPDATED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckCustomers, rootCustomers, Messages.UPDATED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
@@ -499,7 +499,7 @@ public class CustomersController implements Initializable {
                 }
 
                 if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, tblCustomers, Messages.NO_RECORD_SELECTED);
+                    AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, Messages.NO_RECORD_SELECTED);
                     return;
                 }
 

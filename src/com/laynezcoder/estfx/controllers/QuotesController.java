@@ -280,7 +280,7 @@ public class QuotesController implements Initializable {
 
     private void showDialogDelete() {
         if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -308,7 +308,7 @@ public class QuotesController implements Initializable {
     @FXML
     private void showDialogEditQuote() {
         if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -326,7 +326,7 @@ public class QuotesController implements Initializable {
     @FXML
     private void showDialogDetailsQuote() {
         if (tblQuotes.getSelectionModel().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -344,7 +344,7 @@ public class QuotesController implements Initializable {
         dtpDate.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(quotes.getRequestDate())));
         txtDescription.setText(quotes.getDescription());
         cmbIdCustomer.getSelectionModel().select(DatabaseHelper.searchCustomer(quotes.getCustomerName()));
-        
+
         toggleButtonExists.setText(quotes.getExistence());
         toggleButtonRealized.setText(quotes.getRealization());
         toggleButtonReport.setText(quotes.getReport());
@@ -423,7 +423,7 @@ public class QuotesController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.ERROR_CONNECTION_MYSQL);
+            AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, Messages.ERROR_CONNECTION_MYSQL);
         }
         listQuotes = FXCollections.observableArrayList(list);
         tblQuotes.setItems(listQuotes);
@@ -504,7 +504,7 @@ public class QuotesController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAdd();
-            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Messages.ADDED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, Messages.ADDED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
@@ -516,7 +516,7 @@ public class QuotesController implements Initializable {
         if (result) {
             loadData();
             closeDialogDelete();
-            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Messages.DELETED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, Messages.DELETED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
@@ -572,7 +572,7 @@ public class QuotesController implements Initializable {
             loadData();
             cleanControls();
             closeDialogAdd();
-            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, tblQuotes, Messages.UPDATED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckQuotes, rootQuotes, Messages.UPDATED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
@@ -590,7 +590,7 @@ public class QuotesController implements Initializable {
                 }
 
                 if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
-                    AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, tblQuotes, Messages.NO_RECORD_SELECTED);
+                    AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, Messages.NO_RECORD_SELECTED);
                     return;
                 }
 
