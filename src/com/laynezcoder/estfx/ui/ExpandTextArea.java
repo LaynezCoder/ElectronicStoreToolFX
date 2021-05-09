@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laynezcoder.estfx.util;
+package com.laynezcoder.estfx.ui;
 
 import com.laynezcoder.estfx.constants.Constants;
 import javafx.geometry.Insets;

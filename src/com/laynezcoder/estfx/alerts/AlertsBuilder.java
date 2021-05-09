@@ -18,7 +18,7 @@ package com.laynezcoder.estfx.alerts;
 import com.laynezcoder.estfx.animations.Animations;
 import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
-import com.laynezcoder.estfx.util.JFXDialogTool;
+import com.laynezcoder.estfx.ui.JFXDialogTool;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

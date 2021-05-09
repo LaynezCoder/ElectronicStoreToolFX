@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laynezcoder.estfx.util;
+package com.laynezcoder.estfx.ui;
 
+import com.laynezcoder.estfx.ui.JFXDialogTool;
 import com.laynezcoder.estfx.models.UserSession;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
