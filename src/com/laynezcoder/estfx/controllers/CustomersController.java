@@ -210,8 +210,9 @@ public class CustomersController implements Initializable {
     @FXML
     private void showDialogAdd() {
         enableEditControls();
-        tblCustomers.setDisable(true);
         title.setText("Add customer");
+        
+        rootCustomers.setDisable(true);
         rootCustomers.setEffect(Constants.BLUR_EFFECT);
 
         if (!buttonsContainer.getChildren().contains(btnSave)) {
@@ -229,7 +230,7 @@ public class CustomersController implements Initializable {
 
         dialogAdd.setOnDialogClosed(ev -> {
             if (!AlertsBuilder.isVisible()) {
-                tblCustomers.setDisable(false);
+                rootCustomers.setDisable(false);
                 rootCustomers.setEffect(null);
                 cleanControls();
             }
@@ -247,7 +248,7 @@ public class CustomersController implements Initializable {
             return;
         }
 
-        tblCustomers.setDisable(true);
+        rootCustomers.setDisable(true);
         rootCustomers.setEffect(Constants.BLUR_EFFECT);
 
         dialogDelete = new JFXDialogTool(containerDelete, stckCustomers);
@@ -255,7 +256,7 @@ public class CustomersController implements Initializable {
 
         dialogDelete.setOnDialogClosed(ev -> {
             if (!AlertsBuilder.isVisible()) {
-                tblCustomers.setDisable(false);
+                rootCustomers.setDisable(false);
                 rootCustomers.setEffect(null);
             }
         });

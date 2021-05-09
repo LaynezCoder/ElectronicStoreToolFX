@@ -233,9 +233,11 @@ public class QuotesController implements Initializable {
     @FXML
     private void showDialogAdd() {
         enableEditControls();
-        tblQuotes.setDisable(true);
+        
         titleAdd.setText("Add Quote");
         cmbIdCustomer.setDisable(false);
+        
+        rootQuotes.setDisable(true);
         rootQuotes.setEffect(Constants.BLUR_EFFECT);
 
         if (!buttonsContainer.getChildren().contains(btnSave)) {
@@ -253,7 +255,7 @@ public class QuotesController implements Initializable {
 
         dialogAdd.setOnDialogClosed(ev -> {
             if (!AlertsBuilder.isVisible()) {
-                tblQuotes.setDisable(false);
+                rootQuotes.setDisable(false);
                 rootQuotes.setEffect(null);
                 cleanControls();
             }
@@ -284,7 +286,7 @@ public class QuotesController implements Initializable {
             return;
         }
 
-        tblQuotes.setDisable(true);
+        rootQuotes.setDisable(true);
         rootQuotes.setEffect(Constants.BLUR_EFFECT);
 
         dialogDelete = new JFXDialogTool(containerDelete, stckQuotes);
@@ -292,7 +294,7 @@ public class QuotesController implements Initializable {
 
         dialogDelete.setOnDialogClosed(ev -> {
             if (!AlertsBuilder.isVisible()) {
-                tblQuotes.setDisable(false);
+                rootQuotes.setDisable(false);
                 rootQuotes.setEffect(null);
             }
         });
