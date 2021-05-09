@@ -70,13 +70,13 @@ import org.apache.commons.text.WordUtils;
 
 public class UsersController implements Initializable {
 
-    private static final  UserSession SESSION = UserSession.getInstace();
+    private static final UserSession SESSION = UserSession.getInstace();
 
-    private static final  String CANNOT_DELETED = "This user cannot be deleted";
+    private static final String CANNOT_DELETED = "This user cannot be deleted";
 
     private static final String ADMINISTRATOR_ONLY = "This user can only be administrator type";
 
-    private static final  String UNABLE_TO_CHANGE = "Unable to change user type";
+    private static final String UNABLE_TO_CHANGE = "Unable to change user type";
 
     @FXML
     private StackPane stckUsers;
@@ -607,7 +607,7 @@ public class UsersController implements Initializable {
                     return;
                 }
 
-                deleteUser();
+                showDialogDelete();
             }
         });
     }

@@ -596,7 +596,7 @@ public class QuotesController implements Initializable {
                     return;
                 }
 
-                deleteQuotes();
+                showDialogDelete();
             }
         });
     }

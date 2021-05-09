@@ -494,7 +494,7 @@ public class CustomersController implements Initializable {
                     return;
                 }
 
-                deleteCustomer();
+                showDialogDelete();
             }
         });
     }
