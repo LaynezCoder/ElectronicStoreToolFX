@@ -70,13 +70,13 @@ import org.apache.commons.text.WordUtils;
 
 public class UsersController implements Initializable {
 
-    private final static UserSession SESSION = UserSession.getInstace();
+    private static final  UserSession SESSION = UserSession.getInstace();
 
-    private final static String CANNOT_DELETED = "This user cannot be deleted";
+    private static final  String CANNOT_DELETED = "This user cannot be deleted";
 
-    private final static String ADMINISTRATOR_ONLY = "This user can only be administrator type";
+    private static final String ADMINISTRATOR_ONLY = "This user can only be administrator type";
 
-    private final static String UNABLE_TO_CHANGE = "Unable to change user type";
+    private static final  String UNABLE_TO_CHANGE = "Unable to change user type";
 
     @FXML
     private StackPane stckUsers;
@@ -255,7 +255,7 @@ public class UsersController implements Initializable {
     }
 
     private void showDialogDelete() {
-        if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
+        if (tblUsers.getSelectionModel().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
@@ -283,7 +283,7 @@ public class UsersController implements Initializable {
 
     @FXML
     private void showDialogEditUser() {
-        if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
+        if (tblUsers.getSelectionModel().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
@@ -300,7 +300,7 @@ public class UsersController implements Initializable {
 
     @FXML
     private void showDialogDetails() {
-        if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
+        if (tblUsers.getSelectionModel().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
@@ -602,7 +602,7 @@ public class UsersController implements Initializable {
                     return;
                 }
 
-                if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
+                if (tblUsers.getSelectionModel().isEmpty()) {
                     AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, Messages.NO_RECORD_SELECTED);
                     return;
                 }

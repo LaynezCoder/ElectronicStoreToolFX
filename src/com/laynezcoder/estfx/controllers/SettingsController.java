@@ -69,9 +69,9 @@ import org.apache.commons.text.WordUtils;
 
 public class SettingsController implements Initializable {
 
-    private final UserSession SESSION = UserSession.getInstace();
+    private static final UserSession SESSION = UserSession.getInstace();
 
-    private final double IMPACT_AVERAGE = 0.2;
+    private static final double IMPACT_AVERAGE = 0.2;
 
     @FXML
     private StackPane stckSettings;

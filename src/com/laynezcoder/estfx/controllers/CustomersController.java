@@ -28,6 +28,7 @@ import com.laynezcoder.estfx.constants.Constants;
 import com.laynezcoder.estfx.constants.Messages;
 import com.laynezcoder.estfx.constants.ResourcesPackages;
 import com.laynezcoder.estfx.util.ContextMenu;
+import com.laynezcoder.estfx.util.EstfxUtil;
 import com.laynezcoder.estfx.util.JFXDialogTool;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -37,7 +38,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -63,8 +63,6 @@ public class CustomersController implements Initializable {
     private static final String INVALID_EMAIL = "Invalid email";
 
     private ObservableList<Customers> listCustomers;
-
-    private ObservableList<Customers> filterCustomers;
 
     @FXML
     private StackPane stckCustomers;
@@ -151,7 +149,6 @@ public class CustomersController implements Initializable {
         deleteUserDeleteKey();
         setContextMenu();
         imageDelete.setImage(ResourcesPackages.DELETE_IMAGE);
-        filterCustomers = FXCollections.observableArrayList();
     }
 
     private void setContextMenu() {
@@ -243,7 +240,7 @@ public class CustomersController implements Initializable {
     }
 
     private void showDialogDelete() {
-        if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
+        if (tblCustomers.getSelectionModel().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
@@ -271,7 +268,7 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void showDialogEdit() {
-        if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
+        if (tblCustomers.getSelectionModel().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
@@ -288,7 +285,7 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void showDialogDetails() {
-        if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
+        if (tblCustomers.getSelectionModel().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, Messages.NO_RECORD_SELECTED);
             return;
         }
@@ -359,7 +356,7 @@ public class CustomersController implements Initializable {
             return;
         }
 
-        if (!validateEmailAddress(email) && !email.isEmpty()) {
+        if (!EstfxUtil.validateEmailAddress(email) && !email.isEmpty()) {
             txtEmail.requestFocus();
             Animations.shake(txtEmail);
             NotificationsBuilder.create(NotificationType.ERROR, INVALID_EMAIL);
@@ -425,7 +422,7 @@ public class CustomersController implements Initializable {
             return;
         }
 
-        if (!validateEmailAddress(email) && !email.isEmpty() && !email.equals(NOT_AVAILABLE)) {
+        if (!EstfxUtil.validateEmailAddress(email) && !email.isEmpty() && !email.equals(NOT_AVAILABLE)) {
             txtEmail.requestFocus();
             Animations.shake(txtEmail);
             NotificationsBuilder.create(NotificationType.ERROR, INVALID_EMAIL);
@@ -481,13 +478,6 @@ public class CustomersController implements Initializable {
         txtPhone.setEditable(true);
     }
 
-    private boolean validateEmailAddress(String email) {
-        String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        Pattern pattern = Pattern.compile(regex);
-        return pattern.matcher(email).matches();
-    }
-
     private void deleteUserDeleteKey() {
         rootCustomers.setOnKeyPressed(ev -> {
             if (ev.getCode().equals(KeyCode.DELETE)) {
@@ -499,7 +489,7 @@ public class CustomersController implements Initializable {
                     return;
                 }
 
-                if (tblCustomers.getSelectionModel().getSelectedItems().isEmpty()) {
+                if (tblCustomers.getSelectionModel().isEmpty()) {
                     AlertsBuilder.create(AlertType.ERROR, stckCustomers, rootCustomers, Messages.NO_RECORD_SELECTED);
                     return;
                 }
@@ -511,33 +501,37 @@ public class CustomersController implements Initializable {
 
     @FXML
     private void filterName() {
+        ObservableList list = FXCollections.observableArrayList();
+        
         String name = txtSearchName.getText().trim();
         if (name.isEmpty()) {
             tblCustomers.setItems(listCustomers);
         } else {
-            filterCustomers.clear();
+            list.clear();
             for (Customers c : listCustomers) {
                 if (c.getName().toLowerCase().contains(name.toLowerCase())) {
-                    filterCustomers.add(c);
+                    list.add(c);
                 }
             }
-            tblCustomers.setItems(filterCustomers);
+            tblCustomers.setItems(list);
         }
     }
 
     @FXML
     private void filterPhone() {
+        ObservableList list = FXCollections.observableArrayList();
+        
         String phone = txtSearchPhone.getText().trim();
         if (phone.isEmpty()) {
             tblCustomers.setItems(listCustomers);
         } else {
-            filterCustomers.clear();
+            list.clear();
             for (Customers c : listCustomers) {
                 if (c.getPhone().toLowerCase().contains(phone.toLowerCase())) {
-                    filterCustomers.add(c);
+                    list.add(c);
                 }
             }
-            tblCustomers.setItems(filterCustomers);
+            tblCustomers.setItems(list);
         }
     }
 }

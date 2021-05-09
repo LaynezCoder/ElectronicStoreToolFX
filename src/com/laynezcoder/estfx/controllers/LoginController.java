@@ -58,11 +58,11 @@ import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
 
-    private final UserSession SESSION = UserSession.getInstace();
+    private static final UserSession SESSION = UserSession.getInstace();
 
-    private final String IMAGE = ResourcesPackages.UI_IMAGES_PACKAGE + "login.png";
+    private static final String IMAGE = ResourcesPackages.UI_IMAGES_PACKAGE + "login.png";
 
-    private final String INCORRECT_CREDENTIALS = "Incorrect user or password";
+    private static final String INCORRECT_CREDENTIALS = "Incorrect user or password";
 
     @FXML
     private ImageView image;

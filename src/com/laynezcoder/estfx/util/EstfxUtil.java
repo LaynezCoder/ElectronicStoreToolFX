@@ -21,22 +21,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.event.Event;
 import javafx.scene.Node;
 import org.apache.commons.validator.UrlValidator;
 
 public class EstfxUtil {
-
-    private static final char SPACE = ' ';
-
-    public static String getNameWithoutSpaces(String name) {
-        for (int i = 0; i < name.length(); i++) {
-            if (name.charAt(i) == SPACE) {
-                return name.substring(0, i);
-            }
-        }
-        return name;
-    }
 
     public static String trimText(String value, int size) {
         if (value.length() > size) {
@@ -67,5 +57,12 @@ public class EstfxUtil {
     public static boolean validateURL(String URL) {
         UrlValidator validator = new UrlValidator();
         return validator.isValid(URL);
+    }
+
+    public static boolean validateEmailAddress(String email) {
+        String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(email).matches();
     }
 }

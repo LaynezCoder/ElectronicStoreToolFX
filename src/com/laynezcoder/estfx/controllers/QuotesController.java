@@ -281,7 +281,7 @@ public class QuotesController implements Initializable {
     }
 
     private void showDialogDelete() {
-        if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
+        if (tblQuotes.getSelectionModel().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, Messages.NO_RECORD_SELECTED);
             return;
         }
@@ -309,7 +309,7 @@ public class QuotesController implements Initializable {
 
     @FXML
     private void showDialogEditQuote() {
-        if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
+        if (tblQuotes.getSelectionModel().isEmpty()) {
             AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, Messages.NO_RECORD_SELECTED);
             return;
         }
@@ -591,7 +591,7 @@ public class QuotesController implements Initializable {
                     return;
                 }
 
-                if (tblQuotes.getSelectionModel().getSelectedItems().isEmpty()) {
+                if (tblQuotes.getSelectionModel().isEmpty()) {
                     AlertsBuilder.create(AlertType.ERROR, stckQuotes, rootQuotes, Messages.NO_RECORD_SELECTED);
                     return;
                 }

@@ -58,9 +58,9 @@ import javafx.util.Callback;
 
 public class HomeController implements Initializable {
 
-    private final String IMAGE = ResourcesPackages.UI_IMAGES_PACKAGE + "character.png";
+    private static final String IMAGE = ResourcesPackages.UI_IMAGES_PACKAGE + "character.png";
 
-    private final String DEFAULT_WELCOME_TEXT = "¿What do you think if you start adding a new client?";
+    private static final String DEFAULT_WELCOME_TEXT = "¿What do you think if you start adding a new client?";
 
     private ObservableList<Quotes> listQuotes;
 
