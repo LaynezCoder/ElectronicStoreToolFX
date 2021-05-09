@@ -212,7 +212,7 @@ public class CustomersController implements Initializable {
         enableEditControls();
         tblCustomers.setDisable(true);
         title.setText("Add customer");
-        rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
+        rootCustomers.setEffect(Constants.BLUR_EFFECT);
 
         if (!buttonsContainer.getChildren().contains(btnSave)) {
             buttonsContainer.getChildren().add(btnSave);
@@ -248,7 +248,7 @@ public class CustomersController implements Initializable {
         }
 
         tblCustomers.setDisable(true);
-        rootCustomers.setEffect(Constants.BOX_BLUR_EFFECT);
+        rootCustomers.setEffect(Constants.BLUR_EFFECT);
 
         dialogDelete = new JFXDialogTool(containerDelete, stckCustomers);
         dialogDelete.show();

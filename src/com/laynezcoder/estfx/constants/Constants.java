@@ -28,7 +28,7 @@ public final class Constants {
     public static final Image ICON = new Image(ResourcesPackages.UI_IMAGES_PACKAGE + "icon.png");
 
     private static final String CSS_LIGHT_THEME = "/resources/com/laynezcoder/light-theme.css";
-    public static final String LIGHT_THEME = Constants.class.getResource(CSS_LIGHT_THEME).toExternalForm();
+    public  static final String LIGHT_THEME = Constants.class.getResource(CSS_LIGHT_THEME).toExternalForm();
    
-    public static final BoxBlur BOX_BLUR_EFFECT = new BoxBlur(3, 3, 3);
+    public static final BoxBlur BLUR_EFFECT = new BoxBlur(3, 3, 3);
 }

@@ -57,6 +57,7 @@ import com.laynezcoder.estfx.util.JFXDialogTool;
 import com.laynezcoder.estfx.mask.TextFieldMask;
 import com.laynezcoder.estfx.models.UserSession;
 import com.laynezcoder.estfx.util.ContextMenu;
+import com.laynezcoder.estfx.util.ConfirmationForm;
 import com.laynezcoder.estfx.util.EstfxUtil;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -220,9 +221,11 @@ public class UsersController implements Initializable {
     @FXML
     private void showDialogAdd() {
         enableEditControls();
-        tblUsers.setDisable(true);
+
         title.setText("Add user");
-        rootUsers.setEffect(Constants.BOX_BLUR_EFFECT);
+
+        rootUsers.setDisable(true);
+        rootUsers.setEffect(Constants.BLUR_EFFECT);
 
         if (!buttonsContainer.getChildren().contains(btnSave)) {
             buttonsContainer.getChildren().add(btnSave);
@@ -239,7 +242,7 @@ public class UsersController implements Initializable {
 
         dialogAddUser.setOnDialogClosed(ev -> {
             if (!AlertsBuilder.isVisible()) {
-                tblUsers.setDisable(false);
+                rootUsers.setDisable(false);
                 rootUsers.setEffect(null);
                 cleanControls();
             }
@@ -253,19 +256,19 @@ public class UsersController implements Initializable {
 
     private void showDialogDelete() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
-        tblUsers.setDisable(true);
-        rootUsers.setEffect(Constants.BOX_BLUR_EFFECT);
+        rootUsers.setDisable(true);
+        rootUsers.setEffect(Constants.BLUR_EFFECT);
 
         dialogDeleteUser = new JFXDialogTool(containerDelete, stckUsers);
         dialogDeleteUser.show();
 
         dialogDeleteUser.setOnDialogClosed(ev -> {
             if (!AlertsBuilder.isVisible()) {
-                tblUsers.setDisable(false);
+                rootUsers.setDisable(false);
                 rootUsers.setEffect(null);
             }
         });
@@ -281,7 +284,7 @@ public class UsersController implements Initializable {
     @FXML
     private void showDialogEditUser() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -298,7 +301,7 @@ public class UsersController implements Initializable {
     @FXML
     private void showDialogDetails() {
         if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, Messages.NO_RECORD_SELECTED);
             return;
         }
 
@@ -307,6 +310,34 @@ public class UsersController implements Initializable {
         btnSave.setDisable(true);
         disableEditControls();
         selectedRecord();
+    }
+
+    @FXML
+    private void showConfirmationDialog() {
+        String username = tblUsers.getSelectionModel().getSelectedItem().getUsername();
+        closeDialogDelete();
+
+        ConfirmationForm form = new ConfirmationForm(stckUsers, username);
+        form.show();
+
+        form.setOnAction(ev -> {
+            deleteUser();
+            form.close();
+        });
+
+        form.setOnDialogOpened(ev -> {
+            if (!dialogDeleteUser.isVisible()) {
+                rootUsers.setDisable(true);
+                rootUsers.setEffect(Constants.BLUR_EFFECT);
+            }
+        });
+
+        form.setOnDialogClosed(ev -> {
+            if (!AlertsBuilder.isVisible()) {
+                rootUsers.setDisable(false);
+                rootUsers.setEffect(null);
+            }
+        });
     }
 
     @FXML
@@ -335,7 +366,7 @@ public class UsersController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
-            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.ERROR_CONNECTION_MYSQL);
+            AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, Messages.ERROR_CONNECTION_MYSQL);
         }
         listUsers = FXCollections.observableArrayList(list);
         tblUsers.setItems(listUsers);
@@ -397,7 +428,7 @@ public class UsersController implements Initializable {
             closeDialogAdd();
             loadData();
             cleanControls();
-            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.ADDED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, Messages.ADDED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
@@ -473,7 +504,7 @@ public class UsersController implements Initializable {
             closeDialogAdd();
             loadData();
             cleanControls();
-            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.UPDATED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, Messages.UPDATED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
@@ -505,7 +536,7 @@ public class UsersController implements Initializable {
         if (result) {
             loadData();
             closeDialogDelete();
-            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, tblUsers, Messages.DELETED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckUsers, rootUsers, Messages.DELETED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }
@@ -572,7 +603,7 @@ public class UsersController implements Initializable {
                 }
 
                 if (tblUsers.getSelectionModel().getSelectedItems().isEmpty()) {
-                    AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, tblUsers, Messages.NO_RECORD_SELECTED);
+                    AlertsBuilder.create(AlertType.ERROR, stckUsers, rootUsers, Messages.NO_RECORD_SELECTED);
                     return;
                 }
 
@@ -584,7 +615,7 @@ public class UsersController implements Initializable {
     @FXML
     private void filterUsername() {
         ObservableList<Users> list = FXCollections.observableArrayList();
-        
+
         String user = txtSearchUsername.getText().trim();
         if (user.isEmpty()) {
             tblUsers.setItems(listUsers);

@@ -35,10 +35,12 @@ import javafx.scene.text.TextFlow;
 public class AlertsBuilder {
 
     private static Image image;
+    
     private static String titleAlert;
+    
     private static JFXDialogTool dialog;
 
-    public static void create(AlertType type, StackPane dialogContainer, Node nodeToBlur, Node nodeToDisable, String body) {
+    public static void create(AlertType type, StackPane dialogContainer, Node nodeToBlur, String body) {
         function(type);
 
         ImageView imageView = new ImageView(image);
@@ -69,9 +71,9 @@ public class AlertsBuilder {
         root.getStyleClass().add("card");
         root.setPrefSize(350, 240);
 
-        if (!nodeToDisable.isDisable()) {
-            nodeToDisable.setDisable(true);
-            nodeToBlur.setEffect(Constants.BOX_BLUR_EFFECT);
+        if (!nodeToBlur.isDisable()) {
+            nodeToBlur.setDisable(true);
+            nodeToBlur.setEffect(Constants.BLUR_EFFECT);
         }
 
         TranslateTransition transition = Animations.imageTransition(imageView);
@@ -85,7 +87,7 @@ public class AlertsBuilder {
 
         dialog.setOnDialogClosed(e -> {
             transition.pause();
-            nodeToDisable.setDisable(false);
+            nodeToBlur.setDisable(false);
             nodeToBlur.setEffect(null);
         });
 

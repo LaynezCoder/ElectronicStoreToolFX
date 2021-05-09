@@ -238,7 +238,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     private void showDialog() {
-        rootSettings.setEffect(Constants.BOX_BLUR_EFFECT);
+        rootSettings.setEffect(Constants.BLUR_EFFECT);
 
         dialog = new JFXDialogTool(dialogContainer, stckSettings);
         dialog.show();
@@ -514,7 +514,7 @@ public class SettingsController implements Initializable {
             closeDialog();
             updateSession(user);
             loadData(SESSION.getId());
-            AlertsBuilder.create(AlertType.SUCCES, stckSettings, rootSettings, rootSettings, Messages.ADDED_RECORD);
+            AlertsBuilder.create(AlertType.SUCCES, stckSettings, rootSettings, Messages.ADDED_RECORD);
         } else {
             NotificationsBuilder.create(NotificationType.ERROR, Messages.ERROR_CONNECTION_MYSQL);
         }

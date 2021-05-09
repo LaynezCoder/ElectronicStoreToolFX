@@ -106,7 +106,7 @@
     -fx-font-family: "FontAwesome"; 
 }
 
-.txt {
+.txt, .txt-confirm-delete {
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-border-color: -border;
@@ -117,6 +117,12 @@
     -fx-font-size: 16;
     -fx-text-fill: -fx-color-text;
     -fx-highlight-fill: -fx-color-primary;
+}
+
+.txt-confirm-delete {
+    -fx-min-height: 35px;
+    -fx-max-height: 35px;
+    -fx-pref-height: 35px;
 }
 
 .btn-login { 

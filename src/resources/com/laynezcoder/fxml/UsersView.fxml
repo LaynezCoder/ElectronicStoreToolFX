@@ -175,7 +175,7 @@
                   <HBox alignment="CENTER" prefHeight="132.0" prefWidth="400.0" spacing="10.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#closeDialogDelete" prefWidth="100.0" styleClass="btn-cancel" text="%btn.customers.cancel" />
-                        <Button mnemonicParsing="false" onAction="#deleteUser" prefHeight="35.0" prefWidth="100.0" styleClass="btn-delete" text="%btn.customers.delete" />
+                        <Button mnemonicParsing="false" onAction="#showConfirmationDialog" prefHeight="35.0" prefWidth="100.0" styleClass="btn-delete" text="%btn.customers.delete" />
                      </children>
                   </HBox>
                </children>

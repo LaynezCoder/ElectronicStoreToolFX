@@ -236,7 +236,7 @@ public class QuotesController implements Initializable {
         tblQuotes.setDisable(true);
         titleAdd.setText("Add Quote");
         cmbIdCustomer.setDisable(false);
-        rootQuotes.setEffect(Constants.BOX_BLUR_EFFECT);
+        rootQuotes.setEffect(Constants.BLUR_EFFECT);
 
         if (!buttonsContainer.getChildren().contains(btnSave)) {
             buttonsContainer.getChildren().add(btnSave);
@@ -285,7 +285,7 @@ public class QuotesController implements Initializable {
         }
 
         tblQuotes.setDisable(true);
-        rootQuotes.setEffect(Constants.BOX_BLUR_EFFECT);
+        rootQuotes.setEffect(Constants.BLUR_EFFECT);
 
         dialogDelete = new JFXDialogTool(containerDelete, stckQuotes);
         dialogDelete.show();
